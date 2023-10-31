@@ -6,6 +6,7 @@ import BlocklyPage from './views/BlocklyPage/BlocklyPage';
 import BugReport from './views/BugReport/BugReport';
 import ContentCreator from './views/ContentCreator/ContentCreator';
 import Home from './views/Home/Home';
+import ChallengeCreation from './views/Mentor/Challenges/ChallengeCreation';
 import Classroom from './views/Mentor/Classroom/Classroom';
 import Dashboard from './views/Mentor/Dashboard/Dashboard';
 import NotFound from './views/NotFound';
@@ -20,6 +21,7 @@ import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 
+// FIXME: Challenge creation later has to become a private route
 const App = () => {
   return (
     <div>
@@ -32,6 +34,7 @@ const App = () => {
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
+        <Route path='/challenge-creation' element={<ChallengeCreation />} />
         <Route
           path='/report'
           element={
