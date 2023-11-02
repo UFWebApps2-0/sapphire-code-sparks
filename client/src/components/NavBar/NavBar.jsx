@@ -72,6 +72,18 @@ export default function NavBar() {
           &nbsp; Sandbox
         </Menu.Item>
       ) : null}
+      {shouldShowRoute('Sandbox') ? (
+        <Menu.Item
+          key='9'
+          onClick={() => {
+            localStorage.removeItem('sandbox-activity');
+            handleRouteChange(routes.Gallery);
+          }}
+        >
+          <i className='fa fa-window-maximize' />
+          &nbsp; Gallery
+        </Menu.Item>
+      ) : null}
       {shouldShowRoute('TeacherLogin') ? (
         <Menu.Item
           key='5'
