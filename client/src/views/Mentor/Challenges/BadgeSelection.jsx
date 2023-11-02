@@ -8,7 +8,7 @@ import Badge2 from "../../Images/Badge2.jpg";
 //Image carousel video = https://www.youtube.com/watch?v=SK9AlIbexOE
 
 //Function component to select/view badges
-function badgeSelection ({badges, onBadgeSelect})
+function badgeSelection ({onBadgeSelect})
 {
     //State variable to keep track of current badge using ID
     const [currentBadgeID, setBadgeID] = useState(0);
@@ -88,14 +88,6 @@ function badgeSelection ({badges, onBadgeSelect})
         </div>
     )
 
-    //Add folder in the src folder to store badge images?
-    //Display the badges to choose
-    /*const displayBadges = () =>
-    {
-        <div>
-            <img src={Badge1} id='Badge1' alt={'badge1'}/>
-        </div>
-    }*/
 }
 
 export default badgeSelection;
