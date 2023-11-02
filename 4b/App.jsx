@@ -2,7 +2,8 @@
 import React, {useState} from "react";
 import ElaspedTime from "./elapsedTime";
 import Submission from "./submission";
-function App({data}){
+function App(){
+    // format questions and answers
 
 }
 export default App;
