@@ -20,6 +20,8 @@ import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 
+import CustomBlockCreator from './views/CustomBlockCreator/CustomBlockCreator';
+
 const App = () => {
   return (
     <div>
@@ -32,7 +34,7 @@ const App = () => {
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
-        <Route path='/customblockcreator' element={<BlocklyPage />} />
+        <Route path='/customblockcreator' element={<CustomBlockCreator />} />
 
         <Route
           path='/report'
