@@ -15,6 +15,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     let classroomIds = [];
+
     getMentor().then((res) => {
       if (res.data) {
         res.data.classrooms.forEach((classroom) => {
@@ -23,11 +24,13 @@ export default function Dashboard() {
         getClassrooms(classroomIds).then((classrooms) => {
           setClassrooms(classrooms);
         });
-      } else {
+      } 
+      else {
         message.error(res.err);
         navigate('/teacherlogin');
       }
     });
+
   }, []);
 
   const handleViewClassroom = (classroomId) => {

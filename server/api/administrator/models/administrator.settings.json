@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "administrators",
+  "info": {
+    "name": "Administrator",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "organizations": {
+      "collection": "organization"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

@@ -7,7 +7,7 @@ const PUT = 'PUT';
 const POST = 'POST';
 const DELETE = 'DELETE';
 
-// all request functions should utilize makeRequest and return an obj with structure {data, err}
+// All request functions should utilize makeRequest and return an obj with structure {data, err}
 const makeRequest = async ({ method, path, data, auth = false, error }) => {
   let res = null;
   let err = null;
@@ -43,6 +43,24 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
 
   return { data: res, err: err };
 };
+
+// For implementing the bare-bone administrators
+export const getAllAdministrators = async () => 
+  makeRequest({
+    method: GET,
+    path: `${server}/administrators`,
+    auth: true,
+    error: 'Your administrator information could not be fetched.'
+  });
+
+// Retrieves the user from the session's token (I think)
+export const getUser = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/users/me`,
+    auth: true,
+    error: 'Your user information could not be fetched.'
+  })
 
 export const getActivities = async () =>
   makeRequest({

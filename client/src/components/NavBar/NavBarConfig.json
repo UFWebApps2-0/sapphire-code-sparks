@@ -22,6 +22,7 @@
       "SignOut",
       "BugReport"
     ],
-    "Researcher": ["ResearcherDashboard", "BugReport", "SignOut"]
+    "Researcher": ["ResearcherDashboard", "BugReport", "SignOut"],
+    "Administrator": ["SignOut"]
   }
 }
