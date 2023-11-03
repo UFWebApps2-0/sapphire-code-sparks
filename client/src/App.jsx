@@ -21,6 +21,8 @@ import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 import AdminLogin from './views/AdminLogin/AdminLogin';
 import AdminDash from './views/AdminDashboard/AdminDash';
+import OrganizationDashboard from './views/AdminDashboard/Organization Dashboard/OrganizationDashboard';
+import Organization from './views/AdminDashboard/Organization Dashboard/Organization';
 
 const App = () => {
   return (
@@ -29,6 +31,8 @@ const App = () => {
         {/* Here are the routes for the admin dashboard and admin login. */}
         <Route path='/adminDash' element={<AdminDash />}/>
         <Route path='/adminLogin' element={<AdminLogin />}/>
+        <Route path='/organizationdashboard' element={<OrganizationDashboard />}/>
+        <Route path='/organization' element={<Organization />}/>
         
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />

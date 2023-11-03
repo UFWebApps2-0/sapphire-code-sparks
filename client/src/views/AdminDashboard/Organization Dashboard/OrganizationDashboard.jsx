@@ -1,34 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useGlobalState } from "../../Utils/userState";
+import { useGlobalState } from "../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
-import { getUser, getAllAdministrators } from "../../Utils/requests";
-import NavBar from '../../components/NavBar/NavBar';
+import { getUser, getAllAdministrators } from "../../../Utils/requests";
+import NavBar from '../../../components/NavBar/NavBar';
 
-export default function AdminDash() {
+export default function OrganizationDashboard() {
     const [organizations, setOrganizations] = useState([]);
     const [admin, setAdmin] = useState({});
     const [value] = useGlobalState('currUser');
     const navigate = useNavigate();
 
-    // Button to navigate to organization dashboard -- mainly for demo / testing purposes
+    // Button to navigate to a organization just for testing
     const handleNavigation = () => {
-        navigate('/organizationdashboard');
+        navigate('/organization');
     }
-
-    // Initialization
-    useEffect(() => {
-        getUser()
-            // Load admin information
-            .then((response) => {
-                getAdministrator(response.data.id);
-            })
-            // If something went wrong, the user is redirected back to the admin login
-            .catch((error) => {
-                message.error(error);
-                navigate('/adminLogin');
-            })
-    }, []);
 
     // Check the console to see or check the administrator
     useEffect(() => {
@@ -61,7 +47,8 @@ export default function AdminDash() {
     return (
         <div className='container nav-padding'>
             <NavBar />
-            <button onClick={handleNavigation}>Organization Dashboard</button>
+            <button onClick={handleNavigation}>Example Organization</button>
+
         </div>
     )
 }
