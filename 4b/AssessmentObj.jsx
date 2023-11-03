@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import ElaspedTime from "./elapsedTime";
 import Submission from "./submission";
 import Question from "./QuestionObj";
-function App(){
+class Assessment extends React.Component{
     // list of question 
     
     
