@@ -128,6 +128,7 @@ export const getStudentClassroom = async () =>
     error: 'Classroom information could not be retrieved',
   });
 
+
 export const getClassrooms = async (ids) =>
   Promise.all(ids.map(async (id) => (await getClassroom(id)).data));
 

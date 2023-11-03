@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMentor, getClassrooms } from '../../../Utils/requests';
+import { getMentor, getClassrooms, getAllClassrooms } from '../../../Utils/requests';
 import { message } from 'antd';
 import './Dashboard.less';
 import DashboardDisplayCodeModal from './DashboardDisplayCodeModal';
@@ -15,14 +15,18 @@ export default function Dashboard() {
 
   useEffect(() => {
     let classroomIds = [];
-    getMentor().then((res) => {
+    let classroomsTest = [];
+    getAllClassrooms().then((res) => { // getMentor
       if (res.data) {
-        res.data.classrooms.forEach((classroom) => {
-          classroomIds.push(classroom.id);
+        res.data.forEach((classroom) => {
+          classroomsTest.push(classroom);
+          //classroomIds.push(classroom.id);
         });
-        getClassrooms(classroomIds).then((classrooms) => {
-          setClassrooms(classrooms);
-        });
+        // So why do I not have the auth to get some of these?
+        // getClassrooms(classroomIds).then((classrooms) => {
+        //   setClassrooms(classrooms);
+        // });
+        setClassrooms(classroomsTest);
       } else {
         message.error(res.err);
         navigate('/teacherlogin');
@@ -30,8 +34,22 @@ export default function Dashboard() {
     });
   }, []);
 
+  // res.data.classrooms.forEach((classroom) => {
+  //   classroomIds.push(classroom.id);
+  // });
+
   const handleViewClassroom = (classroomId) => {
+    
     navigate(`/classroom/${classroomId}`);
+  };
+
+  // const handleViewClassroom = (classroomId) => {
+  //   navigate(`/classroom/${classroomId}`);
+  // };
+
+
+  const handleCopyClassroom = (classroomId) => {
+    
   };
 
   return (
@@ -45,7 +63,7 @@ export default function Dashboard() {
             <div key={classroom.id} id='dashboard-class-card'>
               <div id='card-left-content-container'>
                 <h1 id='card-title'>{classroom.name}</h1>
-                <div id='card-button-container' className='flex flex-row'>
+                <div id='card-button-container' className='flex flex-column'>
                   <button onClick={() => handleViewClassroom(classroom.id)}>
                     View
                   </button>
