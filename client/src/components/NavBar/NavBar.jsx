@@ -93,6 +93,21 @@ export default function NavBar() {
           &nbsp; Report a Bug
         </Menu.Item>
       ) : null}
+
+        {/* custom blocks */}
+      {shouldShowRoute('CustomBlockCreator') ? (
+        <Menu.Item
+          key='4'
+          onClick={() => {
+            handleRouteChange(routes.CustomBlockCreator);
+          }}
+        >
+          <i className='fa fa-window-maximize' />
+          &nbsp; Custom Block Creator
+        </Menu.Item>
+      ) : null}
+
+
       {shouldShowRoute('SignOut') ? (
         <Menu.Item key='8' onClick={() => handleLogout()}>
           <i className='fa fa-sign-out-alt' />
