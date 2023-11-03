@@ -20,8 +20,10 @@ export default function Gallery(props) {
   return (
     <div className="container nav-padding">
       <NavBar />
-      <div id="about-content-container">
-        <p>Public Gallery</p>
+      <div id='page-header'>
+            <h1>Gallery</h1>
+        </div>
+      <div id="gallery-content-container">
         <Search />
         <GalleryView 
             searchParams={searchParams}
