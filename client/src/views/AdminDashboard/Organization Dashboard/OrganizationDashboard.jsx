@@ -2,8 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useGlobalState } from "../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
-import { getUser, getAllAdministrators } from "../../../Utils/requests";
+import { getUser, getAllAdministrators, getOrganizations } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
+import MentorSubHeader from '../../../components/MentorSubHeader/MentorSubHeader';
+import './OrganizationDashboard.less';
 
 export default function OrganizationDashboard() {
     const [organizations, setOrganizations] = useState([]);
@@ -12,16 +14,38 @@ export default function OrganizationDashboard() {
     const navigate = useNavigate();
 
     // Button to navigate to a organization just for testing
-    const handleNavigation = () => {
-        navigate('/organization');
+    const handleNavigation = (organizationID) => {
+        navigate(`/organization/`); //eventually will become /organization/$organizationID
     }
+
+    // Initialization
+    useEffect(() => {
+        getUser()
+            // Load admin information
+            .then((response) => {
+                getAdministrator(response.data.id);
+            })
+            // If something went wrong, the user is redirected back to the admin login
+            .catch((error) => {
+                message.error(error);
+                navigate('/adminLogin');
+            })
+    }, []);
 
     // Check the console to see or check the administrator
     useEffect(() => {
         if (admin == undefined || admin == null || Object.keys(admin).length == 0)
             return;
         console.log(`Logged-in Administrator: ${admin.first_name} ${admin.last_name}`, admin);
-        setOrganizations(admin.organizations);
+
+        //Stores every organizations' data
+        let organizationIds = [];
+        admin.organizations.forEach((organization) => {
+            organizationIds.push(organization.id);
+        });
+        getOrganizations(organizationIds).then((organizations) => {
+            setOrganizations(organizations);
+        });
     }, [admin])
 
     // Check the console to see or check the organizations
@@ -46,13 +70,36 @@ export default function OrganizationDashboard() {
 
     return (
         <div className='container nav-padding'>
-            <NavBar />
-            <div id='page-header'>
-                <h1>Your Organizations</h1>
+        <NavBar />
+        <div id='main-header'>Organization Dashboard</div>
+        <MentorSubHeader title={'Your Organizations'}></MentorSubHeader>
+        <div id='organizations-container'>
+          <div id='dashboard-card-container'>
+            {organizations.map((organization) => (
+                <div key={organization.id} id='dashboard-class-card'>
+                    <div id='card-left-content-container'>
+                        <h1 id='card-title'>{organization.name}</h1>
+                        <div id='card-button-container' className='flex flex-row'>
+                            <button onClick={() => handleNavigation(organization.id)}>
+                            View
+                            </button>
+                        </div>
+                    </div>
+                <div id='card-right-content-container'>
+                <div id='mentor-number-container'>
+                  <h1 id='number'>{organization.mentors.length}</h1>
+                  <p id='label'>Teachers</p>
+                </div>
+                <div id='divider' />
+                <div id='school-number-container'>
+                    <h1 id='number'>{organization.schools.length}</h1>
+                    <p id='label'>Schools</p>
+                </div>
+                </div>
             </div>
-            <div id='home-content-container'>
-                <button onClick={handleNavigation}>Example Organization</button>
-            </div>
+            ))}
+        </div>
+        </div>
         </div>
     )
 }

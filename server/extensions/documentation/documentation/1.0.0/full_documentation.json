@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/04/2023 3:06:46 AM"
+    "x-generation-date": "11/04/2023 7:24:22 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12981,6 +12981,12 @@
                     "type": "string"
                   }
                 },
+                "mentors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -13309,6 +13315,9 @@
                   "type": "string"
                 }
               },
+              "organization": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -13392,6 +13401,9 @@
                   }
                 },
                 "user": {
+                  "type": "string"
+                },
+                "organization": {
                   "type": "string"
                 },
                 "created_by": {
@@ -14117,6 +14129,9 @@
                   "type": "string"
                 }
               },
+              "organization": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -14231,6 +14246,40 @@
                 "type": "string"
               }
             }
+          },
+          "organization": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "schools": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mentors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -14252,6 +14301,9 @@
             }
           },
           "user": {
+            "type": "string"
+          },
+          "organization": {
             "type": "string"
           },
           "created_by": {
@@ -14304,6 +14356,49 @@
                     "type": "string"
                   }
                 },
+                "organization": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "mentors": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "school": {
+                  "type": "string"
+                },
+                "classrooms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "user": {
+                  "type": "string"
+                },
+                "organization": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -14325,6 +14420,12 @@
             "type": "string"
           },
           "schools": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mentors": {
             "type": "array",
             "items": {
               "type": "string"
@@ -14632,12 +14733,49 @@
                 "user": {
                   "type": "string"
                 },
+                "organization": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
                 "updated_by": {
                   "type": "string"
                 }
+              }
+            }
+          },
+          "organization": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "schools": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mentors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
               }
             }
           }
@@ -14665,6 +14803,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "organization": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

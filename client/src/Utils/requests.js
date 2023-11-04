@@ -44,6 +44,18 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
   return { data: res, err: err };
 };
 
+//For implementing organization handling
+export const getOrganization = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/organizations/${id}`,
+    auth: true,
+    error: 'Organization information could not be retrieved',
+  });
+
+export const getOrganizations = async (ids) =>
+  Promise.all(ids.map(async (id) => (await getOrganization(id)).data));
+
 // For implementing the bare-bone administrators
 export const getAllAdministrators = async () => 
   makeRequest({

@@ -15,7 +15,12 @@
       "type": "string"
     },
     "schools": {
-      "collection": "school"
+      "collection": "school",
+      "via": "organization"
+    },
+    "mentors": {
+      "collection": "mentor",
+      "via": "organization"
     }
   }
 }

@@ -25,6 +25,10 @@
     "mentors": {
       "via": "school",
       "collection": "mentor"
+    },
+    "organization": {
+      "via": "schools",
+      "model": "organization"
     }
   }
 }

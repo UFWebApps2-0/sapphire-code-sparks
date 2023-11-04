@@ -60,6 +60,7 @@ export default function AdminDash() {
 
     return (
         <div className='container nav-padding'>
+            <div id='main-header'>Welcome {admin.first_name}</div>
             <NavBar />
             <button onClick={handleNavigation}>Organization Dashboard</button>
         </div>

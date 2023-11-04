@@ -817,6 +817,9 @@
                   "type": "string"
                 }
               },
+              "organization": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -900,6 +903,9 @@
                   }
                 },
                 "user": {
+                  "type": "string"
+                },
+                "organization": {
                   "type": "string"
                 },
                 "created_by": {
