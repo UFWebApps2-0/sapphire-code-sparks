@@ -11,13 +11,11 @@ import {
 import { useGlobalState } from "../../Utils/userState"
 
 export default function BlocklyPage({ isSandbox }) {
-  const [isChallengeActivity, setIsChallengeActivity] = useState(false);
   const [value] = useGlobalState("currUser")
   const [activity, setActivity] = useState({})
   const navigate = useNavigate()
 
   useEffect(() => {
-    setIsChallengeActivity(false);
     const setup = async () => {
       // if we are in sandbox mode show all toolbox
       const sandboxActivity = JSON.parse(localStorage.getItem("sandbox-activity"))
@@ -50,13 +48,8 @@ export default function BlocklyPage({ isSandbox }) {
       // else show toolbox based on the activity we are viewing
       else {
         const localActivity = JSON.parse(localStorage.getItem("my-activity"))
-        // FIXME: Remove this debugging console log
-        console.log(`the following was found for local activity: ${localActivity}`);
 
         if (localActivity) {
-            setIsChallengeActivity(localActivity?.is_challenge == true);
-            // FIXME: Remove this debugging console log
-            console.log(`Set is challenge activity to: ${isChallengeActivity}`);
           if (localActivity.toolbox) {
             setActivity(localActivity)
           } else {
@@ -66,7 +59,6 @@ export default function BlocklyPage({ isSandbox }) {
 
               localStorage.setItem("my-activity", JSON.stringify(loadedActivity))
               setActivity(loadedActivity)
-              setIsChallengeActivity(localActivity?.is_challenge == true);
             } else {
               message.error(res.err)
             }
@@ -84,7 +76,7 @@ export default function BlocklyPage({ isSandbox }) {
     <div className="container nav-padding">
       <NavBar />
       <div className="flex flex-row">
-        <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} isChallengeActivity={isChallengeActivity} />
+        <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
       </div>
     </div>
   )

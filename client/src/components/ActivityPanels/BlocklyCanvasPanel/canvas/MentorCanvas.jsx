@@ -21,7 +21,7 @@ import PlotterLogo from '../Icons/PlotterLogo';
 
 let plotId = 1;
 
-export default function MentorCanvas({ activity, isSandbox, setActivity, isMentorActivity, isChallengeActivity }) {
+export default function MentorCanvas({ activity, isSandbox, setActivity,  isMentorActivity }) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -261,12 +261,6 @@ export default function MentorCanvas({ activity, isSandbox, setActivity, isMento
       }
     }
   };
-
-  const handleCreatorChallengeSave = async () => {
-    // FIXME: Handle saving a challenge to the database or updating it if it already exists
-    console.log("Saving a challenge to the database not yet implemented");
-    }
-
   const menu = (
     <Menu>
       <Menu.Item onClick={handlePlotter}>
@@ -280,38 +274,24 @@ export default function MentorCanvas({ activity, isSandbox, setActivity, isMento
     </Menu>
   );
 
-  const menuSave = (isChallengeActivity) => {
-    console.log(`Menu save sees that challenge activity is: ${isChallengeActivity}`);
-    if (isChallengeActivity) {
-      return (
-      <Menu>
-        <Menu.Item id='menu-save' onClick={handleCreatorChallengeSave}>
-          <i className='fa fa-save'/>
-          &nbsp; Save challenge activity template
-        </Menu.Item>
-      </Menu>
-      );
-    } else {
-      return (
-      <Menu>
-        <Menu.Item id='menu-save' onClick={handleCreatorSave} key='test'>
-          <i className='fa fa-save'/>
-          &nbsp; Save to template
-        </Menu.Item>
-        <SaveAsModal
-          visible={showSaveAsModal}
-          setVisible={setShowSaveAsModal}
-          workspaceRef={workspaceRef}
-          activity={activity}
-          setActivity={setActivity}
-          isSandbox={isSandbox}
-          classroomId={classroomId}
-        />
-        <LoadWorkspaceModal loadSave={loadSave} classroomId={classroomId} />
-      </Menu>
-      );
-    }
-  }
+  const menuSave = (
+    <Menu>
+      <Menu.Item id='menu-save' onClick={handleCreatorSave} key='test'>
+        <i className='fa fa-save'/>
+        &nbsp; Save to template
+      </Menu.Item>
+      <SaveAsModal
+        visible={showSaveAsModal}
+        setVisible={setShowSaveAsModal}
+        workspaceRef={workspaceRef}
+        activity={activity}
+        setActivity={setActivity}
+        isSandbox={isSandbox}
+        classroomId={classroomId}
+      />
+      <LoadWorkspaceModal loadSave={loadSave} classroomId={classroomId} />
+    </Menu>
+  );
 
   return (
     <div id='horizontal-container' className='flex flex-column'>
@@ -352,7 +332,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity, isMento
                         className='flex flex-row'
                         id='save-dropdown-container'
                       >
-                        <Dropdown overlay={() => menuSave(isChallengeActivity)}>
+                        <Dropdown overlay={menuSave}>
                           <i id='icon-btn' className='fa fa-save' />
                         </Dropdown>
                         <i className='fas fa-angle-down' id='caret'></i>

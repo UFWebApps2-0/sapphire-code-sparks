@@ -27,6 +27,10 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "challenges": {
+      "via": "mentor",
+      "collection": "challenge"
     }
   }
 }

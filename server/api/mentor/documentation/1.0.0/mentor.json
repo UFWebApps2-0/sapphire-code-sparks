@@ -618,6 +618,9 @@
                     "type": "string"
                   }
                 },
+                "challenge": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -671,6 +674,49 @@
                 "type": "string"
               }
             }
+          },
+          "challenges": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "mentor": {
+                  "type": "string"
+                },
+                "classrooms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "badge_id": {
+                  "type": "string"
+                },
+                "activity": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -693,6 +739,12 @@
           },
           "user": {
             "type": "string"
+          },
+          "challenges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"

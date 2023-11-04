@@ -169,6 +169,22 @@ export const createActivity = async (activity, learningStandard) =>
     error: 'Login failed.',
   });
 
+export const createChallenge = async (mentor_id, name, description, badge_id) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/challenges`,
+    data: {
+      mentor: {
+        id: mentor_id,
+      },
+      name: name,
+      description: description,
+      badge_id: badge_id,
+    },
+    auth: true,
+    error: 'Challenge creation failed',
+  });
+
 export const setEnrollmentStatus = async (id, enrolled) =>
   makeRequest({
     method: PUT,
@@ -353,6 +369,35 @@ export const updateActivityTemplate = async (id, workspace) =>
     auth: true,
     error: 'Failed to update the activity template for the activity',
   });
+
+// Note: Currently this does not allow for updating the teacher associated with a challenge, as each teacher should only own challenges they themselves create
+// TODO(sapphire2a): Authentication should later be added here or elsewhere to ensure that a teacher does not update another teacher's challenge
+export const updateChallengeDetails = async (id, name, description, badge_id) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/challenges/${id}`,
+    data: {
+      name: name,
+      description: description,
+      badge_id: badge_id,
+    },
+    auth: true,
+    error: 'Failed to update the challenge details',
+});
+
+// TODO(sapphire2a): Authentication should later be added here or elsewhere to ensure that a teacher does not update another teacher's challenge
+export const updateChallengeActivity = async (id, activity_id) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/challenges/${id}`,
+    data: {
+      activity: {
+        id: activity_id,
+      },
+    },
+    auth: true,
+    error: 'Failed to update the challenge activity',
+});
 
 export const deleteActivity = async (id) =>
   makeRequest({
@@ -671,4 +716,12 @@ export const getClassroomWorkspace = async (id) =>
     path: `${server}/classroom/workspaces/${id}`,
     auth: true,
     error: 'Unable to retrive classroom workspaces',
+  });
+
+export const getChallengeDetails = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/challenges/${id}`,
+    auth: true,
+    error: 'Unable to retrive challenge details',
   });

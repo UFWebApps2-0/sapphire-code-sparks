@@ -21,7 +21,6 @@ import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 
-// FIXME: Challenge creation later has to become a private route
 const App = () => {
   return (
     <div>
@@ -34,7 +33,6 @@ const App = () => {
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
-        <Route path='/challenge-creation' element={<ChallengeCreation />} />
         <Route
           path='/report'
           element={
@@ -112,6 +110,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <ContentCreator />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/challenge-creation'
+          element={
+            <PrivateRoute>
+              <ChallengeCreation />
             </PrivateRoute>
           }
         />

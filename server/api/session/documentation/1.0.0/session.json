@@ -573,6 +573,9 @@
                   "type": "string"
                 }
               },
+              "challenge": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
