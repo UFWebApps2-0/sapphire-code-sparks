@@ -6,6 +6,7 @@ import { getUser, getAllAdministrators } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
 import OrganizationClassroomManagement from "./OrganizationClassroomManagement";
 import OrganizationHome from "./Organization";
+import { Table } from 'antd';
 
 export default function OrganizationModeration() {
     const [organizations, setOrganizations] = useState([]);
@@ -24,6 +25,16 @@ export default function OrganizationModeration() {
             <button id='home-back-btn' onClick={handleBack}>
             <i className='fa fa-arrow-left' aria-hidden='true' />
             </button>
+            <div id='page-header'>
+                <h1>Moderation</h1>
+            </div>
+            <div
+            id='content-creator-table-container'
+            style={{ marginTop: '6.6vh' }}
+            >
+            <Table
+            ></Table>
+            </div>
         </div>
     )
 }

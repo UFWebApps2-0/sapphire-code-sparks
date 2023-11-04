@@ -47,8 +47,12 @@ export default function OrganizationDashboard() {
     return (
         <div className='container nav-padding'>
             <NavBar />
-            <button onClick={handleNavigation}>Example Organization</button>
-
+            <div id='page-header'>
+                <h1>Your Organizations</h1>
+            </div>
+            <div id='home-content-container'>
+                <button onClick={handleNavigation}>Example Organization</button>
+            </div>
         </div>
     )
 }

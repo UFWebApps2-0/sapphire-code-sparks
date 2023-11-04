@@ -6,6 +6,8 @@ import { getUser, getAllAdministrators } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
 import OrganizationHome from "./Organization";
 import OrganizationModeration from "./OrganizationModeration";
+import MentorSubHeader from "../../../components/MentorSubHeader/MentorSubHeader";
+import { Table } from 'antd';
 
 export default function OrganizationClassroomManagement() {
     const [organizations, setOrganizations] = useState([]);
@@ -23,6 +25,17 @@ export default function OrganizationClassroomManagement() {
             <button id='home-back-btn' onClick={handleBack}>
             <i className='fa fa-arrow-left' aria-hidden='true' />
             </button>
+            <div id='page-header'>
+                <h1>Classroom Management</h1>
+            </div>
+            <div
+            id='content-creator-table-container'
+            style={{ marginTop: '6.6vh' }}
+            >
+            <Table
+            ></Table>
+
+            </div>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useGlobalState } from "../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
 import { useSearchParams, useParams } from 'react-router-dom';
+import MentorSubHeader from "../../../components/MentorSubHeader/MentorSubHeader";
 import { getUser, getAllAdministrators } from "../../../Utils/requests";
 import OrganizationClassroomManagement from "./OrganizationClassroomManagement";
 import OrganizationModeration from "./OrganizationModeration";
@@ -27,6 +28,12 @@ export default function OrganizationHome() {
             <button id='home-back-btn' onClick={handleBack}>
             <i className='fa fa-arrow-left' aria-hidden='true' />
             </button>
+            <div id='page-header'>
+                <h1>[Organization Name]</h1>
+            </div>
+            <div id='home-content-container'>
+                
+            </div>
         </div>
     )
 }
