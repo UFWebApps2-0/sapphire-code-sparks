@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "10/31/2023 11:01:00 PM"
+    "x-generation-date": "11/04/2023 9:14:06 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12745,15 +12745,6 @@
               }
             }
           },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "badge_id": {
-            "type": "string"
-          },
           "activity": {
             "required": [
               "id",
@@ -12808,6 +12799,15 @@
               }
             }
           },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "badge_id": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -12825,6 +12825,9 @@
               "type": "string"
             }
           },
+          "activity": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
@@ -12832,9 +12835,6 @@
             "type": "string"
           },
           "badge_id": {
-            "type": "string"
-          },
-          "activity": {
             "type": "string"
           },
           "published_at": {
@@ -13112,6 +13112,9 @@
                   "type": "string"
                 }
               },
+              "activity": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
@@ -13119,9 +13122,6 @@
                 "type": "string"
               },
               "badge_id": {
-                "type": "string"
-              },
-              "activity": {
                 "type": "string"
               },
               "published_at": {
@@ -13887,6 +13887,9 @@
                     "type": "string"
                   }
                 },
+                "activity": {
+                  "type": "string"
+                },
                 "name": {
                   "type": "string"
                 },
@@ -13894,9 +13897,6 @@
                   "type": "string"
                 },
                 "badge_id": {
-                  "type": "string"
-                },
-                "activity": {
                   "type": "string"
                 },
                 "published_at": {

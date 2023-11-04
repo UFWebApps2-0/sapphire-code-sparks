@@ -694,6 +694,9 @@
                     "type": "string"
                   }
                 },
+                "activity": {
+                  "type": "string"
+                },
                 "name": {
                   "type": "string"
                 },
@@ -701,9 +704,6 @@
                   "type": "string"
                 },
                 "badge_id": {
-                  "type": "string"
-                },
-                "activity": {
                   "type": "string"
                 },
                 "published_at": {

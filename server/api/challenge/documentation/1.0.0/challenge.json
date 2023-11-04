@@ -627,15 +627,6 @@
               }
             }
           },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "badge_id": {
-            "type": "string"
-          },
           "activity": {
             "required": [
               "id",
@@ -690,6 +681,15 @@
               }
             }
           },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "badge_id": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -707,6 +707,9 @@
               "type": "string"
             }
           },
+          "activity": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
@@ -714,9 +717,6 @@
             "type": "string"
           },
           "badge_id": {
-            "type": "string"
-          },
-          "activity": {
             "type": "string"
           },
           "published_at": {

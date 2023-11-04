@@ -2,8 +2,7 @@
   "kind": "collectionType",
   "collectionName": "challenges",
   "info": {
-    "name": "challenge",
-    "description": ""
+    "name": "Challenge"
   },
   "options": {
     "increments": true,
@@ -19,6 +18,9 @@
       "collection": "classroom",
       "via": "challenge"
     },
+    "activity": {
+      "model": "activity"
+    },
     "name": {
       "type": "string"
     },
@@ -27,9 +29,6 @@
     },
     "badge_id": {
       "type": "string"
-    },
-    "activity": {
-      "model": "activity"
     }
   }
 }
