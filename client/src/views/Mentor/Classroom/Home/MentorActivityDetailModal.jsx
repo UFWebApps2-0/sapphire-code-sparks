@@ -11,6 +11,8 @@ import {
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
 
+import VideoURL_Input from './VideoURL_Input'
+
 const SCIENCE = 1
 const MAKING = 2
 const COMPUTATION = 3
@@ -207,6 +209,9 @@ const MentorActivityDetailModal = ({
             placeholder="Enter image URL"
           ></Input.TextArea>
         </Form.Item>
+        <VideoURL_Input>
+          
+        </VideoURL_Input>
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
             onChange={e => setTemplate(e.target.value)}
