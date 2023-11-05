@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {  Form, Input, Popconfirm, Switch, Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import MentorModal from './MentorModal';
 
-export default function ListView({ mentorData}) {
+export default function ListView({ mentorData, handleDelete}) {
 
   const columns = [
     {
@@ -21,7 +22,30 @@ export default function ListView({ mentorData}) {
       key: 'view',
       width: '10%',
       align: 'right',
+      render: (_, record) => (
+        <MentorModal
+          mentor={record}
+          linkBtn={true}
+        />
+      ),
     },
+    {
+      title: 'Delete',
+      dataIndex: 'delete',
+      key: 'delete',
+      width: '10%',
+      align: 'right',
+      render: (text, record) =>
+        mentorData.length >= 1 ? (
+          <Popconfirm
+            title={`Are you sure you want to delete all data for ${record.name}?`}
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            onConfirm={() => handleDelete(record.key)}
+          >
+            <button id='link-btn'>Delete</button>
+          </Popconfirm>
+        ) : null,
+    }
   ];
 
   return (

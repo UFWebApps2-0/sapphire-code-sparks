@@ -90,6 +90,14 @@ export const getTeachers = async () =>
     error: 'Teachers could not be retrieved.',
   });
 
+export const deleteMentor = async (mentor) =>
+makeRequest({
+  method: DELETE,
+  path: `${server}/mentors/${mentor}`,
+  auth: true,
+  error: 'Failed to delete mentor.',
+});
+
 export const getAllClassrooms = async () =>
   makeRequest({
     method: GET,
