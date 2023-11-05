@@ -1,14 +1,72 @@
 @import '../../../assets/style.less';
 
-#main-header {
-    color: #colors[text-secondary];
-    font-size: 2em;
-    font-weight: bolder;
-    margin-left: 10%;
-    margin-bottom: 3%;
-    text-align: left;
-    padding-top: 20px;
+
+#head-container {
+    justify-content: space-between; 
+    display: flex; 
+    #main-header {
+        color: #colors[text-secondary];
+        font-size: 2em;
+        font-weight: bolder;
+        margin-left: 10%;
+        margin-bottom: 3%;
+        text-align: left;
+        padding-top: 20px;
+    }
+
+    #top-buttons-container { 
+        align-items: center; 
+        #add-org-button {  
+            float: right;
+            button {  
+                top: 10px; 
+                width: auto;
+                height: 2vw;
+                font-size: 1vw;
+                font-weight: 500;
+                border-radius: 30px;
+                margin: 10% 20px 10% auto;
+                background: #colors[secondary];
+                border: none;
+                color: #colors[text-secondary];
+                transition: 0.25s;
+                cursor: pointer;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
+                
+            }
+            &:hover {
+                width: auto;
+                background: #colors[primary];   
+            }
+        }
+
+        #return-button { 
+            float: right; 
+            button {
+                width: auto;
+                height: 2vw;
+                font-size: 1vw;
+                font-weight: 500;
+                border-radius: 30px;
+                margin: 10% 20px 10% auto;
+                background: #colors[quaternary];
+                border: none;
+                color: #colors[text-primary];
+                transition: 0.25s;
+                cursor: pointer;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
+                
+                &:hover {
+                    width: auto;
+                    background: #colors[quinary];   
+                }
+            }
+        }
+    }
+    
 }
+
+   
 
 #organizations-container {
       margin: 6vh auto 4vh auto;

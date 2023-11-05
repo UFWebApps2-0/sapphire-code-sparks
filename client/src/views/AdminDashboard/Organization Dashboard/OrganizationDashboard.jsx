@@ -18,6 +18,15 @@ export default function OrganizationDashboard() {
         navigate(`/organization/${organizationID}`); //eventually will become /organization/$organizationID
     }
 
+    //button to navigate back to admin dashboard 
+    const navigateAdminDash= () => {
+        navigate('/adminDash'); 
+    }
+
+    //button to add new organization 
+    const addOrganization = () => {
+        //** TODO: ADD NEW ORGANIZATION FEATURE */
+    }
     // Initialization
     useEffect(() => {
         getUser()
@@ -71,7 +80,20 @@ export default function OrganizationDashboard() {
     return (
         <div className='container nav-padding'>
         <NavBar />
-        <div id='main-header'>Organization Dashboard</div>
+        <div id='head-container'> 
+            <div id='main-header'>Organization Dashboard</div>
+            <div id = 'top-buttons-container'>
+                <div id = 'return-button'> 
+                    <button onClick = {() => navigateAdminDash()}> Return to Administrator Dashboard </button>
+                </div>
+                <div id = 'add-org-button'> 
+                    <button onClick = {() => addOrganization()}> Add New Organization </button>
+                </div>
+                
+                
+            </div>
+        </div> 
+
         <MentorSubHeader title={'Your Organizations'}></MentorSubHeader>
         <div id='organizations-container'>
           <div id='dashboard-card-container'>
