@@ -4,6 +4,7 @@ import { useGlobalState } from "../../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
 import {
     getOrganization,
+    deleteMentor,
 } from '../../../../Utils/requests';
 import ListView from './ListView';
 import './ClassroomManagement.less';
@@ -34,6 +35,18 @@ export default function OrganizationClassroomManagement({ organizationId } ) {
         });
     }, [organizationId]);
 
+    const handleDelete = async (key) => {
+      const dataSource = [...mentorData];
+      setMentorData(dataSource.filter((item) => item.key !== key));
+
+      const res = await deleteMentor(key);
+      if (res.data) {
+        message.success(`Successfully deleted mentor, ${res.data.first_name + ' ' + res.data.last_name}.`);
+      } else {
+        message.error(res.err);
+      }
+    };
+
     // back button
     const handleBack = () => {
         navigate('/organizationdashboard');
@@ -49,6 +62,7 @@ export default function OrganizationClassroomManagement({ organizationId } ) {
             </div>
             <ListView
                     mentorData={mentorData}
+                    handleDelete={handleDelete}
             />
         </div>
     )
