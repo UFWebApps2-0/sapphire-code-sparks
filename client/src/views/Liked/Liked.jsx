@@ -2,7 +2,8 @@ import React from "react"
 import NavBar from "../../components/NavBar/NavBar"
 import Search from "../../components/Search/Search"
 import GalleryView from "../../components/GalleryView/GalleryView"
-import "./Gallery.less"
+import LikedView from "../../components/LikedView/LikedView"
+import "./liked.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
@@ -20,11 +21,11 @@ export default function Gallery(props) {
     return (
         <div>
             <div id='page-header'>
-                <h1>Gallery</h1>
+                <h1>Liked Galleries</h1>
             </div>
-            <div id="gallery-content-container" style={{ marginTop: '6.6vh' }}>
-                <Search />
-                <GalleryView
+            <div id="liked-content-container" style={{ marginTop: '6.6vh' }}>
+                <Search/>
+                <LikedView
                     searchParams={searchParams}
                     setSearchParams={setSearchParams}
                 />

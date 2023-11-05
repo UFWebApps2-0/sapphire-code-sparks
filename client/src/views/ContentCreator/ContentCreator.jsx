@@ -17,6 +17,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import './ContentCreator.less';
 import Gallery from '../Gallery/Gallery';
+import Liked from '../Liked/Liked';
 
 const { TabPane } = Tabs;
 
@@ -208,6 +209,9 @@ export default function ContentCreator() {
 
           <TabPane tab='Gallery' key = 'gallery'>
             <Gallery />
+          </TabPane>
+          <TabPane tab='Liked' key='liked'>
+            <Liked />
           </TabPane>
         </Tabs>
       </div>
