@@ -124,3 +124,4 @@ class QuestionForm extends Component {
   }
 }
 
+export default QuestionForm;
