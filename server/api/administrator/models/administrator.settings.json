@@ -18,7 +18,9 @@
       "type": "string"
     },
     "organizations": {
-      "collection": "organization"
+      "collection": "organization",
+      "via": "administrators",
+      "dominant": true
     },
     "user": {
       "plugin": "users-permissions",

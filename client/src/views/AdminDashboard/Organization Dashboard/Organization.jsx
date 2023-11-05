@@ -6,7 +6,7 @@ import { useSearchParams, useParams } from 'react-router-dom';
 import { getUser, getAllAdministrators } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
 import OrganizationHome from "./OrganizationHome";
-import OrganizationClassroomManagement from "./OrganizationClassroomManagement";
+import OrganizationClassroomManagement from "./ClassroomManagement/OrganizationClassroomManagement";
 import OrganizationModeration from "./OrganizationModeration";
 import { Tabs } from 'antd';
 import './Organization.less';
@@ -20,7 +20,9 @@ export default function Organization() {
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const { id } = useParams();
     const tab = searchParams.get('tab');
+
 
     return (
         <div className='container nav-padding'>
@@ -31,10 +33,12 @@ export default function Organization() {
             >
             <TabPane tab='Home' key='home'>
             <OrganizationHome
+                organizationId={parseInt(id)}
             />
             </TabPane>
             <TabPane tab='Classroom Management' key='classroom_management'>
             <OrganizationClassroomManagement
+                organizationId={parseInt(id)}
             />
             </TabPane>
             <TabPane tab='Moderation' key='moderation'>

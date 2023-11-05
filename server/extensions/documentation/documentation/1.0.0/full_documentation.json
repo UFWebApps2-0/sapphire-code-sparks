@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/04/2023 7:24:22 PM"
+    "x-generation-date": "11/04/2023 10:58:30 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12987,6 +12987,12 @@
                     "type": "string"
                   }
                 },
+                "administrators": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -14270,6 +14276,12 @@
                   "type": "string"
                 }
               },
+              "administrators": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "published_at": {
                 "type": "string"
               },
@@ -14408,6 +14420,43 @@
               }
             }
           },
+          "administrators": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "organizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "user": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -14426,6 +14475,12 @@
             }
           },
           "mentors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrators": {
             "type": "array",
             "items": {
               "type": "string"
@@ -14763,6 +14818,12 @@
                 }
               },
               "mentors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "administrators": {
                 "type": "array",
                 "items": {
                   "type": "string"

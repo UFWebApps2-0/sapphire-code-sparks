@@ -21,6 +21,10 @@
     "mentors": {
       "collection": "mentor",
       "via": "organization"
+    },
+    "administrators": {
+      "via": "organizations",
+      "collection": "administrator"
     }
   }
 }

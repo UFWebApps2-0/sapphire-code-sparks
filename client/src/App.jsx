@@ -32,7 +32,7 @@ const App = () => {
         <Route path='/adminDash' element={<AdminDash />}/>
         <Route path='/adminLogin' element={<AdminLogin />}/>
         <Route path='/organizationdashboard' element={<OrganizationDashboard />}/>
-        <Route path='/organization' element={<Organization />}/>
+        <Route path='/organization/:id' element={<Organization />}/>
         
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -42,6 +42,15 @@ const App = () => {
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
+        
+        {/*<Route 
+        path='/organization:id' 
+        element={
+          <PrivateRoute>
+            <Organization />
+          </PrivateRoute>
+          }
+        />*/}
         <Route
           path='/report'
           element={

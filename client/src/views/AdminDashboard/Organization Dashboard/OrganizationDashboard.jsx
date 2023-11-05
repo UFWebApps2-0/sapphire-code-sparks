@@ -15,7 +15,7 @@ export default function OrganizationDashboard() {
 
     // Button to navigate to a organization just for testing
     const handleNavigation = (organizationID) => {
-        navigate(`/organization/`); //eventually will become /organization/$organizationID
+        navigate(`/organization/${organizationID}`); //eventually will become /organization/$organizationID
     }
 
     // Initialization

@@ -698,6 +698,12 @@
                   "type": "string"
                 }
               },
+              "administrators": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "published_at": {
                 "type": "string"
               },

@@ -4,7 +4,6 @@ import { useGlobalState } from "../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
 import { getUser, getAllAdministrators } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
-import OrganizationClassroomManagement from "./OrganizationClassroomManagement";
 import OrganizationHome from "./Organization";
 import { Table } from 'antd';
 
