@@ -74,10 +74,14 @@ export default function BlocklyPage({ isSandbox }) {
 
   return (
     <div className="container nav-padding">
-      <NavBar />
-      <div className="flex flex-row">
-        <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
-      </div>
+    <NavBar />
+    <div className="blocklyTreeLabel">
+    <button className="Hide">Hide</button>
+    
+    
+      <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
+      
     </div>
+  </div>
   )
 }
