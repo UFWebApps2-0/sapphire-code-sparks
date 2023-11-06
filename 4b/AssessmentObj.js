@@ -13,6 +13,7 @@ class Assessment {
     this.showGrades = false;
     // Set publish date to current date by default.
     const currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() + 1000); // Set 1000 years from now as default publish
     this.publishDate = currentDate.getTime(); // only show after this date/time
     this.openDate = null; // null indicates always open
     this.dueDate = null; // null indicates no deadline.
@@ -90,9 +91,19 @@ class Assessment {
     // Add question to list.
     if (q instanceof Question) {
       this.questions.push(q);
+      this.points += q.points;
       return true;
     }
     return false;
+  }
+
+  removeQuestion(index) {
+    if (index >= this.questions.length) {
+      return false;
+    }
+    this.points -= this.questions[index].points;
+    this.choices.splice(index, 1);
+    return true;
   }
 }
 export default App;
