@@ -18,8 +18,10 @@ export default function Gallery(props) {
     const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
 
     return (
+
         <div className='container nav-padding'>
             <NavBar/>
+            <div id='main-header' style={{ marginBottom:'1vh' }}>Public Gallery</div>
             <div id='page-header'>
                 <h1>Gallery</h1>
             </div>
