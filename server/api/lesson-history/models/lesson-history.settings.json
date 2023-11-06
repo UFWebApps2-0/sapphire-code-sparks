@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lesson_histories",
+  "info": {
+    "name": "Lesson History",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "number": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "richtext"
+    },
+    "expectations": {
+      "type": "richtext"
+    },
+    "activities": {
+      "collection": "activity"
+    },
+    "unit": {
+      "model": "unit"
+    },
+    "standards": {
+      "type": "richtext"
+    },
+    "link": {
+      "type": "richtext"
+    }
+  }
+}

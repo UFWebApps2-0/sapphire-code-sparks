@@ -84,6 +84,7 @@ export default function LessonModuleCreator({
       }
       message.success("Successfully created lesson")
       const lsRes = await getLessonModuleAll()
+
       setLessonModuleList(lsRes.data)
       setLessonModuleObj(res.data)
 

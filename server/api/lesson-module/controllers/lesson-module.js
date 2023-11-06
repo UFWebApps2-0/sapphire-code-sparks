@@ -29,4 +29,27 @@ module.exports = {
       ctx.request.body
     );
   },
+  async restoreOriginal(ctx) {
+    const {lessonId, historyId} = ctx.request.body;
+
+    // fetch the historical entry of the lesson
+    const historyEntry = await strapi.services['lesson-history'].findOne({ id: historyId });
+
+    // update the lesson with the historical data
+    const updatedLesson = await strapi.services.lesson.update(
+      { id: lessonId },
+      {
+        number: historyEntry.number,
+        name: historyEntry.name,
+        expectations: historyEntry.expectations,
+        activities: historyEntry.activities,
+        unit: historyEntry.unit,
+        standards: historyEntry.standards,
+        link: historyEntry.link
+      }
+    );
+
+    // return the updated lesson
+    ctx.send(updatedLesson);
+  },
 };
