@@ -89,11 +89,8 @@ export default function OrganizationDashboard() {
                 <div id = 'add-org-button'> 
                     <button onClick = {() => addOrganization()}> Add New Organization </button>
                 </div>
-                
-                
             </div>
-        </div> 
-
+        </div>
         <MentorSubHeader title={'Your Organizations'}></MentorSubHeader>
         <div id='organizations-container'>
           <div id='dashboard-card-container'>
