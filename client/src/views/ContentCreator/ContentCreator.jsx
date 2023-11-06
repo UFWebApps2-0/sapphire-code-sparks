@@ -16,7 +16,7 @@ import LessonEditor from './LessonEditor/LessonEditor';
 import { useSearchParams } from 'react-router-dom';
 
 import './ContentCreator.less';
-import Gallery from '../Gallery/Gallery';
+import CCGallery from '../CCGallery/CCGallery'
 import Liked from '../Liked/Liked';
 
 const { TabPane } = Tabs;
@@ -208,7 +208,7 @@ export default function ContentCreator() {
           </TabPane>
 
           <TabPane tab='Gallery' key = 'gallery'>
-            <Gallery />
+            <CCGallery />
           </TabPane>
           <TabPane tab='Liked' key='liked'>
             <Liked />

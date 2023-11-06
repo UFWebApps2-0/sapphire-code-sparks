@@ -1,8 +1,7 @@
 import React from "react"
-import NavBar from "../../components/NavBar/NavBar"
 import Search from "../../components/Search/Search"
 import GalleryView from "../../components/GalleryView/GalleryView"
-import "./Gallery.less"
+import "./CCGallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
@@ -18,13 +17,12 @@ export default function Gallery(props) {
     const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
 
     return (
-        <div className='container nav-padding'>
-            <NavBar/>
+        <div>
             <div id='page-header'>
                 <h1>Gallery</h1>
             </div>
             <div id="gallery-content-container" style={{ marginTop: '6.6vh' }}>
-                <Search/>
+                <Search />
                 <GalleryView
                     searchParams={searchParams}
                     setSearchParams={setSearchParams}
