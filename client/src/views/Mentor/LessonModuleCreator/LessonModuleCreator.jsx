@@ -9,6 +9,7 @@ import {
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 import "./LessonModuleCreator.less"
+import axios from 'axios';
 
 export default function LessonModuleCreator({
   setLessonModuleList,
@@ -86,6 +87,7 @@ export default function LessonModuleCreator({
       setLessonModuleList(lsRes.data)
       setLessonModuleObj(res.data)
 
+      
       // find the position of the newly created ls
       found = lsRes.data.findIndex(ls => ls.id === res.data.id)
       found = Math.ceil(found / 10)
