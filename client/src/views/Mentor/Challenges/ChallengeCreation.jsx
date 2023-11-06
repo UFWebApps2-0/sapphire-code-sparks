@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   getActivityToolboxAll,
 } from "../../../Utils/requests"
+import BadgeSelection from '../../../views/Mentor/Challenges/BadgeSelection.jsx'
 
 export default function ChallengeCreation() {
   const defaultChallengeData = {
@@ -18,11 +19,12 @@ export default function ChallengeCreation() {
   const [challengeData, setChallengeData] = useState(defaultChallengeData);
   const [value] = useGlobalState('currUser');
   const navigate = useNavigate();
+  const [selectedBadge, setSelectedBadge] = useState(null);
 
   const handleViewActivityTemplate = async () => {
     // FIXME: Navigate with specific SELECTED information
     console.log("Navigating to activity template page not yet implemented");
-    
+
     const allToolBoxRes = await getActivityToolboxAll();
     const selectedToolBoxRes = await getActivityToolboxAll();
     let activity = {
@@ -36,9 +38,9 @@ export default function ChallengeCreation() {
   }
 
   const handleSave = () => {
-          // FIXME: Save information to database
-          console.log("Saving challenge to database not yet implemented")
-    }
+    // FIXME: Save information to database
+    console.log("Saving challenge to database not yet implemented")
+  }
 
   const navigateToAssignChallenge = () => {
     // FIXME: Navigate to assign challenge page
@@ -46,64 +48,72 @@ export default function ChallengeCreation() {
   }
 
   return (
-    <div className='container nav-padding'>
-      <NavBar />
-      <div id='main-header'>Edit challenge details</div>
-      <div id='creation-container-grid'>
-        <div id='creation-container'>
-          <p></p>
-          <Form
-            id="challenge-detail-editor"
-            layout="horizontal"
-            size="default"
-            labelCol={{
-              span: 6,
-            }}
-            wrapperCol={{
-              span: 14,
-            }}
-          >
-            <Form.Item id="form-label">
-              <p>PLACEHOLDER FOR BADGE SELECTION</p>
-            </Form.Item>
-            <Form.Item id="form-label" label="Challenge Title">
-              <Input.TextArea
-                onChange={e => setChallengeData({...challengeData, name: e.target.value})}
-                value={challengeData.name}
-                required
-                placeholder="Enter challenge title..."
-              ></Input.TextArea>
-            </Form.Item>
-            
-            <Form.Item id="form-label" label="Challenge Description">
-              <Input.TextArea
-                onChange={e => setChallengeData({...challengeData, description: e.target.value})}
-                value={challengeData.description}
-                required
-                placeholder="Enter challenge description..."
-              ></Input.TextArea>
-            </Form.Item>
+      <div className='container nav-padding'>
+        <NavBar />
+        <div id='main-header'>Edit challenge details</div>
+        <div id='creation-container-grid'>
+          <div id='creation-container'>
+            <p></p>
 
-            <Form.Item
-              id="form-label"
-              wrapperCol={{
-                span: 30,
-              }}
+            <Form
+                id="challenge-detail-editor"
+                layout="horizontal"
+                size="default"
+                labelCol={{
+                  span: 6,
+                }}
+                wrapperCol={{
+                  span: 14,
+                }}
             >
-              <button onClick={handleViewActivityTemplate}>Edit Challenge Activity</button>
-            </Form.Item>
-            <Form.Item
-              id="form-label"
-              wrapperCol={{
-                span: 30,
-              }}
-            >
-              <button onClick={handleSave}>Save Challenge</button>
-              <button onClick={navigateToAssignChallenge}>Continue Assigning Challenge to Classrooms</button>
-            </Form.Item>
-          </Form>
+
+
+
+              <Form.Item id="form-label" label="Challenge Title">
+                <Input.TextArea
+                    onChange={e => setChallengeData({...challengeData, name: e.target.value})}
+                    value={challengeData.name}
+                    required
+                    placeholder="Enter challenge title..."
+                ></Input.TextArea>
+              </Form.Item>
+
+
+              <Form.Item id="form-label" label="Challenge Description">
+                <Input.TextArea
+                    onChange={e => setChallengeData({...challengeData, description: e.target.value})}
+                    value={challengeData.description}
+                    required
+                    placeholder="Enter challenge description..."
+                ></Input.TextArea>
+              </Form.Item>
+
+              <Form.Item
+                  id="form-label"
+                  wrapperCol={{
+                    span: 30,
+                  }}
+              >
+                <button onClick={handleViewActivityTemplate}>Edit Challenge Activity</button>
+              </Form.Item>
+
+
+              <Form.Item
+                  id="form-label"
+                  wrapperCol={{
+                    span: 30,
+                  }}
+              >
+                <Form.Item id='form-label' style={{ marginBottom: '20px' }}>
+                  <BadgeSelection onBadgeSelect={setSelectedBadge} />
+                </Form.Item>
+
+                <button onClick={handleSave}>Save Challenge</button>
+                <button onClick={navigateToAssignChallenge}>Continue Assigning Challenge to Classrooms</button>
+              </Form.Item>
+            </Form>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
