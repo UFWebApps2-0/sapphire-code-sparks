@@ -1,6 +1,7 @@
 {
   "routes": {
     "TeacherLogin": "/teacherlogin",
+    "Signup": "/signup",
     "Sandbox": "/sandbox",
     "About": "/about",
     "Home": "/",
@@ -12,7 +13,7 @@
     "BugReport": "/bugreport"
   },
   "users": {
-    "DefaultUser": ["Home", "TeacherLogin", "Sandbox", "About"],
+    "DefaultUser": ["Home", "TeacherLogin", "Signup", "Sandbox", "About"],
     "Mentor": ["Dashboard", "AccountInfo", "SignOut", "Sandbox", "BugReport"],
     "Student": ["SignOut"],
     "ContentCreator": [
