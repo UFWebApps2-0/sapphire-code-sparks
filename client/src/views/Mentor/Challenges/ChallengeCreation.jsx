@@ -13,6 +13,7 @@ import {
   getChallengeDetails,
   getMentor,
 } from "../../../Utils/requests"
+import BadgeSelection from '../../../views/Mentor/Challenges/BadgeSelection.jsx'
 
 export default function ChallengeCreation() {
   const defaultChallengeData = {
@@ -25,6 +26,7 @@ export default function ChallengeCreation() {
   const [challengeId, setChallengeId] = useState(null);
   const [mentorId, setMentorId] = useState(null);
   const navigate = useNavigate();
+  const [selectedBadge, setSelectedBadge] = useState(null);
 
   // Ensures that non-mentors are navigated away from this page
   useEffect(() => {
@@ -75,6 +77,7 @@ export default function ChallengeCreation() {
   }
 
   const handleViewActivityTemplate = async () => {
+ cc/challenge-creation
     const savedChallengeId = await handleSaveChallengeDetails();
     if (savedChallengeId != null) {
       let activity = await getChallengeActivity(savedChallengeId);
@@ -89,9 +92,22 @@ export default function ChallengeCreation() {
         localStorage.setItem("my-activity", JSON.stringify(activity));
         navigate("/activity");
       }
+
+    // FIXME: Navigate with specific SELECTED information
+    console.log("Navigating to activity template page not yet implemented");
+
+    const allToolBoxRes = await getActivityToolboxAll();
+    const selectedToolBoxRes = await getActivityToolboxAll();
+    let activity = {
+      selectedToolbox: selectedToolBoxRes.data.toolbox,
+      toolbox: allToolBoxRes.data.toolbox,
+      lesson_module_name: challengeData.name,
+      is_challenge: true,
+ studentViewChallenges
     }
   }
 
+ cc/challenge-creation
   // Returns the challenge id if the save was successful, and null otherwise
   const handleSaveChallengeDetails = async () => {
     if (challengeData.name != '' && challengeData.description != '') {
@@ -110,6 +126,11 @@ export default function ChallengeCreation() {
       }
     }
     return null;
+
+  const handleSave = () => {
+    // FIXME: Save information to database
+    console.log("Saving challenge to database not yet implemented")
+ studentViewChallenges
   }
 
   const navigateToAssignChallenge = async () => {
@@ -117,6 +138,7 @@ export default function ChallengeCreation() {
     message.error("Sorry, this is still under development.")
   }
 
+ cc/challenge-creation
   // Note: This only displays if a mentor id is found so that users that are not mentors/teachers will not be able to see the challenge creation form, even when they navigate to the challenge creation page
   const challengeCreationContainerForm = mentorId == null ?
   (<div></div>) :
@@ -174,9 +196,78 @@ export default function ChallengeCreation() {
             <button onClick={navigateToAssignChallenge}>Continue Assigning Challenge to Classrooms</button>
           </Form.Item>
         </Form>
+
+  return (
+      <div className='container nav-padding'>
+        <NavBar />
+        <div id='main-header'>Edit challenge details</div>
+        <div id='creation-container-grid'>
+          <div id='creation-container'>
+            <p></p>
+
+            <Form
+                id="challenge-detail-editor"
+                layout="horizontal"
+                size="default"
+                labelCol={{
+                  span: 6,
+                }}
+                wrapperCol={{
+                  span: 14,
+                }}
+            >
+
+
+
+              <Form.Item id="form-label" label="Challenge Title">
+                <Input.TextArea
+                    onChange={e => setChallengeData({...challengeData, name: e.target.value})}
+                    value={challengeData.name}
+                    required
+                    placeholder="Enter challenge title..."
+                ></Input.TextArea>
+              </Form.Item>
+
+
+              <Form.Item id="form-label" label="Challenge Description">
+                <Input.TextArea
+                    onChange={e => setChallengeData({...challengeData, description: e.target.value})}
+                    value={challengeData.description}
+                    required
+                    placeholder="Enter challenge description..."
+                ></Input.TextArea>
+              </Form.Item>
+
+              <Form.Item
+                  id="form-label"
+                  wrapperCol={{
+                    span: 30,
+                  }}
+              >
+                <button onClick={handleViewActivityTemplate}>Edit Challenge Activity</button>
+              </Form.Item>
+
+
+              <Form.Item
+                  id="form-label"
+                  wrapperCol={{
+                    span: 30,
+                  }}
+              >
+                <Form.Item id='form-label' style={{ marginBottom: '20px' }}>
+                  <BadgeSelection onBadgeSelect={setSelectedBadge} />
+                </Form.Item>
+
+                <button onClick={handleSave}>Save Challenge</button>
+                <button onClick={navigateToAssignChallenge}>Continue Assigning Challenge to Classrooms</button>
+              </Form.Item>
+            </Form>
+          </div>
+        </div>
+ studentViewChallenges
       </div>
-    </div>
   );
+ cc/challenge-creation
 
   return (
     <div className='container nav-padding'>
@@ -186,3 +277,6 @@ export default function ChallengeCreation() {
     </div>
   );
 }
+
+}
+ studentViewChallenges
