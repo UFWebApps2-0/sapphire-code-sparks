@@ -57,6 +57,101 @@ function AssessmentEditor({ assessment, onSave }) {
       this.timeLimit = -1;
       this.attempts = 1;    
       this.showGrades = false;
+      <form className="group g-3" style={{ marginLeft: "8px" }}>
+        <div className="row">
+          <div className="col">
+            <div className="form-group">
+              <label className="form-label">ID: &nbsp;</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Required"
+                ref={id}
+              />
+            </div>
+          </div>
+          <div className="col">
+            <div className="form-group">
+              <label className="form-label">Code: &nbsp;</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Required"
+                ref={code}
+              />
+            </div>
+          </div>
+          <div className="col">
+            <div className="form-group">
+              <label className="form-label">Name: &nbsp;</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Required"
+                ref={name}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <label className="form-label">Coordinates: &nbsp;</label>
+
+            <div className="row" style={{ margin: 0 }}>
+              <div className="col" style={{ paddingLeft: 0, paddingRight: 4 }}>
+                <input
+                  type="text"
+                  className="form-control col"
+                  placeholder="Latitude"
+                  ref={latitude}
+                />
+              </div>
+              <span
+                className="col-sm-6"
+                style={{ width: "4px", padding: 0, paddingTop: 12 }}
+              >
+                ,
+              </span>
+              <div className="col" style={{ paddingLeft: 4 }}>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Longitude"
+                  ref={longitude}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <label className="form-label">Address: &nbsp;</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="1234 NW Bobcat Lane, St. Robert, MO, USA"
+              ref={address}
+            />
+          </div>
+        </div>
+      </form>
+      <div className="row">
+        <div>
+          <button
+            className="btn"
+            onClick={() => {
+              handleSubmit();
+            }}
+            style={{
+              marginTop: "0px",
+              marginLeft: "8px",
+              background: "blue",
+              color: "white",
+            }}
+          >
+            <i className="bi bi-plus" />
+            Add Building
+          </button>
+        </div>
+      </div>
       */}
       <div>
         <button
