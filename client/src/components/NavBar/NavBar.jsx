@@ -72,6 +72,17 @@ export default function NavBar() {
           &nbsp; Sandbox
         </Menu.Item>
       ) : null}
+      {shouldShowRoute('Gallery') ? (
+        <Menu.Item
+          key='9'
+          onClick={() => {
+            handleRouteChange(routes.Gallery);
+          }}
+        >
+          <i className='fa fa-th'/>
+          &nbsp; Gallery
+        </Menu.Item>
+      ) : null}
       {shouldShowRoute('TeacherLogin') ? (
         <Menu.Item
           key='5'

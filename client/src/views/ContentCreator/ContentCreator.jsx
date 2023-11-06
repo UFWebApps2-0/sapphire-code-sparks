@@ -16,6 +16,7 @@ import LessonEditor from './LessonEditor/LessonEditor';
 import { useSearchParams } from 'react-router-dom';
 
 import './ContentCreator.less';
+import Gallery from '../Gallery/Gallery';
 
 const { TabPane } = Tabs;
 
@@ -203,6 +204,10 @@ export default function ContentCreator() {
             searchParams={searchParams}
             setSearchParams={setSearchParams}
           />
+        </TabPane>
+        
+        <TabPane tab='Gallery' key = 'gallery'>
+          <Gallery />
         </TabPane>
       </Tabs>
     </div>
