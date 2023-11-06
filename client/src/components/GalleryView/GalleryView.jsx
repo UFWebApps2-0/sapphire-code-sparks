@@ -87,7 +87,7 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
                     }
                 >
                     <button id={'link-btn'}>
-                        <HeartOutlined style={{ color: 'grey' }} />
+                        <HeartOutlined style={{ color: 'grey' }}/>
                     </button>
                 </Popconfirm>
             ),
