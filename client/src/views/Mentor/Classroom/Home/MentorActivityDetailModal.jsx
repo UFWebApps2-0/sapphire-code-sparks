@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal } from "antd"
+import { Button, Form, Input, message, Modal, Popconfirm } from "antd"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
@@ -276,6 +276,15 @@ const MentorActivityDetailModal = ({
             <br />
             
           </button>
+          <Popconfirm
+            title={`Are you sure you want to remove (TITLE) from this activity?`}
+            onConfirm={() => {}}
+          >
+            <button id="delete--video" onClick={() => {}}>
+              Delete Video
+            </button>
+          </Popconfirm>
+
         </Form.Item>
         <Form.Item
           wrapperCol={{
