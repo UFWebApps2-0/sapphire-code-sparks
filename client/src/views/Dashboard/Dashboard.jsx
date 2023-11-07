@@ -37,14 +37,13 @@ export default function Dashboard() {
     <div className='container nav-padding'>
       <NavBar isMentor={true} />
       <div id='main-header'>Welcome {user.username}</div>
-      <MentorSubHeader title={'Your Classrooms'}></MentorSubHeader>
-      <div id='classrooms-container'>
-        <div id='dashboard-card-container'>
-          {classrooms.map((classroom) => (
-            <div key={classroom.id} id='dashboard-class-card'>
-              <div id='card-left-content-container'>
-                <h1 id='card-title'>{classroom.name}</h1>
-                <div id='card-button-container' className='flex flex-row'>
+        <MentorSubHeader title={'Your Classrooms'}></MentorSubHeader>
+          <div id='dashboard-card-container'>
+            {classrooms.map((classroom) => (
+              <div key={classroom.id} id='dashboard-class-card'>
+                <div id='card-left-content-container'>
+                  <h1 id='card-title'>{classroom.name}</h1>
+                  <div id='card-button-container' className='flex flex-row'>
                   <button onClick={() => handleViewClassroom(classroom.id)}>
                     View
                   </button>
@@ -52,15 +51,14 @@ export default function Dashboard() {
               </div>
               <div id='card-right-content-container'>
                 <DashboardDisplayCodeModal code={classroom.code} />
-                <div id='divider' />
-                <div id='student-number-container'>
-                  <h1 id='number'>{classroom.students.length}</h1>
-                  <p id='label'>Students</p>
-                </div>
+              <div id='divider' />
+              <div id='student-number-container'>
+                <h1 id='number'>{classroom.students.length}</h1>
+                <p id='label'>Students</p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
