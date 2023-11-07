@@ -16,8 +16,10 @@ import LessonEditor from './LessonEditor/LessonEditor';
 import { useSearchParams } from 'react-router-dom';
 
 import './ContentCreator.less';
+
 import CCGallery from '../CCGallery/CCGallery'
 import Liked from '../Liked/Liked';
+import Gallery from '../Gallery/Gallery';
 
 const { TabPane } = Tabs;
 
