@@ -14,6 +14,7 @@ const sortCategory = (toolbox) => {
     'Motors',
     'Comms',
     'DHT',
+    'User'
   ];
 
   const sorted = toolbox.sort(function (a, b) {

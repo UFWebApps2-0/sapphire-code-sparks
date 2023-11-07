@@ -14,6 +14,7 @@ import PlotterModal from '../modals/PlotterModal';
 import StudentToolboxMenu from '../modals/StudentToolboxMenu';
 import LoadWorkspaceModal from '../modals/LoadWorkspaceModal';
 import DisplayDiagramModal from '../modals/DisplayDiagramModal'
+import GeneratorModal from '../modals/GeneratorModal';
 import {
   connectToPort,
   handleCloseConnection,
@@ -23,6 +24,7 @@ import {
   getAuthorizedWorkspace,
   getAuthorizedWorkspaceToolbox,
 } from '../../../../Utils/requests';
+import IconHammer from '../Icons/IconHammer';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +37,7 @@ export default function ContentCreatorCanvas({
   setActivity,
   isMentorActivity,
 }) {
+  const [hoverGenerator, setHoverGenerator] = useState(false);
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -52,10 +55,17 @@ export default function ContentCreatorCanvas({
   const navigate = useNavigate();
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const workspaceRef = useRef(null);
+  const generatorRef = useRef(null);
   const activityRef = useRef(null);
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
+      toolbox: document.getElementById('toolbox'),
+    });
+  };
+
+  const setGenerator = () => {
+    generatorRef.current = window.Blockly.inject('blockly', {
       toolbox: document.getElementById('toolbox'),
     });
   };
@@ -271,6 +281,10 @@ export default function ContentCreatorCanvas({
     }
   };
 
+  const handleGenerator = async () => {
+    alert("This is the block generator.");
+  }
+
   const menu = (
     <Menu>
       <Menu.Item id='menu-save' onClick={handleCreatorSave}>
@@ -339,6 +353,54 @@ export default function ContentCreatorCanvas({
                   </Col>
                   <Col flex='auto' />
                   <Row>
+                    
+                    {/* Start of Generator icon */}
+                    {/*
+                    <Col className='flex flex-row'>
+                      <div
+                        id='action-btn-container'
+                        className='flex space-around'
+                      >
+                        <IconHammer
+                          setHoverGenerator={setHoverGenerator}
+                          handleGenerator={handleGenerator}
+                          onMouseEnter={() => setHoverGenerator(true)}
+                          onMouseLeave={() => setHoverGenerator(false)}
+                        />
+                        {hoverGenerator && (
+                          <div className='popup ModalCompile3'>Generate Custom Block</div>
+                        )}
+                        <GeneratorModal
+                          image={activity.images}
+                        />
+                      </div>
+                    </Col>
+                    */}
+                    {/*
+                    <Col className='flex flex-row'>
+                      <GeneratorModal title={'Generator'} workspaceRef={workspaceRef.current} />
+                    </Col>
+                    */}
+                    
+                    <Col className='flex flex-row'>
+                      <div
+                        id='action-btn-container'
+                        className='flex space-around'
+                      >
+                        <IconHammer
+                          setHoverGenerator={setHoverGenerator}
+                          handleGenerator={handleGenerator}
+                          //onMouseEnter={() => setHoverGenerator(true)}
+                          //onMouseLeave={() => setHoverGenerator(false)}
+                        />
+                        {hoverGenerator && (
+                          <div className='popup ModalCompile3'>Generate Custom Block</div>
+                        )}
+                      </div>
+                    </Col>
+
+                    {/* End of Generator icon */}
+
                     <Col className='flex flex-row'>
                       <Col
                         className='flex flex-row'
@@ -460,7 +522,207 @@ export default function ContentCreatorCanvas({
           plotId={plotId}
         />
       </div>
+      
+      {/* Start of Block Generator */}
 
+      <div className='flex flex-row'>
+        <div
+          id='bottom-container'
+          className='flex flex-column vertical-container overflow-visible'
+        >
+        <h1>Block Generator</h1>
+        <h2>Define custom blocks here!</h2>
+
+        <Col>
+          <table id='blockFactoryContent'>
+              <tr width="100%" height="10%">
+                  <td width="50%" height="5%">
+                      <table>
+                          <tr id="blockLibrary">
+                              <td id="blockLibraryContainer">
+                      <span>
+                        <div class="dropdown">
+                          <button id="button_blockLib">Block Library</button>
+                          <div id="dropdownDiv_blockLib" class="dropdown-content">
+                            <a id="createNewBlockButton">Create New Block</a>
+                          </div>
+                        </div>
+                        <label for="blockLibraryDropdown"></label><select id="blockLibraryDropdown">
+                        </select>
+                      </span>
+                              </td>
+                              <td id="blockLibraryControls">
+                                  <button id="saveToBlockLibraryButton" title="Save block to Block Library.">
+                                      Save "block_type"
+                                  </button>
+                                  <button id="removeBlockFromLibraryButton" title="Remove block from Block Library.">
+                                      Delete "block_type"
+                                  </button>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+                  <td height="5%">
+                      <table id="blockFactoryPreview">
+                          <tr>
+                              <td id="previewContainer">
+                                  <h3>Preview:
+                                      <label for="direction"></label><select id="direction">
+                                          <option value="ltr">LTR</option>
+                                          <option value="rtl">RTL</option>
+                                      </select>
+                                  </h3>
+                              </td>
+                              <td id="buttonContainer">
+                                  <button id="linkButton" title="Save and link to blocks.">
+                                      {/*<img src="link.png" height="21" width="21" alt=""></img>*/}
+                                  </button>
+                                  <button id="clearBlockLibraryButton" title="Clear Block Library.">
+                                      <span>Clear Library</span>
+                                  </button>
+                                  <label for="files" class="buttonStyle">
+                                      <span>Import Block Library</span>
+                                  </label>
+                                  <input id="files" type="file" name="files"
+                                        accept="application/xml"></input>
+                                  <button id="localSaveButton" title="Save block library XML to a local file.">
+                                      <span>Download Block Library</span>
+                                  </button>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+              <tr height="80%">
+                  <td id="blocklyWorkspaceContainer">
+                      <div id='blockly'></div>
+                      <div id='blocklyMask'></div>
+                  </td>
+                  <td width="50%">
+                      <table id="blocklyPreviewContainer">
+                          <tr>
+                              <td height="30%">
+                                  <div id="preview"></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td height="5%">
+                                  <h3>Block Definition:
+                                      <label for="format"></label><select id="format">
+                                          <option value="JavaScript">JavaScript</option>
+                                          <option value="JSON">JSON</option>
+                                      </select>
+                                  </h3>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td height="30%">
+                                  <pre id="languagePre" class="prettyprint lang-js"></pre>
+                                  <label for="languageTA"></label><textarea id="languageTA"></textarea>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td height="5%">
+                                  <h3>Generator stub:
+                                      <label for="language"></label><select id="language">
+                                          <option value="Arduino">Arduino</option>
+                                      </select>
+                                  </h3>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td height="30%">
+                                  <pre id="generatorPre" class="prettyprint lang-js"></pre>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+
+          <div id="modalShadow"></div>
+          
+          <xml id="blockfactory_toolbox" class="toolbox">
+              <category name="Input">
+                  <block type="input_value">
+                      <value name="TYPE">
+                          <shadow type="type_null"></shadow>
+                      </value>
+                  </block>
+                  <block type="input_statement">
+                      <value name="TYPE">
+                          <shadow type="type_null"></shadow>
+                      </value>
+                  </block>
+                  <block type="input_dummy"></block>
+              </category>
+              <category name="Field">
+                  <block type="field_static"></block>
+                  <block type="field_label_serializable"></block>
+                  <block type="field_input"></block>
+                  <block type="field_number"></block>
+                  <block type="field_angle"></block>
+                  <block type="field_dropdown"></block>
+                  <block type="field_checkbox"></block>
+                  <block type="field_colour"></block>
+                  <block type="field_variable"></block>
+                  <block type="field_image"></block>
+              </category>
+              <category name="Type">
+                  <block type="type_group"></block>
+                  <block type="type_null"></block>
+                  <block type="type_boolean"></block>
+                  <block type="type_number"></block>
+                  <block type="type_string"></block>
+                  <block type="type_list"></block>
+                  <block type="type_other"></block>
+              </category>
+              <category name="Colour" id="colourCategory">
+                  <block type="colour_hue">
+                      <mutation colour="20"></mutation>
+                      <field name="HUE">20</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="65"></mutation>
+                      <field name="HUE">65</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="120"></mutation>
+                      <field name="HUE">120</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="160"></mutation>
+                      <field name="HUE">160</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="210"></mutation>
+                      <field name="HUE">210</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="230"></mutation>
+                      <field name="HUE">230</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="260"></mutation>
+                      <field name="HUE">260</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="290"></mutation>
+                      <field name="HUE">290</field>
+                  </block>
+                  <block type="colour_hue">
+                      <mutation colour="330"></mutation>
+                      <field name="HUE">330</field>
+                  </block>
+              </category>
+          </xml>
+        </Col>
+
+        </div>
+      </div>
+
+      {/* End of Block Generator */}
+        
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       <xml id='toolbox' is='Blockly workspace'>
         {

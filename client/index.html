@@ -36,6 +36,42 @@
     <script src="/lib/arduino_compressed.js"></script>
     <script src="/lib/javascript_compressed.js"></script>
     <script src="/lib/avrgirl-arduino.global.js"></script>
+    <!-- Block Generator Dependencies -->
+    <script src="/lib/GeneratorDependencies/analytics.js"></script>
+    <script src="/lib/GeneratorDependencies/block_definition_extractor.js"></script>
+    <script src="/lib/GeneratorDependencies/factory_utils.js"></script>
+    <script src="/lib/GeneratorDependencies/workspacefactory/wfactory_model.js"></script>
+    <script src="/lib/GeneratorDependencies/standard_categories.js"></script>
+    <script src="/lib/GeneratorDependencies/cp.js"></script>
+    <script src="/lib/GeneratorDependencies/workspacefactory/wfactory_controller.js"></script>
+    <script src="/lib/GeneratorDependencies/workspacefactory/wfactory_view.js"></script>
+    <script src="/lib/GeneratorDependencies/workspacefactory/wfactory_generator.js"></script>
+    <script src="/lib/GeneratorDependencies/workspacefactory/wfactory_init.js"></script>
+    <script src="/lib/GeneratorDependencies/block_option.js"></script>
+    <script src="/lib/GeneratorDependencies/factory.js"></script>
+    <script src="/lib/GeneratorDependencies/block_library_view.js"></script>
+    <script src="/lib/GeneratorDependencies/block_library_storage.js"></script>
+    <script src="/lib/GeneratorDependencies/block_library_controller.js"></script>
+    <script src="/lib/GeneratorDependencies/block_exporter_tools.js"></script>
+    <script src="/lib/GeneratorDependencies/block_exporter_view.js"></script>
+    <script src="/lib/GeneratorDependencies/block_exporter_controller.js"></script>
+    <script src="/lib/GeneratorDependencies/blocks.js"></script>
+    <script src="/lib/GeneratorDependencies/app_controller.js"></script>
+    <!--script src="/storage.js"></script-->
+    <link rel="stylesheet" href="/lib/GeneratorDependencies/factory.css">
+    <link rel="stylesheet" href="/lib/GeneratorDependencies/cp.css">
+    <script src="/lib/GeneratorDependencies/run_prettify.js"></script>
+    <script>
+        var blocklyFactory;
+        var init = function () {
+            BlocklyDevTools.Analytics.init();
+
+            blocklyFactory = new AppController();
+            blocklyFactory.init();
+            window.addEventListener('beforeunload', blocklyFactory.confirmLeavePage);
+        };
+        window.addEventListener('load', init);
+    </script>
     <script>
       const global = globalThis
     </script>
