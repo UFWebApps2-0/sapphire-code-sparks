@@ -9,7 +9,7 @@ const BlocklyCanvasPanel = ({ activity, isSandbox, setActivity }) => {
   const [value] = useGlobalState('currUser');
 
   const userRole = value.role;
-
+  
   switch (userRole) {
     case 'DefaultUser':
       return <PublicCanvas activity={activity} isSandbox={isSandbox} />;

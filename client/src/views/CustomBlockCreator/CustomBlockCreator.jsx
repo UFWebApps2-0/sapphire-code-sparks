@@ -9,6 +9,7 @@ import {
   getActivityToolboxAll,
 } from "../../Utils/requests"
 import { useGlobalState } from "../../Utils/userState"
+import CustomBlockCanvasPanel from "./CustomBlockCanvasPanel"
 
 export default function CustomBlockCreator() {
   const isSandbox = true;
@@ -18,56 +19,20 @@ export default function CustomBlockCreator() {
 
   useEffect(() => {
     const setup = async () => {
-      // if we are in sandbox mode show all toolbox
       const sandboxActivity = JSON.parse(localStorage.getItem("sandbox-activity"))
-      if (isSandbox) {
-        const AllToolboxRes = await getActivityToolboxAll()
-        if (!sandboxActivity?.id || value.role === "Mentor") {
-          if (AllToolboxRes.data) {
-            let loadedActivity = {
-              ...sandboxActivity,
-              toolbox: AllToolboxRes.data.toolbox,
-            }
-            localStorage.setItem("sandbox-activity", JSON.stringify(loadedActivity))
-            setActivity(loadedActivity)
-          } else {
-            message.error(AllToolboxRes.err)
-          }
-        } else if (value.role === "ContentCreator") {
-          const res = await getAuthorizedWorkspaceToolbox(sandboxActivity.id)
-          if (res.data) {
-            let loadedActivity = { ...sandboxActivity, selectedToolbox: res.data.toolbox }
-            loadedActivity = { ...loadedActivity, toolbox: AllToolboxRes.data.toolbox }
 
-            localStorage.setItem("sandbox-activity", JSON.stringify(loadedActivity))
-            setActivity(loadedActivity)
-          } else {
-            message.error(res.err)
-          }
+      const AllToolboxRes = await getActivityToolboxAll()
+
+      if (AllToolboxRes.data) {
+        let loadedActivity = {
+          ...sandboxActivity,
+          toolbox: AllToolboxRes.data.toolbox,
         }
-      }
-      // else show toolbox based on the activity we are viewing
-      else {
-        const localActivity = JSON.parse(localStorage.getItem("my-activity"))
-
-        if (localActivity) {
-          if (localActivity.toolbox) {
-            setActivity(localActivity)
-          } else {
-            const res = await getActivityToolbox(localActivity.id)
-            if (res.data) {
-              let loadedActivity = { ...localActivity, toolbox: res.data.toolbox }
-
-              localStorage.setItem("my-activity", JSON.stringify(loadedActivity))
-              setActivity(loadedActivity)
-            } else {
-              message.error(res.err)
-            }
-          }
-        } else {
-          navigate(-1)
-        }
-      }
+        localStorage.setItem("sandbox-activity", JSON.stringify(loadedActivity))
+        setActivity(loadedActivity)
+      } else {
+        message.error(AllToolboxRes.err)
+      } 
     }
 
     setup()
@@ -77,7 +42,7 @@ export default function CustomBlockCreator() {
     <div className="container nav-padding">
       <NavBar />
       <div className="flex flex-row">
-        <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
+        <CustomBlockCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
       </div>
     </div>
   )
