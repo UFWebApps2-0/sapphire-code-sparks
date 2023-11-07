@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function Gallery(props) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [privacySetting, setPrivacy] = useState("Public")
 
   const [tab, setTab] = useState(
     searchParams.has('tab') ? searchParams.get('tab') : 'home'
@@ -17,6 +18,18 @@ export default function Gallery(props) {
   );
   const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
 
+  const handlePublicButton = () => {
+    setPrivacy("Public");
+    alert("Displaying only Public projects");
+  }
+  const handleClassroomButton = () => {
+    setPrivacy("Classroom");
+    alert("Displaying only Classroom projects");
+  }
+  const handleOrganizationButton = () => {
+    setPrivacy("Organization");
+    alert("Displaying only Organization projects");
+  }
   return (
     <div className="container nav-padding">
       <NavBar />
@@ -24,6 +37,11 @@ export default function Gallery(props) {
             <h1>Gallery</h1>
         </div>
       <div id="gallery-content-container">
+        <div id="Privacy-buttons">
+          <button onClick={handlePublicButton}>Public</button>
+          <button onClick={handleClassroomButton}>Clasroom</button>
+          <button onClick={handleOrganizationButton}>Organization</button>
+        </div>
         <Search />
         <GalleryView 
             searchParams={searchParams}
