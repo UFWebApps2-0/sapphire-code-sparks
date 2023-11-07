@@ -30,6 +30,13 @@ export const getXml = (workspaceRef, shouldAlert = true) => {
   return xml_text;
 };
 
+// Fetches video 
+export const getVideo = (workspaceRef, shouldAlert = true) => {
+  let video = iframe 
+  if (shouldAlert) alert(video);
+  return video;
+};
+
 // Generates javascript code from blockly canvas
 export const getJS = (workspaceRef) => {
   window.Blockly.JavaScript.INFINITE_LOOP_TRAP = null;

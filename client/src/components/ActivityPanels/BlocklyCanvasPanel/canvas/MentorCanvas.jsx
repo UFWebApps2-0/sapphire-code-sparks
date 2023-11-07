@@ -18,6 +18,7 @@ import {
 import { getAuthorizedWorkspace } from '../../../../Utils/requests';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
+import DraggableVideo from '../DraggableVideo';
 
 let plotId = 1;
 
@@ -40,6 +41,11 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
   const workspaceRef = useRef(null);
   const activityRef = useRef(null);
   const navigate = useNavigate();
+  const [videoVisible, setVideoVisible] = useState(false);
+
+  const viewVideo = () => {
+    setVideoVisible(true);
+  };
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -267,9 +273,14 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
         <PlotterLogo />
         &nbsp; Show Serial Plotter
       </Menu.Item>
-      <CodeModal title={'XML'} workspaceRef={workspaceRef.current} />
       <Menu.Item>
-        <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
+      <CodeModal title={'XML'} workspaceRef={workspaceRef.current} />
+      </Menu.Item>
+      <Menu.Item>
+      <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
+      </Menu.Item>
+      <Menu.Item onClick={viewVideo}>
+      &nbsp; Show Video 
       </Menu.Item>
     </Menu>
   );
@@ -422,7 +433,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
                 </Row>
               </Col>
             </Row>
-            <div id='blockly-canvas' />
+            <div id='blockly-canvas'>
+            </div>
           </Spin>
           </div>
            {!isSandbox && !isMentorActivity && (
@@ -438,7 +450,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           show={showConsole}
           connectionOpen={connectionOpen}
           setConnectionOpen={setConnectionOpen}
-        ></ConsoleModal>
+        >
+        </ConsoleModal>
         <PlotterModal
           show={showPlotter}
           connectionOpen={connectionOpen}
@@ -446,8 +459,12 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           plotData={plotData}
           setPlotData={setPlotData}
           plotId={plotId}
-        />
+        >
+          
+        </PlotterModal>
+        
       </div>
+      
 
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       <xml id='toolbox' is='Blockly workspace'>
@@ -483,6 +500,9 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           onClose={(e) => setCompileError('')}
         ></Alert>
       )}
+      {videoVisible=== true 
+          ?(<DraggableVideo/>)
+          :null}
     </div>
   );
 }
