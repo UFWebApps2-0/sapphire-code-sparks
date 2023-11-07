@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Popconfirm, message } from 'antd';
-import { SmileOutlined, HeartOutlined } from '@ant-design/icons';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {
@@ -8,10 +7,10 @@ import {
     getClassroomWorkspace,
     getSubmission,
     deleteAuthorizedWorkspace,
-  } from '../../Utils/requests';
+} from '../../Utils/requests';
 
 
-export default function GalleryView({searchParams, setSearchParams, classroomId}){
+export default function GalleryView({searchParams, setSearchParams, classroomId}) {
     const [workspaceList, setWorkspaceList] = useState([]);
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
@@ -22,10 +21,9 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
     useEffect(() => {
         const fetchData = async () => {
             let wsResponse;
-            if(classroomId){
+            if (classroomId) {
                 wsResponse = await getClassroomWorkspace(classroomId);
-            }
-            else{
+            } else {
                 wsResponse = await getAuthorizedWorkspaces();
             }
 
@@ -73,22 +71,30 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
             ),
         },
         {
-            title: 'Like',
-            dataIndex: 'like',
-            key: 'like',
+            title: 'Delete',
+            dataIndex: 'delete',
+            key: 'delete',
             width: '10%',
             align: 'center',
             render: (_, key) => (
                 <Popconfirm
-                    title={'Like this workspace?'}
-                    icon={<SmileOutlined style={{ color: 'blue' }} />}
+                    title={'Are you sure you want to delete this workspace?'}
+                    icon={<QuestionCircleOutlined style={{color: 'red'}}/>}
                     onConfirm={async () => {
-
+                        const res = await deleteAuthorizedWorkspace(key.id);
+                        if (res.err) {
+                            message.error(res.err);
+                        } else {
+                            setWorkspaceList(
+                                workspaceList.filter((ws) => {
+                                    return ws.id !== key.id;
+                                })
+                            );
+                            message.success('Delete success');
                         }
-                    }
+                    }}
                 >
-                    <button id={'link-btn'}>
-                        <HeartOutlined style={{ color: 'grey' }}/>
+                    <button id={'link-btn'}><i className="fa fa-trash"></i>
                     </button>
                 </Popconfirm>
             ),
@@ -100,7 +106,7 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
         <div>
             <div
                 id='content-creator-table-container'
-                style={{ marginTop: '6.6vh' }}
+                style={{marginTop: '6.6vh'}}
             >
                 <Table
                     columns={wsColumn}
@@ -109,9 +115,9 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
                     rowKey='id'
                     onChange={(Pagination) => {
                         setPage(Pagination.current);
-                        setSearchParams({ tab, page: Pagination.current });
+                        setSearchParams({tab, page: Pagination.current});
                     }}
-                    pagination={{ current: page ? page : 1 }}
+                    pagination={{current: page ? page : 1}}
                 ></Table>
             </div>
         </div>
