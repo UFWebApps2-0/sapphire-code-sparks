@@ -6,6 +6,7 @@
     "About": "/about",
     "Home": "/",
     "Dashboard": "/dashboard",
+    "Settings": "/settings",
     "SignOut": "/",
     "AccountInfo": "/account",
     "ContentCreatorDashboard": "/ccdashboard",
@@ -14,15 +15,16 @@
   },
   "users": {
     "DefaultUser": ["Home", "TeacherLogin", "Signup", "Sandbox", "About"],
-    "Mentor": ["Dashboard", "AccountInfo", "SignOut", "Sandbox", "BugReport"],
+    "Mentor": ["Dashboard", "Settings", "AccountInfo", "SignOut", "Sandbox", "BugReport"],
     "Student": ["SignOut"],
     "ContentCreator": [
       "ContentCreatorDashboard",
+      "Settings",
       "AccountInfo",
       "Sandbox",
       "SignOut",
       "BugReport"
     ],
-    "Researcher": ["ResearcherDashboard", "BugReport", "SignOut"]
+    "Researcher": ["ResearcherDashboard", "Settings", "BugReport", "SignOut"]
   }
 }

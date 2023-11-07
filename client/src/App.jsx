@@ -4,6 +4,7 @@ import PrivateRoute from './Utils/PrivateRoute';
 import About from './views/About/About';
 import BlocklyPage from './views/BlocklyPage/BlocklyPage';
 import BugReport from './views/BugReport/BugReport';
+import Settings from './views/Settings/Settings';
 import ContentCreator from './views/ContentCreator/ContentCreator';
 import Home from './views/Home/Home';
 import Classroom from './views/Mentor/Classroom/Classroom';
@@ -18,8 +19,8 @@ import Student from './views/Student/Student';
 import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
-import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 import Signup from './views/Signup/Signup';
+import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 
 const App = () => {
   return (
@@ -71,6 +72,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/settings'
+          element={
+            <PrivateRoute>
+              <Settings />
             </PrivateRoute>
           }
         />

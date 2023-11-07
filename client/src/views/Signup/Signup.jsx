@@ -62,6 +62,7 @@ export default function Signup() {
             {...username}
             placeholder='Username'
             autoComplete='username'
+            class='username-input'
           />
           <input
             type='email'

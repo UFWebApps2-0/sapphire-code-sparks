@@ -60,9 +60,15 @@ export default function NavBar() {
           &nbsp; Dashboard
         </Menu.Item>
       ) : null}
+      {shouldShowRoute('Settings') ? (
+        <Menu.Item key='4' onClick={() => handleRouteChange(routes.Settings)}>
+          <i className='fa-solid fa-gear' />
+          &nbsp; Settings
+        </Menu.Item>
+      ) : null}
       {shouldShowRoute('Sandbox') ? (
         <Menu.Item
-          key='4'
+          key='5'
           onClick={() => {
             localStorage.removeItem('sandbox-activity');
             handleRouteChange(routes.Sandbox);
@@ -74,7 +80,7 @@ export default function NavBar() {
       ) : null}
       {shouldShowRoute('TeacherLogin') ? (
         <Menu.Item
-          key='5'
+          key='6'
           onClick={() => handleRouteChange(routes.TeacherLogin)}
         >
           <i className='fa fa-sign-in-alt' />
@@ -83,7 +89,7 @@ export default function NavBar() {
       ) : null}
       {shouldShowRoute('Signup') ? (
         <Menu.Item
-          key='6'
+          key='7'
           onClick={() => handleRouteChange(routes.Signup)}
         >
           <i className='fa fa-sign-in-alt' />
@@ -91,19 +97,19 @@ export default function NavBar() {
         </Menu.Item>
       ) : null}
       {shouldShowRoute('About') ? (
-        <Menu.Item key='7' onClick={() => handleRouteChange(routes.About)}>
+        <Menu.Item key='8' onClick={() => handleRouteChange(routes.About)}>
           <i className='fa fa-info-circle' />
           &nbsp; About
         </Menu.Item>
       ) : null}
       {shouldShowRoute('BugReport') ? (
-        <Menu.Item key='8' onClick={() => handleRouteChange(routes.BugReport)}>
+        <Menu.Item key='9' onClick={() => handleRouteChange(routes.BugReport)}>
           <i className='fa fa-calendar-times' />
           &nbsp; Report a Bug
         </Menu.Item>
       ) : null}
       {shouldShowRoute('SignOut') ? (
-        <Menu.Item key='9' onClick={() => handleLogout()}>
+        <Menu.Item key='10' onClick={() => handleLogout()}>
           <i className='fa fa-sign-out-alt' />
           &nbsp; Sign Out
         </Menu.Item>
