@@ -20,57 +20,73 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
     useEffect(() => {
-        const fetchData = async () => {
-            let wsResponse;
-            if(classroomId){
-                wsResponse = await getClassroomWorkspace(classroomId);
-            }
-            else{
-                wsResponse = await getAuthorizedWorkspaces();
-            }
-
-            setWorkspaceList(wsResponse.data);
-        };
-        fetchData();
+      const fetchData = async () => {
+        try {
+          let wsResponse;
+          if (classroomId) {
+            wsResponse = await getClassroomWorkspace(classroomId);
+          } else {
+            wsResponse = await getAuthorizedWorkspaces();
+          }
+      
+          console.log('API Response:', wsResponse);
+      
+          setWorkspaceList(wsResponse.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      
+  
+      fetchData();
     }, [classroomId]);
-
-    // These attributes show up in the tables [Name---Description---Open Workspaces---Delete]
+    
     const wsColumn = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            editable: true,
-            width: '30%',
-            align: 'left',
-            render: (_, key) => key.name,
+          title: 'Name',
+          dataIndex: 'name',
+          key: 'name',
+          editable: true,
+          width: '20%',
+          align: 'center',
+          render: (_, key) => key.name,
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            editable: true,
-            width: '40%',
-            align: 'left',
-            render: (_, key) => key.description,
+          title: 'Description',
+          dataIndex: 'description',
+          key: 'description',
+          editable: true,
+          width: '40%',
+          align: 'center',
+          render: (_, key) => key.description,
         },
         {
-            title: 'Open Workspace',
-            dataIndex: 'open',
-            key: 'open',
-            editable: false,
-            width: '20%',
-            align: 'center',
-            render: (_, key) => (
-                <Link
-                    onClick={() =>
-                        localStorage.setItem('sandbox-activity', JSON.stringify(key))
-                    }
-                    to={'/sandbox'}
-                >
-                    Open
-                </Link>
-            ),
+          title: 'Open Workspace',
+          dataIndex: 'open',
+          key: 'open',
+          editable: false,
+          width: '10%',
+          align: 'center',
+          render: (_, key) => (
+            <Link
+              onClick={() =>
+                localStorage.setItem('sandbox-activity', JSON.stringify(key))
+              }
+              to={'/sandbox'}
+            >
+              Open
+            </Link>
+          ),
+        },
+        {
+          title: 'Views',
+          dataIndex: 'Views',
+          key: 'Views',
+          editable: true,
+          width: '10%',
+          align: 'left',
+          //will need to change rendering to render the views
+          render: (_, key) => key.description,
         },
         {
             title: 'Like',
@@ -94,7 +110,6 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
             ),
         },
     ];
-
 
     return (
         <div>
