@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import '../ActivityLevels.less';
+import {CloseOutlined} from '@ant-design/icons-svg';
 
 export default function DraggableVideo(props) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -80,7 +81,9 @@ export default function DraggableVideo(props) {
         onMouseUp = {handleMouseUp}
         onMouseMove = {event => handleMouseMove(event, document.getElementById("draggableVideo"))}
         >
-        <h2 id="vidTitle">{name} Video</h2>
+        <h2 id="vidTitle">{name} Video 
+        {/* <CloseOutlined /> */}
+        </h2>
         <iframe 
         width="280" height="200"
         src={videoId} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen

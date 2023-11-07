@@ -44,7 +44,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
   const [videoVisible, setVideoVisible] = useState(false);
 
   const viewVideo = () => {
-    setVideoVisible(true);
+    setVideoVisible(!videoVisible);
   };
 
   const setWorkspace = () => {
@@ -280,7 +280,11 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
       </Menu.Item>
       <Menu.Item onClick={viewVideo}>
-      &nbsp; Show Video 
+      &nbsp;
+      {videoVisible
+              ? "Close Video"
+              : "Show Video"}
+       
       </Menu.Item>
     </Menu>
   );
