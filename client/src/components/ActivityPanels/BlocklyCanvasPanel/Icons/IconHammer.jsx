@@ -22,4 +22,4 @@ const IconHammer = ({ setHoverGenerator, handleGenerator }) => {
 
 export default IconHammer;
 
-// icon:hammer | Ionicons https://ionicons.com/ | Ionic Framework
+// Source: icon:hammer | Ionicons https://ionicons.com/ | Ionic Framework

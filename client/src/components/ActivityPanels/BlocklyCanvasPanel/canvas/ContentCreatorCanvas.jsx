@@ -353,9 +353,6 @@ export default function ContentCreatorCanvas({
                   </Col>
                   <Col flex='auto' />
                   <Row>
-                    
-                    {/* Start of Generator icon */}
-                    {/*
                     <Col className='flex flex-row'>
                       <div
                         id='action-btn-container'
@@ -364,34 +361,6 @@ export default function ContentCreatorCanvas({
                         <IconHammer
                           setHoverGenerator={setHoverGenerator}
                           handleGenerator={handleGenerator}
-                          onMouseEnter={() => setHoverGenerator(true)}
-                          onMouseLeave={() => setHoverGenerator(false)}
-                        />
-                        {hoverGenerator && (
-                          <div className='popup ModalCompile3'>Generate Custom Block</div>
-                        )}
-                        <GeneratorModal
-                          image={activity.images}
-                        />
-                      </div>
-                    </Col>
-                    */}
-                    {/*
-                    <Col className='flex flex-row'>
-                      <GeneratorModal title={'Generator'} workspaceRef={workspaceRef.current} />
-                    </Col>
-                    */}
-                    
-                    <Col className='flex flex-row'>
-                      <div
-                        id='action-btn-container'
-                        className='flex space-around'
-                      >
-                        <IconHammer
-                          setHoverGenerator={setHoverGenerator}
-                          handleGenerator={handleGenerator}
-                          //onMouseEnter={() => setHoverGenerator(true)}
-                          //onMouseLeave={() => setHoverGenerator(false)}
                         />
                         {hoverGenerator && (
                           <div className='popup ModalCompile3'>Generate Custom Block</div>
@@ -534,6 +503,8 @@ export default function ContentCreatorCanvas({
         <h2>Define custom blocks here!</h2>
 
         <Col>
+          {/* Start of Block Generator adapted from ArduBlockly */}
+
           <table id='blockFactoryContent'>
               <tr width="100%" height="10%">
                   <td width="50%" height="5%">
@@ -575,7 +546,6 @@ export default function ContentCreatorCanvas({
                               </td>
                               <td id="buttonContainer">
                                   <button id="linkButton" title="Save and link to blocks.">
-                                      {/*<img src="link.png" height="21" width="21" alt=""></img>*/}
                                   </button>
                                   <button id="clearBlockLibraryButton" title="Clear Block Library.">
                                       <span>Clear Library</span>
@@ -716,8 +686,8 @@ export default function ContentCreatorCanvas({
                   </block>
               </category>
           </xml>
+        {/* End of Block Generator adapted from ArduBlockly */}
         </Col>
-
         </div>
       </div>
 
