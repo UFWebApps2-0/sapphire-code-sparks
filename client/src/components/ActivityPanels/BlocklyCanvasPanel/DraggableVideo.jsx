@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import '../ActivityLevels.less';
 
-export default function DraggableVideo() {
+export default function DraggableVideo(props) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     const [mouseDown, setMouseDown] = useState(false);
+    const {name, videoId} = props;
 
     const handleMouseDown = (e) => {
         setMouseDown(true);
@@ -76,14 +77,14 @@ export default function DraggableVideo() {
     return (
         <div id = "draggableVideo"
         onMouseDown = {event => handleMouseDown(event)}
-        onMouseMove = {event => handleMouseMove(event, document.getElementById("draggableVideo"))}
         onMouseUp = {handleMouseUp}
+        onMouseMove = {event => handleMouseMove(event, document.getElementById("draggableVideo"))}
         >
-        <h2>Test</h2>
+        <h2 id="vidTitle">{name} Video</h2>
         <iframe 
-        src="https://www.youtube.com/embed/jfKfPfyJRdk?si=UHs_9lQeGlWGU_C1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen
+        width="280" height="200"
+        src={videoId} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen
         />
-            {/* <iframe id = "draggableVideoHeader"/> */}
         </div>
     );
 }

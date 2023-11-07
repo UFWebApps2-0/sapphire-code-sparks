@@ -501,7 +501,14 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
         ></Alert>
       )}
       {videoVisible=== true 
-          ?(<DraggableVideo/>)
+          ?(<DraggableVideo
+            name={activity.lesson_module_name
+              ? `${activity.lesson_module_name} - Activity ${activity.number}`
+              : activity.name
+              ? `Workspace: ${activity.name}`
+              : 'New Workspace!'}
+            videoId="https://www.youtube.com/embed/jfKfPfyJRdk?si=UHs_9lQeGlWGU_C1"
+            />)
           :null}
     </div>
   );
