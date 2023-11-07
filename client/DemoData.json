@@ -1,54 +1,64 @@
 {
     "entries": [
-		{
-		name: "Gallery 1"
-		description: "An awesome gallery 1"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 2"
-		description: "An awesome gallery 2"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 3"
-		description: "An awesome gallery 3"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 4"
-		description: "An awesome gallery 4"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 5"
-		description: "An awesome gallery 5"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 6"
-		description: "An awesome gallery 6"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 7"
-		description: "An awesome gallery 7"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 8"
-		description: "An awesome gallery 8"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 9"
-		description: "An awesome gallery 9"
-		author: "fungusdumbledore"
-		},
-		{
-		name: "Gallery 10"
-		description: "An awesome gallery 10"
-		author: "fungusdumbledore"
-		}
-	]
+        {
+            "name": "Gallery 1",
+            "description": "An awesome gallery 1",
+            "author": "fungusdumbledore",
+            "privacy": "public"
+        },
+        {
+            "name": "Gallery 2",
+            "description": "An awesome gallery 2",
+            "author": "fungusdumbledore",
+            "privacy": "public"
+        },
+        {
+            "name": "Gallery 3",
+            "description": "An awesome gallery 3",
+            "author": "fungusdumbledore",
+            "privacy": "public"
+        },
+        {
+            "name": "Gallery 4",
+            "description": "An awesome gallery 4",
+            "author": "fungusdumbledore",
+            "privacy": "classroom"
+        },
+        {
+            "name": "Gallery 5",
+            "description": "An awesome gallery 5",
+            "author": "fungusdumbledore",
+            "privacy": "classroom"
+        },
+        {
+            "name": "Gallery 6",
+            "description": "An awesome gallery 6",
+            "author": "fungusdumbledore",
+            "privacy": "classroom"
+        },
+        {
+            "name": "Gallery 7",
+            "description": "An awesome gallery 7",
+            "author": "fungusdumbledore",
+            "privacy": "organization"
+        },
+        {
+            "name": "Gallery 8",
+            "description": "An awesome gallery 8",
+            "author": "fungusdumbledore",
+            "privacy": "organization"
+        },
+        {
+            "name": "Gallery 9",
+            "description": "An awesome gallery 9",
+            "author": "fungusdumbledore",
+            "privacy": "organization"
+        },
+        {
+            "name": "Gallery 10",
+            "description": "An awesome gallery 10",
+            "author": "fungusdumbledore",
+            "privacy": "organization"
+        }
+    ]
 }
