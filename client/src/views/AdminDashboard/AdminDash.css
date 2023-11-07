@@ -1,0 +1,27 @@
+.admin-dash.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.admin-dash .button-container {
+    display: flex;
+    margin: 0 0 1vh 5vw;
+}
+
+.button-container > button {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 1vw;
+    font-weight: 600;
+    box-shadow: -3px 4px 12px #1e33413d;
+    transition: all 0.33s ease-in-out;
+}
+
+.button-container > button:hover {
+    cursor: pointer;
+    background: rgb(49, 44, 44);
+    color: white;
+    transition: all 0.33s ease-in-out;
+}

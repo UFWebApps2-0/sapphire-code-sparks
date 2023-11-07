@@ -1,38 +1,47 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useGlobalState } from "../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
-import { getUser, getAllAdministrators } from "../../../Utils/requests";
-import NavBar from '../../../components/NavBar/NavBar';
-import OrganizationHome from "./Organization";
+import { getOrganization } from "../../../Utils/requests";
 import { Table } from 'antd';
 
-export default function OrganizationModeration() {
-    const [organizations, setOrganizations] = useState([]);
-    const [admin, setAdmin] = useState({});
-    const [value] = useGlobalState('currUser');
+
+export default function OrganizationModeration({ organizationId }) {
+    const [organization, setOrganization] = useState({});
     const navigate = useNavigate();
 
-    // back button
-    const handleBack = () => {
-        navigate('/organizationdashboard');
-    }
+
+    // Navigate to Organization Dashboard
+    const navigateOrganizationDash = () => {
+        navigate('/organization-dashboard');
+    };
+
+
+    // Load Organization's Data
+    useEffect(() => {
+        getOrganization(organizationId)
+            .then((res) => {
+                res.data ? setOrganization(res.data) : message.error('Failed to fetch organization details');
+            })
+            .catch((error) => {
+                message.error(error.message || 'An error occurred while fetching organization details.');
+            });
+    }, [organizationId]);
 
 
     return (
         <div>
-            <button id='home-back-btn' onClick={handleBack}>
-            <i className='fa fa-arrow-left' aria-hidden='true' />
+            <button id='home-back-btn' onClick={navigateOrganizationDash}>
+                <i className='fa fa-arrow-left' aria-hidden='true' />
             </button>
             <div id='page-header'>
                 <h1>Moderation</h1>
             </div>
             <div
-            id='content-creator-table-container'
-            style={{ marginTop: '6.6vh' }}
+                id='content-creator-table-container'
+                style={{ marginTop: '6.6vh' }}
             >
-            <Table
-            ></Table>
+                <Table>
+                </Table>
             </div>
         </div>
     )

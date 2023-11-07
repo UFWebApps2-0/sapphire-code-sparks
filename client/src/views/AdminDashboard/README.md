@@ -1,4 +1,38 @@
+## Purpose
+I tried to clean up the code and introduce some form of standardization. Here is a garbled list of what I tweaked and added. I may have missed some things, my bad if I did!
 
+### Notes
+1. Make sure you that the administrator role has the permission to delete mentors (via back-end) so that the mentors are deleted when you're using OrganizationClassroomManagement.jsx.
+
+### Tweaked
+1. I changed the paths for two or three routes so that they would match with the pre-existing routes. If a path is not working, you probably just need to add a dash somewhere.
+2. I changed the names for the "handleNavigation" functions. There would be multiple of these "handleNavigation" with "dissenting" names, if you will. So I tried to introduce some sort of standard by (for these functions specifically) starting with "navigate" and ending with what page the function would navigate to.
+    - For example navigateOrganizationDash is a function that navigates the user to the path "organization-dashboard".
+3. I tried to introduce consistent spacing. There are now 2 lines between each function or big parts of code. This might make the code more friendlier in terms of appearance. A spacing of line is used to convey some separation, but not as much as 2 lines. I may have gone overboard with the 1-line spacing in some areas.
+4. I removed the console.log() statements that I had introduced for testing purposes. They were making the code look unorganized.
+5. I tried to standardize spacing.
+    - For example, id = "..." was changed to id="..."
+        - Not because it was bad or anything, just so that the code was more congruent.
+6. I attempted to make the HTML look more friendly in terms of spacing. I also fixed the indentation so that it properly reflected the degree of element nesting.
+7. Simplified comments and removed bulkier ones, I tried to not go overboard with these.
+8. Fixed indentation in general, or at least I think I did.
+9. Removed some unused lines of code and import statements
+10. Modified the formatting of imports in OrganizationClassroomManagement.jsx
+11. Also made sure that semicolons were at the end of each statement, although they don't need to be with JS.
+
+### Added
+1. I modified OrganizationHome.jsx so that it stores all the organization's data rather than its name.
+2. Gave OrganizationModeration.jsx the same prop as its brethren.
+3. Added PrivateRoutes for certain routes so that users who have not logged in cannot view those routes. However, if you've logged in as someone, you will be able to see those routes although nothing will load. I'm sure there's something to be added to prevent this, but I haven't gotten to that yet.
+4. I also changed the styling for some buttons.
+  
+
+---
+---
+---
+---
+---
+---
 ## Purpose
 Michael recommended that we create a "placeholder Administrator role with bare-bones functionality [for the sake of building functionality and testing]". This role is created in the back-end. Furthermore, we are tasked with creating the Organization type. To my knowledge, this is also done in the back-end. Neither of these tasks are hard to do. However, because I began working on this without informing anyone until I had already started, I am going to outline the steps that I took. **By the way, I realized I should have asked about doing this - that is my bad. I am going to hold off on doing anything else.**
 

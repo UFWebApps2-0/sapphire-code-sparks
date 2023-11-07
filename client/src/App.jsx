@@ -28,11 +28,40 @@ const App = () => {
   return (
     <div>
       <Routes>
-        {/* Here are the routes for the admin dashboard and admin login. */}
-        <Route path='/adminDash' element={<AdminDash />}/>
-        <Route path='/adminLogin' element={<AdminLogin />}/>
-        <Route path='/organizationdashboard' element={<OrganizationDashboard />}/>
-        <Route path='/organization/:id' element={<Organization />}/>
+        {/* Admin Login Route */}
+        <Route path='/adminlogin' element={<AdminLogin />}/>
+
+        {/* Admin Dashboard Route */}
+        <Route 
+          path='/admin-dashboard' 
+          element={
+            <PrivateRoute>
+              <AdminDash />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Organization Dashboard Route */}
+        <Route 
+          path='/organization-dashboard' 
+          element={
+            <PrivateRoute>
+              <OrganizationDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Viewing an Organization Route */}
+        <Route 
+          path='/organization/:id' 
+          element={
+            <PrivateRoute>
+              <Organization />
+            </PrivateRoute>
+          }
+        />
+        
+        {/* Pre-Existing Routes */}
         
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -43,14 +72,6 @@ const App = () => {
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
         
-        {/*<Route 
-        path='/organization:id' 
-        element={
-          <PrivateRoute>
-            <Organization />
-          </PrivateRoute>
-          }
-        />*/}
         <Route
           path='/report'
           element={

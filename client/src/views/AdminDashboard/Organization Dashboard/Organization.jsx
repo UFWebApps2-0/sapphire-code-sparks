@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useGlobalState } from "../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
 import { useSearchParams, useParams } from 'react-router-dom';
-import { getUser, getAllAdministrators } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
 import OrganizationHome from "./OrganizationHome";
 import OrganizationClassroomManagement from "./ClassroomManagement/OrganizationClassroomManagement";
@@ -11,17 +10,25 @@ import OrganizationModeration from "./OrganizationModeration";
 import { Tabs } from 'antd';
 import './Organization.less';
 
+
 const { TabPane } = Tabs;
 
+
 export default function Organization() {
+    // Organization and Admin Data
     const [organizations, setOrganizations] = useState([]);
     const [admin, setAdmin] = useState({});
     const [value] = useGlobalState('currUser');
-    const navigate = useNavigate();
 
+    // Organization ID
+    const {id} = useParams();
+
+    // Tabbing
     const [searchParams, setSearchParams] = useSearchParams();
-    const { id } = useParams();
     const tab = searchParams.get('tab');
+    
+    // Navigation
+    const navigate = useNavigate();
 
 
     return (
@@ -31,20 +38,28 @@ export default function Organization() {
                 defaultActiveKey={tab ? tab : 'home'}
                 onChange={(key) => setSearchParams({ tab: key })}
             >
-            <TabPane tab='Home' key='home'>
-            <OrganizationHome
-                organizationId={parseInt(id)}
-            />
-            </TabPane>
-            <TabPane tab='Classroom Management' key='classroom_management'>
-            <OrganizationClassroomManagement
-                organizationId={parseInt(id)}
-            />
-            </TabPane>
-            <TabPane tab='Moderation' key='moderation'>
-            <OrganizationModeration
-            />
-            </TabPane>
+
+                {/* Organization Home */}
+                <TabPane tab='Home' key='home'>
+                    <OrganizationHome
+                        organizationId={parseInt(id)}
+                    />
+                </TabPane>
+
+                {/* Organization Classroom Management */}
+                <TabPane tab='Classroom Management' key='classroom_management'>
+                    <OrganizationClassroomManagement
+                        organizationId={parseInt(id)}
+                    />
+                </TabPane>
+
+                {/* Organization Moderation */}
+                <TabPane tab='Moderation' key='moderation'>
+                    <OrganizationModeration
+                        organizationId={parseInt(id)}
+                    />
+                </TabPane>
+
             </Tabs>
         </div>
     )

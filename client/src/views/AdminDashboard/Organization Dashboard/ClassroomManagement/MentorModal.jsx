@@ -4,17 +4,24 @@ import React, { useState } from 'react';
 export default function MentorModal({ linkBtn, mentor }) {
   const [visible, setVisible] = useState(false);
 
+  
+  // Shows the pop-up containing the mentor's information
   const showModal = () => {
     setVisible(true);
   };
 
+
+  // Exits out of the pop-up
   const handleCancel = () => {
     setVisible(false);
   };
 
+  
+  // Exits out of the pop-up
   const handleOk = () => {
     setVisible(false);
   };
+
 
   return (
     <div>
@@ -25,9 +32,13 @@ export default function MentorModal({ linkBtn, mentor }) {
         visible={visible}
         onCancel={handleCancel}
         footer={[
-          <Button key='ok' type='primary' onClick={handleOk}>
+          <Button
+            key='ok' 
+            type='primary' 
+            onClick={handleOk}
+          >
             OK
-          </Button>,
+          </Button>
         ]}
       >
         <div id='modal-student-card-header'>

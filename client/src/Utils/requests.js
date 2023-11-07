@@ -37,10 +37,8 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
         throw Error('Invalid method.');
     }
   } catch (e) {
-    console.error(e);
     err = error ? error : 'An error occurred.';
   }
-
   return { data: res, err: err };
 };
 

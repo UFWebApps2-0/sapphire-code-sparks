@@ -1,10 +1,11 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {postUser, setUserSession} from '../../Utils/AuthRequests';
-import NavBar from '../../components/NavBar/NavBar.jsx'
-import '../TeacherLogin/TeacherLogin.less'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { postUser, setUserSession } from '../../Utils/AuthRequests';
+import NavBar from '../../components/NavBar/NavBar.jsx';
+import '../TeacherLogin/TeacherLogin.less';
 import { message } from 'antd';
+
 
 const useFormInput = (initialValue) => {
     const [value, setValue] = useState(initialValue);
@@ -17,6 +18,7 @@ const useFormInput = (initialValue) => {
     };
 }
 
+
 export default function AdminLogin() {
     const email = useFormInput('');
     const password = useFormInput('');
@@ -24,30 +26,30 @@ export default function AdminLogin() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
+
+    // Logs in Administrator
     const handleLogin = () => {
         setLoading(true);
 
-        // Credentials used to log in and authenticate the user (https://docs.strapi.io/dev-docs/plugins/users-permissions)
         let body = {
             identifier: email.value,
             password: password.value
         }
 
-        // Sends the body to the API route (/auth/local) for logging in
         postUser(body)
             .then((response) => {
                 setUserSession(response.data.jwt, JSON.stringify(response.data.user));
                 setLoading(false);
                 
-                // If the credentials correspond to an administrator, the user is teleported to the administrator's dashboard
                 if (response.data.user.role.name === 'Administrator')
-                    navigate('/adminDash');
+                    navigate('/admin-dashboard');
             })
             .catch((error) => {
                 setLoading(false);
                 message.error('Login failed. Please input a valid email and password.');
             })
     }
+
 
     return (
         <div className='container nav-padding'>
