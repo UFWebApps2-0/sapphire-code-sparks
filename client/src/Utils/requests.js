@@ -170,6 +170,35 @@ export const createActivity = async (activity, learningStandard) =>
     error: 'Login failed.',
   });
 
+export const createClassroom = async (
+    name,
+    mentors,
+    school,
+    sessions,
+    id,
+    grade,
+    students,
+    selections,
+    authorized_workspaces
+  ) =>
+    makeRequest({
+      method: POST,
+      path: `${server}/classrooms`,
+      auth: true,
+      data: {
+        name,
+        mentors,
+        school,
+        sessions,
+        id,
+        grade,
+        students,
+        selections,
+        authorized_workspaces
+      },
+      error: 'Unable to create new classroom',
+    });
+
 export const setEnrollmentStatus = async (id, enrolled) =>
   makeRequest({
     method: PUT,
@@ -639,6 +668,7 @@ export const createAuthorizedWorkspace = async (
     },
     error: 'Unable to create cc workspace',
   });
+
 export const getAuthorizedWorkspaceToolbox = async (id) =>
   makeRequest({
     method: GET,

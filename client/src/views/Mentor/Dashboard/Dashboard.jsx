@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMentor, getClassrooms, getLessonModule, getAllClassrooms } from '../../../Utils/requests';
+import { getMentor, getClassrooms, getLessonModule, getAllClassrooms, createClassroom } from '../../../Utils/requests';
 import { Tabs, message, Table, Popconfirm } from 'antd';
 import './Dashboard.less';
 import DashboardDisplayCodeModal from './DashboardDisplayCodeModal';
@@ -24,6 +24,7 @@ const { TabPane } = Tabs;
 export default function Dashboard() {
   const [classrooms, setClassrooms] = useState([]);
   const [mentorClassrooms, setMentorClassrooms] = useState([]);
+  const [mentor, setMentor] = useState([]);
   const [value] = useGlobalState('currUser');
   const navigate = useNavigate();
 
@@ -81,6 +82,8 @@ export default function Dashboard() {
           classroomIds.push(classroom.id);
         });
         setMentorClassrooms(classroomIds);
+        setMentor(res.data);
+        console.log(mentor.name);
         // getClassrooms(classroomIds).then((classrooms) => {
         //   setClassrooms(classrooms);
         // });
@@ -114,7 +117,7 @@ export default function Dashboard() {
   function displayCopyClassroomButton(classroom){
     if(!checkForOwnership(classroom)){
       return (
-        <button onClick={() => handleCopyClassroom(classroom.id)}>
+        <button onClick={() => handleCopyClassroom(classroom)}>
                     Copy
         </button>
       );
@@ -189,13 +192,37 @@ export default function Dashboard() {
     },
   ];
 
+  function displayCodeAndStudentCount(classroom){
+    if(checkForOwnership(classroom)){
+      return (
+        <div id='card-right-content-container'>
+                <DashboardDisplayCodeModal code={classroom.code} />
+                <div id='divider' />
+                <div id='student-number-container'>
+                  <h1 id='number'>{classroom.students.length}</h1>
+                  <p id='label'>Students</p>
+                </div>
+              </div>
+      );
+    }
+    return '';
+  }
+
+  function getHighestID(){
+    var highest = 0;
+    for (let i = 0; i < classrooms.length; i++) {
+      if(classrooms.at(i).id > highest){
+        highest = classrooms.at(i).id;
+      }
+    }
+    return highest;
+  }
+
   const handleViewClassroom = (classroomId) => {
     
     navigate(`/classroom/${classroomId}`);
   };
 
-  const handleCopyClassroom = (classroomId) => {
-  }
     
   const filterLS = (grade) => {
     return learningStandardList.filter((learningStandard) => {
@@ -229,10 +256,10 @@ export default function Dashboard() {
         </div>
       </TabPane>
     );
-  };
+  }
+  
 
   return (
-    
     <div className='container nav-padding'>
       <NavBar />
       <div id='main-header'>Welcome {value.name}</div>
@@ -263,12 +290,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 <div id='card-right-content-container'>
-                  <DashboardDisplayCodeModal code={classroom.code} />
-                  <div id='divider' />
-                  <div id='student-number-container'>
-                    <h1 id='number'>{classroom.students.length}</h1>
-                    <p id='label'>Students</p>
-                  </div>
+                  {displayCodeAndStudentCount(classroom)}
                 </div>
             </div>
               ))}
