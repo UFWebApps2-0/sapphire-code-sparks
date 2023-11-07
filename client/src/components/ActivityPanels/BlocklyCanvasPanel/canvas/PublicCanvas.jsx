@@ -36,6 +36,222 @@ export default function PublicCanvas({ activity, isSandbox }) {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
+    Blockly.Blocks['initial'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("name")
+            .appendField(new Blockly.FieldTextInput("block_type"), "block_name");
+        this.appendStatementInput("NAME")
+            .setCheck("input")
+            .appendField("inputs");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["automatic","automatic"], ["external","external"], ["internal","internal"]]), "InputsInLine")
+            .appendField("inputs");
+        this.appendValueInput("tooltip")
+            .setCheck("String")
+            .appendField("tooltip");
+        this.appendValueInput("help_url")
+            .setCheck("String")
+            .appendField("help url");
+        this.appendValueInput("color")
+            .setCheck("color")
+            .appendField("color");
+        this.setColour(120);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['initial'] = function(block) {
+      var text_block_name = block.getFieldValue('block_name');
+      var statements_name = Blockly.Arduino.statementToCode(block, 'NAME');
+      var dropdown_inputsinline = block.getFieldValue('InputsInLine');
+      var value_tooltip = Blockly.Arduino.valueToCode(block, 'tooltip', Blockly.Arduino.ORDER_ATOMIC);
+      var value_help_url = Blockly.Arduino.valueToCode(block, 'help_url', Blockly.Arduino.ORDER_ATOMIC);
+      var value_color = Blockly.Arduino.valueToCode(block, 'color', Blockly.Arduino.ORDER_ATOMIC);
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['value_input'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("value input");
+        this.appendStatementInput("fields")
+            .setCheck("field")
+            .appendField("fields")
+            .appendField(new Blockly.FieldDropdown([["left","left"], ["right","right"], ["center","center"]]), "fields");
+        this.appendValueInput("type")
+            .setCheck("type")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("type");
+        this.setPreviousStatement(true, "input");
+        this.setNextStatement(true, "input");
+        this.setColour(210);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['value_input'] = function(block) {
+      var dropdown_fields = block.getFieldValue('fields');
+      var statements_fields = Blockly.Arduino.statementToCode(block, 'fields');
+      var value_type = Blockly.Arduino.valueToCode(block, 'type', Blockly.Arduino.ORDER_ATOMIC);
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['statement_input'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("statement input");
+        this.appendStatementInput("fields")
+            .setCheck("field")
+            .appendField("fields")
+            .appendField(new Blockly.FieldDropdown([["left","left"], ["right","right"], ["center","center"]]), "fields");
+        this.appendValueInput("type")
+            .setCheck("type")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("type");
+        this.setPreviousStatement(true, "input");
+        this.setNextStatement(true, "input");
+        this.setColour(210);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['statement_input'] = function(block) {
+      var dropdown_fields = block.getFieldValue('fields');
+      var statements_fields = Blockly.Arduino.statementToCode(block, 'fields');
+      var value_type = Blockly.Arduino.valueToCode(block, 'type', Blockly.Arduino.ORDER_ATOMIC);
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['dummy_input'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("dummy input");
+        this.appendStatementInput("fields")
+            .setCheck("field")
+            .appendField("fields")
+            .appendField(new Blockly.FieldDropdown([["left","left"], ["right","right"], ["center","center"]]), "fields");
+        this.setPreviousStatement(true, "input");
+        this.setNextStatement(true, "input");
+        this.setColour(210);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['dummy_input'] = function(block) {
+      var dropdown_fields = block.getFieldValue('fields');
+      var statements_fields = Blockly.Arduino.statementToCode(block, 'fields');
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['blank_text'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("text")
+            .appendField(new Blockly.FieldTextInput(""), "text");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, "field");
+        this.setColour(160);
+     this.setTooltip("");
+     this.setHelpUrl("");
+     
+      }
+    };
+    Blockly.Arduino['blank_text'] = function(block) {
+      var text_text = block.getFieldValue('text');
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['named_text'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("text")
+            .appendField(new Blockly.FieldTextInput(""), "text")
+            .appendField(",")
+            .appendField(new Blockly.FieldTextInput("NAME"), "text_name");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, "field");
+        this.setColour(160);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['named_text'] = function(block) {
+      var text_text = block.getFieldValue('text');
+      var text_text_name = block.getFieldValue('text_name');
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['text_input'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("text input")
+            .appendField(new Blockly.FieldTextInput("default"), "text")
+            .appendField(",")
+            .appendField(new Blockly.FieldTextInput("NAME"), "text_name");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, "field");
+        this.setColour(160);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['text_input'] = function(block) {
+      var text_text = block.getFieldValue('text');
+      var text_text_name = block.getFieldValue('text_name');
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['num_input'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("numeric input")
+            .appendField(new Blockly.FieldNumber(0), "numeric input")
+            .appendField(",")
+            .appendField(new Blockly.FieldTextInput("NAME"), "numeric input name");
+        this.appendDummyInput()
+            .appendField("min")
+            .appendField(new Blockly.FieldNumber(-Infinity), "minimum")
+            .appendField("max")
+            .appendField(new Blockly.FieldNumber(Infinity), "maximum")
+            .appendField("precision")
+            .appendField(new Blockly.FieldNumber(0), "precision");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, "field");
+        this.setColour(160);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['num_input'] = function(block) {
+      var number_numeric_input = block.getFieldValue('numeric input');
+      var text_numeric_input_name = block.getFieldValue('numeric input name');
+      var number_minimum = block.getFieldValue('minimum');
+      var number_maximum = block.getFieldValue('maximum');
+      var number_precision = block.getFieldValue('precision');
+      var code = '...;\n';
+      return code;
+    };
+    Blockly.Blocks['angle_input'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("angle input")
+            .appendField(new Blockly.FieldAngle(90), "angle")
+            .appendField(",")
+            .appendField(new Blockly.FieldTextInput("NAME"), "angle_name");
+        this.setPreviousStatement(true, "fields");
+        this.setNextStatement(true, "fields");
+        this.setColour(160);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    Blockly.Arduino['angle_input'] = function(block) {
+      var angle_angle = block.getFieldValue('angle');
+      var text_angle_name = block.getFieldValue('angle_name');
+      var code = '...;\n';
+      return code;
+    };
   };
 
   useEffect(() => {
@@ -58,7 +274,9 @@ export default function PublicCanvas({ activity, isSandbox }) {
     if (workspaceRef.current.redoStack_.length > 0)
       workspaceRef.current.undo(true);
   };
+  const showBox = () => {
 
+  };
   const handleConsole = async () => {
     if (showPlotter) {
       message.warning('Close serial plotter before openning serial monitor');
@@ -231,6 +449,13 @@ export default function PublicCanvas({ activity, isSandbox }) {
                             <div className='popup ModalCompile4'>Redo</div>
                           )}
                         </button>
+                        <button
+                        Insert a block
+                        //onClick={showBox}
+                        id='link'
+                        className= 'flex flex-column'
+                        >
+                        </button>
                       </Col>
                     </Row>
                   </Col>
@@ -311,8 +536,18 @@ export default function PublicCanvas({ activity, isSandbox }) {
               </category>
             ))
         }
-      </xml>
-
+        <category name='Custom'>
+          <block type='initial'></block>
+          <block type='value_input'></block>
+          <block type='statement_input'></block>
+          <block type='dummy_input'></block>
+          <block type='blank_text'></block>
+          <block type='named_text'></block>
+          <block type='text_input'></block>
+          <block type='num_input'></block>
+          <block type='angle_input'></block>
+          </category>
+          </xml>
       {compileError && (
         <Alert
           message={compileError}
