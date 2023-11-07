@@ -6,7 +6,7 @@ import "./Gallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
-export default function Gallery(props) {
+export default function Gallery() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [tab, setTab] = useState(

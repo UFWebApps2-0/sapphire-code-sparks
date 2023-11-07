@@ -205,10 +205,6 @@ export default function ContentCreator() {
             setSearchParams={setSearchParams}
           />
         </TabPane>
-        
-        <TabPane tab='Gallery' key = 'gallery'>
-          <Gallery />
-        </TabPane>
       </Tabs>
     </div>
   );
