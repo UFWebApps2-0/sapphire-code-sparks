@@ -26,13 +26,31 @@ export function Parental(){
     }, []);
     return(
         <div className='container nav-padding'>
-        
-        <div id='activity-container'>
-            <div id='header'>
-            <div>Parental</div>
+            <div id='activity-container'>
+                <div id='header'>
+                    <div>Parental</div>
+                </div>
+
+                <form>
+                    <div className='form-group'>
+                        <label htmlFor='email'>Email:</label>
+                        <input type='email' id='email' name='email' placeholder='Enter your email' />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor='confirmEmail'>Confirm Email:</label>
+                        <input type='email' id='confirmEmail' name='confirmEmail' placeholder='Confirm your email' />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor='password'>Password:</label>
+                        <input type='password' id='password' name='password' placeholder='Enter your password' />
+                    </div>
+
+                    <button type='submit'>Submit</button>
+                </form>
+                
             </div>
-            
         </div>
-        </div>
-        );
+    );
 }
