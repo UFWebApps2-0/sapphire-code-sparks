@@ -16,7 +16,7 @@ export default function CustomBlockCreator() {
   const [value] = useGlobalState("currUser")
   const [activity, setActivity] = useState({})
   const navigate = useNavigate()
-
+  
   useEffect(() => {
     const setup = async () => {
       const sandboxActivity = JSON.parse(localStorage.getItem("sandbox-activity"))

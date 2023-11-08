@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../ActivityLevels.less';
-import { compileArduinoCode } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
 import CodeModal from '../modals/CodeModal';
-import ConsoleModal from '../modals/ConsoleModal';
-import PlotterModal from '../modals/PlotterModal';
-
-import SaveLogo from '../Icons/SaveLogo'
 import LinkLogo from '../Icons/LinkLogo';
 
 let plotId = 1;
 
-export default function CustomBlockCanvas({ activity, isSandbox }) {
+export default function CustomBlockCanvas({ activity, prevWorkspace, isSandbox }) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverSave, setHoverSave] = useState(false);
+  const [hoverImport, setHoverImport] = useState(false);
   const [hoverConsole, setHoverConsole] = useState(false);
   const [showConsole, setShowConsole] = useState(false);
   const [showPlotter, setShowPlotter] = useState(false);
@@ -27,11 +23,17 @@ export default function CustomBlockCanvas({ activity, isSandbox }) {
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const workspaceRef = useRef(null);
   const activityRef = useRef(null);
+  const customBlocksFile = useRef(null);
+
+  const navigate = useNavigate();
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
+  };
+  const handleImport = () => {
+    customBlocksFile.current.click();
   };
 
   useEffect(() => {
@@ -58,6 +60,15 @@ export default function CustomBlockCanvas({ activity, isSandbox }) {
   const handleSave = async () => {
     // TODO: handle upload to gallery here
     alert('TODO: handle upload to gallery here');
+  };
+
+  const handleGoBack = () => {
+    if (
+      window.confirm(
+        'All unsaved progress will be lost. Do you still want to go back?'
+      )
+    )
+      navigate(-1);
   };
 
   const menu = (
@@ -94,9 +105,13 @@ export default function CustomBlockCanvas({ activity, isSandbox }) {
                   <Col flex={'30px'}>
                     <Row>
                       <Col>
-                        <Link id='link' to={'/'} className='flex flex-column'>
-                          <i className='fa fa-home fa-lg' />
-                        </Link>
+                        <button
+                          onClick={handleGoBack}
+                          id='link'
+                          className='flex flex-column'
+                        >
+                          <i id='icon-btn' className='fa fa-arrow-left' />
+                        </button>
                       </Col>
                     </Row>
                   </Col>
@@ -157,9 +172,25 @@ export default function CustomBlockCanvas({ activity, isSandbox }) {
                       id='action-btn-container'
                       className='flex space-around'
                     >
-                      <SaveLogo
-                        setHoverSave={setHoverSave}
-                        handleSave={handleSave}
+                      <i
+                        id='icon-btn'
+                        className='fa fa-download'
+                        onMouseEnter={() => setHoverImport(true)}
+                        onMouseLeave={() => setHoverImport(false)}
+                        onClick={() => handleImport()}
+                      />
+                      <input type='file' id='file' ref={customBlocksFile} style={{display: 'none'}}/>
+                      {hoverImport && (
+                        <div className='popup ModalCompile'>
+                          Import Custom Blocks
+                        </div>
+                      )}
+                      <i
+                        id='icon-btn'
+                        className='fa fa-save'
+                        onMouseEnter={() => setHoverSave(true)}
+                        onMouseLeave={() => setHoverSave(false)}
+                        onClick={() => handleSave()}
                       />
                       {hoverSave && (
                         <div className='popup ModalCompile'>
@@ -203,6 +234,7 @@ export default function CustomBlockCanvas({ activity, isSandbox }) {
               </category>
             ))
         }
+
       </xml>
 
       {compileError && (

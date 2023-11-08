@@ -10,6 +10,7 @@ import LoadWorkspaceModal from '../modals/LoadWorkspaceModal';
 import SaveAsModal from '../modals/SaveAsModal';
 import DisplayDiagramModal from '../modals/DisplayDiagramModal'
 import StudentToolboxMenu from '../modals/StudentToolboxMenu';
+import config from '../../../NavBar/NavBarConfig.json';
 import {
   connectToPort,
   handleCloseConnection,
@@ -40,6 +41,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
   const workspaceRef = useRef(null);
   const activityRef = useRef(null);
   const navigate = useNavigate();
+
+  let routes = config.routes;
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -155,7 +158,9 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       setShowConsole(false);
     }
   };
-
+  const handleRouteChange = (route) => {
+    navigate(route);
+  };
   const handlePlotter = async () => {
     if (showConsole) {
       message.warning('Close serial monitor before openning serial plotter');
@@ -263,6 +268,15 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
   };
   const menu = (
     <Menu>
+      <Menu.Item
+          key='4'
+          onClick={() => {
+            handleRouteChange(routes.CustomBlockCreator);
+          }}
+        >
+          <i className='fa fa-window-maximize' />
+          &nbsp; Custom Block Creator
+      </Menu.Item>
       <Menu.Item onClick={handlePlotter}>
         <PlotterLogo />
         &nbsp; Show Serial Plotter
