@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import './teacherViewAssessmentStyles.css';
 
 function TeacherViewAssessments( { assessmentList } ) {
     // TODO: Don't know how to run program to test implementation with Assignments, fix up.
