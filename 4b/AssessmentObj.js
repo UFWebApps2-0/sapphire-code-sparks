@@ -15,9 +15,9 @@ class Assessment {
     const currentDate = new Date();
     currentDate.setFullYear(currentDate.getFullYear() + 1000); // Set 1000 years from now as default publish
     this.publishDate = currentDate.getTime(); // only show after this date/time
-    this.openDate = null; // null indicates always open
-    this.dueDate = null; // null indicates no deadline.
-    this.timeLimit = -1; // Negatives indicate
+    this.openDate = currentDate; // null indicates always open
+    this.dueDate = currentDate; // null indicates no deadline.
+    this.timeLimit = 9999999; // Negatives indicate unlimited.
     if (input != null) {
       this.update(input);
     }

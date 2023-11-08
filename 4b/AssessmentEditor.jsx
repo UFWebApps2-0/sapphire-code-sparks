@@ -1,7 +1,6 @@
 import "./AssessmentObj";
 import "./QuestionObj";
 import React from "react";
-import Editable from "react-editable-title";
 import "./QuesitonList";
 
 function AssessmentEditor({ assessment, onSave }) {
@@ -32,127 +31,96 @@ function AssessmentEditor({ assessment, onSave }) {
           <></>
         )
       }
-      <div className="row">
-        <div className="col">
-          <h1>Assessment Name: </h1>
-        </div>
-        <div className="col-6">
-          <Editable
-            text={`${data.name}`}
-            editButton
-            editControlButtons
-            placeholder="Enter Assessment Name Here"
-            inputErrorMessage="No special characters"
-            inputErrorMessageStyle={{ color: "blue" }}
-            inputPattern="^[a-zA-Z0-9 _.-]*$"
-            cb={(val) => setData({ ...data, name: val })}
-          />
-        </div>
-      </div>
-      {/* TODO:
-      add form to edit the following:
-      use time picker: https://mui.com/x/react-date-pickers/date-time-picker/
-      this.openDate = null; // null indicates always open
-      this.dueDate = null; // null indicates no deadline.
-      this.timeLimit = -1;
-      this.attempts = 1;    
-      this.showGrades = false;
-      <form className="group g-3" style={{ marginLeft: "8px" }}>
+      <form className="group g-3">
         <div className="row">
           <div className="col">
             <div className="form-group">
-              <label className="form-label">ID: &nbsp;</label>
+              <label className="form-label">Assessment Name:&nbsp;</label>
               <input
                 type="text"
+                text={`${data.name}`}
                 className="form-control"
-                placeholder="Required"
-                ref={id}
+                placeholder="Enter Assessment Name Here"
+                onChange={(e) => setData({ ...data, name: e.target.value })}
+                pattern="^[a-zA-Z0-9 _.-]*$"
               />
             </div>
           </div>
           <div className="col">
             <div className="form-group">
-              <label className="form-label">Code: &nbsp;</label>
+              <label className="form-label">Open Date: &nbsp;</label>
               <input
-                type="text"
+                type="datetime-local"
                 className="form-control"
-                placeholder="Required"
-                ref={code}
+                value={data.openDate}
+                onChange={(e) => {
+                  setData({ ...data, openDate: e.target.value });
+                }}
               />
             </div>
           </div>
           <div className="col">
             <div className="form-group">
-              <label className="form-label">Name: &nbsp;</label>
+              <label className="form-label">Due Date: &nbsp;</label>
               <input
-                type="text"
+                type="datetime-local"
                 className="form-control"
-                placeholder="Required"
-                ref={name}
+                value={data.dueDate}
+                onChange={(e) => {
+                  setData({ ...data, dueDate: e.target.value });
+                }}
               />
             </div>
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <label className="form-label">Coordinates: &nbsp;</label>
+            <label className="form-label">{"Time Limit (Minutes): "}</label>
 
-            <div className="row" style={{ margin: 0 }}>
-              <div className="col" style={{ paddingLeft: 0, paddingRight: 4 }}>
-                <input
-                  type="text"
-                  className="form-control col"
-                  placeholder="Latitude"
-                  ref={latitude}
-                />
-              </div>
-              <span
-                className="col-sm-6"
-                style={{ width: "4px", padding: 0, paddingTop: 12 }}
-              >
-                ,
-              </span>
-              <div className="col" style={{ paddingLeft: 4 }}>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Longitude"
-                  ref={longitude}
-                />
-              </div>
+            <div className="col" style={{ paddingLeft: 4 }}>
+              <input
+                type="number"
+                className="form-control"
+                value={data.timeLimit}
+                min="0"
+                max="20000000000"
+                onChange={(e) => {
+                  setData({ ...data, timeLimit: e.target.value });
+                }}
+              />
             </div>
           </div>
           <div className="col">
-            <label className="form-label">Address: &nbsp;</label>
+            <label className="form-label">{"Attempts: "}</label>
+
+            <div className="col" style={{ paddingLeft: 4 }}>
+              <input
+                type="number"
+                className="form-control"
+                value={data.attempts}
+                min="1"
+                max="999"
+                onChange={(e) => {
+                  setData({ ...data, attempts: e.target.value });
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="row">
+            <label className="form-label">{"Mute Assessment Results?"}</label>
             <input
-              type="text"
+              type="checkbox"
               className="form-control"
-              placeholder="1234 NW Bobcat Lane, St. Robert, MO, USA"
-              ref={address}
+              value={!data.showGrades}
+              onChange={(e) => {
+                setData({ ...data, showGrades: !e.target.checked });
+              }}
             />
           </div>
         </div>
       </form>
-      <div className="row">
-        <div>
-          <button
-            className="btn"
-            onClick={() => {
-              handleSubmit();
-            }}
-            style={{
-              marginTop: "0px",
-              marginLeft: "8px",
-              background: "blue",
-              color: "white",
-            }}
-          >
-            <i className="bi bi-plus" />
-            Add Building
-          </button>
-        </div>
-      </div>
-      */}
       <div>
         <button
           className="btn btn-secondary"
