@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/url-storages",
+      "handler": "url-storage.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/url-storages/count",
+      "handler": "url-storage.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/url-storages/:id",
+      "handler": "url-storage.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/url-storages",
+      "handler": "url-storage.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/url-storages/:id",
+      "handler": "url-storage.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/url-storages/:id",
+      "handler": "url-storage.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
