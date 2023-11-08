@@ -93,12 +93,46 @@ export default function NavBar() {
           &nbsp; Report a Bug
         </Menu.Item>
       ) : null}
+
+      {shouldShowRoute('StudentDashboard') ? (
+        <Menu.Item key='1' onClick={() => handleRouteChange(routes.StudentDashboard)}>
+          <i className='fa fa-home' />
+          &nbsp; Dashboard
+        </Menu.Item>
+      ) : null}
+
+      {shouldShowRoute('StudentLessons') ? (
+        <Menu.Item key='2' onClick={() => handleRouteChange(routes.StudentLessons)}>
+          <i className='fa fa-home' />
+          &nbsp; Lessons
+        </Menu.Item>
+      ) : null}
+
+      {shouldShowRoute('StudentClassroom') ? (
+        <Menu.Item key='3' onClick={() => handleRouteChange(routes.StudentClassroom)}>
+          <i className='fa fa-home' />
+          &nbsp; Classroom
+        </Menu.Item>
+      ) : null}
+
+      {shouldShowRoute('StudentParental') ? (
+        <Menu.Item key='4' onClick={() => handleRouteChange(routes.StudentParental)}>
+          <i className='fa fa-home' />
+          &nbsp; Parental
+        </Menu.Item>
+      ) : null}
+
+
+
       {shouldShowRoute('SignOut') ? (
         <Menu.Item key='8' onClick={() => handleLogout()}>
           <i className='fa fa-sign-out-alt' />
           &nbsp; Sign Out
         </Menu.Item>
       ) : null}
+
+
+      
     </Menu>
   );
 

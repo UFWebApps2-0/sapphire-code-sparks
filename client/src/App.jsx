@@ -19,6 +19,11 @@ import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
+import StudentDashboard from './views/Student/Dashboard'
+import StudentLessons from './views/Student/Lessons'
+import StudentClassroom from './views/Student/Classroom'
+import StudentParental from './views/Student/Parental'
+
 
 const App = () => {
   return (
@@ -77,6 +82,38 @@ const App = () => {
           element={
             <PrivateRoute>
               <Student />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentDashboard'
+          element={
+            <PrivateRoute>
+              <StudentDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentLessons'
+          element={
+            <PrivateRoute>
+              <StudentLessons />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentClassroom'
+          element={
+            <PrivateRoute>
+              <StudentClassroom />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentParental'
+          element={
+            <PrivateRoute>
+              <StudentParental />
             </PrivateRoute>
           }
         />

@@ -5,7 +5,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import { getStudentClassroom } from '../../Utils/requests';
 import './Student.less';
 
-export function Parental(){
+export default function Parental(){
     const [learningStandard, setLessonModule] = useState({});
     const navigate = useNavigate();
 
@@ -26,6 +26,8 @@ export function Parental(){
     }, []);
     return(
         <div className='container nav-padding'>
+
+            <NavBar />
             <div id='activity-container'>
                 <div id='header'>
                     <div>Parental</div>

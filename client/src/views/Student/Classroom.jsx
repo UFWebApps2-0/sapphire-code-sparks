@@ -5,7 +5,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import { getStudentClassroom } from '../../Utils/requests';
 import './Student.less';
 
-export function Classroom(){
+export default function Classroom(){
     const [learningStandard, setLessonModule] = useState({});
     const navigate = useNavigate();
 
@@ -25,14 +25,15 @@ export function Classroom(){
         fetchData();
     }, []);
     return(
-        <div className='container nav-padding'>
         
-        <div id='activity-container'>
-            <div id='header'>
-            <div>Classroom</div>
+        <div className='container nav-padding'>
+            <NavBar />
+        
+            <div id='activity-container'>
+                <div id='header'>
+                    <div>Classroom</div>
+                </div>
             </div>
-            
         </div>
-        </div>
-        );
+    );
 }

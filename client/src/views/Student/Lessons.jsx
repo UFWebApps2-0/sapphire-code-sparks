@@ -5,7 +5,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import { getStudentClassroom } from '../../Utils/requests';
 import './Student.less';
 
-export function Lessons(){
+export default function Lessons(){
     const [learningStandard, setLessonModule] = useState({});
     const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ export function Lessons(){
     
     return(
         <div className='container nav-padding'>
-        
+            <NavBar />
         <div id='activity-container'>
             <div id='header'>
             <div>Lessons</div>
