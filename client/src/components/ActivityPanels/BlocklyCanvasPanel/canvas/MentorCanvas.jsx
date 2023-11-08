@@ -273,12 +273,12 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
         <PlotterLogo />
         &nbsp; Show Serial Plotter
       </Menu.Item>
-      <Menu.Item>
+      
       <CodeModal title={'XML'} workspaceRef={workspaceRef.current} />
-      </Menu.Item>
-      <Menu.Item>
+      
+      
       <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
-      </Menu.Item>
+      
       {/* if (activity.video != null) */}
       <Menu.Item onClick={viewVideo}>
       &nbsp;

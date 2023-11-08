@@ -2,9 +2,9 @@
     width: 35px; /* Adjust as needed */
     height: 35px; /* Adjust as needed */
     padding: auto;
-    border-radius: 5px;
+    border-radius: 50px;
     font-size: 14px; /* Adjust as needed */
-    background: white;
+    background: rgba(255, 255, 255, 0.059);
     transition: all 0.3s ease; /* Smooth transition */
 }
 
@@ -15,7 +15,7 @@
 
 #flag-button:hover:not(:disabled) {
     cursor: pointer;
-    background: #f2f2f2;
+    background: rgb(255, 255, 255);
 }
 
 #flag-button:disabled {
@@ -31,4 +31,15 @@
 
 #flag-button.highlighted {
     background-color: gray;
+}
+
+#message {
+    border: 3px solid rgb(222, 222, 222);
+    border-radius: 15px;
+    padding: 5px;
+    background-color: white;
+    color: rgb(255, 0, 0);
+    position: absolute;
+
+
 }

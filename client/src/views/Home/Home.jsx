@@ -12,9 +12,6 @@ const Home = () => (
             <img src={Logo} id='casmm-logo' alt='logo'/>
             <HomeJoin />
         </div>
-        <div className='flag-wrapper'>
-            <FlagButton id={1}/>
-        </div>
     </div>
 )
 
