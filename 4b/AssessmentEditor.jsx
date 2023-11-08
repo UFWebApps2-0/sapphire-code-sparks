@@ -108,11 +108,13 @@ function AssessmentEditor({ assessment, onSave }) {
           </div>
         </div>
         <div className="row">
-          <div className="row">
-            <label className="form-label">{"Mute Assessment Results?"}</label>
+          <div>
+            <label className="form-label">
+              {"Mute Assessment Results?"}&nbsp;
+            </label>
+
             <input
               type="checkbox"
-              className="form-control"
               value={!data.showGrades}
               onChange={(e) => {
                 setData({ ...data, showGrades: !e.target.checked });
@@ -122,19 +124,21 @@ function AssessmentEditor({ assessment, onSave }) {
         </div>
       </form>
       <div>
-        <button
-          className="btn btn-secondary"
-          style={{ margin: "1rem", marginBottom: "0" }}
-          onClick={() => {
-            //setShowAdder(!showAdder);
-            alert("This should show adder");
-            curQ = new Question();
-          }}
-        >
-          Add New Question
-        </button>
         <main>
-          <h1>Questions: {data.questions.length}</h1>
+          <div className="group">
+            <h1>Questions: {data.questions.length}</h1>
+            <button
+              className="btn btn-secondary"
+              style={{ margin: "1rem", marginBottom: "0" }}
+              onClick={() => {
+                //setShowAdder(!showAdder);
+                alert("This should show adder");
+                curQ = new Question();
+              }}
+            >
+              Add New Question
+            </button>
+          </div>
           {/** Show questions here */}
           <div style={{ height: "70%", overflowY: "auto" }}>
             <QuestionList
@@ -147,6 +151,7 @@ function AssessmentEditor({ assessment, onSave }) {
           </div>
         </main>
         <button
+          className="btn btn-primary"
           onClick={() => {
             // Don't publish
             onSave(data);
@@ -156,6 +161,7 @@ function AssessmentEditor({ assessment, onSave }) {
           Save and Finish Later
         </button>
         <button
+          className="btn btn-primary"
           onClick={() => {
             const curDate = new Date();
             if (data.publishDate > curDate) {
