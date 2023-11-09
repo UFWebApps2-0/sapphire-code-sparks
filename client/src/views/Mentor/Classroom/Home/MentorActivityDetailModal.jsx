@@ -38,6 +38,8 @@ const MentorActivityDetailModal = ({
   const [submitButton, setSubmitButton] = useState(0)
   const navigate = useNavigate()
 
+  const [embedLink, setEmbedLink] = useState("");
+  
   useEffect(() => {
     const showActivityDetailsModal = async () => {
       const response = await getActivity(selectActivity.id)
@@ -210,7 +212,8 @@ const MentorActivityDetailModal = ({
           ></Input.TextArea>
         </Form.Item>
         <VideoURL_Input>
-          
+          setEmbedLink={setEmbedLink}
+          embedLink={embedLink}
         </VideoURL_Input>
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
