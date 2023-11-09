@@ -1,17 +1,15 @@
 import { useState } from 'react'
 import { Form, Input } from 'antd'
 
-function VideoURL_Input () {
+function VideoURL_Input ( { setEmbedLink, embedLink } ) {
 
-  const [URL, setURL] = useState("");
-
-  const checkEmbedLink = URL => {
+  const checkEmbedLink = embedLink => {
     const regex = /<iframe.*?<\/iframe>/s;
 
-    if (URL.search(regex) === -1) {
+    if (embedLink.search(regex) === -1) {
       return null;
     }
-    return URL;
+    return embedLink;
   }
 
   return (
@@ -19,10 +17,10 @@ function VideoURL_Input () {
       <Form.Item id="form-label" label="Video embed link:">
         <Input.TextArea
           onChange={e => {
-            setURL(e.target.value)
-            console.log(checkEmbedLink(e.target.value))
+            () => setEmbedLink(e.target.value)
+            checkEmbedLink(e.target.value)
           }}
-          value={URL}
+          value={embedLink}
           className="input"
           placeholder="Enter video embed link"
         ></Input.TextArea>
