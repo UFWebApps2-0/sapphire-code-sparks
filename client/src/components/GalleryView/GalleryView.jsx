@@ -6,14 +6,16 @@ import { Link } from 'react-router-dom';
 import {
     getAuthorizedWorkspaces,
     getClassroomWorkspace,
-    getSubmission,
     deleteAuthorizedWorkspace,
   } from '../../Utils/requests';
+
+import './GalleryView.less';
 import DemoData from "../../../DemoData.json"
+
+import MentorSubHeader from '../MentorSubHeader/MentorSubHeader';
 
 
 export default function GalleryView({searchParams, setSearchParams, classroomId, privacySetting}){
-    const [workspaceList, setWorkspaceList] = useState([]);
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
     );
@@ -21,13 +23,18 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
 
-    useEffect(() => {
-        // Set workspaceList with the entries from JSON data and filter for privacy setting
-        const filteredData = DemoData.entries.filter((entry) =>
-      entry.privacy.toLowerCase().includes(privacySetting.toLowerCase())
-    );
-        setWorkspaceList(filteredData);
-      }, [privacySetting]);
+    const handleOpenGallery = (id) => {
+        alert("Workspace page will open");
+    };
+
+    const handleLike = (id) => {
+        alert("Workspace will be liked");
+    };
+
+    
+    // Set workspaceList with the entries from JSON data and filter for privacy setting
+    const filteredData = DemoData.entries
+        .filter((entry) => entry.privacy.toLowerCase().includes(privacySetting.toLowerCase()));
 
     
     /*useEffect(() => {
@@ -43,9 +50,8 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
             setWorkspaceList(wsResponse.data);
         };
         fetchData();
-    }, [classroomId]);*/
+    }, [classroomId]);
 
-    // These attributes show up in the tables [Name---Description---Open Workspaces---Delete]
     const wsColumn = [
         {
           title: 'Name',
@@ -113,9 +119,41 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
                 </Popconfirm>
             ),
         },
-    ];
+    ];*/
+
+    const galleryList = filteredData.map(directory => {
+        return (
+            <div key={directory.id} id='gallery-class-card'>
+                  <div id='card-left-content-container'>
+                    <h1 id='card-title'>{directory.name}</h1>
+                    <h1 id='card-title'>Created by: {directory.author}</h1>
+                    <div id='card-button-container' className='flex flex-row'>
+                      <button onClick={() => handleOpenGallery(DemoData.id)}>
+                        Open
+                      </button>
+                    </div>
+                  </div>
+                  <div id='card-right-content-container'>
+                    <button id='likeButton' onClick={() => handleLike(DemoData.id)}>
+                        <HeartOutlined size={64}/> 
+                    </button>
+                    <div id='divider' />
+                    <div id='student-number-container'>
+                      <h1 id='number'>0</h1>
+                      <p id='label'>Views</p>
+                    </div>
+                  </div>
+                </div>
+        )
+    })
 
     return (
+        <div id='gallery-card-container'>
+            {galleryList}
+        </div>
+      );
+
+    /*return (
         <div>
             <div
                 id='content-creator-table-container'
@@ -134,5 +172,5 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
                 ></Table>
             </div>
         </div>
-    )
+    )*/
 }
