@@ -9,9 +9,10 @@ import {
     getSubmission,
     deleteAuthorizedWorkspace,
   } from '../../Utils/requests';
+import DemoData from "../../../DemoData.json"
 
 
-export default function GalleryView({searchParams, setSearchParams, classroomId}){
+export default function GalleryView({searchParams, setSearchParams, classroomId, privacySetting}){
     const [workspaceList, setWorkspaceList] = useState([]);
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
@@ -19,28 +20,32 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
     const [page, setPage] = useState(
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
+
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          let wsResponse;
-          if (classroomId) {
-            wsResponse = await getClassroomWorkspace(classroomId);
-          } else {
-            wsResponse = await getAuthorizedWorkspaces();
-          }
-      
-          console.log('API Response:', wsResponse);
-      
-          setWorkspaceList(wsResponse.data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      
-  
-      fetchData();
-    }, [classroomId]);
+        // Set workspaceList with the entries from JSON data and filter for privacy setting
+        const filteredData = DemoData.entries.filter((entry) =>
+      entry.privacy.toLowerCase().includes(privacySetting.toLowerCase())
+    );
+        setWorkspaceList(filteredData);
+      }, [privacySetting]);
+
     
+    /*useEffect(() => {
+        const fetchData = async () => {
+            let wsResponse;
+            if(classroomId){
+                wsResponse = await getClassroomWorkspace(classroomId);
+            }
+            else{
+                wsResponse = await getAuthorizedWorkspaces();
+            }
+
+            setWorkspaceList(wsResponse.data);
+        };
+        fetchData();
+    }, [classroomId]);*/
+
+    // These attributes show up in the tables [Name---Description---Open Workspaces---Delete]
     const wsColumn = [
         {
           title: 'Name',
@@ -61,32 +66,31 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
           render: (_, key) => key.description,
         },
         {
-          title: 'Open Workspace',
-          dataIndex: 'open',
-          key: 'open',
-          editable: false,
-          width: '10%',
-          align: 'center',
-          render: (_, key) => (
-            <Link
-              onClick={() =>
-                localStorage.setItem('sandbox-activity', JSON.stringify(key))
-              }
-              to={'/sandbox'}
-            >
-              Open
-            </Link>
-          ),
+            title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
+            editable: true,
+            width: '40%',
+            align: 'left',
+            render: (_, key) => key.author,
         },
         {
-          title: 'Views',
-          dataIndex: 'Views',
-          key: 'Views',
-          editable: true,
-          width: '10%',
-          align: 'left',
-          //will need to change rendering to render the views
-          render: (_, key) => key.description,
+            title: 'Open Workspace',
+            dataIndex: 'open',
+            key: 'open',
+            editable: false,
+            width: '20%',
+            align: 'center',
+            render: (_, key) => (
+                <Link
+                    onClick={() =>
+                        localStorage.setItem('sandbox-activity', JSON.stringify(key))
+                    }
+                    to={'/sandbox'}
+                >
+                    Open
+                </Link>
+            ),
         },
         {
             title: 'Like',
