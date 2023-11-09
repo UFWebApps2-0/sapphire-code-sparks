@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Popconfirm } from "antd"
+import { Button, Form, Input, message, Modal } from "antd"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
@@ -10,8 +10,6 @@ import {
 } from "../../../../Utils/requests"
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
-
-import VideoURL_Input from './VideoURL_Input'
 
 const SCIENCE = 1
 const MAKING = 2
@@ -38,8 +36,6 @@ const MentorActivityDetailModal = ({
   const [submitButton, setSubmitButton] = useState(0)
   const navigate = useNavigate()
 
-  const [embedLink, setEmbedLink] = useState("");
-  
   useEffect(() => {
     const showActivityDetailsModal = async () => {
       const response = await getActivity(selectActivity.id)
@@ -211,10 +207,6 @@ const MentorActivityDetailModal = ({
             placeholder="Enter image URL"
           ></Input.TextArea>
         </Form.Item>
-        <VideoURL_Input>
-          setEmbedLink={setEmbedLink}
-          embedLink={embedLink}
-        </VideoURL_Input>
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
             onChange={e => setTemplate(e.target.value)}
@@ -284,15 +276,6 @@ const MentorActivityDetailModal = ({
             <br />
             
           </button>
-          <Popconfirm
-            title={`Are you sure you want to remove (TITLE) from this activity?`}
-            onConfirm={() => {}}
-          >
-            <button id="delete--video" onClick={() => {}}>
-              Delete Video
-            </button>
-          </Popconfirm>
-
         </Form.Item>
         <Form.Item
           wrapperCol={{

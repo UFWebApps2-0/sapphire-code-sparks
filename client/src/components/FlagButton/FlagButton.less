@@ -1,0 +1,45 @@
+#flag-button {
+    width: 35px; /* Adjust as needed */
+    height: 35px; /* Adjust as needed */
+    padding: auto;
+    border-radius: 50px;
+    font-size: 14px; /* Adjust as needed */
+    background: rgba(255, 255, 255, 0.059);
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+#flag-button img {
+    width: 80%; /* Adjust as needed */
+    height: auto; /* Keeps the image aspect ratio */
+}
+
+#flag-button:hover:not(:disabled) {
+    cursor: pointer;
+    background: rgb(255, 255, 255);
+}
+
+#flag-button:disabled {
+    cursor: not-allowed;
+    background: white; /* Reset to default background */
+    box-shadow: none; /* Remove shadow */
+}
+
+#flag-button:active:not(:disabled) {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Adds a shadow */
+    background: #e6e6e6; /* Changes the background color */
+}
+
+#flag-button.highlighted {
+    background-color: gray;
+}
+
+#message {
+    border: 3px solid rgb(222, 222, 222);
+    border-radius: 15px;
+    padding: 5px;
+    background-color: white;
+    color: rgb(255, 0, 0);
+    position: absolute;
+
+
+}
