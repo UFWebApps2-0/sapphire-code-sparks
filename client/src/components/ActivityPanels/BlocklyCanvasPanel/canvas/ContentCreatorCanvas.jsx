@@ -281,6 +281,7 @@ export default function ContentCreatorCanvas({
     }
   };
 
+  // This is the alert when the placeholder Block Generator button is clicked
   const handleGenerator = async () => {
     alert("This is the block generator.");
   }
@@ -353,6 +354,12 @@ export default function ContentCreatorCanvas({
                   </Col>
                   <Col flex='auto' />
                   <Row>
+
+                    {/* Start of Generator Icon */}
+                    
+                    {/* This placeholder button currently has no functionality */}
+                    {/* The goal is to expand a modal similar to the existing "Diagrams" button */}
+
                     <Col className='flex flex-row'>
                       <div
                         id='action-btn-container'
@@ -362,6 +369,7 @@ export default function ContentCreatorCanvas({
                           setHoverGenerator={setHoverGenerator}
                           handleGenerator={handleGenerator}
                         />
+                        {/* This is the pop-up text when a user hovers over the button */}
                         {hoverGenerator && (
                           <div className='popup ModalCompile3'>Generate Custom Block</div>
                         )}
@@ -493,6 +501,9 @@ export default function ContentCreatorCanvas({
       </div>
       
       {/* Start of Block Generator */}
+
+      {/* Original code from ArduBlockly website*/}
+      {/* https://ardublockly.ymtech.education/ardublockly/blockfactory/index.html */}
 
       <div className='flex flex-row'>
         <div

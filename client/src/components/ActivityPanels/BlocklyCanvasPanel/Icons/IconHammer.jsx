@@ -22,4 +22,5 @@ const IconHammer = ({ setHoverGenerator, handleGenerator }) => {
 
 export default IconHammer;
 
+// This file is the hammer icon for the placeholder Block Generator button
 // Source: icon:hammer | Ionicons https://ionicons.com/ | Ionic Framework
