@@ -27,3 +27,9 @@ export const setUserSession = (jwt, user) => {
   sessionStorage.setItem('user', user);
   setUserState(getCurrUser());
 };
+
+// register a new user
+export const registerUser = async (body) => {
+  const response = await axios.post(`${server}/auth/local/register`, body);
+  return response;
+};
