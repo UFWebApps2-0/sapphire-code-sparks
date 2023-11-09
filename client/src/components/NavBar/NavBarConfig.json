@@ -18,7 +18,7 @@
   "users": {
     "DefaultUser": ["Home", "TeacherLogin", "Sandbox", "About"],
     "Mentor": ["Dashboard", "AccountInfo", "SignOut", "Sandbox", "BugReport"],
-    "Student": ["StudentDashboard", "StudentLessons", "StudentClassroom", "StudentParental", "SignOut"],
+    "Student": ["StudentLessons", "StudentClassroom", "StudentParental", "SignOut"],
     "ContentCreator": [
       "ContentCreatorDashboard",
       "AccountInfo",

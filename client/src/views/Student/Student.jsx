@@ -5,8 +5,8 @@ import NavBar from '../../components/NavBar/NavBar';
 import StuNavBar from '../Student/stuNavBar'
 import { getStudentClassroom } from '../../Utils/requests';
 import './Student.less';
-/*import {Dashboard} from '../Student/Dashboard'
-import {Lessons} from '../Student/Lessons'
+import StudentDashboard from '../Student/Dashboard'
+/*import {Lessons} from '../Student/Lessons'
 import {Classroom} from '../Student/Classroom'
 import {Parental} from '../Student/Parental'*/
 
@@ -43,15 +43,10 @@ function Student() {
   return (
     <div className='student-view'>
       {/* <StuNavBar changeCurrPage={changeCurrPage}/> */}
-      <div className='container nav-padding'>
-          <NavBar />
-      
-          <div id='activity-container'>
-              <div id='header'>
-                  <div>Welcome!</div>
-              </div>
-          </div>
-      </div>
+      {/* <div className='container nav-padding'> */}
+          {/* <NavBar /> */}
+      <StudentDashboard />
+      {/* </div> */}
 
       {/* {currPage === 0 ? <Dashboard /> : currPage === 1 ? <Lessons /> : currPage === 2 ? <Classroom /> : currPage === 3 ? <Parental /> : null} */}
       
