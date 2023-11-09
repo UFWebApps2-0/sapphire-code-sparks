@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "url_storages",
+  "info": {
+    "name": "URLStorage"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "UID": {
+      "type": "uid"
+    },
+    "creatorID": {
+      "type": "string"
+    },
+    "URL": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "videoID": {
+      "type": "string"
+    },
+    "inGallery": {
+      "type": "string"
+    },
+    "inLesson": {
+      "type": "string"
+    },
+    "inWorkspace": {
+      "type": "string"
+    }
+  }
+}
