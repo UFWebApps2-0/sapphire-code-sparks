@@ -48,22 +48,22 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
     // These attributes show up in the tables [Name---Description---Open Workspaces---Delete]
     const wsColumn = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            editable: true,
-            width: '30%',
-            align: 'left',
-            render: (_, key) => key.name,
+          title: 'Name',
+          dataIndex: 'name',
+          key: 'name',
+          editable: true,
+          width: '20%',
+          align: 'center',
+          render: (_, key) => key.name,
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            editable: true,
-            width: '40%',
-            align: 'left',
-            render: (_, key) => key.description,
+          title: 'Description',
+          dataIndex: 'description',
+          key: 'description',
+          editable: true,
+          width: '40%',
+          align: 'center',
+          render: (_, key) => key.description,
         },
         {
             title: 'Author',
@@ -114,7 +114,6 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
             ),
         },
     ];
-
 
     return (
         <div>
