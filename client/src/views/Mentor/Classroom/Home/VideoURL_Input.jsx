@@ -4,6 +4,7 @@ import { Form, Input } from 'antd'
 function VideoURL_Input ( { setEmbedLink, embedLink } ) {
 
   const checkEmbedLink = embedLink => {
+
     const regex = /<iframe.*?<\/iframe>/s;
 
     if (embedLink.search(regex) === -1) {
@@ -17,8 +18,8 @@ function VideoURL_Input ( { setEmbedLink, embedLink } ) {
       <Form.Item id="form-label" label="Video embed link:">
         <Input.TextArea
           onChange={e => {
-            () => setEmbedLink(e.target.value)
-            checkEmbedLink(e.target.value)
+            setEmbedLink(e.target.value);
+            checkEmbedLink(e.target.value);
           }}
           value={embedLink}
           className="input"

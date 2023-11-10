@@ -39,6 +39,8 @@ const MentorActivityDetailModal = ({
   const navigate = useNavigate()
 
   const [embedLink, setEmbedLink] = useState("");
+
+  
   
   useEffect(() => {
     const showActivityDetailsModal = async () => {
@@ -53,6 +55,7 @@ const MentorActivityDetailModal = ({
       setStandardS(response.data.StandardS)
       setImages(response.data.images)
       setLink(response.data.link)
+      setEmbedLink(response.data.embedLink)
       setLinkError(false)
       const science = response.data.learning_components
         .filter(component => component.learning_component_type === SCIENCE)
@@ -126,7 +129,8 @@ const MentorActivityDetailModal = ({
       link,
       scienceComponents,
       makingComponents,
-      computationComponents
+      computationComponents,
+      embedLink
     )
     if (res.err) {
       message.error(res.err)
@@ -211,9 +215,10 @@ const MentorActivityDetailModal = ({
             placeholder="Enter image URL"
           ></Input.TextArea>
         </Form.Item>
-        <VideoURL_Input>
+        <VideoURL_Input
           setEmbedLink={setEmbedLink}
           embedLink={embedLink}
+        >
         </VideoURL_Input>
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
