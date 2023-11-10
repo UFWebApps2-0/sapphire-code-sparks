@@ -106,4 +106,4 @@ class Assessment {
     return true;
   }
 }
-export default App;
+export default Assessment;
