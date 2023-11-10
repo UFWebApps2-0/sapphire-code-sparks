@@ -1,24 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Popconfirm, message } from 'antd';
 import { SmileOutlined, HeartOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {
     getAuthorizedWorkspaces,
     getClassroomWorkspace,
-    getSubmission,
     deleteAuthorizedWorkspace,
 } from '../../Utils/requests';
 
+import './GalleryView.less';
+import DemoData from "../../../DemoData.json"
 
-export default function GalleryView({searchParams, setSearchParams, classroomId}){
-    const [workspaceList, setWorkspaceList] = useState([]);
+import MentorSubHeader from '../MentorSubHeader/MentorSubHeader';
+
+
+export default function GalleryView({searchParams, setSearchParams, filterText, classroomId, privacySetting}){
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
     );
     const [page, setPage] = useState(
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
-    useEffect(() => {
+
+    const handleOpenGallery = (id) => {
+        alert("Workspace page will open");
+    };
+
+    const handleLike = (id) => {
+        alert("Workspace will be liked");
+    };
+
+
+    // Set workspaceList with the entries from JSON data and filter for privacy setting
+    const filteredData = DemoData.entries
+        .filter((entry) => entry.privacy.toLowerCase().includes(privacySetting.toLowerCase()));
+
+    const filteredGallery = filteredData.filter((entry) =>
+        entry.author.toLowerCase().includes(filterText.toLowerCase()) |
+        entry.name.toLowerCase().includes(filterText.toLowerCase()));
+
+
+    /*useEffect(() => {
         const fetchData = async () => {
             let wsResponse;
             if(classroomId){
@@ -33,25 +56,33 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
         fetchData();
     }, [classroomId]);
 
-    // These attributes show up in the tables [Name---Description---Open Workspaces---Delete]
     const wsColumn = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            editable: true,
-            width: '30%',
-            align: 'left',
-            render: (_, key) => key.name,
+          title: 'Name',
+          dataIndex: 'name',
+          key: 'name',
+          editable: true,
+          width: '20%',
+          align: 'center',
+          render: (_, key) => key.name,
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
+          title: 'Description',
+          dataIndex: 'description',
+          key: 'description',
+          editable: true,
+          width: '40%',
+          align: 'center',
+          render: (_, key) => key.description,
+        },
+        {
+            title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
             editable: true,
             width: '40%',
             align: 'left',
-            render: (_, key) => key.description,
+            render: (_, key) => key.author,
         },
         {
             title: 'Open Workspace',
@@ -92,10 +123,41 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
                 </Popconfirm>
             ),
         },
-    ];
+    ];*/
 
+    const galleryList = filteredGallery.map(directory => {
+        return (
+            <div key={directory.id} id='gallery-class-card'>
+                <div id='card-left-content-container'>
+                    <h1 id='card-title'>{directory.name}</h1>
+                    <h1 id='card-title'>Created by: {directory.author}</h1>
+                    <div id='card-button-container' className='flex flex-row'>
+                        <button onClick={() => handleOpenGallery(DemoData.id)}>
+                            Open
+                        </button>
+                    </div>
+                </div>
+                <div id='card-right-content-container'>
+                    <button id='likeButton' onClick={() => handleLike(DemoData.id)}>
+                        <HeartOutlined size={64}/>
+                    </button>
+                    <div id='divider' />
+                    <div id='student-number-container'>
+                        <h1 id='number'>0</h1>
+                        <p id='label'>Views</p>
+                    </div>
+                </div>
+            </div>
+        )
+    })
 
     return (
+        <div id='gallery-card-container'>
+            {galleryList}
+        </div>
+    );
+
+    /*return (
         <div>
             <div
                 id='content-creator-table-container'
@@ -114,5 +176,5 @@ export default function GalleryView({searchParams, setSearchParams, classroomId}
                 ></Table>
             </div>
         </div>
-    )
+    )*/
 }

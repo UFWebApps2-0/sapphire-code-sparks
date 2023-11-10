@@ -1,0 +1,64 @@
+{
+  "entries": [
+    {
+      "name": "John Wick Choreography",
+      "description": "An awesome gallery 1",
+      "author": "Keanu Reeves",
+      "privacy": "public"
+    },
+    {
+      "name": "Magna Collider Concept Art",
+      "description": "An awesome gallery 2",
+      "author": "Tank Dempsey",
+      "privacy": "public"
+    },
+    {
+      "name": "Spaghetti Recipe",
+      "description": "An awesome gallery 3",
+      "author": "your mom",
+      "privacy": "public"
+    },
+    {
+      "name": "Ze Wunderwaffe DG-2",
+      "description": "An awesome gallery 4",
+      "author": "Eddie Richtofen",
+      "privacy": "classroom"
+    },
+    {
+      "name": "The Way of the Samurai",
+      "description": "An awesome gallery 5",
+      "author": "Takeo Masaki",
+      "privacy": "classroom"
+    },
+    {
+      "name": "Vodka",
+      "description": "An awesome gallery 6",
+      "author": "Nikolai Belinski",
+      "privacy": "classroom"
+    },
+    {
+      "name": "Let me be clear",
+      "description": "An awesome gallery 7",
+      "author": "Obamna",
+      "privacy": "organization"
+    },
+    {
+      "name": "We need to cook",
+      "description": "An awesome gallery 8",
+      "author": "Waltuh White",
+      "privacy": "organization"
+    },
+    {
+      "name": "Boi",
+      "description": "An awesome gallery 9",
+      "author": "Kratos",
+      "privacy": "organization"
+    },
+    {
+      "name": "Sussy Baka",
+      "description": "An awesome gallery 10",
+      "author": "fungusamongus",
+      "privacy": "organization"
+    }
+  ]
+}

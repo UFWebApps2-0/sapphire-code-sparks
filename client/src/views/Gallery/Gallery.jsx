@@ -6,8 +6,15 @@ import "./Gallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
+
 export default function Gallery(props) {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [privacySetting, setPrivacy] = useState("Public")
+    const [filterText, setFilterText] = useState('');
+
+    function filterUpdate(value) {
+        setFilterText(value.target.value);
+    }
 
     const [tab, setTab] = useState(
         searchParams.has('tab') ? searchParams.get('tab') : 'home'
@@ -17,19 +24,39 @@ export default function Gallery(props) {
     );
     const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
 
+    const handlePublicButton = () => {
+        setPrivacy("Public");
+        alert("Displaying only Public projects");
+    }
+    const handleClassroomButton = () => {
+        setPrivacy("Classroom");
+        alert("Displaying only Classroom projects");
+    }
+    const handleOrganizationButton = () => {
+        setPrivacy("Organization");
+        alert("Displaying only Organization projects");
+    }
     return (
-
-        <div className='container nav-padding'>
-            <NavBar/>
-            <div id='main-header' style={{ marginBottom:'1vh' }}>Public Gallery</div>
+        <div className="container nav-padding">
+            <NavBar />
             <div id='page-header'>
                 <h1>Gallery</h1>
             </div>
-            <div id="gallery-content-container" style={{ marginTop: '6.6vh' }}>
-                <Search/>
+            <div id="gallery-content-container">
+                <div id="Privacy-buttons">
+                    <button onClick={handlePublicButton}>Public</button>
+                    <button onClick={handleClassroomButton}>Clasroom</button>
+                    <button onClick={handleOrganizationButton}>Organization</button>
+                </div>
+                <Search
+                    filterUpdate={filterUpdate}
+                    filterText={filterText}
+                />
                 <GalleryView
                     searchParams={searchParams}
                     setSearchParams={setSearchParams}
+                    privacySetting={privacySetting}
+                    filterText={filterText}
                 />
             </div>
         </div>

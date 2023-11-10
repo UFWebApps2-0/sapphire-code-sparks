@@ -1,16 +1,20 @@
 import './Search.less'
 
 import React from 'react';
-import { useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-function Search() {
+function Search({ filterUpdate, filterText }) {
     const input = useRef();
 
-    function handleChange() {
+    useEffect(() => {
+        input.current.focus();
+    }, []);
+
+    function handleChange(event) {
         // TODO: Update the value of the filter with the input from the textbox
         // Hint: You will need to use the "current" property of the input variable
         // console.log("handleChange called");
-        filterUpdate(input.current.value);
+        filterUpdate(event);
     }
 
     return (
@@ -19,9 +23,10 @@ function Search() {
         <form>
             <input
                 className="searchBar"
-                type="text"
-                placeholder="Type to Filter"
                 ref={input}
+                type="text"
+                placeholder="Type to Filter. . ."
+                value={filterText}
                 onChange={handleChange}
             />
         </form>
