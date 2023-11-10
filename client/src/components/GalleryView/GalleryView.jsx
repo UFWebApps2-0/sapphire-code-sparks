@@ -7,7 +7,7 @@ import {
     getAuthorizedWorkspaces,
     getClassroomWorkspace,
     deleteAuthorizedWorkspace,
-} from '../../Utils/requests';
+  } from '../../Utils/requests';
 
 import './GalleryView.less';
 import DemoData from "../../../DemoData.json"
