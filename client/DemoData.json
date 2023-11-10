@@ -19,22 +19,34 @@
       "privacy": "public"
     },
     {
+      "name": "Fus Ro Dah",
+      "description": "An awesome gallery 3",
+      "author": "Dovahkiin",
+      "privacy": "public"
+    },
+    {
       "name": "Ze Wunderwaffe DG-2",
       "description": "An awesome gallery 4",
       "author": "Eddie Richtofen",
       "privacy": "classroom"
     },
     {
-      "name": "The Way of the Samurai",
+      "name": "Abracadavre",
       "description": "An awesome gallery 5",
-      "author": "Takeo Masaki",
+      "author": "Elena Siegman",
       "privacy": "classroom"
     },
     {
-      "name": "Vodka",
+      "name": "Spartan 117",
       "description": "An awesome gallery 6",
-      "author": "Nikolai Belinski",
+      "author": "Masterchief",
       "privacy": "classroom"
+    },
+    {
+      "name": ":)",
+      "description": "An awesome gallery 6",
+      "author": "Jesus",
+      "privacy": "organization"
     },
     {
       "name": "Let me be clear",
@@ -46,7 +58,7 @@
       "name": "We need to cook",
       "description": "An awesome gallery 8",
       "author": "Waltuh White",
-      "privacy": "organization"
+      "privacy": "classroom"
     },
     {
       "name": "Boi",
