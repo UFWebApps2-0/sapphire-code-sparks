@@ -15,11 +15,6 @@ const { TabPane } = Tabs;
 
 
 export default function Organization() {
-    // Organization and Admin Data
-    const [organizations, setOrganizations] = useState([]);
-    const [admin, setAdmin] = useState({});
-    const [value] = useGlobalState('currUser');
-
     // Organization ID
     const {id} = useParams();
 

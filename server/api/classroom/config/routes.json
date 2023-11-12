@@ -29,7 +29,7 @@
       "path": "/classrooms/:id",
       "handler": "classroom.findOne",
       "config": {
-        "policies": ["global::isClassroomManager", "global::hasClassroom"]
+        "policies": []
       }
     },
     {

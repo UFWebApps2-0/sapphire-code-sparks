@@ -1,0 +1,284 @@
+/* Add School Button, Header, Layout */
+
+#schools-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+}
+
+#add-school-btn {
+    background: #F3D250;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    align-self: end;
+    column-gap: 5px;
+    margin-bottom: 40px;
+    width: fit-content;
+    padding: 7px 10px;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+}
+
+#schools-container #home-content-container {
+    padding-top: 50px;
+}
+
+#school-card-container {
+    display: flex;
+    column-gap: 40px;
+    flex-wrap: wrap;
+    row-gap: 40px;
+}
+
+/* Card for Individual School on DisplaySchools.jsx */
+
+.school-card {
+    width: 300px;
+    height: 150px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    box-shadow: 0px 4px 14px #89898985;
+    border-radius: 5px;
+    border: 2px solid #F3D250;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.school-card h2 {
+    margin-bottom: 0 !important;
+    font-size: 19px;
+    position: relative;
+}
+
+.school-card h2::after {
+    transition: all 0.25s;
+    content: "";
+    display: block;
+    width: 0%;
+    height: 4px;
+    position: relative;
+    top: 5px;
+    left: 10%;
+    background: #F3D250;
+    border-radius: 10px;
+    background: white;
+}
+
+.school-card:hover {
+    background: #F3D250;
+    border: 1px solid white;
+}
+
+.school-card:hover h2 {
+    color: white !important;
+}
+
+.school-card:hover h2::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 4px;
+    position: relative;
+    top: 5px;
+    left: 10%;
+    background: #F3D250;
+    border-radius: 10px;
+    background: white;
+}
+
+/* School Container DisplaySchool.jsx */
+
+#school-container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px;
+}
+
+#school-container .shadow {
+    box-shadow: -3px 8px 20px 2px #1b293a3b;
+    border-radius: 5px;
+    border: 2px solid #5BABDE;
+}
+
+/* School Header Container */
+
+#school-header-container {
+    display: flex;
+    background: white;
+    border-radius: 5px 5px 0px 0px;
+}
+
+/* School Header DisplaySchool.jsx */
+
+#school-header {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 50px;
+    background: #5BABDE;
+    border-radius: 5px 0px 0px 0px;
+    text-align: left;
+    min-width: 450px;
+    border-right: 2px solid #5BABDE;
+}
+
+#school-header > * {
+    margin-bottom: 0;
+    color: white;
+}
+
+#school-header h1 {
+    margin: 9px 0;
+    font-weight: 700;
+}
+
+#school-header p {
+    display: flex;
+    align-items: center;
+    column-gap: 7px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+
+/* Classroom Container */
+
+#classroom-container {
+    display: flex;
+    background: white;
+    border-top: 1px solid black;
+    border-radius: 0px 0px 5px 5px;
+}
+
+/* Classroom Menu */
+
+#classroomMenu {
+    margin-bottom: 0 !important;
+    min-width: 150px;
+    text-align: left;
+    background: #F3D250;
+    border-radius: 0px 0px 0px 5px;
+}
+
+#classroomMenu > li {
+    min-width: 175px;
+    padding: 20px 20px 20px 50px;
+    position: relative;
+    font-weight: 600;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    transition: all 0.1s;
+    background: white;
+}
+
+#classroomMenu > li:hover {
+    background: rgb(243, 243, 243);
+}
+
+#classroomMenu > li.selected {
+    color: #5BABDE;
+    border-right: 5px solid #5BABDE;
+}
+
+svg {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+/* Classroom Info */
+
+#classroom-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    padding: 20px;
+    border-left: 1px solid black;
+    min-height: 75vh;
+}
+
+#classroom-info * {
+    text-align: left;
+}
+
+#classroom-info > div > p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Buttons DisplaySchool.jsx - Not very organized to be honest */
+
+button {
+    transition: all 0.1s;
+}
+
+.action-buttons {
+    padding: 20px;
+}
+
+#school-container button {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    width: fit-content;
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+#go-back-btn {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    width: fit-content;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+    background: #F3D250;
+    cursor: pointer;
+    transition: all 0.1s;
+
+    margin-bottom: 0px;
+    padding: 0px !important;
+    background: none;
+}
+
+#go-back-btn:hover, #add-school-btn:hover {
+    color: white;
+}
+
+#school-header-container .action-buttons {
+    display: flex;
+    column-gap: 10px;
+    align-items: end;
+}
+
+#classroom-info .action-buttons {
+    padding: 0px;
+}
+
+.action-buttons button {
+    background: none;
+    border: 1px solid black;
+    height: fit-content;
+}
+
+#classroom-info .action-buttons {
+    display: flex;
+    column-gap: 10px;
+}
+
+#delete-classroom-btn:hover, #delete-school-btn:hover {
+    color: rgb(195, 26, 26);
+    border-color: rgb(195, 26, 26);
+}
+

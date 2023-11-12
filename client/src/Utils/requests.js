@@ -18,7 +18,7 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
         },
       }
     : null;
-
+    
   try {
     switch (method) {
       case GET:
@@ -41,6 +41,14 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
   }
   return { data: res, err: err };
 };
+
+export const getSchool = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/schools/${id}`,
+    auth: true,
+    error: 'School information could not be retrieved',
+  });
 
 //For implementing organization handling
 export const getOrganization = async (id) =>
@@ -132,6 +140,7 @@ export const getActivityToolboxAll = async () =>
 //     auth: true,
 //     error: 'Activity cannot be retrived',
 //   });
+
 export const getActivityToolbox = async (id) =>
   makeRequest({
     method: GET,

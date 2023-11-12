@@ -1,107 +1,54 @@
-## Purpose
-I tried to clean up the code and introduce some form of standardization. Here is a garbled list of what I tweaked and added. I may have missed some things, my bad if I did!
+# Organization Maneuver
+## Rambling
+The point of this commit is that when you click an organization you see its schools. Then, you can click on a school to see its classrooms. Mind blown! I assumed that this would be used inside of the "Classroom Management" tab, but I feel like it can be used anywhere. Thus, I put these files inside of the "OrganizationManeuver" folder. If anyone wants this to be used different, please let me know. By the way, my work is not perfect and there is probably many ways for it to be improved. Feel free to improve upon or change it!
 
-### Notes
-1. Make sure you that the administrator role has the permission to delete mentors (via back-end) so that the mentors are deleted when you're using OrganizationClassroomManagement.jsx.
+## More Tasks
+Assuming we use these pages, there is a lot of functionality to be implemented.
+1. Add Tables
+    - This had already been started, but I don't know how to do them so I left it alone.
+    - I cannot remember the actions an administrator could do for a student or mentor.
+1. Add School
+2. Add Classroom
+3. Delete School
+4. Delete Classroom
+5. Add Mentor
+6. Add Student
+7. Go to Gallery (requires the moderation tab to be minimally set up, in my opinion)
+8. All Schools (Card)
+    - This is where information from all schools and all classrooms within those schools would appear. I'm not sure how this is going to pan out.
 
-### Tweaked
-1. I changed the paths for two or three routes so that they would match with the pre-existing routes. If a path is not working, you probably just need to add a dash somewhere.
-2. I changed the names for the "handleNavigation" functions. There would be multiple of these "handleNavigation" with "dissenting" names, if you will. So I tried to introduce some sort of standard by (for these functions specifically) starting with "navigate" and ending with what page the function would navigate to.
-    - For example navigateOrganizationDash is a function that navigates the user to the path "organization-dashboard".
-3. I tried to introduce consistent spacing. There are now 2 lines between each function or big parts of code. This might make the code more friendlier in terms of appearance. A spacing of line is used to convey some separation, but not as much as 2 lines. I may have gone overboard with the 1-line spacing in some areas.
-4. I removed the console.log() statements that I had introduced for testing purposes. They were making the code look unorganized.
-5. I tried to standardize spacing.
-    - For example, id = "..." was changed to id="..."
-        - Not because it was bad or anything, just so that the code was more congruent.
-6. I attempted to make the HTML look more friendly in terms of spacing. I also fixed the indentation so that it properly reflected the degree of element nesting.
-7. Simplified comments and removed bulkier ones, I tried to not go overboard with these.
-8. Fixed indentation in general, or at least I think I did.
-9. Removed some unused lines of code and import statements
-10. Modified the formatting of imports in OrganizationClassroomManagement.jsx
-11. Also made sure that semicolons were at the end of each statement, although they don't need to be with JS.
+## File Explanation
+I'll be explaining some of the changes I made here. If the file path is abstract, it's because you can find it in the commit.
 
-### Added
-1. I modified OrganizationHome.jsx so that it stores all the organization's data rather than its name.
-2. Gave OrganizationModeration.jsx the same prop as its brethren.
-3. Added PrivateRoutes for certain routes so that users who have not logged in cannot view those routes. However, if you've logged in as someone, you will be able to see those routes although nothing will load. I'm sure there's something to be added to prevent this, but I haven't gotten to that yet.
-4. I also changed the styling for some buttons.
-  
+### routes.json
+Got tremendous help (credit to Michael the TA) for figuring out the authorization issues. I kept getting a "401 Authentication Error" regardless of logging in, authenticating the user, and setting its permissions in Strapi. The "issue" resided in this file. The route I was trying to use ("/classrooms/:id") had requirements as defined in its corresponding ["config"]["policies"] values. The route "/classrooms/:id" had  policies "global::isClassroomManager" and "global::hasClassroom"; the administrator satisfied neither of these policies. Therefore, it was not allowed to access the route. To solve this, you can just remove the policies (or at least the strings within the array). I'd like to find a proper way of giving the administrator access to this route, but until then.
 
----
----
----
----
----
----
-## Purpose
-Michael recommended that we create a "placeholder Administrator role with bare-bones functionality [for the sake of building functionality and testing]". This role is created in the back-end. Furthermore, we are tasked with creating the Organization type. To my knowledge, this is also done in the back-end. Neither of these tasks are hard to do. However, because I began working on this without informing anyone until I had already started, I am going to outline the steps that I took. **By the way, I realized I should have asked about doing this - that is my bad. I am going to hold off on doing anything else.**
+### OrganizationManeuver.jsx
+This file defines the functional React component OrganizationManeuver that is currently used within OrganizationClassroomManagement.jsx. The component of OrganizationClassroomManagement.jsx passes in the current organization to OrganizationManeuver via props. This data is passed into the components of OrganizationSchools.jsx and SchoolClassrooms.jsx. Regardless, this page kind of toggles in between viewing the classrooms of a school and the organizations of a school. It's sort of the middleman, if you will. This is done through the 'school' React state. When it's false, it's showing all schools, when it's not, it's showing a particular school (assuming there's no error). I am going to end this paragraph.
 
+### OrganizationSchools.jsx
+This loads or renders the elements used to view the classrooms of a school. They're called "school cards". There's not much here in this file other than CSS, HTML, and some "onClick"s.
 
-## Creating an Organization Type
-I am not going to be ultra-specific with these steps as it's probably unneeded since the back-end is relatively intuitive.  
-1. Go to "Content-Types Builder" and click "+ Create new collection type"
-2. Set the display name to "Organization"
-3. Create a short text field called "name"
-4. Create a relational field called "schools"
-    * The big box on the right should say "School" in bold letters.
-    * From the six relational types, choose the one on the farthest right.
-5. Make sure to save the collection type when you're done. 
+### SchoolClassrooms.jsx
+Bullet points would be most effective.
+- The classrooms of a school are stored in "classrooms".
+- All the mentors in a school are stored in "mentors".
+- All the students in a school are stored in "students".
+- The data of the selected classroom is stored in "selectedClassroom".
+- The ID of the selected classroom is stored in "selectedClassroomID".
+    - An ID of -1 or ALL means all classrooms. A constant is defined and used in this file.
+For the one and only useEffect() in this file, it's being used to load the classrooms, mentors, students, and such. You can try to parse through it, it's not incredibly difficult, but I feel like it's hard to understand why it's the way it is.
+Honestly, I would just look at the file if you're looking to grasp what's going on. It's not bad or anything (except for that first React.useEffect), it's just storing data and then displaying that data to the screen. I'll add comments.
 
-  
-After creating the collection, you can create entries. If you do create entries, I would publish them. Albeit I'm not sure what publishing does.
+### OrganizationManeuver.css
+CSS for the two .jsx files I've made. I tried to organize it, but I was never good at organizing CSS files.
 
-## The Administrator
-In this part, we need to (1) make the administrator role, (2) create a new entry in the User collection, (3) create an Administrator collection type, and (4) create a new entry in the Adminstrator collection.  
-### Creating the Administrator Role
-1. Go to "Settings" and click "Roles" of the "Users & Permissions Plugin" section
-2. Click "+ Add new role"
-3. Set the name to "Administrator" and add a generic description
-4. Find the "Permissions" section and activate the following:
-    - Application
-        * Administrator: Activate "findOne" and "find"
-        * Organization: Activate all the boxes
-        * School: Activate all the boxes
-    - Users-Permission
-        * User: Activate "me"
-5. Make sure to save or finish (cannot remember the button) the role when you're done
-### Creating a User Entry
-The User collection type is already made, we are just creating a User entry to use later on.
-1. Find the "User" collection type in "Collection Types"
-2. Click "+ Add New Users"
-3. Set the **username**, **email**, and **password** to whatever you'd like
-4. Set **confirmed** field to "ON"
-5. Set the **role** to "Administrator"
-6. Save and publish
-### Create an Administrator Collection Type
-1. Go to "Content-Types Builder" and click "+ Create new collection type"
-2. Set the display name to "Administrator"
-3. Add two short text fields named "first_name" and "last_name"
-4. Add a relational field called "organizations"
-    - Similar to the prior collection type, an Administrator can have many Organizations. Thus, from the six relational boxes, choose the one on the farthest right.
-5. Add a relational field called "user"
-    - An Administrator is associated with a User. This is like how a Spotify Premium account can be associated with a student account to receive a discount.
-    - From the six relational boxes, choose the one on the farthest left.
-6. Click the button to finish or save (cannot remember). Just make sure you don't lose your work and that the type is created.
-### Creating an Administrator Entry
-1. Find the "Administrator" collection type that you've just made in "Collection Types"
-2. Click "+ Add New Administrators"
-3. Set the **first** and **last names**
-4. If you already made organizations, you can associate them with this particular Administrator. You don't have to though, you can leave this blank
-5. Set the **user** to the one you just made. I think the usernames are showing here
-6. Save and publish
+### requests.js
+Added a function to get a school from its ID.
 
-## Ending Remarks
-I added **client/src/views/AdminLogin/AdminLogin.jsx** and **client/src/views/AdminDashboard/AdminDash.jsx**. I tried to include comments wherever I changed or added something. And frankly, whatever I did could have been done in another way. Feel free to change anything you want. 
+### SVG.jsx
+As you may see, there's a bunch of icons used in the two files. These are Bootstrap icons and I have copied and pasted their SVG thing into the document. However, I've heard it's good practice to encapsulate the SVG into a simple React component rather than having it clutter your code. This is what that file is here for. It also makes it easy to interact with SVGs, in general. Define it in this file and use it elsewhere.
 
-Anyway, if you're looking to figure out how the project works in a greater sense, I would recommend looking through the various project files and seeing how parts work together. It can be time- and energy-intensive, but it could help. Regardless, here are some tips if you need any:
+There's probably things I accidentally left out and that is again, my bad. These comments will be deleted though in the cleaning up of code and whatnot. If you have any questions, ykwtd!
 
-1. The client/src/App.jsx file is where routing (for the web application) is handled.
-2. If you're wondering about API routing, access the Swagger documentation through the back-end site for more information.
-    - Certain roles are authorized to access certain API routes. You can modify a role's authroization in the "Permissions" section of a role. Click the "cog" to see what API route you'd be allowing a specific role to access.
-    - In the documentation, you can test API routes.
-3. Looking to see how pre-existing pages were implemented could help you understand how to create your own pages.
-4. Speaking of pages, React components and style sheets are grouped together by the page they are used for. This can be seen in the various folders of the client/src/views directory. Likewise, I created two folders for the two pages.
-    - React components that are used across various pages are defined in the client/src/components folder. The NavBar component is defined here.
-        - In the NavBarConfig.json file, you can define the navigation links that appear in the navigation bar for a particular role. If you do define a navigation link, you must make sure that it has been associated with a route. The routes are defined near the top of the file.
-            - I added the "Administrator" role to this file and only specified the "SignOut" link or route for said role.
-5. I do not know much about requests and interacting with the API, but I know that a lot of it happens in the client/src/Utils folder.
+Everything should work other than a couple of warnings about DOM properties and whatnot.

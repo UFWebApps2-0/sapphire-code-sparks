@@ -1,21 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useGlobalState } from "../../../../Utils/userState";
 import { useNavigate } from 'react-router-dom';
 import { getOrganization, deleteMentor } from '../../../../Utils/requests';
-import ListView from './ListView';
 import './ClassroomManagement.less';
 import { message } from 'antd';
+import { OrganizationManeuver } from "../OrganizationManeuver/OrganizationManeuver";
 
 
 export default function OrganizationClassroomManagement({ organizationId } ) {
     const [mentorData, setMentorData] = useState([]);
     const [organization, setOrganization] = useState({});
-    const [value] = useGlobalState('currUser');
     const navigate = useNavigate();
 
     
-    // Navigates to Organization Dashboard
     const navigateOrganizationDash = () => {
       navigate('/organization-dashboard');
     }
@@ -29,7 +26,7 @@ export default function OrganizationClassroomManagement({ organizationId } ) {
 
       if (res.data) {
         message.success(`Successfully deleted mentor ${res.data.first_name + ' ' + res.data.last_name}.`);
-      } 
+      }
       else {
         message.error(res.err);
       }
@@ -67,13 +64,19 @@ export default function OrganizationClassroomManagement({ organizationId } ) {
             <button id='home-back-btn' onClick={navigateOrganizationDash}>
               <i className='fa fa-arrow-left' aria-hidden='true' />
             </button>
-            <div id='page-header'>
+            <OrganizationManeuver
+              organization={[organization]}
+            />
+            {
+            // This code is needed, I just didn't know how to incorporate it with different data because of my inability
+            /* <div id='page-header'>
               <h1>Classroom Management</h1>
-            </div>
-            <ListView
+            </div> */}
+            {/* <ListView
               mentorData={mentorData}
               handleDelete={handleDelete}
-            />
+            /> */}
         </div>
     )
 }
+
