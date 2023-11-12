@@ -10,8 +10,10 @@ import { useState } from "react";
 export default function Gallery(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [privacySetting, setPrivacy] = useState("Public")
+    // useState() to allow the filterText to be updated when input is typed
     const [filterText, setFilterText] = useState('');
 
+    // Function to update filterText called in Search
     function filterUpdate(value) {
         setFilterText(value.target.value);
     }
@@ -55,8 +57,8 @@ export default function Gallery(props) {
                 <GalleryView
                     searchParams={searchParams}
                     setSearchParams={setSearchParams}
-                    privacySetting={privacySetting}
                     filterText={filterText}
+                    privacySetting={privacySetting}
                 />
             </div>
         </div>

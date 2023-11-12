@@ -15,7 +15,7 @@
     {
       "name": "Spaghetti Recipe",
       "description": "An awesome gallery 3",
-      "author": "your mom",
+      "author": "Grandmama",
       "privacy": "public"
     },
     {
@@ -65,6 +65,18 @@
       "description": "An awesome gallery 9",
       "author": "Kratos",
       "privacy": "organization"
+    },
+    {
+      "name": "Ocean Drive",
+      "description": "An awesome gallery 9",
+      "author": "Miami Nights",
+      "privacy": "public"
+    },
+    {
+      "name": "I Drive",
+      "description": "An awesome gallery 9",
+      "author": "Ryan Gosling",
+      "privacy": "public"
     },
     {
       "name": "Sussy Baka",
