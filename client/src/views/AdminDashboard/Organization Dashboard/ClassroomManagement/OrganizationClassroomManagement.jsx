@@ -68,14 +68,18 @@ export default function OrganizationClassroomManagement({ organizationId } ) {
               organization={[organization]}
             />
             {
-            // This code is needed, I just didn't know how to incorporate it with different data because of my inability
+            // This code is needed, I just didn't know how to incorporate it with different data because of my inability.
+            // If anyone is reading this, the SchoolClassrooms.jsx file needs the tables like the one commented out below. Please help
+
             /* <div id='page-header'>
               <h1>Classroom Management</h1>
-            </div> */}
-            {/* <ListView
+            </div> */
+            
+            /* <ListView
               mentorData={mentorData}
               handleDelete={handleDelete}
-            /> */}
+            /> */
+            }
         </div>
     )
 }

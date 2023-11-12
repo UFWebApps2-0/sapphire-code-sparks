@@ -13,11 +13,13 @@ export function OrganizationManeuver(props) {
     // Shows the Selected School
     function showSchool(id) {
 
-        // Loading school
+        // We load the school with the matching ID
         getSchool(id)
             .then(async (response) => {
-                // Loading classrooms
-                // If you individually load them by ID, there's better or more information about mentors and students within the response
+                // The response will return the school in the form of an object.
+                // This object will have a key for "classrooms". However, the value for this key is a bit sparse in terms of information.
+                // Thus, to get better/more information, you need to load the classrooms by ID.
+                // Because we have the classroom ID in the response, we can use that
                 let data = response.data;
                 let classroomData = [];
 
@@ -26,8 +28,10 @@ export function OrganizationManeuver(props) {
                     classroomData.push(data);
                 }
 
-                // Adding tweaked-classroom data
+                // Updating the data with the more detailed classroom data
                 data["classrooms"] = classroomData;
+
+                // Set school
                 setSchool(data);
             })
             .catch((err) => {
@@ -38,6 +42,7 @@ export function OrganizationManeuver(props) {
 
     // Shows the Organization's Schools
     function showAllSchools() {
+        // This will stop a singular school from showing
         setSchool(false);
     }
 

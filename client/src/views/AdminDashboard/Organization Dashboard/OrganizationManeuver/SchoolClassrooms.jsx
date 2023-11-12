@@ -32,15 +32,15 @@ export default function SchoolClassrooms(props) {
     }
 
 
-    // Selects a Classroom
+    // Selects a Classroom (Front-End and "Back"-End)
     function selectClassroom(classroomID, qMentors, qStudents) {
-        setSelectedClassroomID(classroomID);
-
-        // Toggling .selected 
+        // Front-End: Toggling .selected
         unselectClassElements();
         selectClassElement(classroomID);
 
-        // Setting classroom
+        // Back-End: Setting the selected classroom
+        setSelectedClassroomID(classroomID);
+
         if (classroomID == ALL) {
             setSelectedClassroom({
                 name: "All Classrooms",
@@ -49,7 +49,7 @@ export default function SchoolClassrooms(props) {
             });
         }
         else {
-            setSelectedClassroom(classrooms[classroomID])
+            setSelectedClassroom(classrooms[classroomID]);
         }
     }
 
@@ -63,12 +63,20 @@ export default function SchoolClassrooms(props) {
         if (props.school == null)
             return;
     
+        // We are going through each classroom of the passed-down (by props) school
         props.school.classrooms.forEach((classroom) => {
+
+            // Stores the classroom's students and mentors
             let classroomStudentsMembers = {};
             let classroomMentorMembers = {};
 
+            // Students
             if (classroom.data.students != null) {
                 classroom.data.students.forEach((student) => {
+                    // Students are identified by their student ID
+
+                    // Also, filtering out some currently unneeded information like "last_logged_in"
+                    // Anyway, stores this student in the object for all students (studentsData)
                     studentsData[student.id] = {
                         studentID: student.id,
                         name: student.name,
@@ -76,12 +84,18 @@ export default function SchoolClassrooms(props) {
                         classroom: student.classroom
                     };
 
+                    // Stores this student in the object for the classroom's students (classroomStudentsMembers)
                     classroomStudentsMembers[student.id] = studentsData[student.id];
                 })
             }
 
+            // Mentors
             if (classroom.data.mentors != null) {
                 classroom.data.mentors.forEach((mentor) => {
+                    // Mentors are identified by their mentorID
+
+                    // Likewise, filtering our some currently unneeded information
+                    // This chunk stores the mentor in the object for all mentors (mentorsData)
                     mentorsData[mentor.id] = {
                         mentorID: mentor.id,
                         name: `${mentor.first_name} ${mentor.last_name}`,
@@ -92,10 +106,13 @@ export default function SchoolClassrooms(props) {
                         userID: mentor.user
                     };
 
+                    // Stores this mentor in the object for the classroom's mentors (classroomMentorMembers)
                     classroomMentorMembers[mentor.id] = mentorsData[mentor.id];
                 })
             }
 
+            // Now that we have loaded the mentors and students of this classroom, we can also
+            // store this information within the classroomsData object
             classroomsData[classroom.data.id] = {
                 classroomID: classroom.data.id,
                 code: classroom.data.code,
@@ -105,9 +122,14 @@ export default function SchoolClassrooms(props) {
                 students: classroomStudentsMembers
             };
             
-        })
+        });
 
+        // Passing in the data rather than using the state itself
+        // due to something similar to data hazards: the state doesn't update in time thus the classrooms aren't properly loaded.
+        // To circumvent this, just pass in data that's already defined, and fortunately enough, we have this.
+        // This is kind of like forwarding the ALU result for the CDA3101 folks
         selectClassroom(ALL, mentorsData, studentsData);
+
         setClassrooms(classroomsData);
         setStudents(studentsData);
         setMentors(mentorsData);

@@ -22,6 +22,7 @@ I'll be explaining some of the changes I made here. If the file path is abstract
 
 ### routes.json
 Got tremendous help (credit to Michael the TA) for figuring out the authorization issues. I kept getting a "401 Authentication Error" regardless of logging in, authenticating the user, and setting its permissions in Strapi. The "issue" resided in this file. The route I was trying to use ("/classrooms/:id") had requirements as defined in its corresponding ["config"]["policies"] values. The route "/classrooms/:id" had  policies "global::isClassroomManager" and "global::hasClassroom"; the administrator satisfied neither of these policies. Therefore, it was not allowed to access the route. To solve this, you can just remove the policies (or at least the strings within the array). I'd like to find a proper way of giving the administrator access to this route, but until then.
+- I just tried and failed, so I don't think this will be happening, at least by me.
 
 ### OrganizationManeuver.jsx
 This file defines the functional React component OrganizationManeuver that is currently used within OrganizationClassroomManagement.jsx. The component of OrganizationClassroomManagement.jsx passes in the current organization to OrganizationManeuver via props. This data is passed into the components of OrganizationSchools.jsx and SchoolClassrooms.jsx. Regardless, this page kind of toggles in between viewing the classrooms of a school and the organizations of a school. It's sort of the middleman, if you will. This is done through the 'school' React state. When it's false, it's showing all schools, when it's not, it's showing a particular school (assuming there's no error). I am going to end this paragraph.
@@ -49,6 +50,7 @@ Added a function to get a school from its ID.
 ### SVG.jsx
 As you may see, there's a bunch of icons used in the two files. These are Bootstrap icons and I have copied and pasted their SVG thing into the document. However, I've heard it's good practice to encapsulate the SVG into a simple React component rather than having it clutter your code. This is what that file is here for. It also makes it easy to interact with SVGs, in general. Define it in this file and use it elsewhere.
 
+## Ending Remarks
 There's probably things I accidentally left out and that is again, my bad. These comments will be deleted though in the cleaning up of code and whatnot. If you have any questions, ykwtd!
 
-Everything should work other than a couple of warnings about DOM properties and whatnot.
+Everything should work other than a couple of warnings about DOM properties and whatnot. If there are any bugs, feel free to let me know or fix them.
