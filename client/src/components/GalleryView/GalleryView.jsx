@@ -12,8 +12,6 @@ import {
 import './GalleryView.less';
 import DemoData from "../../../DemoData.json"
 
-import MentorSubHeader from '../MentorSubHeader/MentorSubHeader';
-
 
 export default function GalleryView({searchParams, setSearchParams, classroomId, privacySetting}){
     const [tab, setTab] = useState(
@@ -22,7 +20,8 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
     const [page, setPage] = useState(
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
-
+    
+    // these will be changed to add functionality
     const handleOpenGallery = (id) => {
         alert("Workspace page will open");
     };
@@ -36,91 +35,7 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
     const filteredData = DemoData.entries
         .filter((entry) => entry.privacy.toLowerCase().includes(privacySetting.toLowerCase()));
 
-    
-    /*useEffect(() => {
-        const fetchData = async () => {
-            let wsResponse;
-            if(classroomId){
-                wsResponse = await getClassroomWorkspace(classroomId);
-            }
-            else{
-                wsResponse = await getAuthorizedWorkspaces();
-            }
-
-            setWorkspaceList(wsResponse.data);
-        };
-        fetchData();
-    }, [classroomId]);
-
-    const wsColumn = [
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          editable: true,
-          width: '20%',
-          align: 'center',
-          render: (_, key) => key.name,
-        },
-        {
-          title: 'Description',
-          dataIndex: 'description',
-          key: 'description',
-          editable: true,
-          width: '40%',
-          align: 'center',
-          render: (_, key) => key.description,
-        },
-        {
-            title: 'Author',
-            dataIndex: 'author',
-            key: 'author',
-            editable: true,
-            width: '40%',
-            align: 'left',
-            render: (_, key) => key.author,
-        },
-        {
-            title: 'Open Workspace',
-            dataIndex: 'open',
-            key: 'open',
-            editable: false,
-            width: '20%',
-            align: 'center',
-            render: (_, key) => (
-                <Link
-                    onClick={() =>
-                        localStorage.setItem('sandbox-activity', JSON.stringify(key))
-                    }
-                    to={'/sandbox'}
-                >
-                    Open
-                </Link>
-            ),
-        },
-        {
-            title: 'Like',
-            dataIndex: 'like',
-            key: 'like',
-            width: '10%',
-            align: 'center',
-            render: (_, key) => (
-                <Popconfirm
-                    title={'Like this workspace?'}
-                    icon={<SmileOutlined style={{ color: 'blue' }} />}
-                    onConfirm={async () => {
-
-                        }
-                    }
-                >
-                    <button id={'link-btn'}>
-                        <HeartOutlined style={{ color: 'grey' }}/>
-                    </button>
-                </Popconfirm>
-            ),
-        },
-    ];*/
-
+    // map through filtered data and display as cards
     const galleryList = filteredData.map(directory => {
         return (
             <div key={directory.id} id='gallery-class-card'>
@@ -147,30 +62,10 @@ export default function GalleryView({searchParams, setSearchParams, classroomId,
         )
     })
 
+    // return galleryList
     return (
         <div id='gallery-card-container'>
             {galleryList}
         </div>
       );
-
-    /*return (
-        <div>
-            <div
-                id='content-creator-table-container'
-                style={{ marginTop: '6.6vh' }}
-            >
-                <Table
-                    columns={wsColumn}
-                    dataSource={workspaceList}
-                    rowClassName='editable-row'
-                    rowKey='id'
-                    onChange={(Pagination) => {
-                        setPage(Pagination.current);
-                        setSearchParams({ tab, page: Pagination.current });
-                    }}
-                    pagination={{ current: page ? page : 1 }}
-                ></Table>
-            </div>
-        </div>
-    )*/
 }
