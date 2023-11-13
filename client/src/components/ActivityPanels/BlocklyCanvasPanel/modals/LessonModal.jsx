@@ -1,11 +1,14 @@
-import Reaact from 'react';
-import { Modal } from 'antd';
+import React from 'react';
+import { Modal, Button } from 'antd';
 
-const LessonModal = ({ isVisible, closeModal, description }) => {
+
+const LessonModal = ({ isVisible, closeModal, lessonContent }) => {
     return (
+      
+      // Functional components to display a lesson 
       <Modal
         title="Lesson: "
-        isVisible={isVisible}
+        visible={isVisible}
         onClose={closeModal}
         footer={[
           <Button key="close" onClick={closeModal}>
@@ -13,6 +16,7 @@ const LessonModal = ({ isVisible, closeModal, description }) => {
           </Button>
         ]}
       >
+        {lessonContent}
       </Modal>
     );
   };

@@ -20,6 +20,14 @@ import LessonModal from '../modals/LessonModal';
 
 let plotId = 1;
 
+const LessonContent = (
+  <div>
+    <h2>Test Lesson</h2>
+    <p>This is a sample lesson content.</p>
+  </div>
+);
+
+
 export default function StudentCanvas({ activity }) {
   const [hoverSave, setHoverSave] = useState(false);
   const [hoverUndo, setHoverUndo] = useState(false);
@@ -36,8 +44,7 @@ export default function StudentCanvas({ activity }) {
   const [saves, setSaves] = useState({});
   const [lastSavedTime, setLastSavedTime] = useState(null);
   const [lastAutoSave, setLastAutoSave] = useState(null);
-  const [lessonVisible, setLessonVisible] = useState(false)
-  // const [lessonDes, setLeson] = useState(false);
+  const [lessonVisible, setLessonVisible] = useState(true);
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const navigate = useNavigate();
@@ -47,14 +54,13 @@ export default function StudentCanvas({ activity }) {
   const replayRef = useRef([]);
   const clicks = useRef(0);
 
-  const renderLesson = () => {
-    setLessonVisible(true);
-  }
+  // const renderLesson = () => {
+  //   setLessonVisible(true);
+  // }
 
   const closeLesson = () => {
     setLessonVisible(false);
   }
-
 
 
   const setWorkspace = () => {
@@ -509,6 +515,13 @@ export default function StudentCanvas({ activity }) {
               </Col>
             </Row>
             <div id='blockly-canvas' />
+
+            <LessonModal
+              isVisible={lessonVisible}
+              closeModal={closeLesson}
+              lessonContent={LessonContent} 
+            />
+
           </Spin>
         </div>
 
