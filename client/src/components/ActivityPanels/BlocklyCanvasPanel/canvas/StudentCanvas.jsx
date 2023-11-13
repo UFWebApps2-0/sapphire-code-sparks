@@ -16,6 +16,7 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
+import LessonModal from '../modals/LessonModal';
 
 let plotId = 1;
 
@@ -35,6 +36,8 @@ export default function StudentCanvas({ activity }) {
   const [saves, setSaves] = useState({});
   const [lastSavedTime, setLastSavedTime] = useState(null);
   const [lastAutoSave, setLastAutoSave] = useState(null);
+  const [lessonVisible, setLessonVisible] = useState(false)
+  // const [lessonDes, setLeson] = useState(false);
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const navigate = useNavigate();
@@ -43,6 +46,16 @@ export default function StudentCanvas({ activity }) {
 
   const replayRef = useRef([]);
   const clicks = useRef(0);
+
+  const renderLesson = () => {
+    setLessonVisible(true);
+  }
+
+  const closeLesson = () => {
+    setLessonVisible(false);
+  }
+
+
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
