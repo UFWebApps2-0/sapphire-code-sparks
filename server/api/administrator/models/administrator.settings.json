@@ -18,8 +18,8 @@
       "type": "string"
     },
     "organizations": {
-      "collection": "organization",
       "via": "administrators",
+      "collection": "organization",
       "dominant": true
     },
     "user": {

@@ -16,7 +16,8 @@
     },
     "schools": {
       "collection": "school",
-      "via": "organization"
+      "via": "organization",
+      "dominant": true
     },
     "mentors": {
       "collection": "mentor",
