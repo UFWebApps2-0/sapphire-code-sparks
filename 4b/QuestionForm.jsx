@@ -85,7 +85,15 @@ class QuestionForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { type, prompt, promptImage, choices, answers, freeResponseAnswer, matchPairs } = this.state;
+    const {
+      type,
+      prompt,
+      promptImage,
+      choices,
+      answers,
+      freeResponseAnswer,
+      matchPairs
+    } = this.state;
     const question = new Question();
     question.update({
       type: type,
@@ -111,86 +119,71 @@ class QuestionForm extends Component {
   };
 
   renderChoices = () => {
-    const { type, choices, answers, matchPairs } = this.state;
+    const { type, choices, matchPairs } = this.state;
 
     switch (type) {
       case "multipleChoice":
-        return choices.map((choice, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              placeholder="Choice text"
-              value={choice.text}
-              onChange={(e) => this.handleChoiceTextChange(index, e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Choice image URL (optional)"
-              value={choice.imageUrl}
-              onChange={(e) => this.handleChoiceImageChange(index, e.target.value)}
-            />
-            <input
-              type="checkbox"
-              checked={answers[index]}
-              onChange={() => this.handleAnswerChange(index)}
-            />
-            <button type="button" onClick={() => this.removeChoice(index)}>
-              Remove
-            </button>
-          </div>
-        ));
-
-      case "dropdown":
         return (
           <div>
-            <select>
-              {choices.map((choice, index) => (
-                <option key={index} value={choice.text}>
-                  {choice.text}
-                </option>
-              ))}
-            </select>
+            {choices.map((choice, index) => (
+              <div key={index}>
+                <input
+                  type="text"
+                  placeholder="Choice text"
+                  value={choice.text}
+                  onChange={(e) =>
+                    this.handleChoiceTextChange(index, e.target.value)
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Choice image URL (optional)"
+                  value={choice.imageUrl}
+                  onChange={(e) =>
+                    this.handleChoiceImageChange(index, e.target.value)
+                  }
+                />
+                <input
+                  type="checkbox"
+                  checked={this.state.answers[index]}
+                  onChange={() => this.handleAnswerChange(index)}
+                />
+                <button type="button" onClick={() => this.removeChoice(index)}>
+                  Remove
+                </button>
+              </div>
+            ))}
             <button type="button" onClick={this.addChoice}>
               Add Choice
             </button>
           </div>
         );
 
-      case "matchMaking":
+      case "dropdown":
         return (
           <div>
-            {matchPairs.map((pair, index) => (
+            {choices.map((choice, index) => (
               <div key={index}>
                 <input
                   type="text"
-                  placeholder="Left Item"
-                  value={pair.left}
-                  onChange={(e) => this.handleMatchPairChange(index, 'left', e.target.value)}
+                  placeholder="Choice text"
+                  value={choice.text}
+                  onChange={(e) =>
+                    this.handleChoiceTextChange(index, e.target.value)
+                  }
                 />
-                <input
-                  type="text"
-                  placeholder="Right Item"
-                  value={pair.right}
-                  onChange={(e) => this.handleMatchPairChange(index, 'right', e.target.value)}
-                />
-                <button type="button" onClick={() => this.removeMatchPair(index)}>
+                <button type="button" onClick={() => this.removeChoice(index)}>
                   Remove
                 </button>
               </div>
             ))}
-            <button type="button" onClick={this.addMatchPair}>
-              Add Pair
+            <button type="button" onClick={this.addChoice}>
+              Add Choice
             </button>
           </div>
         );
 
-      case "freeResponse":
-        return (
-          <textarea
-            value={this.state.freeResponseAnswer}
-            onChange={this.handleFreeResponseChange}
-          />
-        );
+      //other cases
 
       default:
         return null;
@@ -209,7 +202,23 @@ class QuestionForm extends Component {
             <option value="freeResponse">Free Response</option>
           </select>
         </div>
-        <div>{this.renderChoices()}</div>
+        <div>
+          <label>Question Text:</label>
+          <input
+            type="text"
+            value={this.state.prompt}
+            onChange={this.handlePromptChange}
+          />
+        </div>
+        <div>
+          <label>Image URL (optional):</label>
+          <input
+            type="text"
+            value={this.state.promptImage}
+            onChange={this.handleImageChange}
+          />
+        </div>
+        {this.renderChoices()}
         <button type="submit">Add Question</button>
       </form>
     );
