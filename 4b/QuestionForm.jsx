@@ -116,80 +116,80 @@ class QuestionForm extends Component {
     switch (type) {
       case "multipleChoice":
         return choices.map((choice, index) => (
-            <div key={index}>
-              <input
-                  type="text"
-                  placeholder="Choice text"
-                  value={choice.text}
-                  onChange={(e) => this.handleChoiceTextChange(index, e.target.value)}
-              />
-              <input
-                  type="text"
-                  placeholder="Choice image URL (optional)"
-                  value={choice.imageUrl}
-                  onChange={(e) => this.handleChoiceImageChange(index, e.target.value)}
-              />
-              <input
-                  type="checkbox"
-                  checked={answers[index]}
-                  onChange={() => this.handleAnswerChange(index)}
-              />
-              <button type="button" onClick={() => this.removeChoice(index)}>
-                Remove
-              </button>
-            </div>
+          <div key={index}>
+            <input
+              type="text"
+              placeholder="Choice text"
+              value={choice.text}
+              onChange={(e) => this.handleChoiceTextChange(index, e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Choice image URL (optional)"
+              value={choice.imageUrl}
+              onChange={(e) => this.handleChoiceImageChange(index, e.target.value)}
+            />
+            <input
+              type="checkbox"
+              checked={answers[index]}
+              onChange={() => this.handleAnswerChange(index)}
+            />
+            <button type="button" onClick={() => this.removeChoice(index)}>
+              Remove
+            </button>
+          </div>
         ));
 
       case "dropdown":
         return (
-            <div>
-              <select>
-                {choices.map((choice, index) => (
-                    <option key={index} value={choice.text}>
-                      {choice.text}
-                    </option>
-                ))}
-              </select>
-              <button type="button" onClick={this.addChoice}>
-                Add Choice
-              </button>
-            </div>
+          <div>
+            <select>
+              {choices.map((choice, index) => (
+                <option key={index} value={choice.text}>
+                  {choice.text}
+                </option>
+              ))}
+            </select>
+            <button type="button" onClick={this.addChoice}>
+              Add Choice
+            </button>
+          </div>
         );
 
       case "matchMaking":
         return (
-            <div>
-              {matchPairs.map((pair, index) => (
-                  <div key={index}>
-                    <input
-                        type="text"
-                        placeholder="Left Item"
-                        value={pair.left}
-                        onChange={(e) => this.handleMatchPairChange(index, 'left', e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Right Item"
-                        value={pair.right}
-                        onChange={(e) => this.handleMatchPairChange(index, 'right', e.target.value)}
-                    />
-                    <button type="button" onClick={() => this.removeMatchPair(index)}>
-                      Remove
-                    </button>
-                  </div>
-              ))}
-              <button type="button" onClick={this.addMatchPair}>
-                Add Pair
-              </button>
-            </div>
+          <div>
+            {matchPairs.map((pair, index) => (
+              <div key={index}>
+                <input
+                  type="text"
+                  placeholder="Left Item"
+                  value={pair.left}
+                  onChange={(e) => this.handleMatchPairChange(index, 'left', e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Right Item"
+                  value={pair.right}
+                  onChange={(e) => this.handleMatchPairChange(index, 'right', e.target.value)}
+                />
+                <button type="button" onClick={() => this.removeMatchPair(index)}>
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={this.addMatchPair}>
+              Add Pair
+            </button>
+          </div>
         );
 
       case "freeResponse":
         return (
-            <textarea
-                value={this.state.freeResponseAnswer}
-                onChange={this.handleFreeResponseChange}
-            />
+          <textarea
+            value={this.state.freeResponseAnswer}
+            onChange={this.handleFreeResponseChange}
+          />
         );
 
       default:
@@ -199,19 +199,19 @@ class QuestionForm extends Component {
 
   render() {
     return (
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>Question Type:</label>
-            <select value={this.state.type} onChange={this.handleTypeChange}>
-              <option value="multipleChoice">Multiple Choice</option>
-              <option value="dropdown">Dropdown</option>
-              <option value="matchMaking">Match Making</option>
-              <option value="freeResponse">Free Response</option>
-            </select>
-          </div>
-          <div>{this.renderChoices()}</div>
-          <button type="submit">Add Question</button>
-        </form>
+      <form onSubmit={this.handleSubmit}>
+        <div>
+          <label>Question Type:</label>
+          <select value={this.state.type} onChange={this.handleTypeChange}>
+            <option value="multipleChoice">Multiple Choice</option>
+            <option value="dropdown">Dropdown</option>
+            <option value="matchMaking">Match Making</option>
+            <option value="freeResponse">Free Response</option>
+          </select>
+        </div>
+        <div>{this.renderChoices()}</div>
+        <button type="submit">Add Question</button>
+      </form>
     );
   }
 }
