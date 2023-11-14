@@ -24,16 +24,18 @@ export default function NavBar() {
     navigate('/');
   };
 
+   //Changes webpage
   const handleRouteChange = (route) => {
     navigate(route);
   };
 
+  //Checks which buttons to show depending on user type
   const shouldShowRoute = (route) => {
     if (currentRoute === routes[route]) return false;
     return config.users[value.role].includes(route);
   };
 
-  //Generates buttons
+  //Generates buttons by instantiating them and using info from NavBarConfig.json
   const genButtons = () => {
     const buttons = config.navButtons.map((button) => {
       if (shouldShowRoute(button.route)) {
