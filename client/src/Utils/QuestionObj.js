@@ -27,9 +27,9 @@ class Question {
       cur = input;
     }
     if ("type" in cur) {
-      for (t in TYPES) {
-        if (this.type == cur.type) {
-          this.type = cur.type;
+      for (let i = 0; i < Question.TYPES.length; i++) {
+        if (this.type == Question.TYPES[i]) {
+          this.type = Question.TYPES[i];
         }
       }
     }
