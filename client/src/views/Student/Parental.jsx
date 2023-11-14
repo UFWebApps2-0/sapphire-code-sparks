@@ -8,6 +8,7 @@ import './Student.less';
 export default function Parental(){
     const [learningStandard, setLessonModule] = useState({});
     const navigate = useNavigate();
+    const [action, setAction] = useState("Login");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,26 +34,79 @@ export default function Parental(){
                     <div>Parental</div>
                 </div>
 
-                <form>
+                {/*Sign Up page*/}
+                {action === "SignUp"? 
+                <div>
+                    <form id='parentalForm' className='forgetPsw'>
                     <div className='form-group'>
-                        <label htmlFor='email'>Email:</label>
-                        <input type='email' id='email' name='email' placeholder='Enter your email' />
+                        <label id='parentalLoginFont' htmlFor='email'>Email</label>
+                        <br/>
+                        <input type='email' id='inputBox' name='email' placeholder='Enter your email' />
                     </div>
 
                     <div className='form-group'>
-                        <label htmlFor='confirmEmail'>Confirm Email:</label>
-                        <input type='email' id='confirmEmail' name='confirmEmail' placeholder='Confirm your email' />
+                        <label id='parentalLoginFont' htmlFor='confirmEmail'>Confirm Email</label>
+                        <br/>
+                        <input type='email' id='inputBox' name='confirmEmail' placeholder='Confirm your email' />
                     </div>
 
                     <div className='form-group'>
-                        <label htmlFor='password'>Password:</label>
-                        <input type='password' id='password' name='password' placeholder='Enter your password' />
+                        <label id='parentalLoginFont' htmlFor='password'>Password</label>
+                        <br/>
+                        <input type='password' id='inputBox' name='password' placeholder='Enter your password' />
                     </div>
-
-                    <button type='submit'>Submit</button>
+                    <br/>
+                    <button type='submit' id='button'>Sign Up</button>   
                 </form>
+                </div>:<div></div>}
+
+                {/* Login page */}
+                {action === "Login"? <div className="LoginPage">
+                <div>
+                <form>
+                    <div>
+                        <label id='parentalLoginFont' htmlFor='email'>Email</label>
+                        <br/>
+                        <input type='email' id='inputBox' name='email' placeholder='Enter your email' />
+                        </div>
+
+                        <div>
+                        <label id='parentalLoginFont' htmlFor='password'>Password</label>
+                        <br/>
+                        <input type='password' id='inputBox' name='password' placeholder='Enter your password' />
+                        </div>
+                    </form>
+                    <br/>
+                    <button type='submit' id='button'>Login</button>   
+                    <br/>  
+
+                  {/*Change the useState and direct to the targeted form*/}
+                    <span id='signup'><a href="#" onClick={() => setAction("SignUp")}>New? Sign Up Now</a></span>
+                    <span id='forgetPsw'><a href="#" onClick={() => setAction("ForgetPsw")}>Forgot password</a></span>
+                </div>
+                </div>:
+                <div></div>
+                }
+
+                {/* Forget Psw page */}
+                {action === "ForgetPsw"? 
+                <div>
+                   <form>
+                        <div>
+                        <label id='parentalLoginFont' htmlFor='email'>Email</label>
+                        <br/>
+                        <input type='password' id='inputBox' name='password' placeholder='Enter your Email' />
+                        </div>
+                    </form>
+                    <br/>
+                    <button type='submit' id='button'>Send Email</button>   
+                    
+                </div>:
+                <div>
                 
-            </div>
+                </div>
+                }
+                </div>
         </div>
     );
 }
