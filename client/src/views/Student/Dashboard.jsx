@@ -31,7 +31,17 @@ export default function Dashboard(){
                 <div id='header'>
                     <div>Dashboard</div>
                 </div>
-            
+                <div id="containerDashboard">
+                    <div className="dashboard-box">
+                        Project 1       
+                    </div>
+                    <div className="dashboard-box">
+                        Project 2
+                    </div>
+                    <div className="dashboard-box">
+                        Project 3
+                    </div>
+                </div>
             </div>
         </div>
         );

@@ -2,6 +2,7 @@
 
 #activity-container {
   position: absolute;
+  box-shadow: -8px 8px 8px #081c2d;
   top: 53vh;
   left: 10vw;
   margin: -40vh auto 0 auto;
@@ -13,26 +14,61 @@
   border-color: #colors[secondary];
 }
 
+.dashboard-box {
+  border: 2px solid;
+  border-color: #36395A;
+  border-radius: 15px;
+  height: 20%;
+  width: 20%;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: -4px 4px 8px #081c2d;
+  font-family: "JetBrains Mono",monospace;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 25px;
+}
+
+#containerDashboard {
+  display: flex;
+  justify-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
 #header {
-  background-color: #colors[secondary];
+  //background-color: #colors[secondary];
+  background: linear-gradient(-50deg, #275479, #colors[secondary]);
+  box-shadow: -4px 4px 8px #081c2d;
   border-radius: 80px;
   width: 40%;
   min-height: 4vh;
   color: #colors[text-secondary];
-  font-size: 2.25vh;
+  font-size: 3vh;
   font-weight: bold;
   position: relative;
   top: -20px;
   left: -30px;
   line-height: 45px;
   text-align: center;
+  font-family: "JetBrains Mono",monospace;
+  text-shadow: -1px 1px 5px black, 1px -1px 2px white;
 }
 
 #list-item-wrapper {
+  font-family: "JetBrains Mono",monospace;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #colors[quaternary];
+  background: linear-gradient(45deg, #c5a825, #colors[quaternary]);
+  box-shadow: 
+    -3px 3px 10px rgba(0, 0, 0, 0.3),
+    4px -4px 10px rgba(243, 210, 80, 0.7);
   border: none;
   border-radius: 10px;
   margin: 0 auto 1.2em auto;

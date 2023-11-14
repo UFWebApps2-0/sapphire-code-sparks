@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const [classrooms, setClassrooms] = useState([]);
+
+  //Determines current User
   const user = getUser();
   const navigate = useNavigate();
 
