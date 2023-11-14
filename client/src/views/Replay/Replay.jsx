@@ -12,6 +12,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import { Table } from 'antd';
 import { getSave } from '../../Utils/requests';
 import { CSVDownloader } from 'react-papaparse';
+import Comment from '../../components/Comment/Comment';
 const TIME_LINE_SIZE = 25;
 
 const timelineReducer = (timeline, action) => {
@@ -108,6 +109,7 @@ const Replay = () => {
   const [actionFilter, setActionFilter] = useState([]);
   const [blockTypeFilter, setBlockTypeFilter] = useState([]);
   const [blockIdFilter, setBlockIdFilter] = useState([]);
+  const [commentsList, setCommentsList] = useState([]);
 
   const [timelineStates, dispatchTimelineReducer] = useReducer(
     timelineReducer,
@@ -300,6 +302,7 @@ const Replay = () => {
   return (
     <main className='container nav-padding'>
       <NavBar />
+      <Comment comments={commentsList} setComments={setCommentsList} />
       <div id='horizontal-container' className='flex flex-column'>
         <div id='top-container' className='flex flex-column vertical-container'>
           <div
