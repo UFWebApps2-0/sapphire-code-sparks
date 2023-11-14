@@ -11,6 +11,7 @@ const DELETE = 'DELETE';
 const makeRequest = async ({ method, path, data, auth = false, error }) => {
   let res = null;
   let err = null;
+
   const config = auth
     ? {
         headers: {
@@ -376,7 +377,8 @@ export const createLessonModule = async (
   number,
   unit,
   standards,
-  link
+  link,
+  embedLink
 ) =>
   makeRequest({
     method: POST,
@@ -388,6 +390,7 @@ export const createLessonModule = async (
       unit,
       standards,
       link,
+      embedLink
     },
     auth: true,
     error: 'Login failed.',
@@ -451,7 +454,8 @@ export const updateLessonModule = async (
   name,
   expectations,
   standards,
-  link
+  link,
+  embedLink
 ) =>
   makeRequest({
     method: PUT,
@@ -461,6 +465,7 @@ export const updateLessonModule = async (
       standards,
       expectations,
       link,
+      embedLink
     },
     auth: true,
     error: 'Failed to update unit',
@@ -476,7 +481,8 @@ export const updateActivityDetails = async (
   link,
   scienceComponents,
   makingComponents,
-  computationComponents
+  computationComponents,
+  embedLink
 ) =>
   makeRequest({
     method: PUT,
@@ -491,6 +497,7 @@ export const updateActivityDetails = async (
       scienceComponents,
       makingComponents,
       computationComponents,
+      embedLink
     },
     auth: true,
     error: 'Failed to update unit',

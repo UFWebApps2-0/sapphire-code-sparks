@@ -27,6 +27,7 @@ module.exports = {
       scienceComponents,
       makingComponents,
       computationComponents,
+      embedLink
     } = ctx.request.body;
     if (!StandardS || !description)
       return ctx.badRequest('A description, Standards must be provided!', {
@@ -105,7 +106,7 @@ module.exports = {
 
     const updatedActivity = await strapi.services.activity.update(
       { id },
-      { description, images, StandardS, link, learning_components: activityComponents }
+      { description, images, StandardS, link, learning_components: activityComponents, embedLink }
     );
     return sanitizeEntity(updatedActivity, { model: strapi.models.activity });
   },
