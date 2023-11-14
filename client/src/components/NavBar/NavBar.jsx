@@ -26,7 +26,14 @@ export default function NavBar() {
 
    //Changes webpage
   const handleRouteChange = (route) => {
-    navigate(route);
+    if (route != "SignOut")
+    {
+      navigate(route);
+    }
+    else
+    {
+      handleLogout();
+    }
   };
 
   //Checks which buttons to show depending on user type
