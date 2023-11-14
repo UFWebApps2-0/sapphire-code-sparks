@@ -79,3 +79,44 @@
   }
 
 }
+.comment-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .ant-input-textarea {
+    resize: vertical;  // Allowing the user to resize the textarea vertically
+  }
+
+  .ant-btn {
+    align-self: flex-end;  // Align the submit button to the right
+    margin-top: 10px;  // Add some space above the button
+  }
+}
+
+.comments-display {
+  margin-top: 20px;
+  background: #f5f5f5;  // Light grey background for the comments section
+  border: 1px solid #ddd;  // A border to separate the comments from the rest of the content
+  border-radius: 4px;  // Rounded corners for the border
+  padding: 10px;  // Some padding around the content
+
+  h3 {
+    margin-bottom: 10px;  // Space below the "Comments" header
+  }
+
+  ul {
+    list-style: none;  // Remove the default list styling
+    padding: 0;  // Remove the default padding
+  }
+
+  li {
+    background: #fff;  // White background for each comment
+    border-bottom: 1px solid #eee;  // A line between comments
+    padding: 8px;  // Some padding around the text of each comment
+    &:last-child {
+      border-bottom: none;  // No border for the last comment
+    }
+  }
+}
