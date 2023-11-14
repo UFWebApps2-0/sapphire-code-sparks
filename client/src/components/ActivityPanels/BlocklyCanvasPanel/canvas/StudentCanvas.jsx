@@ -16,14 +16,18 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
-import LessonModal from '../modals/LessonModal';
-
 let plotId = 1;
 
-const LessonContent = (
-  <div>
-    <h2>Test Lesson</h2>
-    <p>This is a sample lesson content.</p>
+
+const LessonContent = ({ onClose }) => (
+  <div className='lesson-content'>
+    <div>
+      <h2>Test Lesson</h2>
+      <p>This is a sample lesson content.</p>
+    </div>
+    <button onClick={onClose} className='close-btn'>
+      <i className='fa fa-times'></i>
+    </button>
   </div>
 );
 
@@ -53,10 +57,15 @@ export default function StudentCanvas({ activity }) {
 
   const replayRef = useRef([]);
   const clicks = useRef(0);
+  const [openLesson, setOpenLesson] = useState(false);
 
-  // const renderLesson = () => {
-  //   setLessonVisible(true);
-  // }
+  const openLessonHandler = () => {
+    setOpenLesson(true);
+  };
+
+  const toggleLessonVisibility = () => {
+    setLessonVisible(!lessonVisible);
+  };
 
   const closeLesson = () => {
     setLessonVisible(false);
@@ -482,6 +491,14 @@ export default function StudentCanvas({ activity }) {
                       id='action-btn-container'
                       className='flex space-around'
                     >
+                       <button
+                        onClick={toggleLessonVisibility}
+                        className='flex flex-column'
+                        id='link'
+                      >
+                        <i className='fa fa-book' />
+                      </button>
+
                       <ArduinoLogo
                         setHoverCompile={setHoverCompile}
                         handleCompile={handleCompile}
@@ -515,16 +532,17 @@ export default function StudentCanvas({ activity }) {
               </Col>
             </Row>
             <div id='blockly-canvas' />
-
-            <LessonModal
-              isVisible={lessonVisible}
-              closeModal={closeLesson}
-              lessonContent={LessonContent} 
-            />
-
           </Spin>
         </div>
 
+          {/* Right side LessonContent */}
+        <div id='lesson-container' className='flex flex-column'>
+          {lessonVisible && (
+            <LessonContent onClose={closeLesson} />
+          )}
+        </div>
+
+          
         <ConsoleModal
           show={showConsole}
           connectionOpen={connectionOpen}

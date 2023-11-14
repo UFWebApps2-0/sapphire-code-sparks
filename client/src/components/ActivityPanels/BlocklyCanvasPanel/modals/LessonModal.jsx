@@ -10,6 +10,7 @@ const LessonModal = ({ isVisible, closeModal, lessonContent }) => {
         title="Lesson: "
         visible={isVisible}
         onClose={closeModal}
+        className="lesson-modal"
         footer={[
           <Button key="close" onClick={closeModal}>
             Close
