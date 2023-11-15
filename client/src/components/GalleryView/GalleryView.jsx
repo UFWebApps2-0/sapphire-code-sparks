@@ -3,6 +3,8 @@ import { HeartOutlined, HeartFilled, CopyOutlined, EditOutlined } from '@ant-des
 import './GalleryView.less';
 import DemoData from "../../../DemoData.json"
 
+import './GalleryView.less';
+import DemoData from "../../../DemoData.json"
 
 export default function GalleryView({searchParams, setSearchParams, filterText, classroomId, privacySetting}){
     const [tab, setTab] = useState(
@@ -11,6 +13,7 @@ export default function GalleryView({searchParams, setSearchParams, filterText, 
     const [page, setPage] = useState(
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
+
     const [HeartIcon, setHeartIcon] = useState(HeartOutlined);
     const [CopyIcon, setCopyIcon] = useState(CopyOutlined);
     const [EditIcon, setEditIcon] = useState(EditOutlined);
@@ -74,7 +77,6 @@ export default function GalleryView({searchParams, setSearchParams, filterText, 
             </div>
         )
     })
-
     return (
         <div id='gallery-card-container'>
             {galleryList}

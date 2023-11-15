@@ -6,7 +6,6 @@ import "./Gallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
-
 export default function Gallery(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [privacySetting, setPrivacy] = useState("Public")
@@ -18,13 +17,9 @@ export default function Gallery(props) {
         setFilterText(value.target.value);
     }
 
-    const [tab, setTab] = useState(
-        searchParams.has('tab') ? searchParams.get('tab') : 'home'
-    );
-    const [page, setPage] = useState(
-        searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
-    );
-    const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
+export default function Gallery(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [privacySetting, setPrivacy] = useState("Public")
 
     const handlePublicButton = () => {
         setPrivacy("Public");
