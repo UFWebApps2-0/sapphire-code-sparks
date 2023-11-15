@@ -1,11 +1,10 @@
 /* ##### Project Testing ##### */
 body {
-    margin: 0;
-    padding: 0;
     font-family: sans-serif;
     background: #3D5C82;
+    background-size: cover;
 }
-.testingProjectSolo {
+.tableSolo {
     float: left;
     width: calc(100% - 2rem);
     position: relative;
@@ -16,37 +15,31 @@ body {
     border: 3px solid #3D5C82;
     background: #F4F4F5;
 }
-.testingProjectTop {
+.tableTop {
     float: left;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     width: calc(100% - 2rem);
     position: relative;
     display: block;
-    padding: 12px 6px 12px 10px;
+    padding: 5px 6px 5px 10px;
     box-sizing: border-box;
     border-radius: 5px 5px 0px 0px;
     border: 3px solid #3D5C82;
     background: #5BABDE;
 }
-.testingProjectMid {
+.tableMid {
     float: left;
+    margin-left: 1rem;
+    margin-right: 1rem;
     width: calc(100% - 2rem);
     position: relative;
     display: block;
-    padding: 20px 6px 20px 10px;
+    padding: 5px 6px 5px 10px;
     box-sizing: border-box;
     border: 3px solid #3D5C82;
     border-top: none;
-    background: #F4F4F5;
-}
-.testingProjectBot {
-    float: left;
-    width: calc(100% - 2rem);
-    position: relative;
-    display: block;
-    padding: 12px 6px 12px 10px;
-    box-sizing: border-box;
-    border-radius: 0px 0px 15px 15px;
-    border: 3px solid #3D5C82;
     background: #F4F4F5;
 }
 .bold {
@@ -72,19 +65,32 @@ body {
 button {
     background: #5BABDE;
     color: #3b3b3b;
-    padding: 0.3rem 0.5rem;
-    margin-right: 0.7rem;
+    padding: 0.1rem 0.5rem;
     font-size: 0.8rem;
     border: 2px solid #3D5C82;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     outline: none;
+    position: relative;
+    transform: translate(-10%, -50%);
 }
 .button2 {
-    margin-top: 1rem;
-    margin-right: 2rem;
+    margin-top: 4rem;
+    margin-left: 1rem;
+    margin-right: 0rem;
     font-size: 1.3rem;
 }
 button:hover {
     background: #ddd;
+}
+.background {
+    padding: 1px; /* hack to prevent margin collapse */
+    background-size: cover;
+    background: #3d5c82;
+}
+.whiteText {
+    font-size: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: white;
 }
