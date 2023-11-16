@@ -511,7 +511,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
               : activity.name
               ? `Workspace: ${activity.name}`
               : 'New Workspace!'}
-            videoId={activity.embedLink} //This video id will be replaced with a query or activity attribute
+            videoId={"https://www.youtube.com/embed/jfKfPfyJRdk?si=b1XFhype48mlwKuH"} //This video id will be replaced with a query or activity attribute
             />)
           :null}
     </div>
