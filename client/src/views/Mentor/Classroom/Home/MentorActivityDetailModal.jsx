@@ -11,6 +11,7 @@ import {
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
 
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import VideoURL_Input from './VideoURL_Input'
 
 const SCIENCE = 1
@@ -160,8 +161,7 @@ const MentorActivityDetailModal = ({
     <div id="mentoredit">
     <Button id="view-activity-button"
     onClick={showModal} style={{width: '40px',marginRight: "auto"}} >
-<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"
->
+<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
 <g
             id="link"
             stroke="none"
@@ -220,6 +220,24 @@ const MentorActivityDetailModal = ({
           embedLink={embedLink}
         >
         </VideoURL_Input>
+        <Popconfirm
+          title={`Are you sure you want to remove (TITLE) from this activity?`}
+          okText='Delete'
+          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+          onConfirm={() => {}}
+        >
+          <button id="delete--video" onClick={() => {}}>
+            X
+          </button>
+        </Popconfirm>
+
+        {/* 
+          Move into component, 
+          Change into proper (X) red on hover, 
+          Move next to the URLInput,
+          Create a check to see if there exists a video
+        */}
+
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
             onChange={e => setTemplate(e.target.value)}
@@ -289,14 +307,6 @@ const MentorActivityDetailModal = ({
             <br />
             
           </button>
-          <Popconfirm
-            title={`Are you sure you want to remove (TITLE) from this activity?`}
-            onConfirm={() => {}}
-          >
-            <button id="delete--video" onClick={() => {}}>
-              Delete Video
-            </button>
-          </Popconfirm>
 
         </Form.Item>
         <Form.Item
