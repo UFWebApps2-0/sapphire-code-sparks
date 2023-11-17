@@ -12,16 +12,22 @@ export default function FlagButton({ id }) {
   emailjs.init("SM7VwO6yrGjIp_Z_M");
 
   // Function to send email
-  function sendEmail() {
+  function sendEmail(reason) {
     emailjs.send("service_15kdnle", "template_b73zh4s", {
       video_id: id,
+      reason: reason,
+      page_link: window.location.href,
     });
   }
 
   // Handle button click
   const handleClick = () => {
-    setHighlighted(!highlighted);
-    sendEmail();
+    const reason = window.prompt("Please enter a reason for reporting this video:");
+    console.log(reason);
+    if (reason) {
+      setHighlighted(!highlighted);
+      sendEmail(reason);
+    }
   };
 
   // Button component
