@@ -6,7 +6,7 @@ import "./Gallery.less"
 import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
 
-export default function Gallery(props) {
+export default function Gallery() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [privacySetting, setPrivacy] = useState("Public")
     // useState() to allow the filterText to be updated when input is typed
@@ -17,9 +17,13 @@ export default function Gallery(props) {
         setFilterText(value.target.value);
     }
 
-export default function Gallery(props) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [privacySetting, setPrivacy] = useState("Public")
+    const [tab, setTab] = useState(
+        searchParams.has('tab') ? searchParams.get('tab') : 'home'
+    );
+    const [page, setPage] = useState(
+        searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
+    );
+    const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
 
     const handlePublicButton = () => {
         setPrivacy("Public");
@@ -33,6 +37,7 @@ export default function Gallery(props) {
         setPrivacy("Organization");
         alert("Displaying only Organization projects");
     }
+
     return (
         <div className="container nav-padding">
             <NavBar />
@@ -58,4 +63,5 @@ export default function Gallery(props) {
             </div>
         </div>
     )
+
 }
