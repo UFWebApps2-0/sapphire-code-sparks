@@ -535,16 +535,10 @@
           "id": {
             "type": "string"
           },
-          "UID": {
+          "key": {
             "type": "uid"
           },
           "creatorID": {
-            "type": "string"
-          },
-          "URL": {
-            "type": "string"
-          },
-          "name": {
             "type": "string"
           },
           "videoID": {
@@ -558,6 +552,9 @@
           },
           "inWorkspace": {
             "type": "string"
+          },
+          "flagCount": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",
@@ -567,16 +564,10 @@
       },
       "NewUrl-storage": {
         "properties": {
-          "UID": {
+          "key": {
             "type": "uid"
           },
           "creatorID": {
-            "type": "string"
-          },
-          "URL": {
-            "type": "string"
-          },
-          "name": {
             "type": "string"
           },
           "videoID": {
@@ -590,6 +581,9 @@
           },
           "inWorkspace": {
             "type": "string"
+          },
+          "flagCount": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",
