@@ -28,7 +28,10 @@ class Question {
     }
     if ("type" in cur) {
       for (let i = 0; i < Question.TYPES.length; i++) {
-        if (this.type == Question.TYPES[i]) {
+        if (
+          new String(cur.type).valueOf() ==
+          new String(Question.TYPES[i]).valueOf()
+        ) {
           this.type = Question.TYPES[i];
         }
       }

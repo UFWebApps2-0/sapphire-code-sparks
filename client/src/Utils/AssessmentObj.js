@@ -5,20 +5,20 @@ import Submission from "../../../4b/submission";
 import Question from "../Utils/QuestionObj";
 class Assessment {
   // Construct with an existing object, json string, or nothing.
-  constructor(input = null) {
-    this.name = "";
+  constructor(input) {
+    this.name = "New Assessment";
     this.attempts = 1;
     this.points = 0.0;
     this.questions = [];
     this.showGrades = false;
     // Set publish date to current date by default.
     const currentDate = new Date();
-    currentDate.setFullYear(currentDate.getFullYear() + 1000); // Set 1000 years from now as default publish
-    this.publishDate = currentDate.getTime(); // only show after this date/time
-    this.openDate = currentDate; // null indicates always open
-    this.dueDate = currentDate; // null indicates no deadline.
+    currentDate.setFullYear(currentDate.getFullYear() + 100); // Set 1000 years from now as default publish
+    this.publishDate = currentDate.toJSON().slice(0, -1); // only show after this date/time
+    this.openDate = currentDate.toJSON().slice(0, -1); // null indicates always open
+    this.dueDate = currentDate.toJSON().slice(0, -1); // null indicates no deadline.
     this.timeLimit = 9999999; // Negatives indicate unlimited.
-    if (input != null) {
+    if (input) {
       this.update(input);
     }
   }
@@ -35,33 +35,46 @@ class Assessment {
     if ("name" in cur) {
       this.name = cur.name;
     }
-    if ("points" in cur) {
-      this.points = cur.points;
-    }
     if ("attempts" in cur) {
       this.attempts = cur.attempts;
     }
-    if ("questions" in cur && Array.isArray(cur)) {
-      for (q in cur) {
-        this.addQuestion(new Question(q));
-      }
-      this.questions = cur.questions;
-      this.points = 0.0;
-      for (q in this.questions) {
-        this.points += q.points;
+    if ("questions" in cur && cur.questions instanceof Array) {
+      cur.points = 0;
+      if (cur.questions.length > 0) {
+        cur.questions.map((q) => {
+          this.addQuestion(new Question(q));
+        });
       }
     }
     if ("showGrades" in cur) {
       this.showGrades = cur.showGrades;
     }
     if ("publishDate" in cur) {
-      this.publishDate = cur.publishDate;
+      if (
+        typeof this.publishDate === "string" ||
+        this.publishDate instanceof String
+      ) {
+        this.publishDate = cur.publishDate.replace("Z", "");
+      } else {
+        this.publishDate = cur.publishDate;
+      }
     }
     if ("openDate" in cur) {
-      this.openDate = cur.openDate;
+      if (
+        typeof this.openDate === "string" ||
+        this.openDate instanceof String
+      ) {
+        this.openDate = cur.openDate.replace("Z", "");
+      } else {
+        this.openDate = cur.openDate;
+      }
     }
     if ("dueDate" in cur) {
-      this.dueDate = cur.dueDate;
+      if (typeof this.dueDate === "string" || this.dueDate instanceof String) {
+        this.dueDate = cur.dueDate.replace("Z", "");
+      } else {
+        this.dueDate = cur.dueDate;
+      }
     }
     if ("timeLimit" in cur) {
       this.timeLimit = cur.timeLimit;
