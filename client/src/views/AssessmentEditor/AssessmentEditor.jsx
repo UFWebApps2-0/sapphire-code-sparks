@@ -1,7 +1,6 @@
-import "./AssessmentObj";
-import "./QuestionObj";
+import Question from "../../Utils/QuestionObj";
 import React from "react";
-import "./QuesitonList";
+import QuestionList from "../../../../4b/QuestionList";
 
 function AssessmentEditor({ assessment, onSave }) {
   // Assessment is the object, and onSave is the function to update the assessment in database.
@@ -17,11 +16,11 @@ function AssessmentEditor({ assessment, onSave }) {
   }
   return (
     <div>
-      {/* Add navbar here*/}
       {
         // TODO: Set this to display new question creator screen.
         showAdder ? (
-          <div className="modal">
+          // Absolute position and zIndex make it appear as a popup in front of everything else.
+          <div className="modal" style={{ position: absolute, zIndex: 99999 }}>
             <div className="modal_content">
               {/* This shows question editor 
               <QuestionEditor question={new Question()} submit={(q) => {setShowAdder(!showAdder); addQ(q)}} />*/}
@@ -133,7 +132,7 @@ function AssessmentEditor({ assessment, onSave }) {
               onClick={() => {
                 //setShowAdder(!showAdder);
                 alert("This should show adder");
-                curQ = new Question();
+                setCurQ(new Question());
               }}
             >
               Add New Question
