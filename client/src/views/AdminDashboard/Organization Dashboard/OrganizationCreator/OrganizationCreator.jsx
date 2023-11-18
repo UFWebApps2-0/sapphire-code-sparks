@@ -7,11 +7,9 @@ import "./OrganizationCreator.less"
 export default function OrganizationCreator(props) {
   const [visible, setVisible] = useState(false)
   const [name, setName] = useState("")
-  const [number, setNumber] = useState("")
   const [selectedSchools, setSelectedSchools] = useState([])
   const [schools, setSchools] = useState([])
-  const [description, setDescription] = useState("")
-  const [standard, setStandard] = useState("")
+  const [refreshSchools, setRefreshSchools] = useState(false)
   
 
   useEffect(() => {
@@ -29,25 +27,24 @@ export default function OrganizationCreator(props) {
         });
 
         const data = await response.json();
-        setSchools(data);
+        // filter schools by those that are not already in an organization
+        const filteredData = data.filter(school => school.organization === null);
+        setSchools(filteredData);
       } catch (error) {
         console.error('An error occurred:', error);
       }
     };
-
     fetchData();
-  }, []);
-
+  }, [refreshSchools]);
 
   const handleSchoolChange = value => {
     setSelectedSchools(value);
   };
 
+  // Reset form fields
   const showModal = () => {
-    setNumber("")
     setName("")
-    setDescription("")
-    setStandard("")
+    setSelectedSchools([])
     setVisible(true)
   }
 
@@ -59,6 +56,7 @@ export default function OrganizationCreator(props) {
     const adminId = props.admins.id;
     console.log(adminId);
     
+    // create new organization in database
     const createRes = await createOrganization(name);
     if (createRes.err) {
       message.error("Failed to create a new organization");
@@ -67,12 +65,16 @@ export default function OrganizationCreator(props) {
       console.log(newOrgId)
       message.success("Successfully created new organization");
 
+      // update organization with selected schools
       const updateRes = await updateOrganization(newOrgId, selectedSchools, adminId);
       if(updateRes.err) {
         message.error("Failed to update organization");
       } else {
-        message.success("Successfully updated organization");
-        setVisible(false);
+        if (props.refreshOrganizations) { // refresh organizations
+          props.refreshOrganizations();
+        }
+        setRefreshSchools(!refreshSchools); // refresh school list
+        setVisible(false); // close modal
       }
     }
   }
@@ -114,8 +116,9 @@ export default function OrganizationCreator(props) {
               mode="multiple"
               placeholder="Select schools"
               onChange={handleSchoolChange}
+              value={selectedSchools}
             >
-              {schools.map(school => (
+            {schools.map(school => (
             <Option key={school.id} value={school.id}>{school.name}</Option>
           ))}
             </Select>

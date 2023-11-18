@@ -568,46 +568,6 @@
               }
             }
           },
-          "mentors": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "first_name": {
-                  "type": "string"
-                },
-                "last_name": {
-                  "type": "string"
-                },
-                "school": {
-                  "type": "string"
-                },
-                "classrooms": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "user": {
-                  "type": "string"
-                },
-                "organization": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "administrators": {
             "type": "array",
             "items": {
@@ -657,12 +617,6 @@
             "type": "string"
           },
           "schools": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "mentors": {
             "type": "array",
             "items": {
               "type": "string"

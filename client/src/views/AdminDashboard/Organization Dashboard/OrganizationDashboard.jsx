@@ -10,6 +10,7 @@ import './OrganizationDashboard.less';
 
 export default function OrganizationDashboard() {
     const [organizations, setOrganizations] = useState([]);
+    const [totalMentors, setTotalMentors] = useState(0);
     const [admin, setAdmin] = useState({});
     const navigate = useNavigate();
 
@@ -25,13 +26,6 @@ export default function OrganizationDashboard() {
         navigate('/admin-dashboard'); 
     }
 
-
-    // Adds New Organization 
-    const addOrganization = () => {
-        //** TODO: ADD NEW ORGANIZATION FEATURE **//
-    }
-
-
     // Loads Administrator
     useEffect(() => {
         getUser()
@@ -44,21 +38,58 @@ export default function OrganizationDashboard() {
             })
     }, []);
 
-
-    // Loads Admin's Organizations
-    useEffect(() => {
-        if (admin == null || Object.keys(admin).length == 0)
+    // Loads Organizations
+    const fetchAndSetOrganizations = async () => {
+        if (!admin || Object.keys(admin).length === 0) {
             return;
+        }
 
-        let organizationIds = [];
-        admin.organizations.forEach((organization) => {
-            organizationIds.push(organization.id);
-        });
-        
-        getOrganizations(organizationIds).then((organizations) => {
+        const jwtToken = localStorage.getItem('jwt');
+        if (!jwtToken) {
+            throw new Error('No JWT token found');
+        }
+
+        // Fetch organizations
+        try {
+            const orgResponse = await fetch('http://localhost:1337/api/organizations', {
+                headers: { 'Authorization': `Bearer ${jwtToken}` },
+            });
+
+            const organizations = await orgResponse.json();
+
+            // Fetch schools and mentors in parallel
+            const fetchSchoolsAndMentors = async (organization) => {
+                const schoolResponse = await fetch(`http://localhost:1337/api/schools?organization=${organization.id}`, {
+                    headers: { 'Authorization': `Bearer ${jwtToken}` },
+                });
+                const schools = await schoolResponse.json();
+
+                // Parallelize mentor fetch requests for each school
+                const mentorPromises = schools.map(school =>
+                    fetch(`http://localhost:1337/api/mentors?school=${school.id}`, {
+                        headers: { 'Authorization': `Bearer ${jwtToken}` },
+                    }).then(response => response.json())
+                );
+
+                const mentorsList = await Promise.all(mentorPromises);
+                return mentorsList.flat().length; 
+            };
+
+            const mentorCounts = await Promise.all(organizations.map(fetchSchoolsAndMentors));
+            mentorCounts.forEach((count, index) => {
+                organizations[index].totalMentors = count;
+            });
+
             setOrganizations(organizations);
-        });
-    }, [admin])
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    };
+
+    // Loads Organizations
+    useEffect(() => {
+        fetchAndSetOrganizations();
+    }, [admin]);
 
 
     // Returns Administrator with userID
@@ -86,6 +117,7 @@ export default function OrganizationDashboard() {
                     <div id='add-org-button'> 
                         <OrganizationCreator
                         admins = {admin}
+                        refreshOrganizations = {fetchAndSetOrganizations}
                         />
                     </div>
                 </div>
@@ -105,8 +137,8 @@ export default function OrganizationDashboard() {
                             </div>
                         <div id='card-right-content-container'>
                         <div id='mentor-number-container'>
-                        <h1 id='number'>{organization.mentors.length}</h1>
-                        <p id='label'>Teachers</p>
+                            <h1 id='number'>{organization.totalMentors}</h1>
+                            <p id='label'>Teachers</p>
                         </div>
                         <div id='divider' />
                         <div id='school-number-container'>
@@ -115,10 +147,10 @@ export default function OrganizationDashboard() {
                         </div>
                         </div>
                     </div>
-                    ))}
-                    
+                    ))}  
                 </div>
             </div>
         </div>
     )
 }
+
