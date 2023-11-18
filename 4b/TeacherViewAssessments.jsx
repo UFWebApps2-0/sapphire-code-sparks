@@ -1,11 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import './TeacherViewAssessments.css';
+import NavBar from "../client/src/components/NavBar/NavBar";
 
 function TeacherViewAssessments( { assessmentList } ) {
     // TODO: Don't know how to run program to test implementation with Assignments, fix up.
     return (
         <body className="background">
-            <p1 className = "projectText whiteText bold"> View Assessments </p1>
+            <div id="main-header"> <br></br>View Assessments </div>
+            <NavBar />
             <div className="projectText">
                 <p1 className="tableTop bold">
                     Assessments:
@@ -31,12 +33,15 @@ function PrintMiddleEntries( { assessmentList } ) {
             {sampleList.map(sampleList => (
                 <div className="tableMid">
                     <p2 className="alignLeft bold">{sampleList}</p2>
-                    <p3><br></br>Live on {sampleList}, Due by {sampleList}</p3>
+                    <p3><br></br>Assigned: openDate | Due: dueDate</p3>
                     <button onClick={() => navigate("Grade")} className="alignRight">
                         Grade
                     </button>
-                    <button onClick={() => navigate("/about")} className="alignRight">
-                        Assign to Classroom
+                    <button onClick={() => navigate("/teacher-assessments/editor/:id")} className="alignRight shortenTransform">
+                        Edit
+                    </button>
+                    <button onClick={() => navigate("/about")} className="alignRight shortenTransform2">
+                        Assign
                     </button>
                 </div>
             ))}

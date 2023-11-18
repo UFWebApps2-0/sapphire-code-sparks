@@ -45,6 +45,9 @@ body {
 .bold {
     font-weight: bold;
 }
+.tableHover:hover {
+    background: #ddd;
+}
 .noTopBorder {
     border-top: none;
 }
@@ -88,9 +91,7 @@ button {
     font-size: 1rem;
     border: 1px solid #3D5C82;
     transform: translate(-20%, 10%);
-}
-.shortenTransform {
-    transform: translate(-30%, 10%);
+    margin-left: 0.5rem;
 }
 button:hover {
     background: #ddd;
@@ -101,6 +102,7 @@ button:hover {
     background: #3d5c82;
 }
 .blackText {
+    padding-top: 4.5rem;
     font-size: 2rem;
     color: #414141;
     padding-bottom: 0;

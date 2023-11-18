@@ -17,6 +17,7 @@ import GroupReport from "./views/Researcher/GroupReport";
 import Report from "./views/Researcher/Report";
 import Student from "./views/Student/Student";
 import StudentLogin from "./views/StudentLogin/StudentLogin";
+import StudentViewAssessments from "../../4b/StudentViewAssessments";
 import ForgetPassword from "./views/TeacherLogin/ForgetPassword";
 import ResetPassword from "./views/TeacherLogin/ResetPassword";
 import TeacherLogin from "./views/TeacherLogin/TeacherLogin";
@@ -47,6 +48,13 @@ const App = () => {
             <AssessmentEditorView />
             // change to private route later.
           }
+        />
+
+        <Route
+            path='/student-assessments'
+            element={
+                <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
+            }
         />
 
         <Route

@@ -1,17 +1,19 @@
 import {useNavigate} from "react-router-dom";
 import './StudentViewAssessments.css';
+import NavBar from "../client/src/components/NavBar/NavBar";
 
-function TeacherViewAssessments( { assessmentList } ) {
-    // TODO: Don't know how to run program to test implementation with Assignments, fix up.
+function StudentViewAssessments( { assessmentList } ) {
+    // name, attempts, points, questions, showGrades, openDate, dueDate, timeLimit
     const navigate = useNavigate();
     return (
         <body className="background">
+        <NavBar />
         <p1 className = "blackText header bold noBottomBorder"> Student Name</p1>
         <p1 className = "smallerText header"> Number Incomplete Assessments: x/y<br></br>Current Grade: z%</p1>
         <button onClick={() => navigate("Grade")} className="alignRight button3">
             Sort by Type
         </button>
-        <button onClick={() => navigate("/about")} className="alignRight button3 shortenTransform">
+        <button onClick={() => navigate("/about")} className="alignRight button3">
             Sort by Date
         </button>
         <div className="projectText">
@@ -37,29 +39,17 @@ function PrintMiddleEntries( { assessmentList } ) {
     return ( // TODO: Replace this stuff with a structure for assessmentList.name and it should work.
         <div>
             {sampleList.map(sampleList => (
-                <div className="tableMid">
+                <div className="tableMid tableHover" onClick={() => navigate("/about")}>
                     <p2 className="alignLeft bold">{sampleList}</p2>
-                    <p3><br></br>Live on {sampleList}, Due by {sampleList}</p3>
-                    <button onClick={() => navigate("Grade")} className="alignRight">
-                        Grade
-                    </button>
-                    <button onClick={() => navigate("/about")} className="alignRight">
-                        Assign to Classroom
-                    </button>
+                    <p3><br></br>Due: dueDate | attempts Attempts | -/points | [Not Yet Graded]</p3>
                 </div>
             ))}
         </div>
     );
 }
 
-/*
-                    <button onClick={() => navigate("Live X to Y")} className="alignRight">
-                        Live X to Y
-                    </button>
- */
-
 function HandleAdd() {
     // TODO: Call class to create new assessment - basically like the AddBuilding in Bootcamp 3.
 }
 
-export default TeacherViewAssessments;
+export default StudentViewAssessments;

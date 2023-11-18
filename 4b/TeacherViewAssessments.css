@@ -74,6 +74,12 @@ button {
     position: relative;
     transform: translate(-10%, -50%);
 }
+.shortenTransform {
+    transform: translate(-22%, -50%);
+}
+.shortenTransform2 {
+    transform: translate(-21%, -50%);
+}
 .button2 {
     margin-top: 4rem;
     margin-left: 1rem;
