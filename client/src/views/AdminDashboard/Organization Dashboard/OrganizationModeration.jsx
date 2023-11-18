@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { getOrganization } from "../../../Utils/requests";
+import { getOrganization, getModRecord, getModRecordCount } from "../../../Utils/requests";
 import { Table } from 'antd';
 
 
 export default function OrganizationModeration({ organizationId }) {
     const [organization, setOrganization] = useState({});
+    const [moderationRecords, setModerationRecords] = useState([]);
     const navigate = useNavigate();
 
 
@@ -18,15 +19,38 @@ export default function OrganizationModeration({ organizationId }) {
 
     // Load Organization's Data
     useEffect(() => {
-        getOrganization(organizationId)
-            .then((res) => {
-                res.data ? setOrganization(res.data) : message.error('Failed to fetch organization details');
-            })
-            .catch((error) => {
-                message.error(error.message || 'An error occurred while fetching organization details.');
-            });
-    }, [organizationId]);
+        const fetchData = async () => {
+          try {
+            //get org details
+            const organizationResponse = await getOrganization(organizationId);
+            const organizationData = organizationResponse.data;
+            
+            if (organizationData) {
+              setOrganization(organizationData);
+              
+              //get mod records
+              const moderationRecordsResponse = await getOrganizationModerationRecords(organizationId);
+              const moderationRecordsData = moderationRecordsResponse.data;
+              
+              setModerationRecords(moderationRecordsData);
 
+            } else {
+              message.error('Failed to fetch organization details');
+            }
+          } catch (error) {
+            message.error(error.message || 'An error occurred while fetching organization details.');
+          }
+        };
+    
+        fetchData();
+      }, [organizationId]);
+
+      const columns = [
+        { title: 'ID', dataIndex: 'id', key: 'id' },
+        { title: 'Action Type', dataIndex: 'ActionType', key: 'ActionType' },
+        { title: 'Action Date', dataIndex: 'ActionDate', key: 'ActionDate' },
+        { title: 'Moderator Name', dataIndex: 'ModeratorName', key: 'ModeratorName' },
+      ];
 
     return (
         <div>
@@ -40,8 +64,13 @@ export default function OrganizationModeration({ organizationId }) {
                 id='content-creator-table-container'
                 style={{ marginTop: '6.6vh' }}
             >
-                <Table>
-                </Table>
+                <Table dataSource={moderationRecords} columns={columns}a rowKey="id" />
+            </div>
+            
+            <div class="inline-buttons">
+            <button onClick={() => alert('Delete something')}>Delete Something</button>
+            <button onClick={() => alert('Moderation Action')}>Moderation Action</button>
+            <button onClick={() => alert('Account/data recovery')}>Account/data recovery</button>
             </div>
         </div>
     )

@@ -25,6 +25,10 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "moderation_records": {
+      "via": "administrator",
+      "collection": "moderation-records"
     }
   }
 }

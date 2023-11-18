@@ -26,6 +26,10 @@
     "administrators": {
       "via": "organizations",
       "collection": "administrator"
+    },
+    "moderation_records": {
+      "via": "organization",
+      "collection": "moderation-records"
     }
   }
 }

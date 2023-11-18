@@ -559,6 +559,12 @@
                     "type": "string"
                   }
                 },
+                "moderation_records": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -616,6 +622,43 @@
               }
             }
           },
+          "moderation_records": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "ActionType": {
+                  "type": "string"
+                },
+                "ActionDate": {
+                  "type": "string"
+                },
+                "ModeratorName": {
+                  "type": "string"
+                },
+                "organization": {
+                  "type": "string"
+                },
+                "administrator": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -638,6 +681,12 @@
           },
           "user": {
             "type": "string"
+          },
+          "moderation_records": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "string",

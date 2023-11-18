@@ -71,6 +71,22 @@ export const getAllAdministrators = async () =>
     error: 'Your administrator information could not be fetched.'
   });
 
+
+export const getModRecord = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/moderation_records/${id}`,
+    auth: true,
+    error: 'Moderation Record information could not be retrieved',
+  });
+
+export const getModRecordCount = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/moderation_records/count`,
+    auth: true,
+    error: 'Moderation Record Count information could not be retrieved',
+  });  
 // Retrieves the user from the session's token (I think)
 export const getUser = async () =>
   makeRequest({
