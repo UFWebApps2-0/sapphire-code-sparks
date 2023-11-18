@@ -15,6 +15,7 @@ import ActivityLevelReportView from './views/Researcher/ActivityLevelReportView'
 import GroupReport from './views/Researcher/GroupReport';
 import Report from './views/Researcher/Report';
 import Student from './views/Student/Student';
+import StudentViewAssessments from '../../4b/StudentViewAssessments'
 import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
@@ -34,6 +35,12 @@ const App = () => {
                 <Route path='/replay/:saveID' element={<Replay />} />
                 <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
 
+                <Route
+                    path='/student-assessments'
+                    element={
+                        <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
+                    }
+                />
                 <Route
                     path='/teacher-assessments'
                     element={

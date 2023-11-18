@@ -1,24 +1,32 @@
 import {useNavigate} from "react-router-dom";
-import './TeacherViewAssessments.css';
+import './StudentViewAssessments.css';
 
 function TeacherViewAssessments( { assessmentList } ) {
     // TODO: Don't know how to run program to test implementation with Assignments, fix up.
+    const navigate = useNavigate();
     return (
         <body className="background">
-            <p1 className = "projectText whiteText bold"> View Assessments </p1>
-            <div className="projectText">
-                <p1 className="tableTop bold">
-                    Assessments:
-                </p1>
-                <PrintMiddleEntries
-                    filteredData={assessmentList}
-                />
-                <div>
-                    <button onClick={() => HandleAdd()} className="alignRight button2">
-                        Create New<br></br>Assignment
-                    </button>
-                </div>
+        <p1 className = "blackText header bold noBottomBorder"> Student Name</p1>
+        <p1 className = "smallerText header"> Number Incomplete Assessments: x/y<br></br>Current Grade: z%</p1>
+        <button onClick={() => navigate("Grade")} className="alignRight button3">
+            Sort by Type
+        </button>
+        <button onClick={() => navigate("/about")} className="alignRight button3 shortenTransform">
+            Sort by Date
+        </button>
+        <div className="projectText">
+            <p1 className="tableTop bold">
+                Assessments:
+            </p1>
+            <PrintMiddleEntries
+                filteredData={assessmentList}
+            />
+            <div>
+                <button onClick={() => HandleAdd()} className="alignRight button2">
+                    Create New<br></br>Assignment
+                </button>
             </div>
+        </div>
         </body>
     );
 }
