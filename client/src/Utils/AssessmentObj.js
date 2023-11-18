@@ -1,8 +1,8 @@
 // Assessment Workspace Core
 import React, { useState } from "react";
-import ElaspedTime from "./elapsedTime";
-import Submission from "./submission";
-import Question from "./QuestionObj";
+import ElapsedTime from "../../../4b/elapsedTime";
+import Submission from "../../../4b/submission";
+import Question from "../Utils/QuestionObj";
 class Assessment {
   // Construct with an existing object, json string, or nothing.
   constructor(input = null) {
