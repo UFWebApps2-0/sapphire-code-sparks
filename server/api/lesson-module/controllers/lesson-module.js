@@ -29,27 +29,28 @@ module.exports = {
       ctx.request.body
     );
   },
-  async restoreOriginal(ctx) {
-    const {lessonId, historyId} = ctx.request.body;
+  async revert(ctx) {
+    const { id } = ctx.params;
+    const { historyId } = ctx.request.body;
 
-    // fetch the historical entry of the lesson
-    const historyEntry = await strapi.services['lesson-history'].findOne({ id: historyId });
+    // Find the lessonn history for this lesson module
+    const historyRecord = strapi.query('lesson-history').findOne({id : historyId });
+    if (!historyRecord)
+      return ctx.error(404, 'Lesson history not found');
 
-    // update the lesson with the historical data
-    const updatedLesson = await strapi.services.lesson.update(
-      { id: lessonId },
+    const updatedLesson = await strapi.query('lesson-module').update( 
+      { id },
       {
-        number: historyEntry.number,
-        name: historyEntry.name,
-        expectations: historyEntry.expectations,
-        activities: historyEntry.activities,
-        unit: historyEntry.unit,
-        standards: historyEntry.standards,
-        link: historyEntry.link
+        number: historyRecord.number,
+        name: historyRecord.name,
+        expectations: historyRecord.expectations,
+        activities: historyRecord.activities,
+        unit: historyRecord.unit,
+        standards: historyRecord.standards,
+        link: historyRecord.link
       }
     );
 
-    // return the updated lesson
-    ctx.send(updatedLesson);
+    return updatedLesson;
   },
 };

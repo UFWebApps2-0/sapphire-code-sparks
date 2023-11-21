@@ -594,6 +594,9 @@
                 "activity_template": {
                   "type": "string"
                 },
+                "lesson_history": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -629,6 +632,12 @@
                 "type": "integer"
               },
               "lesson_modules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "lesson_histories": {
                 "type": "array",
                 "items": {
                   "type": "string"

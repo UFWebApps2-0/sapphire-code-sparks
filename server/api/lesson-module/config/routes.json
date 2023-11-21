@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/lesson-modules/:id/revert",
+      "handler": "lesson-module.revert",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

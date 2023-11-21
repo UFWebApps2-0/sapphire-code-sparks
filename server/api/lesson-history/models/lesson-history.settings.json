@@ -12,25 +12,36 @@
   },
   "attributes": {
     "number": {
-      "type": "integer"
+      "type": "decimal",
+      "required": true
     },
     "name": {
-      "type": "richtext"
+      "type": "string",
+      "required": true
     },
     "expectations": {
-      "type": "richtext"
+      "type": "text"
     },
     "activities": {
-      "collection": "activity"
+      "collection": "activity",
+      "via": "lesson_history"
     },
     "unit": {
-      "model": "unit"
+      "model": "unit",
+      "via": "lesson_histories"
     },
     "standards": {
-      "type": "richtext"
+      "type": "string",
+      "unique": true
     },
     "link": {
-      "type": "richtext"
+      "type": "string"
+    },
+    "relations": {
+      "lesson_module": {
+        "model": "lesson-module",
+        "via": "lesson_histories"
+      }
     }
   }
 }

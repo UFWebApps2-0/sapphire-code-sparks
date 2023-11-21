@@ -529,14 +529,16 @@
     "schemas": {
       "Lesson-history": {
         "required": [
-          "id"
+          "id",
+          "number",
+          "name"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "number": {
-            "type": "integer"
+            "type": "number"
           },
           "name": {
             "type": "string"
@@ -592,6 +594,9 @@
                 "activity_template": {
                   "type": "string"
                 },
+                "lesson_history": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -632,6 +637,12 @@
                   "type": "string"
                 }
               },
+              "lesson_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -653,9 +664,13 @@
         }
       },
       "NewLesson-history": {
+        "required": [
+          "number",
+          "name"
+        ],
         "properties": {
           "number": {
-            "type": "integer"
+            "type": "number"
           },
           "name": {
             "type": "string"

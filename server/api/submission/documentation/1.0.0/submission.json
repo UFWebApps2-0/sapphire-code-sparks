@@ -648,6 +648,9 @@
               "activity_template": {
                 "type": "string"
               },
+              "lesson_history": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

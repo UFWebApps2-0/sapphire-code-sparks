@@ -176,12 +176,6 @@ export default function Dashboard() {
     );
   };
 
-  const restoreLesson = async(lessonId, historyId) => {
-    try {
-      const response = await fetch()
-    }
-  }
-
   return (
     
     <div className='container nav-padding'>

@@ -46,6 +46,10 @@
     "activity_template": {
       "type": "text",
       "required": false
+    },
+    "lesson_history": {
+      "via": "activities",
+      "model": "lesson-history"
     }
   }
 }

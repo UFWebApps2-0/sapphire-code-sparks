@@ -36,6 +36,12 @@
     },
     "link": {
       "type": "string"
+    },
+    "relations": {
+      "lesson_histories": {
+        "collection": "lesson-history",
+        "via": "lesson_module"
+      }
     }
   }
 }

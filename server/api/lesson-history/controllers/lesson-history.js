@@ -5,4 +5,37 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+    async onCreate(ctx) {
+        const currentLesson = await strapi.services['lesson-module'].create(ctx.request.body);
+
+        await strapi.query('lesson-history').create({
+            number: currentLesson.number,
+            name: currentLesson.name,
+            expectations: currentLesson.expectations,
+            activities: currentLesson.activities,
+            unit: currentLesson.unit,
+            standards: currentLesson.standards,
+            link: currentLesson.link
+        });
+
+        return currentLesson;
+    },
+    async onUpdate(ctx) {
+        const { id } = ctx.params;
+        const currentLesson = await strapi.query('lesson-module').findOne({ id });
+
+        await strapi.query('lesson-history').update({
+            number: currentLesson.number,
+            name: currentLesson.name,
+            expectations: currentLesson.expectations,
+            activities: currentLesson.activities,
+            unit: currentLesson.unit,
+            standards: currentLesson.standards,
+            link: currentLesson.link
+        });
+    },
+    async revertLesson(params, data) {
+
+    }
+};

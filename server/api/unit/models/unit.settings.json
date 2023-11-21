@@ -30,6 +30,10 @@
     "lesson_modules": {
       "via": "unit",
       "collection": "lesson-module"
+    },
+    "lesson_histories": {
+      "via": "unit",
+      "collection": "lesson-history"
     }
   }
 }
