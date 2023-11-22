@@ -36,12 +36,6 @@
     },
     "link": {
       "type": "string"
-    },
-    "relations": {
-      "lesson_module": {
-        "model": "lesson-module",
-        "via": "lesson_histories"
-      }
     }
   }
 }

@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import {
   getLessonModule,
   updateLessonModule,
+  getLessonHistories,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
@@ -23,6 +24,17 @@ export default function LessonEditor({
   const [displayName, setDisplayName] = useState(learningStandard.name)
   // eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams()
+
+  // Lesson reversion variables
+  const [revertVisible, setRevertVisible] = useState(false);
+  const [lessonHistories, setLessonHistories] = useState([]);
+
+  // Show Revert modal if button clicked
+  const showRevertModal = async () => {
+    const histories = await getLessonHistories(learningStandard.id);
+    setLessonHistories(histories);
+    setRevertVisible(true);
+  }
 
   const showModal = async () => {
     setVisible(true)
@@ -159,6 +171,13 @@ export default function LessonEditor({
               className="content-creator-button"
             >
               Cancel
+            </Button>
+            <Button
+              onClick={showRevertModal}
+              size="large"
+              className="content-creator-button"
+            >
+              Revert Lesson
             </Button>
           </Form.Item>
         </Form>

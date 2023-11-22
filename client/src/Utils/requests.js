@@ -205,6 +205,14 @@ export const getLessonModule = async (id) =>
     error: 'Failed to retrieve learning standard.',
   });
 
+export const getLessonHistories = async (id) =>
+  makeRequest({
+    method: GET,
+    path: '${server}/lesson-histories/${id}',
+    auth: true,
+    error: 'Failed to retrieve previous version.',
+  });
+
 export const getUnit = async (id) =>
   makeRequest({
     method: GET,
