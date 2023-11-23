@@ -47,7 +47,8 @@ module.exports = {
         activities: historyRecord.activities,
         unit: historyRecord.unit,
         standards: historyRecord.standards,
-        link: historyRecord.link
+        link: historyRecord.link,
+        lesson_history: historyRecord.id,
       }
     );
 

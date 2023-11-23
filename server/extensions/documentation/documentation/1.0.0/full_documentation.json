@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/22/2023 5:07:03 PM"
+    "x-generation-date": "11/23/2023 4:05:26 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12374,6 +12374,15 @@
               "link": {
                 "type": "string"
               },
+              "lesson_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "lesson_history": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -12501,6 +12510,9 @@
                 "type": "string"
               },
               "link": {
+                "type": "string"
+              },
+              "lesson_module": {
                 "type": "string"
               },
               "published_at": {
@@ -13548,6 +13560,57 @@
           "link": {
             "type": "string"
           },
+          "lesson_module": {
+            "required": [
+              "id",
+              "number",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "expectations": {
+                "type": "string"
+              },
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "unit": {
+                "type": "string"
+              },
+              "standards": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "lesson_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "lesson_history": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -13582,6 +13645,9 @@
             "type": "string"
           },
           "link": {
+            "type": "string"
+          },
+          "lesson_module": {
             "type": "string"
           },
           "published_at": {
@@ -13725,6 +13791,105 @@
           },
           "link": {
             "type": "string"
+          },
+          "lesson_histories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "number",
+                "name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "expectations": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "standards": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "lesson_module": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "lesson_history": {
+            "required": [
+              "id",
+              "number",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "expectations": {
+                "type": "string"
+              },
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "unit": {
+                "type": "string"
+              },
+              "standards": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "lesson_module": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -13756,6 +13921,15 @@
             "type": "string"
           },
           "link": {
+            "type": "string"
+          },
+          "lesson_histories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "lesson_history": {
             "type": "string"
           },
           "created_by": {
@@ -14391,6 +14565,15 @@
               "link": {
                 "type": "string"
               },
+              "lesson_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "lesson_history": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -14740,6 +14923,15 @@
                 "type": "string"
               },
               "link": {
+                "type": "string"
+              },
+              "lesson_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "lesson_history": {
                 "type": "string"
               },
               "created_by": {
@@ -15256,6 +15448,15 @@
                 "link": {
                   "type": "string"
                 },
+                "lesson_histories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "lesson_history": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -15299,6 +15500,9 @@
                   "type": "string"
                 },
                 "link": {
+                  "type": "string"
+                },
+                "lesson_module": {
                   "type": "string"
                 },
                 "published_at": {

@@ -16,7 +16,8 @@ module.exports = {
             activities: currentLesson.activities,
             unit: currentLesson.unit,
             standards: currentLesson.standards,
-            link: currentLesson.link
+            link: currentLesson.link,
+            lesson_module: lesson_module.id
         });
 
         return currentLesson;
@@ -32,7 +33,8 @@ module.exports = {
             activities: currentLesson.activities,
             unit: currentLesson.unit,
             standards: currentLesson.standards,
-            link: currentLesson.link
+            link: currentLesson.link,
+            lesson_modules: currentLesson.id,
         });
     },
     async revertLesson(params, data) {

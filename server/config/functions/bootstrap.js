@@ -21,4 +21,26 @@ module.exports = async () => {
 
     // Check the student roles
     await fixRoles()
+
+    // Fetch Lesson Modules
+    const lessonModules = await strapi.query('lesson-module').find();
+
+    for (let lessonModule of lessonModules) {
+        // Find existing lesson history
+        const existingHistory = await strapi.query('lesson-history').find({ lesson_module: lessonModule.id });
+
+        if (existingHistory.length === 0) {
+            // Create lesson history if none exists
+            await strapi.query('lesson-history').create({
+                number: lessonModule.number,
+                name: lessonModule.name,
+                expectations: lessonModule.expectations,
+                activities: lessonModule.activities,
+                unit: lessonModule.unit,
+                standards: lessonModule.standards,
+                link: lessonModule.link,
+                lesson_modules: lessonModule.id,
+            });
+        }
+    }
 }

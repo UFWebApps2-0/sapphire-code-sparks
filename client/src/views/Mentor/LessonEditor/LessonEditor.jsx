@@ -36,6 +36,21 @@ export default function LessonEditor({
     setRevertVisible(true);
   }
 
+  const revertLesson = async (historyId) => {
+    try {
+      const res = await getLessonHistory(historyId);
+      if (res) {
+        message.success("Lesson reverted successfully");
+
+        // Refresh data
+      }
+    } catch (error) {
+      message.error("Error reverting lesson");
+    }
+
+    setRevertVisible(false);
+  }
+
   const showModal = async () => {
     setVisible(true)
     const res = await getLessonModule(learningStandard.id)
@@ -179,6 +194,19 @@ export default function LessonEditor({
             >
               Revert Lesson
             </Button>
+            <Modal
+              title="Revert Lesson"
+              open={revertVisible}
+              onCancel={() => setRevertVisible(false)}
+              footer={null}
+            >
+              {lessonHistories.map(history => (
+                <div key={history.id}>
+                  <p>{history.name} - {history.createdAt}</p>
+                  <Button onClick={() => revertLesson(history.id)}>Revert to this</Button>
+                </div>
+              ))}
+            </Modal>
           </Form.Item>
         </Form>
       </Modal>

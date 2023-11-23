@@ -208,7 +208,7 @@ export const getLessonModule = async (id) =>
 export const getLessonHistories = async (id) =>
   makeRequest({
     method: GET,
-    path: '${server}/lesson-histories/${id}',
+    path: `${server}/lesson-histories/${id}`,
     auth: true,
     error: 'Failed to retrieve previous version.',
   });
