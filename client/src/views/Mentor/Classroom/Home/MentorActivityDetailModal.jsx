@@ -11,8 +11,8 @@ import {
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
 
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import VideoURL_Input from './VideoURL_Input'
+import DeleteVideoButton from './DeleteVideo'
 
 const SCIENCE = 1
 const MAKING = 2
@@ -220,21 +220,15 @@ const MentorActivityDetailModal = ({
           embedLink={embedLink}
         >
         </VideoURL_Input>
-        <Popconfirm
-          title={`Are you sure you want to remove (TITLE) from this activity?`}
-          okText='Delete'
-          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-          onConfirm={() => {}}
-        >
-          <button id="delete--video" onClick={() => {}}>
-            X
-          </button>
-        </Popconfirm>
+
+        <DeleteVideoButton
+          embedLink={embedLink}
+        />
 
         {/* 
           Move into component, 
-          Change into proper (X) red on hover, 
-          Move next to the URLInput,
+          X Change into proper (X) red on hover, 
+          X Move next to the URLInput,
           Create a check to see if there exists a video
         */}
 
