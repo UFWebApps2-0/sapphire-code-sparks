@@ -8,6 +8,7 @@ function GradeSearch({filterUpdate}) {
         filterUpdate(input.current.value)
     }
 
+  // Text box for user to type in
   return(
     <form>
       <input 

@@ -1,53 +1,65 @@
 import React, { useState } from 'react';
-import GradeSearch from './4b/Search';
-import ToGradeView from './4b/ToGradeView';
-import GradeList from './4b/GradeList';
+import GradeSearch from "../4b/GradeSearch";
+import GradeList from "../4b/GradeList";
+//import getGrades from "../client/src/util/request.js"
+import "../4b/TeacherViewAssessments.css";
+import NavBar from "../client/src/components/NavBar/NavBar";
+import {useParams} from "react-router-dom"
 
-function GradePreview({assessmentID, gradeData}) {
-  // TODO: Update the following two variables to use the useState() hook
+// TODO get grade data from datebase
+// Assessment identifier should be passed in from previous page
+function GradePreview() {
+  //const loc = useLocation(); // used for passing params through navagation
   const [filterText, setFilterText] = useState('');
-  const [selectedStudent, setSelectedStudent] = useState(0);
 
   function filterUpdate(value) {
     //Set the state of the filter text to the value being passed in
     setFilterText(value);
   }
-  
-  // IDK if student data will have id #s or if this should be their name
-  function selectedUpdate(id) {
-    //Set the state of the selected building to the id being passed in
-    setSelectedStudent(id);
-  }
+  const {assessID} = useParams(); // can pass assessment id, name, class id, etc
+  const gradeData = [{
+        name:"Red and Blue", 
+        student: "Jim",
+        score:99,
+        grade: 99
+    },
+    {
+        name:"Red and Blue",
+        student: "Jam",
+        score:98,
+        grade: 98
+    },
+    {
+        name:"Red and Blue",
+        student: "Joe",
+        score:100,
+        grade: 100
+    },
+    {
+      name:":name",
+      student: "Not Joe",
+      score:100,
+      grade: 100
+  },
+]; // delete this and use server call above
 
   return (
-    <div className="bg">
-      <div className="row">
-        <h1>Assessment Grades: {assessmentID}</h1>
+    <main className="background">
+      {/*add yellow back arrow*/}
+      <div id="main-header">
+        <br></br>{assessID}: Grades
       </div>
-      <GradeSearch filterUpdate={filterUpdate}/>
-      <main>
-        <div className="row">
-          <div className="column1">
-            <div className="tableWrapper">
-              <table className="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>Student</th>
-                  <th>Grade</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* TODO: Edit GradeList component to match neccessary grade.json formatting */}
-                <GradeList data={gradeData} selectedUpdate={selectedUpdate} filterText={filterText} />
-              </tbody>
-              </table>
-            </div>
-          </div> 
-        </div>
-      </main>
-      {/* IDK where to put this but it should (TODO) redirect to the students assessment page when student on list is selected*/}
-      {/*<ToGradeView data={gradeData} selectedStudent={selectedStudent}/>*/}
-    </div>
+      <NavBar isMentor={true}/>
+      
+      <div className="projectText">
+        <p>Put Assessment Graph Here</p> {/*Put Assessment Graph here */}
+      </div>
+      <div>
+        <GradeSearch filterUpdate={filterUpdate}/>
+        {/* TODO: Edit GradeList component to match neccessary grade.json formatting */}
+        <GradeList data={gradeData} filterText={filterText} assessID={assessID}/>
+      </div>
+    </main>
   );
 }
 
