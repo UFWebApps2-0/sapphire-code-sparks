@@ -23,6 +23,8 @@ import ResetPassword from "./views/TeacherLogin/ResetPassword";
 import TeacherLogin from "./views/TeacherLogin/TeacherLogin";
 import TeacherViewAssessments from "../../4b/TeacherViewAssessments";
 import SpecificAssessmentPreview from '../../4b/SpecificAssessmentPreview';
+import GradePreview from "../../4b/GradePreview";
+
 
 const App = () => {
   return (
@@ -47,6 +49,13 @@ const App = () => {
           path="/teacher-assessments/editor/:id"
           element={
             <AssessmentEditorView />
+            // change to private route later.
+          }
+        />
+        <Route
+          path="/assessment-grade/:assessID"
+          element={
+            <GradePreview />
             // change to private route later.
           }
         />
