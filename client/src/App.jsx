@@ -22,6 +22,7 @@ import ForgetPassword from "./views/TeacherLogin/ForgetPassword";
 import ResetPassword from "./views/TeacherLogin/ResetPassword";
 import TeacherLogin from "./views/TeacherLogin/TeacherLogin";
 import TeacherViewAssessments from "../../4b/TeacherViewAssessments";
+import SpecificAssessmentPreview from '../../4b/SpecificAssessmentPreview';
 
 const App = () => {
   return (
@@ -56,6 +57,14 @@ const App = () => {
                 <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
             }
         />
+
+      <Route
+            path='/assessment-preview'
+            element={
+                <SpecificAssessmentPreview/> // null is placeholder for database info
+            }
+        />
+        
 
         <Route
           path="/report"
