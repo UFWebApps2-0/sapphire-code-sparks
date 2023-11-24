@@ -10,8 +10,8 @@ import TimeOpenButton from './ChangeWindowOpenButton'
 
 const ButtonSet = () => {
     return (
-                <Link to = "/">
-                    <EditAssessmentButton/> <AssignToClassroomButton/><GradeButton/><TimeOpenButton/>
+                <Link to = "/" >
+                    F<EditAssessmentButton/>Fo<AssignToClassroomButton/><GradeButton/>Fo<TimeOpenButton/>
                 </Link>
     )
 }

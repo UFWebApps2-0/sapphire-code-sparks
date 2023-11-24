@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 
 
 const doThing = () => {
-
+    
 }
 
 const EditAssessmentButton = () => {
     return (
-                <Link to = "/">
+                <Link to = "/teacher-assessments/editor/:id">
                     <button onSubmit = {doThing}>Edit</button>
                 </Link>
     )
