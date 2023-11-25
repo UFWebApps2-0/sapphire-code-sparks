@@ -22,6 +22,7 @@ import ForgetPassword from "./views/TeacherLogin/ForgetPassword";
 import ResetPassword from "./views/TeacherLogin/ResetPassword";
 import TeacherLogin from "./views/TeacherLogin/TeacherLogin";
 import TeacherViewAssessments from "../../4b/TeacherViewAssessments";
+import {getAssessments} from "./Utils/requests";
 
 const App = () => {
   return (
@@ -39,7 +40,9 @@ const App = () => {
         <Route
           path="/teacher-assessments"
           element={
-            <TeacherViewAssessments assessmentList={null} /> // null is placeholder for database info
+            <PrivateRoute>
+                <TeacherViewAssessments />
+            </PrivateRoute>
           }
         />
         <Route
@@ -53,7 +56,7 @@ const App = () => {
         <Route
             path='/student-assessments'
             element={
-                <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
+                <StudentViewAssessments /> // null is placeholder for database info
             }
         />
 

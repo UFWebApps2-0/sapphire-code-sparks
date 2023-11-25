@@ -33,7 +33,7 @@ function StudentViewAssessments( { assessmentList } ) {
     );
 }
 
-function PrintMiddleEntries( { assessmentList } ) {
+function PrintMiddleEntries() {
     const sampleList = ["Red and Blue", "Yellow", "Gold and Silver", "Crystal", "Ruby and Sapphire", "FireRed and LeafGreen", "Emerald", "Diamond and Pearl", "Platinum", "HeartGold and SoulSilver", "Black and White", "Black 2 and White 2", "X and Y", "Omega Ruby and Alpha Sapphire", "Sun and Moon", "Ultra Sun and Ultra Moon", "Let's Go, Pikachu! and Let's Go, Eevee!", "Sword and Shield", "The Isle of Armor (DLC)", "The Crown Tundra (DLC)", "Brilliant Diamond and Shining Pearl", "Legends: Arceus", "Scarlet and Violet", "The Teal Mask (DLC)", "The Indigo Disk (DLC)"]; // Can replace with database
     const navigate = useNavigate();
     return ( // TODO: Replace this stuff with a structure for assessmentList.name and it should work.
