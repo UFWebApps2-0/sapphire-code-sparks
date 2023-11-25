@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GradeSearch from "../4b/GradeSearch";
 import GradeList from "../4b/GradeList";
 //import getGrades from "../client/src/util/request.js"
-import "../4b/TeacherViewAssessments.css";
+import './TeacherViewAssessments.css';
 import NavBar from "../client/src/components/NavBar/NavBar";
 import {useParams} from "react-router-dom"
 
@@ -40,9 +40,9 @@ function GradePreview() {
       student: "Not Joe",
       score:100,
       grade: 100
-  },
-]; // delete this and use server call above
-
+    },
+  ]; // delete this and use server call above
+    console.log(gradeData)
   return (
     <main className="background">
       {/*add yellow back arrow*/}

@@ -42,7 +42,9 @@ const App = () => {
         <Route
           path="/teacher-assessments"
           element={
-            <TeacherViewAssessments assessmentList={null} /> // null is placeholder for database info
+              <PrivateRoute>
+                  <TeacherViewAssessments />
+              </PrivateRoute>
           }
         />
         <Route
