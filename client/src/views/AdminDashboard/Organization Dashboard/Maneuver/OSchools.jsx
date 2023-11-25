@@ -1,6 +1,8 @@
 import { AddSVG } from "../../../../assets/SVG"
 
-export function OrganizationSchools(props) {
+const ALL = -1;
+
+export default function OSchools(props) {
     return (
         <div id='schools-wrapper'>
             {
@@ -18,7 +20,7 @@ export function OrganizationSchools(props) {
                                 {/* Card for "All Schools" */}
                                 <div 
                                     className='school-card' 
-                                    onClick={() => props.showSchool(-1)}
+                                    onClick={() => props.selectSchool(ALL)}
                                 >
                                     <h2>All Schools</h2>
                                 </div>
@@ -29,7 +31,7 @@ export function OrganizationSchools(props) {
                                         <div 
                                             key={school.id} 
                                             className='school-card' 
-                                            onClick={() => props.showSchool(school.id)}
+                                            onClick={() => props.selectSchool(school.id)}
                                         >
                                             <h2>{school.name}</h2>
                                         </div>
@@ -39,6 +41,6 @@ export function OrganizationSchools(props) {
                         </div>
                     </div>)
             }
-        </div>        
+        </div>
     )
 }
