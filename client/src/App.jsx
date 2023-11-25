@@ -22,7 +22,9 @@ import ForgetPassword from "./views/TeacherLogin/ForgetPassword";
 import ResetPassword from "./views/TeacherLogin/ResetPassword";
 import TeacherLogin from "./views/TeacherLogin/TeacherLogin";
 import TeacherViewAssessments from "../../4b/TeacherViewAssessments";
-import {getAssessments} from "./Utils/requests";
+import SpecificAssessmentPreview from '../../4b/SpecificAssessmentPreview';
+import GradePreview from "../../4b/GradePreview";
+
 
 const App = () => {
   return (
@@ -40,9 +42,7 @@ const App = () => {
         <Route
           path="/teacher-assessments"
           element={
-            <PrivateRoute>
-                <TeacherViewAssessments />
-            </PrivateRoute>
+            <TeacherViewAssessments assessmentList={null} /> // null is placeholder for database info
           }
         />
         <Route
@@ -52,13 +52,28 @@ const App = () => {
             // change to private route later.
           }
         />
+        <Route
+          path="/assessment-grade/:assessID"
+          element={
+            <GradePreview />
+            // change to private route later.
+          }
+        />
 
         <Route
             path='/student-assessments'
             element={
-                <StudentViewAssessments /> // null is placeholder for database info
+                <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
             }
         />
+
+      <Route
+            path='/assessment-preview'
+            element={
+                <SpecificAssessmentPreview/> // null is placeholder for database info
+            }
+        />
+        
 
         <Route
           path="/report"
