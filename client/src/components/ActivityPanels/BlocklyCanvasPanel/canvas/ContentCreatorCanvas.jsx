@@ -14,17 +14,27 @@ import PlotterModal from '../modals/PlotterModal';
 import StudentToolboxMenu from '../modals/StudentToolboxMenu';
 import LoadWorkspaceModal from '../modals/LoadWorkspaceModal';
 import DisplayDiagramModal from '../modals/DisplayDiagramModal'
-import GeneratorModal from '../modals/GeneratorModal';
 import {
   connectToPort,
   handleCloseConnection,
   handleOpenConnection,
 } from '../../Utils/consoleHelpers';
+
+
+
+// Mason's Contribution: Defining and importing new types of back-end requests from Utils/requests.js
 import {
   getAuthorizedWorkspace,
   getAuthorizedWorkspaceToolbox,
+  getAllBlocks,
+  getOneBlock,
+  postOneBlock,
+  deleteOneBlock
 } from '../../../../Utils/requests';
 import IconHammer from '../Icons/IconHammer';
+
+
+
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +47,8 @@ export default function ContentCreatorCanvas({
   setActivity,
   isMentorActivity,
 }) {
-  const [hoverGenerator, setHoverGenerator] = useState(false);
+  const [hoverGenerator, setHoverGenerator] = useState(false); // Hover state for Generator Button
+
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -52,23 +63,74 @@ export default function ContentCreatorCanvas({
   const [studentToolbox, setStudentToolbox] = useState([]);
   const [openedToolBoxCategories, setOpenedToolBoxCategories] = useState([]);
 
+
+
+  // Mason's Contribution: Defining new hooks for form data in Block Generator
+
+  // Variables for sending block data to back-end
+  const [formBD, setFormBD] = useState('');
+  const [formGS, setFormGS] = useState('');
+  const [isPendingSend, setIsPendingSend] = useState(false);
+  const [sendStatus, setSendStatus] = useState(0); // 0 = initial, -1 = fail, 1 = success
+  const [newBlockID, setNewBlockID] = useState('');
+
+  // Variables for deleting block data from back-end
+  const [formDelete, setFormDelete] = useState('');
+  const [isPendingDelete, setIsPendingDelete] = useState(false);
+  const [deleteStatus, setDeleteStatus] = useState(0); // 0 = initial, -1 = fail, 1 = success
+
+  // Variables for receiving block data from back-end
+  const [formReceive, setFormReceive] = useState('');
+  const [formReceivePayload, setFormReceivePayload] = useState('');
+  const [isPendingReceive, setIsPendingReceive] = useState(false);
+
+  // Variables for unit tests
+  // 0 = initial, -1 = fail, 1 = success
+  const [test1Status, setTest1Status] = useState(0);
+  const [test2Status, setTest2Status] = useState(0);
+  const [test3Status, setTest3Status] = useState(0);
+  const [test4Status, setTest4Status] = useState(0);
+  const [test5Status, setTest5Status] = useState(0);
+  const [test6Status, setTest6Status] = useState([0, 0, 0, 0]); // Array of 4 to represent parts A, B, C, and D
+
+  // Block Category ID for the custom User category
+  const userCategoryID = '13';
+
+
+
   const navigate = useNavigate();
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const workspaceRef = useRef(null);
-  const generatorRef = useRef(null);
   const activityRef = useRef(null);
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
-  };
 
-  const setGenerator = () => {
-    generatorRef.current = window.Blockly.inject('blockly', {
-      toolbox: document.getElementById('toolbox'),
+
+
+    // Mason's Contribution: Retrieve blocks in the User category to run their Block Definitions and Generator Stubs
+
+    // Make an asynchronous promise to receive all blocks
+    let blockCommandsPromise = receiveAllBlocks();
+
+    blockCommandsPromise.then(
+      // Case of success
+      function(value) {
+        const blockCommands = value;
+        // For each retrieved block, execute the code contained in the block's description
+        for (const [id, desc] of Object.entries(blockCommands)) {
+          eval(desc); // eval interprets text as code to be run
+        }
+      },
+      // Case of failure
+      function(error) {
+        console.log('Block Commands not retrieved.')
     });
-  };
+
+
+  }
 
   const loadSave = async (workspaceId) => {
     // get the corresponding workspace
@@ -281,10 +343,391 @@ export default function ContentCreatorCanvas({
     }
   };
 
-  // This is the alert when the placeholder Block Generator button is clicked
-  const handleGenerator = async () => {
-    alert("This is the block generator.");
+
+
+  // Mason's Contribution: Handlers for forms in Block Generator
+
+  // Handles the Block Generator Access Button
+  const handleGenerator = () => {
+    alert('This is the Block Generator.');
   }
+
+  // Receive all blocks from back-end
+  const receiveAllBlocks = async () => {
+    // Dictionary of Block Commands (Block Definition + Generator Stub) formatted in {Block ID (number) : Block Command (text)}
+    let blockCommands = {};
+    // Receive all blocks from back-end
+    const res = await getAllBlocks();
+    if (res.data) {
+      // Loop through all blocks
+      for (let i = 0; i < res.data.length; i++) {
+        // Filter to only blocks in the custom User category
+        if (res.data[i] != null && res.data[i].blocks_category != null && res.data[i].blocks_category.id != null && res.data[i].blocks_category.id == userCategoryID) {
+          const blockID = res.data[i].id;
+          const desc = res.data[i].description;
+          
+          // Filter to only blocks with basic proper syntax
+          if (desc.length > 140 && desc.substring(0, 16) === "Blockly.Blocks['" && desc.substring(desc.length - 2, desc.length) === "};" && !(blockID in blockCommands))
+            blockCommands[blockID] = desc;
+        }
+      }
+    }
+    else {
+      console.log('Error when receiving all blocks.');
+    }
+    return blockCommands;
+  }
+
+  // Helper function for sending a block to back-end
+  const sendBlock = async (blockName) => {
+    try {
+      // Post the block to back-end
+      const res = await postOneBlock(blockName, formBD + '\n' + formGS, userCategoryID, '', 'User', 'User');
+      if (res.data) {
+        setNewBlockID(res.data.id);
+        setSendStatus(1);
+      }
+      else {
+        setSendStatus(-1);
+      }
+    }
+    catch (error) {
+      console.log('Error occurred while sending block.');
+      console.error(error.response.data);
+    }
+  }
+
+  // Handler function for sending a block to back-end
+  const handleSubmitSend = async (formBD_ = formBD, formGS_ = formGS) => {
+    setIsPendingSend(true);
+
+    // Split text using newline as delimiter
+    const formBDLines = formBD_.split('\n');
+    const formGSLines = formGS_.split('\n');
+
+    // Get the first and last indices of '
+    const quoteStart = formBDLines[0].indexOf("'");
+    const quoteEnd = formBDLines[0].lastIndexOf("'");
+
+    // Verify that the block has a name
+    if (formBDLines.length > 0 && quoteStart != -1 && quoteEnd != -1 && quoteStart < quoteEnd) {
+      // Extract Block Name from within quotes
+      const blockName = formBDLines[0].substring(quoteStart + 1, quoteEnd);
+
+      // Send block to back-end (send status is to be determined by the function)
+      await sendBlock(blockName);
+    }
+    else {
+      setSendStatus(-1);
+    }
+  
+    setIsPendingSend(false);
+  }
+
+  // Handler function for reloading the page
+  const handleSubmitReload = () => {
+    window.location.reload(false);
+  }
+
+  // Handler function for either sending a block to back-end or reloading the page
+  const handleSubmitSendOrReload = async (e) => {
+    e.preventDefault();
+
+    if (e.nativeEvent.submitter.name === 'sendButton')
+      handleSubmitSend();
+    else if (e.nativeEvent.submitter.name === 'reloadButton')
+      handleSubmitReload();
+  }
+
+  // Helper function for deleting a block from back-end
+  const deleteBlock = async (blockID) => {
+    try {
+      let failure = true;
+      // Get the block from back-end
+      const res1 = await getOneBlock(blockID);
+      
+      // Check that the block is in the User category
+      if (res1.data && res1.data.blocks_category.id == userCategoryID) {
+        // Delete the block from back-end
+        const res2 = await deleteOneBlock(blockID);
+        if (res2.data) {
+          setDeleteStatus(1);
+          failure = false;
+        }
+      }
+      
+      if (failure) {
+        setDeleteStatus(-1);
+      }
+    }
+    catch (error) {
+      console.log('Error occurred while deleting block.');
+      console.error(error.response.data);
+    }
+  }
+
+  // Handler function for deleting a block from back-end
+  const handleSubmitDelete = async (e) => {
+    e.preventDefault();
+
+    setIsPendingDelete(true);
+    deleteBlock(formDelete);
+    setIsPendingDelete(false);
+  }
+
+  // Helper function for receiving a block from back-end
+  const receiveBlock = async (blockID = formReceive) => {
+    // Receive the block from back-end
+    const res = await getOneBlock(blockID);
+
+    if (res.data && res.data.id != null) {
+      // Construct string that displays block's info in a pretty way
+      let result = '';
+
+      result += 'Block ID: ' + res.data.id + '\n';
+      result += 'Block Name: ' + res.data.name + '\n';
+      result += 'Block Description: ' + res.data.description + '\n';
+      result += 'Block Creation Timestamp: ' + res.data.created_at + '\n';
+      result += 'Block Update Timestamp: ' + res.data.updated_at + '\n';
+      result += 'Block Image: ' + res.data.block_image + '\n';
+      result += 'Block Image URL: ' + res.data.image_url + '\n';
+      result += 'Category ID: ' + res.data.blocks_category.id + '\n';
+      result += 'Category Name: ' + res.data.blocks_category.name + '\n';
+      result += 'Category Creation Timestamp: ' + res.data.blocks_category.created_at + '\n';
+      result += 'Category Update Timestamp: ' + res.data.blocks_category.updated_at + '\n';
+
+      setFormReceivePayload(result);
+    }
+    else {
+      setFormReceivePayload('Block not found.');
+    }
+  }
+
+  // Handler function for receiving a block from back-end
+  const handleSubmitReceive = async (e) => {
+    e.preventDefault();
+
+    setIsPendingReceive(true);
+    receiveBlock();
+    setIsPendingReceive(false);
+  }
+
+  // Handler function for Unit Test 1
+  // Unit Test 1: Send invalid block
+  // Test case passes if block is not sent
+  const handleUnitTest1 = async () => {
+    // Input text for Block Description and Generator Stub
+    const textBD = 'This is an invalid Block Description.';
+    const textGS = 'This is an invalid Generator Stub.';
+    
+    setFormBD(textBD);
+    setFormGS(textGS);
+    
+    // Simulate pressing the send button
+    await handleSubmitSend(textBD, textGS).then(() => {
+      setSendStatus(stateSendStatus => {
+        // Save result of test case
+        setTest1Status(-stateSendStatus);
+        return stateSendStatus;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 2
+  // Unit Test 2: Receive invalid block (ID not found)
+  // Test case passes if block is not found
+  const handleUnitTest2 = async () => {
+    setFormReceive('-1');
+
+    // Simulate pressing the receive button
+    await receiveBlock('-1').then(() => {
+      setFormReceivePayload(stateFormReceivePayload => {
+        // Save result of test case
+        setTest2Status(stateFormReceivePayload === 'Block not found.' ? 1 : -1);
+        return stateFormReceivePayload;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 3
+  // Unit Test 3: Receive valid block
+  // Test case passes if block is received
+  const handleUnitTest3 = async () => {
+    setFormReceive('1');
+
+    // Simulate pressing the receive button
+    await receiveBlock('1').then(() => {
+      setFormReceivePayload(stateFormReceivePayload => {
+        // Save result of test case
+        setTest3Status(stateFormReceivePayload != 'Block not found.' && stateFormReceivePayload.substring(0, 11) === 'Block ID: 1' ? 1 : -1);
+        return stateFormReceivePayload;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 4
+  // Unit Test 4: Delete invalid block (block ID not found)
+  // Test case passes if block is not found nor deleted
+  const handleUnitTest4 = async () => {
+    setFormDelete('-1');
+
+    // Simulate pressing the delete button
+    await deleteBlock('-1').then(() => {
+      setDeleteStatus(stateDeleteStatus => {
+        // Save result of test case
+        setTest4Status(-stateDeleteStatus);
+        return stateDeleteStatus;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 5
+  // Unit Test 5: Delete invalid block (block not in User category)
+  // Test case passes if block is not deleted
+  const handleUnitTest5 = async () => {
+    setFormDelete('1');
+
+    // Simulate pressing the delete button
+    await deleteBlock('1').then(() => {
+      setDeleteStatus(stateDeleteStatus => {
+        // Save result of test case
+        setTest5Status(-stateDeleteStatus);
+        return stateDeleteStatus;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 6 Helper
+  // Unit Test 6 Helper: Deletes block with matching name in User category if it exists, effectively resetting procedure for Unit Test 6
+  // Does not "pass" or "fail", as it is technically not a test case
+  const handleUnitTest6Helper = async () => {
+    // Get all blocks from back-end
+    const res = await getAllBlocks();
+    if (res.data) {
+      // Loop through all blocks
+      for (let i = 0; i < res.data.length; i++) {
+        // Search blocks in the custom User category that have a matching name (may or may not exist)
+        if (res.data[i] != null && res.data[i].blocks_category != null && res.data[i].blocks_category.id != null && res.data[i].blocks_category.id == userCategoryID && res.data[i].name === 'test_6_block') {
+          setFormDelete(res.data[i].id);
+
+          // Delete the block from back-end
+          deleteBlock(res.data[i].id);
+          break;
+        }
+
+        // Match was not found, so return an error status
+        if (i === res.data.length - 1) {
+          setFormDelete('-1');
+          setDeleteStatus(-1);
+        }
+      }
+    }
+    else {
+      console.log('Error when receiving all blocks.');
+    }
+  }
+
+  // Handler function for Unit Test 6A
+  // Unit Test 6A: Send new block
+  // Test case passes if new block is sent
+  const handleUnitTest6A = async () => {
+    // Input text for Block Description and Generator Stub
+    const textBD = `Blockly.Blocks['test_6_block'] = {\n  init: function() {\n    this.appendDummyInput()\n        .appendField("Test 6 Block");\n    this.setColour(20);\n this.setTooltip("");\n this.setHelpUrl("");\n  }\n};`;
+    const textGS = `Blockly.Arduino['test_6_block'] = function(block) {\n  // TODO: Assemble Arduino into code variable.\n  var code = '...;';\n  return code;\n};`;
+    const testIndex = 0;
+
+    setFormBD(textBD);
+    setFormGS(textGS);
+    
+    // Simulate pressing the send button
+    await handleSubmitSend(textBD, textGS).then(() => {
+      setSendStatus(stateSendStatus => {
+        // Create array with updated value at testIndex
+        let arr = test6Status;
+        arr[testIndex] = stateSendStatus;
+        // Save result of test case
+        setTest6Status(arr);
+        return stateSendStatus;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 6B
+  // Unit Test 6B: Receive newly created block
+  // Test case passes if block is created
+  const handleUnitTest6B = async () => {
+    const testIndex = 1;
+
+    setFormReceive(newBlockID);
+
+    // Simulate pressing the receive button
+    await receiveBlock(newBlockID).then(() => {
+      setFormReceivePayload(stateFormReceivePayload => {
+        // Create array with updated value at testIndex
+        let arr = test6Status;
+        arr[testIndex] = (stateFormReceivePayload != 'Block not found.' && stateFormReceivePayload.substring(0, 10 + newBlockID.toString().length) === 'Block ID: ' + newBlockID.toString()) ? 1 : -1;
+        // Save result of test case
+        setTest6Status(arr);
+        return stateFormReceivePayload;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 6C
+  // Unit Test 6C: Delete newly created block
+  // Test case passes if block is deleted
+  const handleUnitTest6C = async () => {
+    const testIndex = 2;
+
+    setFormDelete(newBlockID);
+
+    // Simulate pressing the delete button
+    await deleteBlock(newBlockID).then(() => {
+      setDeleteStatus(stateDeleteStatus => {
+        // Create array with updated value at testIndex
+        let arr = test6Status;
+        arr[testIndex] = stateDeleteStatus;
+        // Save result of test case
+        setTest5Status(arr);
+        return stateDeleteStatus;
+      });
+    });
+  }
+
+  // Handler function for Unit Test 6D
+  // Unit Test 6D: Receive recently deleted block
+  // Test case passes if block cannot be deleted
+  const handleUnitTest6D = async () => {
+    const testIndex = 3;
+
+    setFormReceive(newBlockID);
+
+    // Simulate pressing the receive button
+    await receiveBlock(newBlockID).then(() => {
+      setFormReceivePayload(stateFormReceivePayload => {
+        // Create array with updated value at testIndex
+        let arr = test6Status;
+        arr[testIndex] = stateFormReceivePayload === 'Block not found.' ? 1 : -1;
+        // Save result of test case
+        setTest6Status(arr);
+        return stateFormReceivePayload;
+      });
+    });
+  }
+
+  // Helper function for displaying multiple lines of text
+  function NewlineText(props) {
+    const text = props.text;
+    const newText = text.split('\n').map(str => <p style={{'white-space': 'pre-wrap', 'margin-bottom': ' 0'}}>{str}</p>);
+    return newText;
+  }
+
+  // Helper function for displaying a block ID for a newly created block
+  function DisplayNewBlockID() {
+    return (<p>Block successfully sent! (ID: {newBlockID})</p>);
+  }
+
+
 
   const menu = (
     <Menu>
@@ -355,7 +798,9 @@ export default function ContentCreatorCanvas({
                   <Col flex='auto' />
                   <Row>
 
-                    {/* Start of Generator Icon */}
+
+
+                    {/* Start of Generator Icon for Block Generator Access Button */}
                     
                     {/* This placeholder button currently has no functionality */}
                     {/* The goal is to expand a modal similar to the existing "Diagrams" button */}
@@ -376,7 +821,9 @@ export default function ContentCreatorCanvas({
                       </div>
                     </Col>
 
-                    {/* End of Generator icon */}
+                    {/* End of Generator icon for Block Generator Access Button */}
+
+
 
                     <Col className='flex flex-row'>
                       <Col
@@ -500,10 +947,9 @@ export default function ContentCreatorCanvas({
         />
       </div>
       
-      {/* Start of Block Generator */}
 
-      {/* Original code from ArduBlockly website*/}
-      {/* https://ardublockly.ymtech.education/ardublockly/blockfactory/index.html */}
+
+      {/* Start of Block Generator */}
 
       <div className='flex flex-row'>
         <div
@@ -513,197 +959,140 @@ export default function ContentCreatorCanvas({
         <h1>Block Generator</h1>
         <h2>Define custom blocks here!</h2>
 
-        <Col>
-          {/* Start of Block Generator adapted from ArduBlockly */}
+        {/* Mason's Contribution: Added 4 columns for forms that interact with back-end */}
+        <Row className='justify-content-center' align='middle' justify='middle'>
 
-          <table id='blockFactoryContent'>
-              <tr width="100%" height="10%">
-                  <td width="50%" height="5%">
-                      <table>
-                          <tr id="blockLibrary">
-                              <td id="blockLibraryContainer">
-                      <span>
-                        <div class="dropdown">
-                          <button id="button_blockLib">Block Library</button>
-                          <div id="dropdownDiv_blockLib" class="dropdown-content">
-                            <a id="createNewBlockButton">Create New Block</a>
-                          </div>
-                        </div>
-                        <label for="blockLibraryDropdown"></label><select id="blockLibraryDropdown">
-                        </select>
-                      </span>
-                              </td>
-                              <td id="blockLibraryControls">
-                                  <button id="saveToBlockLibraryButton" title="Save block to Block Library.">
-                                      Save "block_type"
-                                  </button>
-                                  <button id="removeBlockFromLibraryButton" title="Remove block from Block Library.">
-                                      Delete "block_type"
-                                  </button>
-                              </td>
-                          </tr>
-                      </table>
-                  </td>
-                  <td height="5%">
-                      <table id="blockFactoryPreview">
-                          <tr>
-                              <td id="previewContainer">
-                                  <h3>Preview:
-                                      <label for="direction"></label><select id="direction">
-                                          <option value="ltr">LTR</option>
-                                          <option value="rtl">RTL</option>
-                                      </select>
-                                  </h3>
-                              </td>
-                              <td id="buttonContainer">
-                                  <button id="linkButton" title="Save and link to blocks.">
-                                  </button>
-                                  <button id="clearBlockLibraryButton" title="Clear Block Library.">
-                                      <span>Clear Library</span>
-                                  </button>
-                                  <label for="files" class="buttonStyle">
-                                      <span>Import Block Library</span>
-                                  </label>
-                                  <input id="files" type="file" name="files"
-                                        accept="application/xml"></input>
-                                  <button id="localSaveButton" title="Save block library XML to a local file.">
-                                      <span>Download Block Library</span>
-                                  </button>
-                              </td>
-                          </tr>
-                      </table>
-                  </td>
-              </tr>
-              <tr height="80%">
-                  <td id="blocklyWorkspaceContainer">
-                      <div id='blockly'></div>
-                      <div id='blocklyMask'></div>
-                  </td>
-                  <td width="50%">
-                      <table id="blocklyPreviewContainer">
-                          <tr>
-                              <td height="30%">
-                                  <div id="preview"></div>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td height="5%">
-                                  <h3>Block Definition:
-                                      <label for="format"></label><select id="format">
-                                          <option value="JavaScript">JavaScript</option>
-                                          <option value="JSON">JSON</option>
-                                      </select>
-                                  </h3>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td height="30%">
-                                  <pre id="languagePre" class="prettyprint lang-js"></pre>
-                                  <label for="languageTA"></label><textarea id="languageTA"></textarea>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td height="5%">
-                                  <h3>Generator stub:
-                                      <label for="language"></label><select id="language">
-                                          <option value="Arduino">Arduino</option>
-                                      </select>
-                                  </h3>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td height="30%">
-                                  <pre id="generatorPre" class="prettyprint lang-js"></pre>
-                              </td>
-                          </tr>
-                      </table>
-                  </td>
-              </tr>
-          </table>
+          {/* Column for uploading blocks to the back-end */}
+          <Col flex={'25%'}>
+            <h1>Send a block to back-end</h1>
+            <form onSubmit={handleSubmitSendOrReload}>
+              <label>Block Definition</label>
+              <br></br>
+              <textarea
+                type="text"
+                required
+                value={formBD}
+                onChange={(e) => setFormBD(e.target.value)}
+              >
+              </textarea>
+              <br></br>
+              <label>Generator Stub</label>
+              <br></br>
+              <textarea
+                type="text"
+                required
+                value={formGS}
+                onChange={(e) => setFormGS(e.target.value)}
+              >
+              </textarea>
+              <br></br>
+              {/* Buttons are displayed conditionally */}
 
-          <div id="modalShadow"></div>
-          
-          <xml id="blockfactory_toolbox" class="toolbox">
-              <category name="Input">
-                  <block type="input_value">
-                      <value name="TYPE">
-                          <shadow type="type_null"></shadow>
-                      </value>
-                  </block>
-                  <block type="input_statement">
-                      <value name="TYPE">
-                          <shadow type="type_null"></shadow>
-                      </value>
-                  </block>
-                  <block type="input_dummy"></block>
-              </category>
-              <category name="Field">
-                  <block type="field_static"></block>
-                  <block type="field_label_serializable"></block>
-                  <block type="field_input"></block>
-                  <block type="field_number"></block>
-                  <block type="field_angle"></block>
-                  <block type="field_dropdown"></block>
-                  <block type="field_checkbox"></block>
-                  <block type="field_colour"></block>
-                  <block type="field_variable"></block>
-                  <block type="field_image"></block>
-              </category>
-              <category name="Type">
-                  <block type="type_group"></block>
-                  <block type="type_null"></block>
-                  <block type="type_boolean"></block>
-                  <block type="type_number"></block>
-                  <block type="type_string"></block>
-                  <block type="type_list"></block>
-                  <block type="type_other"></block>
-              </category>
-              <category name="Colour" id="colourCategory">
-                  <block type="colour_hue">
-                      <mutation colour="20"></mutation>
-                      <field name="HUE">20</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="65"></mutation>
-                      <field name="HUE">65</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="120"></mutation>
-                      <field name="HUE">120</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="160"></mutation>
-                      <field name="HUE">160</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="210"></mutation>
-                      <field name="HUE">210</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="230"></mutation>
-                      <field name="HUE">230</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="260"></mutation>
-                      <field name="HUE">260</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="290"></mutation>
-                      <field name="HUE">290</field>
-                  </block>
-                  <block type="colour_hue">
-                      <mutation colour="330"></mutation>
-                      <field name="HUE">330</field>
-                  </block>
-              </category>
-          </xml>
-        {/* End of Block Generator adapted from ArduBlockly */}
-        </Col>
+              {sendStatus === -1 && <p>Send Error: Could be sending an invalid or duplicate block, possessing insufficient role permissions, or using an unauthorized token.</p>}
+              {sendStatus === 1 && <DisplayNewBlockID></DisplayNewBlockID>}
+              {!isPendingSend && <button name='sendButton'>Send to Gallery</button>}
+              {isPendingSend && <button disabled name='sendButton'>Sending...</button>}
+              {sendStatus === 1 && <br></br>}
+              {sendStatus === 1 && <p>Newly added blocks require a page reload to be viewed in the Toolbox.</p>}
+              {sendStatus === 1 && <button name='reloadButton'>Reload Page</button>}
+            </form>
+          </Col>
+
+          {/* Column for deleting blocks from the back-end */}
+          <Col flex={'25%'}>
+            <h1>Delete a block from back-end</h1>
+            <form onSubmit={handleSubmitDelete}>
+              <label style={{'margin-right': '1em'}}>Block ID</label>
+              <input
+                type="text"
+                required
+                value={formDelete}
+                onChange={(e) => setFormDelete(e.target.value)}
+              />
+              {/* Buttons are displayed conditionally */}
+
+              {deleteStatus === -1 && <p>Delete Error: Could be deleting a nonexistent or non-user block.</p>}
+              {deleteStatus === 1 && <p>Block successfully deleted!</p>}
+              {!isPendingDelete && <button name='deleteButton'>Delete from Gallery</button>}
+              {isPendingDelete && <button disabled name='deleteButton'>Deleting...</button>}
+            </form>
+          </Col>
+
+          {/* Column for receiving blocks from back-end */}
+          <Col flex={'25%'}>
+            <h1>Receive a block from back-end</h1>
+            <form onSubmit={handleSubmitReceive}>
+              <label style={{'margin-right': '1em'}}>Block ID</label>
+              <input
+                type="text"
+                required
+                value={formReceive}
+                onChange={(e) => setFormReceive(e.target.value)}
+              />
+              <NewlineText text ={formReceivePayload}></NewlineText>
+              {/* Buttons are displayed conditionally */}
+
+              {!isPendingReceive && <button name='receiveButton'>Receive from Gallery</button>}
+              {isPendingReceive && <button disabled name='receiveButton'>Receiving...</button>}
+            </form>
+          </Col>
+
+          {/* Column for unit tests */}
+          <Col flex={'25%'}>
+            <h1>Run Unit Tests</h1>
+            <h3>Unit Test 1</h3>
+            <button onClick={handleUnitTest1}>Send Invalid Block (Should Not Send)</button>
+            {test1Status === 1 && <p>TEST PASSED! ✅</p>}
+            {test1Status === -1 && <p>TEST FAILED! ❌</p>}
+            <h3>Unit Test 2</h3>
+            <button onClick={handleUnitTest2}>Receive Nonexistent Block (Should Not Receive)</button>
+            {test2Status === 1 && <p>TEST PASSED! ✅</p>}
+            {test2Status === -1 && <p>TEST FAILED! ❌</p>}
+            <h3>Unit Test 3</h3>
+            <button onClick={handleUnitTest3}>Receive Valid Block (Should Receive)</button>
+            {test3Status === 1 && <p>TEST PASSED! ✅</p>}
+            {test3Status === -1 && <p>TEST FAILED! ❌</p>}
+            <h3>Unit Test 4</h3>
+            <button onClick={handleUnitTest4}>Delete Invalid Block (Should Not Delete)</button>
+            {test4Status === 1 && <p>TEST PASSED! ✅</p>}
+            {test4Status === -1 && <p>TEST FAILED! ❌</p>}
+            <h3>Unit Test 5</h3>
+            <button onClick={handleUnitTest5}>Delete Non-User Block (Should Not Delete)</button>
+            {test5Status === 1 && <p>TEST PASSED! ✅</p>}
+            {test5Status === -1 && <p>TEST FAILED! ❌</p>}
+            <h3>Unit Test 6</h3>
+            <button onClick={handleUnitTest6Helper}>(Helper) Delete Unit Test 6 Block</button>
+            <br></br>
+            <br></br>
+            <button onClick={handleUnitTest6A}>(A) Upload New Block (Should Upload)</button>
+            <br></br>
+            {test6Status[0] === 1 && <p>TEST PASSED! ✅</p>}
+            {test6Status[0] === -1 && <p>TEST FAILED! ❌</p>}
+            <br></br>
+            <button onClick={handleUnitTest6B}>(B) Receive New Block (Should Receive)</button>
+            <br></br>
+            {test6Status[1] === 1 && <p>TEST PASSED! ✅</p>}
+            {test6Status[1] === -1 && <p>TEST FAILED! ❌</p>}
+            <br></br>
+            <button onClick={handleUnitTest6C}>(C) Delete New Block (Should Delete)</button>
+            <br></br>
+            {test6Status[2] === 1 && <p>TEST PASSED! ✅</p>}
+            {test6Status[2] === -1 && <p>TEST FAILED! ❌</p>}
+            <br></br>
+            <button onClick={handleUnitTest6D}>(D) Receive Deleted Block (Should Not Receive)</button>
+            <br></br>
+            {test6Status[3] === 1 && <p>TEST PASSED! ✅</p>}
+            {test6Status[3] === -1 && <p>TEST FAILED! ❌</p>}
+            <br></br>
+          </Col>
+        </Row>
         </div>
       </div>
 
       {/* End of Block Generator */}
-        
+      
+
+
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       <xml id='toolbox' is='Blockly workspace'>
         {

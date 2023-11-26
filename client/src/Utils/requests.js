@@ -76,6 +76,55 @@ export const getAllStudents = async () =>
     error: 'Students could not be retrieved.',
   });
 
+
+
+  
+
+// Mason's Contribution: Defined requests for postOneBlock, deleteOneBlock, getAllBlocks, and getOneBlock
+export const postOneBlock = async (name_, description_, blocks_category_, image_url_, created_by_, updated_by_) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/blocks`,
+    auth: true,
+    data: {
+      name: name_,
+      description: description_,
+      blocks_category: blocks_category_,
+      image_url: image_url_,
+      created_by: created_by_,
+      updated_by: updated_by_,
+    },
+    error: 'Block could not be posted.',
+  });
+
+export const deleteOneBlock = async (id_) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/blocks/${id_}`,
+    auth: true,
+    error: 'Block could not be deleted.',
+});
+
+export const getAllBlocks = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/blocks`,
+    auth: true,
+    error: 'Blocks could not be retrieved.',
+});
+
+export const getOneBlock = async (blockID) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/blocks/${blockID}`,
+    auth: true,
+    error: 'Block could not be retrieved.',
+});
+
+
+
+
+
 export const getActivityToolboxAll = async () =>
   makeRequest({
     method: GET,
