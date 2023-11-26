@@ -51,10 +51,10 @@ function GradePreview() {
       </div>
       <NavBar isMentor={true}/>
       
-      <div className="projectText">
+      <div className="projectText setFullMargins">
         <p>Put Assessment Graph Here</p> {/*Put Assessment Graph here */}
       </div>
-      <div>
+      <div className="projectText">
         <GradeSearch filterUpdate={filterUpdate}/>
         {/* TODO: Edit GradeList component to match neccessary grade.json formatting */}
         <GradeList data={gradeData} filterText={filterText} assessID={assessID}/>

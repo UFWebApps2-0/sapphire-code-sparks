@@ -34,7 +34,8 @@ function TeacherViewAssessments() {
     });
   }, []);
   return (
-    <div className="background">
+  <main className="background">
+    <div>
       <div id="main-header">
         {" "}
         <br></br>View Assessments
@@ -47,70 +48,29 @@ function TeacherViewAssessments() {
           <button onClick={() => HandleAdd()} className="alignRight button2">
             Create New<br></br>Assignment
           </button>
+          <br></br>
         </div>
       </div>
     </div>
+  </main>
   );
 }
 function PrintMiddleEntries(assessmentList) {
   const navigate = useNavigate();
-  const sampleList = [
-    "Red and Blue",
-    "Yellow",
-    "Gold and Silver",
-    "Crystal",
-    "Ruby and Sapphire",
-    "FireRed and LeafGreen",
-    "Emerald",
-    "Diamond and Pearl",
-    "Platinum",
-    "HeartGold and SoulSilver",
-    "Black and White",
-    "Black 2 and White 2",
-    "X and Y",
-    "Omega Ruby and Alpha Sapphire",
-    "Sun and Moon",
-    "Ultra Sun and Ultra Moon",
-    "Let's Go, Pikachu! and Let's Go, Eevee!",
-    "Sword and Shield",
-    "The Isle of Armor (DLC)",
-    "The Crown Tundra (DLC)",
-    "Brilliant Diamond and Shining Pearl",
-    "Legends: Arceus",
-    "Scarlet and Violet",
-    "The Teal Mask (DLC)",
-    "The Indigo Disk (DLC)",
-  ]; // Can replace with database
-
-  if (
-    assessmentList !== undefined &&
-    Array.isArray(assessmentList.assessmentList)
-  ) {
+  if (assessmentList !== undefined && Array.isArray(assessmentList.assessmentList)) {
     return (
-      // TODO: Replace this stuff with a structure for assessmentList.name and it should work.
-      <div>
+      <div className = "background">
         {assessmentList.assessmentList.map((directory) => (
           <div className="tableMid">
-            <p className="alignLeft bold">{directory.name}</p>
-            <p>
-              <br></br>Assigned: {directory.openDate} | Due: {directory.dueDate}
-            </p>
-            <button onClick={() => navigate("Grade")} className="alignRight">
-              Grade
+            <div className="alignLeft bold">{directory.name} <br></br> <div className="noBold"> Assigned: {directory.openDate} | Due: {directory.dueDate}</div></div>
+            <button onClick={() => navigate("/about")} className="shortenTransform1 alignRight">
+              Assign
             </button>
-            <button
-              onClick={() =>
-                navigate("/teacher-assessments/editor/" + directory.id)
-              }
-              className="alignRight shortenTransform"
-            >
+            <button onClick={() => navigate("/teacher-assessments/editor/" + directory.id)} className="shortenTransform2 alignRight">
               Edit
             </button>
-            <button
-              onClick={() => navigate("/about")}
-              className="alignRight shortenTransform2"
-            >
-              Assign
+            <button onClick={() => navigate("Grade")} className="shortenTransform3 alignRight">
+              Grade
             </button>
           </div>
         ))}

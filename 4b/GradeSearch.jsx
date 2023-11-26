@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import "./TeacherViewAssessments.css";
 
 // Filter list of Student-grade data
 function GradeSearch({filterUpdate}) {
@@ -10,14 +11,16 @@ function GradeSearch({filterUpdate}) {
 
   // Text box for user to type in
   return(
-    <form>
-      <input 
-        type="text"
-        placeholder="Student Name"
-        ref={input}
-        onChange={handleChange}
-      />
-    </form>
+    <main className="background setFullMargins">
+      <form>
+        <input
+          type="text"
+          placeholder="Student Name"
+          ref={input}
+          onChange={handleChange}
+        />
+      </form>
+    </main>
   );
 }
 export default GradeSearch;
