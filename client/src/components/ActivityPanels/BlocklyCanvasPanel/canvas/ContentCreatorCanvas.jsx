@@ -921,6 +921,61 @@ export default function ContentCreatorCanvas({
               </Col>
             </Row>
             <div id='blockly-canvas' />
+            <div>
+        <Row>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col >
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+            
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+            </Row>
+        </div>
           </Spin>
         </div>
         {!isMentorActivity && (
@@ -957,7 +1012,7 @@ export default function ContentCreatorCanvas({
           className='flex flex-column vertical-container overflow-visible'
         >
         <h1>Block Generator</h1>
-        <h2>Define custom blocks here!</h2>
+        <h2>Def custom blocks here!</h2>
 
         {/* Mason's Contribution: Added 4 columns for forms that interact with back-end */}
         <Row className='justify-content-center' align='middle' justify='middle'>

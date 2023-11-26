@@ -1,4 +1,3 @@
-
 #colors() {
     primary: #3D5C82;
     secondary: #5BABDE;
@@ -9,7 +8,10 @@
     text-primary: #414141;
     text-secondary: #FFFFFF;
 }
-
+button{
+    border-radius: 5px;
+    background-color: #colors[quaternary];
+}
 .flex {
     display: flex;
 }
@@ -35,7 +37,7 @@
 }
 
 .container {
-    height: 100%;
+    height: 105%;
     width: 100%;
     background-color: #colors[primary];
     min-height: 100vh;
@@ -56,6 +58,8 @@
 .card {
     background-color: #colors[tertiary];
     padding: .7em;
+    width: 100%;
+    height: 100%
 }
 
 .overflow-visible {
@@ -76,4 +80,47 @@
 
 .bold {
     font-weight: bold;
+}
+
+
+/* Jeris' contribution working on frontend for the sandbox */
+
+.CodeBlock {
+    background-color: #colors[secondary];
+    margin-top: 20px;
+    margin-left: 50px;
+    width: 280px; 
+    height: 270px; 
+    padding: 20px; 
+    border-radius: 10px; 
+}
+.code{
+    background-color: #colors[senary];
+    margin: 5px;
+    width: 230px; 
+    height: 200px; 
+    padding: 20px; 
+    border-radius: 10px; 
+}
+.studentName{
+    font-size: 15px;
+}
+.galleryHead{
+    font-size: 20px;
+    text-align: center;
+}
+.codeBlockCol{
+   
+    background-color: rgb(215, 215, 215);
+   // height: 1000px;
+   margin: 5px;
+   // width: 100px;
+   border-radius: 5px;
+   padding: 10px;
+
+}
+.inputTextBox{
+    width: 100%;
+    border-radius: 5px;
+    height: 150px;
 }

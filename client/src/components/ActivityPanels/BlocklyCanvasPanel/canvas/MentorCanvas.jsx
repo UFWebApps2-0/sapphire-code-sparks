@@ -949,14 +949,14 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           id='bottom-container'
           className='flex flex-column vertical-container overflow-visible'
         >
-        <h1>Block Generator</h1>
+        <h1 id = "section-header">Block Generator</h1>
         <h2>Define custom blocks here!</h2>
 
         {/* Mason's Contribution: Added 4 columns for forms that interact with back-end */}
         <Row className='justify-content-center' align='middle' justify='middle'>
 
           {/* Column for uploading blocks to the back-end */}
-          <Col flex={'25%'}>
+          <Col flex={'25%'} className = "codeBlockCol">
             <h1>Send a block to back-end</h1>
             <form onSubmit={handleSubmitSendOrReload}>
               <label>Block Definition</label>
@@ -966,6 +966,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
                 required
                 value={formBD}
                 onChange={(e) => setFormBD(e.target.value)}
+                className = "inputTextBox"
               >
               </textarea>
               <br></br>
@@ -976,6 +977,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
                 required
                 value={formGS}
                 onChange={(e) => setFormGS(e.target.value)}
+                className = "inputTextBox"
               >
               </textarea>
               <br></br>
@@ -989,10 +991,30 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
               {sendStatus === 1 && <p>Newly added blocks require a page reload to be viewed in the Toolbox.</p>}
               {sendStatus === 1 && <button name='reloadButton'>Reload Page</button>}
             </form>
-          </Col>
 
-          {/* Column for deleting blocks from the back-end */}
+          </Col>
+          {/* Column for receiving blocks from back-end */}
           <Col flex={'25%'}>
+            <div  className = "codeBlockCol">
+            <h1>Receive a block from back-end</h1>
+            <form onSubmit={handleSubmitReceive}>
+              <label style={{'margin-right': '1em'}}>Block ID</label>
+              <input
+                type="text"
+                required
+                value={formReceive}
+                onChange={(e) => setFormReceive(e.target.value)
+                }
+              />
+              <NewlineText text ={formReceivePayload}></NewlineText>
+              {/* Buttons are displayed conditionally */}
+
+              {!isPendingReceive && <button name='receiveButton'>Receive from Gallery</button>}
+              {isPendingReceive && <button disabled name='receiveButton'>Receiving...</button>}
+            </form>
+            </div>
+
+            <div className = "codeBlockCol">
             <h1>Delete a block from back-end</h1>
             <form onSubmit={handleSubmitDelete}>
               <label style={{'margin-right': '1em'}}>Block ID</label>
@@ -1009,29 +1031,11 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
               {!isPendingDelete && <button name='deleteButton'>Delete from Gallery</button>}
               {isPendingDelete && <button disabled name='deleteButton'>Deleting...</button>}
             </form>
-          </Col>
-
-          {/* Column for receiving blocks from back-end */}
-          <Col flex={'25%'}>
-            <h1>Receive a block from back-end</h1>
-            <form onSubmit={handleSubmitReceive}>
-              <label style={{'margin-right': '1em'}}>Block ID</label>
-              <input
-                type="text"
-                required
-                value={formReceive}
-                onChange={(e) => setFormReceive(e.target.value)}
-              />
-              <NewlineText text ={formReceivePayload}></NewlineText>
-              {/* Buttons are displayed conditionally */}
-
-              {!isPendingReceive && <button name='receiveButton'>Receive from Gallery</button>}
-              {isPendingReceive && <button disabled name='receiveButton'>Receiving...</button>}
-            </form>
+            </div>
           </Col>
 
           {/* Column for unit tests */}
-          <Col flex={'25%'}>
+          <Col flex={'48%'} className = "codeBlockCol">
             <h1>Run Unit Tests</h1>
             <h3>Unit Test 1</h3>
             <button onClick={handleUnitTest1}>Send Invalid Block (Should Not Send)</button>
@@ -1085,6 +1089,70 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       {/* End of Block Generator */}
 
 
+      {/* Jeris Contribution of setup for the Gallery}
+      {/* Start of the Gallery Components*/}
+      <div
+      id='bottom-container'
+      className='flex flex-column vertical-container overflow-visible'
+      >
+        <Row>
+          <h1 id = "section-header">Gallery of Shared Code</h1>
+        </Row>
+        <Row>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col >
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+            
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='CodeBlock'>
+                      <p className = "code">Code goes here</p>
+                      <h2 className = "studentName">Student Name</h2>
+                    </div>
+                </Col>
+            </Row>
+        </div>
+      {/* End of Gallery Componenets */}
 
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       <xml id='toolbox' is='Blockly workspace'>
@@ -1121,5 +1189,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
         ></Alert>
       )}
     </div>
+
+    //Start of Block Sharing for Gallery
+
   );
 }
