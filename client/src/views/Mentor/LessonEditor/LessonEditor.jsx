@@ -37,12 +37,11 @@ export default function LessonEditor({
 
     if (Array.isArray(histories)) {
       setLessonHistories(histories);
+      setRevertVisible(true);
     }
     else {
       console.error("Expected an array for lesson history, received:", histories);
     }
-    setLessonHistories(histories);
-    setRevertVisible(true);
   }
 
   const fetchAndUpdateLessonModule = async () => {
