@@ -90,7 +90,7 @@ export default function LessonEditor({
       description,
       standards,
       link
-    );
+    )
     if (response.err) {
       message.error("Fail to update lesson")
     } else {
