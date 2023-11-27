@@ -13,7 +13,7 @@ export default function FlagButton({ id }) {
 
   // Function to send email
   function sendEmail(reason) {
-    emailjs.send("service_15kdnle", "template_b73zh4s", {
+    emailjs.send("service_9y45peo", "template_b73zh4s", {
       video_id: id,
       reason: reason,
       page_link: window.location.href,
