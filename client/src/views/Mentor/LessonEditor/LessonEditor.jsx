@@ -84,7 +84,7 @@ export default function LessonEditor({
       description,
       standards,
       link
-    )
+    );
     if (response.err) {
       message.error("Fail to update lesson")
     } else {
@@ -197,13 +197,13 @@ export default function LessonEditor({
             <Modal
               title="Revert Lesson"
               open={revertVisible}
-              onCancel={() => setRevertVisible(false)}
+              onCancel={setRevertVisible(false)}
               footer={null}
             >
               {lessonHistories.map(history => (
                 <div key={history.id}>
                   <p>{history.name} - {history.createdAt}</p>
-                  <Button onClick={() => revertLesson(history.id)}>Revert to this</Button>
+                  <Button onClick={revertLesson(history.id)}>Revert to this</Button>
                 </div>
               ))}
             </Modal>
