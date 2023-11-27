@@ -1,10 +1,10 @@
 import { useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 
-const AssignToClassroomButton = () => {
+const ViewAll = () => {
     return (
-                <Link to = "/">
-                    <button>Assign to Classroom</button>
+                <Link to = "/teacher-assessments">
+                    <button>View all Assessments</button>
                 </Link>
         
     )
@@ -13,4 +13,4 @@ const AssignToClassroomButton = () => {
 
 
 
-export default AssignToClassroomButton
+export default ViewAll

@@ -4,19 +4,17 @@ import { Link } from 'react-router-dom'
 import EditAssessmentButton from './EditAssessmentButton'
 import AssignToClassroomButton from './AssignToClassroomButton'
 import GradeButton from './GradeButton'
-import TimeOpenButton from './ChangeWindowOpenButton'
+import ViewAll from './AssignToClassroomButton'
 
 
 
-const ButtonSet = () => {
+function ButtonSet ({id}) {
+    console.log(id);
     return (
-                <Link to = "/" >
-                    F<EditAssessmentButton/>Fo<AssignToClassroomButton/><GradeButton/>Fo<TimeOpenButton/>
+                <Link to = "/">
+                    <EditAssessmentButton id = {id}/>po <AssignToClassroomButton/><GradeButton/>
                 </Link>
     )
 }
-
-
-
 
 export default ButtonSet
