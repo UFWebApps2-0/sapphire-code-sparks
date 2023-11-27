@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getMentor, getClassrooms, getLessonModule } from '../../../Utils/requests';
-import { Tabs, message, Table, Popconfirm } from 'antd';
+import { Tabs, message, Table, Popconfirm, Button } from 'antd';
 import './Dashboard.less';
 import DashboardDisplayCodeModal from './DashboardDisplayCodeModal';
 import MentorSubHeader from '../../../components/MentorSubHeader/MentorSubHeader';
@@ -92,6 +92,7 @@ export default function Dashboard() {
       render: (_, key) => (
         <LessonEditor
           learningStandard={key}
+          dName={key.name}
           linkBtn={true}
           viewing={viewing}
           setViewing={setViewing}
@@ -107,6 +108,23 @@ export default function Dashboard() {
       editable: true,
       width: '22.5%',
       align: 'left',
+    },
+    {
+      title: 'Edit',
+      key: 'edit',
+      width: '10%',
+      align: 'center',
+      render: (_, key) => (
+        <LessonEditor
+        learningStandard={key}
+        dName = "Edit"
+        linkBtn={true}
+        viewing={viewing}
+        setViewing={setViewing}
+        tab={tab}
+        page={page}
+        />
+      ),
     },
     {
       title: 'Delete',

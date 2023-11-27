@@ -30,17 +30,21 @@ module.exports = async () => {
         const existingHistory = await strapi.query('lesson-history').find({ lesson_module: lessonModule.id });
 
         if (existingHistory.length === 0) {
-            // Create lesson history if none exists
-            await strapi.query('lesson-history').create({
-                number: lessonModule.number,
-                name: lessonModule.name,
-                expectations: lessonModule.expectations,
-                activities: lessonModule.activities,
-                unit: lessonModule.unit,
-                standards: lessonModule.standards,
-                link: lessonModule.link,
-                lesson_modules: lessonModule.id,
-            });
+            try {
+                // Create lesson history if none exists
+                await strapi.query('lesson-history').create({
+                    number: lessonModule.number,
+                    name: lessonModule.name,
+                    expectations: lessonModule.expectations,
+                    activities: lessonModule.activities,
+                    unit: lessonModule.unit,
+                    standards: lessonModule.standards,
+                    link: lessonModule.link,
+                    lesson_modules: lessonModule.id,
+                });
+            } catch (error) {
+                console.log(`Error creating history for lesson-module with ID: ${lessonModule.id}:`, error);
+            }
         }
     }
 }

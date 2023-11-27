@@ -32,7 +32,7 @@
     },
     "standards": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "link": {
       "type": "string"
