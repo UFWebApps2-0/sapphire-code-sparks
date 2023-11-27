@@ -28,7 +28,8 @@ export default function GroupReport(props) {
     border: '2px solid black',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.377',
     borderRadius: '4px',
-    marginTop: '20px'
+    marginTop: '20px',
+    marginRight: '200px'
    
 }
 
@@ -36,10 +37,10 @@ export default function GroupReport(props) {
     <div className='container nav-padding'>
       <NavBar />
       {/* <h1>Group Report</h1> */}
-      <div className='menu-bar'>
         <div id='daily-report-header'>Studies</div>
         {/* Button to add a study */}
-        <Popup trigger=
+        <div className = "addStudyButton">
+          <Popup trigger=
                 {<button style={box}> Click to add study </button>} 
                 modal nested>
                 {
@@ -60,10 +61,14 @@ export default function GroupReport(props) {
                     )
                 }
             </Popup>
-        <StudyList
-          studyList = {studyList}
-          updateStudyList = {updateStudyList}
-        />
+        </div>
+        <div className = "studyList">  
+          <StudyList
+            studyList = {studyList}
+            updateStudyList = {updateStudyList}
+          />
+        </div>
+      <div className='dashboard-button'>
         {/* Do we need a menu button to go back to report landing page?*/}
         <button
           id={'group-level-return'}

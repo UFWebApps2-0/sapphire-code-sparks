@@ -23,6 +23,7 @@ function AddStudy({newList, setNewList, updateStudyList}) {
         height: '200px',
         backgroundColor: 'white',
         padding: '20px',
+        margin: '30px',
         border: '2px solid black',
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.377',
         borderRadius: '10px'

@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
+import './StudyList.less';
+import { ReactComponent as arrow_icon} from 'react';
  
+
 function StudyList({studyList, updateStudyList}) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     function DropDownButton(props){
-        return (
-            <li className='study-list'>
-                <a href = "#" className = "icon-button" onClick={() => setOpen(!open)}>
-                    {props.icon}
-                </a>
-                {open && props.children}
-            </li>
-        )
+        
     }
 
     function DropDownMenu(){
         function DropDownStudies(props){
             return(
-                <a href = "#" className='dropdown-study'>
+                <a href = "#" className='dropdown-item'>
                     <span className='icon-button'>{props.leftIcon}</span>
                     {props.children}
                     <span className = "icon-right">{props.rightIcon}</span>
@@ -37,9 +33,8 @@ function StudyList({studyList, updateStudyList}) {
     }
 
     return (
-        <DropDownButton icon = "^">
-            <DropDownMenu/>
-        </DropDownButton>
+        <DropDownMenu/>
+        
     );
     
   }
