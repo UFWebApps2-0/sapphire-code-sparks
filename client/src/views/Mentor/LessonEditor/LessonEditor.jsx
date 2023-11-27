@@ -32,8 +32,14 @@ export default function LessonEditor({
   // Show Revert modal if button clicked
   const showRevertModal = async () => {
     const histories = await getLessonHistories(learningStandard.id);
-    setLessonHistories(histories);
-    setRevertVisible(true);
+    
+    if (Array.isArray(histories)) {
+      setLessonHistories(histories);
+      setRevertVisible(true);
+    }
+    else {
+      console.error("Expected an array for lesson history, received:", histories);
+    }
   }
 
   const revertLesson = async (historyId) => {
