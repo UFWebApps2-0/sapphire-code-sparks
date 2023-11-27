@@ -12,7 +12,6 @@ import NavBar from '../../components/NavBar/NavBar';
 import { Table } from 'antd';
 import { getSave } from '../../Utils/requests';
 import { CSVDownloader } from 'react-papaparse';
-import Comment from './components/Comment';
 const TIME_LINE_SIZE = 25;
 
 const timelineReducer = (timeline, action) => {
