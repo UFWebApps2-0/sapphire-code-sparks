@@ -65,7 +65,7 @@ const App = () => {
         <Route
             path='/student-assessments'
             element={
-                <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
+                <StudentViewAssessments/> // null is placeholder for database info
             }
         />
 

@@ -5,7 +5,6 @@ import "../client/src/Utils/requests";
 import NavBar from "../client/src/components/NavBar/NavBar";
 import { getAssessments } from "../client/src/Utils/requests";
 import message from "../client/src/components/Message";
-//import { dir } from "tmp";
 
 function TeacherViewAssessments() {
   const [assessmentList, setAssessmentList] = React.useState({});
@@ -55,6 +54,7 @@ function TeacherViewAssessments() {
   </main>
   );
 }
+
 function PrintMiddleEntries(assessmentList) {
   const navigate = useNavigate();
   if (assessmentList !== undefined && Array.isArray(assessmentList.assessmentList)) {
@@ -62,7 +62,7 @@ function PrintMiddleEntries(assessmentList) {
       <div className = "background">
         {assessmentList.assessmentList.map((directory) => (
           <div className="tableMid">
-            <div className="alignLeft bold">{directory.name} <br></br> <div className="noBold"> Assigned: {directory.openDate} | Due: {directory.dueDate}</div></div>
+            <div className="alignLeft bold">{directory.name} <br></br> <div className="noBold"> Assigned: <PrintDate directoryDate={directory.openDate}/> | Due: <PrintDate directoryDate={directory.dueDate}/></div></div>
             <button onClick={() => navigate("/about")} className="shortenTransform1 alignRight">
               Assign
             </button>
@@ -72,11 +72,16 @@ function PrintMiddleEntries(assessmentList) {
             <button onClick={() => navigate("Grade")} className="shortenTransform3 alignRight">
               Grade
             </button>
+            <br></br>
           </div>
         ))}
       </div>
     );
   }
+}
+
+function PrintDate({directoryDate}) {
+  return directoryDate.substring(0, directoryDate.indexOf("T"))
 }
 
 export default TeacherViewAssessments;
