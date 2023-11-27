@@ -12,14 +12,14 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
         Delete when clicked
 */}
 
-function DeleteVideoButton (embedLink) {
-    if (embedLink.embedLink) {
+function DeleteVideoButton ({ embedLink, setEmbedLink}) {
+    if (embedLink) {
         return (
             <Popconfirm
                 title={`Are you sure you want to remove (TITLE) from this activity?`}
                 okText='Delete'
                 icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                onConfirm={() => {}}
+                onConfirm={() => {setEmbedLink("")}}
             >
             <button id="delete--video" onClick={() => {}}>
                 X
