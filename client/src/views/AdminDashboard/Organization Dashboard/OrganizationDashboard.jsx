@@ -63,18 +63,41 @@ export default function OrganizationDashboard() {
                     headers: { 'Authorization': `Bearer ${jwtToken}` },
                 });
                 const schools = await schoolResponse.json();
-
-                // Parallelize mentor fetch requests for each school
-                const mentorPromises = schools.map(school =>
-                    fetch(`http://localhost:1337/api/mentors?school=${school.id}`, {
+            
+                // Fetch classrooms and mentors for each school
+                const mentorPromises = schools.map(async (school) => {
+                    const classroomResponse = await fetch(`http://localhost:1337/api/classrooms?school=${school.id}`, {
                         headers: { 'Authorization': `Bearer ${jwtToken}` },
-                    }).then(response => response.json())
-                );
+                    });
+                    const classrooms = await classroomResponse.json();
+            
+                    // Fetch mentors for each classroom
+                    const classroomMentorPromises = classrooms.map(classroom =>
+                        fetch(`http://localhost:1337/api/mentors?classrooms=${classroom.id}`, {
+                            headers: { 'Authorization': `Bearer ${jwtToken}` },
+                        }).then(response => response.json())
+                    );
+            
+                    // Flatten the array of arrays of mentors
+                    const mentorsForClassrooms = await Promise.all(classroomMentorPromises);
+                    // Store all mentors in a set to remove duplicates
+                    const allMentors = mentorsForClassrooms.flat();
 
-                const mentorsList = await Promise.all(mentorPromises);
-                return mentorsList.flat().length; 
+                    // Count the number of unique mentors
+                    const uniqueMentors = Array.from(new Set(allMentors.map(mentor => mentor.id)))
+                        .map(id => {
+                            return allMentors.find(mentor => mentor.id === id)
+                        });
+                    return uniqueMentors.length;
+                });
+            
+                
+                const mentorsCount = await Promise.all(mentorPromises);
+                // Sum the number of mentors for each school
+                return mentorsCount.reduce((total, count) => total + count, 0);
             };
 
+            // Fetch the number of mentors for each organization
             const mentorCounts = await Promise.all(organizations.map(fetchSchoolsAndMentors));
             mentorCounts.forEach((count, index) => {
                 organizations[index].totalMentors = count;
