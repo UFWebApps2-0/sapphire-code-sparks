@@ -222,6 +222,7 @@ const MentorActivityDetailModal = ({
         </VideoURL_Input>
 
         <DeleteVideoButton
+          setEmbedLink={setEmbedLink}
           embedLink={embedLink}
         />
 
