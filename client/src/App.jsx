@@ -40,7 +40,7 @@ const App = () => {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/sign-up' element={<ParentalSignUp />} />
         <Route path='/forget-psw' element={<ParentalForgetPsw />} />
-        <Route path='/studentParental' element={<Student />} />
+        <Route path='/studentParental' element={<StudentParental />} />
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
