@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import '../../components/ActivityPanels/ActivityLevels.less';
 import FlagButton from '../../components/FlagButton/FlagButton.jsx';
-import { getVideoLink} from '../../Utils/requests';
+import {getVideoLink} from '../../Utils/requests';
 
-export default function DraggableVideo(props) {
- 
- 
-    const [mouseDown, setMouseDown] = useState(false);
-    const { name} = props; //Video name and link are passed in 
-    const [vidLink, setVidLink] = useState(videoId); 
+export default function VideoPlayer(props) {
+    const {name} = props; //Video name and link are passed in 
+    const [vidLink, setVidLink] = useState(null); 
 
     const getLink = (id) => {
         getVideoLink(id).then((res) => {
@@ -25,8 +22,7 @@ export default function DraggableVideo(props) {
 
     if(vidLink != null){
     return ( //Returns an iframe video wrapped in a div that will be used to drag the iframe around the workspace
-        <div id = "draggableVideo"
-        >
+        <div id = "draggableVideo">
         <h2 id="vidTitle">{name} Video <FlagButton id = {1}/>
         </h2>
         
