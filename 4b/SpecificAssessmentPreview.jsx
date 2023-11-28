@@ -1,7 +1,8 @@
 import React, { useEffect, useState} from 'react';
 import './TeacherViewAssessments.css';
 import '../client/src/Utils/requests.js';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+
 import NavBar from "../client/src/components/NavBar/NavBar";
 
 //components
@@ -9,23 +10,26 @@ import AssignmentTitle from "./AssignmentTitle"
 import PreviewAssessment from "./PreviewAssessment"
 import DataVis from "./DataVisualization"
 import ButtonSet from "../client/src/components/AssessPreview/ButtonSet"
-import {getAssessments, getStudent} from "../client/src/Utils/requests";
+import {getAssessments, getStudent, getAssessment} from "../client/src/Utils/requests";
 import message from "../client/src/components/Message";
 
 function SpecificAssessmentPreview() {
-    const [assessData, setAssessData] = React.useState({});
-   
+    const [assessData, setAssessData] = React.useState({});;
+    const { id } = useParams();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await getAssessments();
+                const res = await getAssessment(id);
+              
                 return res.data;
+                
             } catch {
                 return { err: "Data fetch failed" };
             }
         };
         fetchData().then((res) => {
             if (res) {
+                console.log(res);
                 setAssessData(res);
             } else {
                 message.error(res.err);
@@ -34,7 +38,7 @@ function SpecificAssessmentPreview() {
             }
         });
     }, []);
-    //to test with docker set const assessData to res
+
       let arr = [];
       for(let i = 0; i < assessData.questions.length; i++) {
         arr.push(
@@ -43,7 +47,7 @@ function SpecificAssessmentPreview() {
           
         );
       }
-      console.log(assessData.name);
+     
     return (
         <body className="background">
             <NavBar />
@@ -52,7 +56,7 @@ function SpecificAssessmentPreview() {
             <button></button>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
               
-                <ButtonSet id = {assessData.name}/>
+                <ButtonSet id = {id}/>
             </div>
             <p2 className="tableMid alignLeft bold">Attempts: {assessData.attempts}, Points: {assessData.points}</p2>
             {arr}
