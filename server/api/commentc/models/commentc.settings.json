@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "Commentc",
+  "info": {
+    "name": "Commentc",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "sendername": {
+      "type": "string"
+    },
+    "sendermessage": {
+      "type": "text"
+    },
+    "tablename": {
+      "type": "string",
+      "default": "tablename",
+      "required": false,
+      "unique": true
+    },
+    "timestamp": {
+      "type": "datetime"
+    }
+  }
+}

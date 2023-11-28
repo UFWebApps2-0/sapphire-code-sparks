@@ -82,7 +82,28 @@ export const getActivityToolboxAll = async () =>
     path: `${server}/sandbox/toolbox`,
     error: 'Toolbox could not be retrieved.',
   });
+// 获取评论的函数
+export const getCommentcs = async (tablename) => {
+  return makeRequest({
+    method: GET,
+    path: `${server}/commentcs?tablename=${tablename}`,
+    auth: true, // 如果需要认证
+    error: 'Comments could not be retrieved.',
+  });
+};
 
+// 提交评论的函数
+export const postCommentcs = async (commentData) => {
+  return makeRequest({
+    method: POST,
+    path: `${server}/commentcs`,
+    data: commentData,
+    auth: true, // 如果需要认证
+    error: 'Comment could not be posted.',
+  });
+};
+
+  
 // export cost getActivityLevels = async () =>
 //   makeRequest({
 //     method: GET,
