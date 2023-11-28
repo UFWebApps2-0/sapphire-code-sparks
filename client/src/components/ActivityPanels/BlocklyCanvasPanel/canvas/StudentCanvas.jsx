@@ -371,7 +371,7 @@ export default function StudentCanvas({ activity }) {
             minSize={300}
             defaultSize={ lessonVisible ? 1000 : 1500 }
             maxSize={ lessonVisible ? 1000 : 1500 }
-            resizerStyle={{ display: lessonVisible ? 'block' : 'none', width: '10px', cursor: 'col-resize', marginRight: '23px', height: '600px', backgroundColor: 'black' , borderRadius: '30px' }}
+            resizerStyle={{ display: lessonVisible ? 'block' : 'none', width: '10px', cursor: 'col-resize', marginRight: '23px', height: '600px', backgroundColor: '#5dc0de' , borderRadius: '30px' }}
           >
 
         <div
