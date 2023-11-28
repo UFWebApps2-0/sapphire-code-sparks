@@ -531,7 +531,6 @@ export default function StudentCanvas({ activity }) {
     <>
       <h2 style={{ backgroundColor: '#F3D250', borderRadius: '30px', margin: '30px' }}>Test Lesson</h2>
       <p>This is a sample lesson content.</p>
-      <Replay ></Replay>
     </>
   </div>
 )}
