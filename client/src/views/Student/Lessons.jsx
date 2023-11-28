@@ -14,8 +14,9 @@ export default function Lessons(){
         try {
             const res = await getStudentClassroom();
             if (res.data) {
+                console.log(JSON.stringify(res.data));
             if (res.data.lesson_module) {
-                setLessonModule(res.data.lesson_module);
+                setLessonModule(res.data.lesson_module); //sets the module to learningStandard
             }
             } else {
             message.error(res.err);

@@ -46,7 +46,6 @@ export default function NavBar() {
   const genButtons = () => {
     const buttons = config.navButtons.map((button) => {
       if (shouldShowRoute(button.route)) {
-        console.log("test");
         return(
           <button className="button-30" key={button.route} onClick={() => handleRouteChange(routes[button.route])}>
             {button.icon && <i className={`fa ${button.icon}`} />}
@@ -54,7 +53,6 @@ export default function NavBar() {
           </button>
         );
       }
-      console.log(button.route);
       return null;
     });
     return buttons.filter(Boolean);

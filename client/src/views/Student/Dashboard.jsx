@@ -2,20 +2,22 @@ import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
-import { getStudentClassroom } from '../../Utils/requests';
+import { getStudentName } from '../../Utils/requests';
 import './Student.less';
 
 export default function Dashboard(){
     const [learningStandard, setLessonModule] = useState({});
+    const [currentStudent, setCurrentStudent] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const res = await getStudentClassroom();
+            const res = await getStudentName();
+            console.log(JSON.stringify(res.data.students[0].name));
             if (res.data) {
-            if (res.data.lesson_module) {
-                setLessonModule(res.data.lesson_module);
+            if (res.data.students) {
+                setCurrentStudent(res.data.students[0].name);
             }
             } else {
             message.error(res.err);
@@ -31,6 +33,7 @@ export default function Dashboard(){
                 <div id='header'>
                     <div>Dashboard</div>
                 </div>
+                <h1>Welcome {currentStudent} !</h1>
                 <div id="containerDashboard">
                     <div className="dashboard-box">
                         Project 1       
