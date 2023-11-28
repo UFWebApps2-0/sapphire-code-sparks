@@ -18,13 +18,17 @@
       "type": "string"
     },
     "organizations": {
-      "collection": "organization",
       "via": "administrators",
+      "collection": "organization",
       "dominant": true
     },
     "user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "moderation_records": {
+      "via": "administrator",
+      "collection": "moderation-records"
     }
   }
 }

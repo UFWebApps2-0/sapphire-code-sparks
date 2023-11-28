@@ -71,6 +71,22 @@ export const getAllAdministrators = async () =>
     error: 'Your administrator information could not be fetched.'
   });
 
+
+export const getModRecord = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/moderation_records/${id}`,
+    auth: true,
+    error: 'Moderation Record information could not be retrieved',
+  });
+
+export const getModRecordCount = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/moderation_records/count`,
+    auth: true,
+    error: 'Moderation Record Count information could not be retrieved',
+  });  
 // Retrieves the user from the session's token (I think)
 export const getUser = async () =>
   makeRequest({
@@ -451,6 +467,29 @@ export const createUnit = async (number, name, standardsID, standardsDescrip, gr
     },
     auth: true,
     error: 'Fail to create new unit.',
+  });
+
+export const createOrganization = async (name) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/organizations/`,
+    data: {
+      name: name,
+    },
+    auth: true,
+    error: 'Failed to create new organization.',
+  });
+
+export const updateOrganization = async (id, schools, adminId) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/organizations/${id}`,
+    data: {
+      schools: schools,
+      administrators: adminId,
+    },
+    auth: true,
+    error: 'Failed to update organization.',
   });
 
 export const updateUnit = async (

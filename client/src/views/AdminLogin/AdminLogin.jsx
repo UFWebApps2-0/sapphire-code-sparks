@@ -39,6 +39,7 @@ export default function AdminLogin() {
         postUser(body)
             .then((response) => {
                 setUserSession(response.data.jwt, JSON.stringify(response.data.user));
+                localStorage.setItem('jwt', response.data.jwt);
                 setLoading(false);
                 
                 if (response.data.user.role.name === 'Administrator')

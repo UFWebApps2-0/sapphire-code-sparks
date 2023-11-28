@@ -16,7 +16,8 @@
     },
     "schools": {
       "collection": "school",
-      "via": "organization"
+      "via": "organization",
+      "dominant": true
     },
     "mentors": {
       "collection": "mentor",
@@ -25,6 +26,10 @@
     "administrators": {
       "via": "organizations",
       "collection": "administrator"
+    },
+    "moderation_records": {
+      "via": "organization",
+      "collection": "moderation-records"
     }
   }
 }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUser, getAllAdministrators, getOrganizations } from "../../../Utils/requests";
 import NavBar from '../../../components/NavBar/NavBar';
 import MentorSubHeader from '../../../components/MentorSubHeader/MentorSubHeader';
+import OrganizationCreator from "./OrganizationCreator/OrganizationCreator";
 import './OrganizationDashboard.less';
 
 
@@ -83,7 +84,9 @@ export default function OrganizationDashboard() {
                         <button onClick={() => navigateAdminDash()}>Return to Administrator Dashboard</button>
                     </div>
                     <div id='add-org-button'> 
-                        <button onClick={() => addOrganization()}>Add New Organization</button>
+                        <OrganizationCreator
+                        admins = {admin}
+                        />
                     </div>
                 </div>
             </div>
