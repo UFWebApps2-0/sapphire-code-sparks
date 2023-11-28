@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/recently-deleted-accounts",
+      "handler": "recently-deleted-accounts.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/recently-deleted-accounts/count",
+      "handler": "recently-deleted-accounts.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/recently-deleted-accounts/:id",
+      "handler": "recently-deleted-accounts.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/recently-deleted-accounts",
+      "handler": "recently-deleted-accounts.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/recently-deleted-accounts/:id",
+      "handler": "recently-deleted-accounts.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/recently-deleted-accounts/:id",
+      "handler": "recently-deleted-accounts.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
