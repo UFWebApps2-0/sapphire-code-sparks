@@ -739,6 +739,14 @@ export const deleteAuthorizedWorkspace = async (id) =>
     auth: true,
     error: 'Unable to delete cc workspace',
   });
+  //For deleting organizations
+  export const deleteOrganization = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/organizations/${id}`,
+    auth: true,
+    error: 'Failed to delete organization.',
+  });
 
 export const getClassroomWorkspace = async (id) =>
   makeRequest({
