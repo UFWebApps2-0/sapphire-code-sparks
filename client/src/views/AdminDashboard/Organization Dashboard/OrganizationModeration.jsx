@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getOrganization, getModRecord, getModRecordCount } from "../../../Utils/requests";
 import { Table } from 'antd';
+import Recovery from "./AccountDataRecovery/Recovery"; 
 import { message } from 'antd';
 
 
@@ -17,6 +18,14 @@ export default function OrganizationModeration({ organizationId }) {
         navigate('/organization-dashboard');
     };
 
+
+    const navigateRemoveAccount = () => {
+        
+    }
+    
+    const navigateModerationAction = () => {
+        
+    } 
 
     // Load Organization's Data
     useEffect(() => {
@@ -71,8 +80,9 @@ export default function OrganizationModeration({ organizationId }) {
             <div class="inline-buttons">
             <button onClick={() => alert('Delete something')}>Delete Something</button>
             <button onClick={() => alert('Moderation Action')}>Moderation Action</button>
-            <button onClick={() => alert('Account/data recovery')}>Account/data recovery</button>
+            <Recovery/>
             </div>
+
         </div>
     )
 }

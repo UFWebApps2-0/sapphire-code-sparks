@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recently_deleted_accounts",
+  "info": {
+    "name": "Recently Deleted Accounts",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "School": {
+      "type": "string"
+    },
+    "TimeDeleted": {
+      "type": "datetime"
+    }
+  }
+}
