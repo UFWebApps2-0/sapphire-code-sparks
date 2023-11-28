@@ -77,7 +77,8 @@ export function Maneuver(props) {
                 organizationName={props.organization.name}
                 school={selectedSchool}
                 schoolID={selectedSchoolID} 
-                updateOrganization={props.updateOrganization}
+                updateOrganization={props.updateOrganization} 
+                organizationId={props.organizationId}
             />
     )
 

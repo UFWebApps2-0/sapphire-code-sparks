@@ -261,8 +261,10 @@ button {
 
 #school-header-container .action-buttons {
     display: flex;
-    column-gap: 10px;
-    align-items: end;
+    row-gap: 10px;
+    /* align-items: end; */
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 #classroom-info .action-buttons {
@@ -316,4 +318,8 @@ button {
 
 h1 {
     font-size: 40px;
+}
+
+th {
+    white-space: nowrap;
 }

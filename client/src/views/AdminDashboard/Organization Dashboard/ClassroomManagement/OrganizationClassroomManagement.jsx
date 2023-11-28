@@ -50,7 +50,8 @@ export default function OrganizationClassroomManagement({ organizationId } ) {
             <button id='home-back-btn' onClick={navigateOrganizationDash}>
               <i className='fa fa-arrow-left' aria-hidden='true' />
             </button>
-            <Maneuver
+            <Maneuver 
+              organizationId={organizationId}
               updateOrganization={updateOrganization}
               organization={organization}
             />

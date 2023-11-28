@@ -22,7 +22,14 @@ export default function DListView({data, handleDelete, showSchools}) {
             key: 'classroom_name',
             width: '20%',
             align: 'left'
-        } 
+        },
+        {
+          title: 'Last Logged In',
+          dataIndex: 'last_logged_in',
+          key: 'last_logged_in',
+          width: '22.5%',
+          align: 'right',
+      },
       ];
     
       if (showSchools) {

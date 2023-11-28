@@ -4,6 +4,19 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import SModal from "./SModal"
 
 
+const getFormattedDate = (value, locale = 'en-US') => {
+  if(value == null) return "Never";
+  const date = new Date(value);
+  return date.toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+  });
+}
+
+
 export default function SListView({data, handleDelete, showSchools}) {
     const columns = [
         {
@@ -32,6 +45,14 @@ export default function SListView({data, handleDelete, showSchools}) {
           key: 'character',
           width: '20%',
           align: 'left'
+        },
+        {
+          title: 'Last Logged In',
+          dataIndex: 'last_logged_in',
+          key: 'last_logged_in',
+          width: '50%',
+          align: 'right',
+          render: (value) => getFormattedDate(value),
         }
       ];
     

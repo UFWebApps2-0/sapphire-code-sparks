@@ -160,9 +160,7 @@ export default function OrganizationDashboard() {
                             </div>
                         <div id='card-right-content-container'>
                         <div id='mentor-number-container'>
-                        <h1 id='number'>{organization.mentors.length}</h1>
-                        {console.log("ansifni", organization)}
-                        <p id='label'>Teachers</p>
+                        <p id='label'></p>
                             <h1 id='number'>{organization.totalMentors}</h1>
                             <p id='label'>Teachers</p>
                         </div>
