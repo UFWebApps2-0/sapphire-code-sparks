@@ -10,6 +10,13 @@ function VideoURL_Input ( { setEmbedLink, embedLink } ) {
     if (embedLink.search(regex) === -1) {
       return null;
     }
+    else {
+      let position = embedLink.search("src=\"")
+      let cutLink = embedLink.substring(position + 5);
+      let newLink = cutLink.substring(0, cutLink.indexOf('\"'))
+
+      setEmbedLink(newLink)
+    }
     return embedLink;
   }
 

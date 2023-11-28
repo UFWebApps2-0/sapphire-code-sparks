@@ -12,6 +12,7 @@ export default function DraggableVideo(props) {
     const [mouseDown, setMouseDown] = useState(false);
     const {name, videoId} = props; //Video name and link are passed in 
     const [vidLink, setVidLink] = useState(videoId); 
+    const [vidId, setId] = useState(1);
 
     //Draggable div reference: https://www.w3schools.com/howto/howto_js_draggable.asp
     //New Ref?? https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable 
@@ -58,6 +59,7 @@ export default function DraggableVideo(props) {
             if (res.data) {
                 console.log("URL: " + res.data[0].URL);
               setVidLink(res.data[0].URL);
+              setId(res.data[0].id);
             
             } else {
               console.log("No video");
@@ -74,7 +76,7 @@ export default function DraggableVideo(props) {
         onMouseUp = {handleMouseUp}
         onMouseMove = {event => handleMouseMove(event, document.getElementById("draggableVideo"))}
         >
-        <h2 id="vidTitle">{name} Video <FlagButton id = {1}/>
+        <h2 id="vidTitle">{name} Video <FlagButton id = {vidId}/>
         </h2>
         
         {/* Retrieve video link */}
