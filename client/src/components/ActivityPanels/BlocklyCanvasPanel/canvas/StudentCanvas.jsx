@@ -18,6 +18,7 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
+import Replay from '../../../../views/Replay/Replay';
 
 let plotId = 1;
 
@@ -368,9 +369,9 @@ export default function StudentCanvas({ activity }) {
       <SplitPane
             split='vertical'
             minSize={300}
-            defaultSize={1000}
-            maxSize={1000}
-            resizerStyle={{ width: '10px', cursor: 'col-resize' }}
+            defaultSize={ lessonVisible ? 1000 : 1500 }
+            maxSize={ lessonVisible ? 1000 : 1500 }
+            resizerStyle={{ display: lessonVisible ? 'block' : 'none', width: '10px', cursor: 'col-resize', marginRight: '23px', height: '600px', backgroundColor: '#5dc0de' , borderRadius: '30px' }}
           >
 
 
@@ -527,13 +528,13 @@ export default function StudentCanvas({ activity }) {
       {/* THE RIGHT HAND SIDE OF THE WEBPAGE (WHERE LESSON SUPPOSE TO BE) */}
       
       {lessonVisible && (
-        <div id='lesson-container' style={{ backgroundColor: 'lightgray' }}>
-          <>
-          <h2 style={{ background: '#B0BEC5', display: 'inline', padding: '10px', borderRadius: '50px', color: 'white', fontWeight: 'bold'}}>Test Lesson</h2>
-          <p style={{ marginTop: '30px' }}>This is a sample lesson content.</p>
-            </>
-        </div>
-      )}
+  <div id='lesson-container' style={{ backgroundColor: 'lightgray' }}>
+    <>
+      <h2>Test Lesson</h2>
+      <p>This is a sample lesson content.</p>
+    </>
+  </div>
+)}
 
 
         <ConsoleModal
