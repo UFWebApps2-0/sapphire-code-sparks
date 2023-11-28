@@ -59,7 +59,7 @@ function PrintMiddleEntries(assessmentList) {
   const navigate = useNavigate();
   if (assessmentList !== undefined && Array.isArray(assessmentList.assessmentList)) {
     return (
-      <div className = "background">
+      <div>
         {assessmentList.assessmentList.map((directory) => (
           <div className="tableMid">
             <div className="alignLeft bold">{directory.name} <br></br> <div className="noBold"> Assigned: <PrintDate directoryDate={directory.openDate}/> | Due: <PrintDate directoryDate={directory.dueDate}/></div></div>
