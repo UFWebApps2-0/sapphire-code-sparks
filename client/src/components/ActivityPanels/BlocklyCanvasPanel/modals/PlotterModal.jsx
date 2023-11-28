@@ -34,19 +34,24 @@ export default function PlotterModal({
   const [forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
-    navigator.serial.addEventListener('disconnect', (e) => {
-      console.log('device disconnected');
-      window.port = undefined;
-      setConnectionOpen(false);
-      document.getElementById('connect-button').innerHTML = 'Connect';
-      setDeviceDisconnect(true);
-      message.error('Device Disconnected');
-    });
-    navigator.serial.addEventListener('connect', (e) => {
-      setDeviceDisconnect(false);
-      message.success('Device Connected');
-    });
+    if ('serial' in navigator) {
+      navigator.serial.addEventListener('disconnect', (e) => {
+        console.log('device disconnected');
+        window.port = undefined;
+        setConnectionOpen(false);
+        document.getElementById('connect-button').innerHTML = 'Connect';
+        setDeviceDisconnect(true);
+        message.error('Device Disconnected');
+      });
+      navigator.serial.addEventListener('connect', (e) => {
+        setDeviceDisconnect(false);
+        message.success('Device Connected');
+      });
+    } else {
+      console.error('Serial not supported in this environment.');
+    }
   }, [deviceDisconnect, setConnectionOpen]);
+  
 
   const handleConnect = async () => {
     if (!connectionOpen) {
@@ -62,10 +67,11 @@ export default function PlotterModal({
       setDeviceDisconnect(false);
     } else {
       await handleCloseConnection();
-      plotId = 1;
+      setPlotId(1); // Assuming you have a state variable for plotId
       setConnectionOpen(false);
     }
   };
+  
 
   const handleChange = (value) => {
     setBaudRate(value);

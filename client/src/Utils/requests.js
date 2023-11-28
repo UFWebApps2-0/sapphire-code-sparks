@@ -13,10 +13,10 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
   let err = null;
   const config = auth
     ? {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      }
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
     : null;
 
   try {
@@ -504,7 +504,7 @@ export const getLessonModuleActivities = async (lsId) =>
     error: 'Activity cannot be retrived',
   });
 
-  export const getActivityLevels = async (lsId) =>
+export const getActivityLevels = async (lsId) =>
   makeRequest({
     method: GET,
     path: `${server}/authorized-workspaces?activities.id=${lsId}`,
@@ -519,6 +519,27 @@ export const getActivity = async (id) =>
     auth: true,
     error: 'Activity cannot be retrived',
   });
+
+  export const getGalleryActivity = async (id) => {
+    if (!id) {
+      throw new Error('Invalid gallery ID');
+    }
+  
+    try {
+      return await makeRequest({
+        method: GET,
+        path: `${server}/galleries/${id}`,
+        auth: true,
+        error: 'Failed to retrieve gallery activity',
+      });
+    } catch (error) {
+      console.error('Error fetching gallery data:', error.message);
+      throw error; // Rethrow the error to handle it in the component
+    }
+  };
+  
+  
+
 
 export const forgetPassword = async (email) =>
   makeRequest({

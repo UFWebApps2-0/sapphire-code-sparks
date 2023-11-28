@@ -2,88 +2,46 @@
 
   "entries": [
     {
-      "name": "John Wick Choreography",
-      "description": "An awesome gallery 1",
-      "author": "Keanu Reeves",
-      "privacy": "public"
-    },
-    {
-      "name": "Magna Collider Concept Art",
-      "description": "An awesome gallery 2",
-      "author": "Tank Dempsey",
-      "privacy": "public"
-    },
-    {
-      "name": "Spaghetti Recipe",
-      "description": "An awesome gallery 3",
-      "author": "Grandmama",
-      "privacy": "public"
-    },
-    {
-      "name": "Fus Ro Dah",
-      "description": "An awesome gallery 3",
-      "author": "Dovahkiin",
-      "privacy": "public"
-    },
-    {
-      "name": "Ze Wunderwaffe DG-2",
-      "description": "An awesome gallery 4",
-      "author": "Eddie Richtofen",
+      "name": "Movement of the Sun: Activity 1",
+      "description": "Students will create program that will read the value of a photoresistor on specific user input.",
+      "author": "Content Creator",
       "privacy": "classroom"
     },
     {
-      "name": "Abracadavre",
-      "description": "An awesome gallery 5",
-      "author": "Elena Siegman",
+      "name": "Movement of the Sun: Activity 2",
+      "description": "Students will utilize a while loop in their program.",
+      "author": "Content Creator",
       "privacy": "classroom"
     },
     {
-      "name": "Spartan 117",
-      "description": "An awesome gallery 6",
-      "author": "Masterchief",
+      "name": "Movement of the Sun: Activity 3",
+      "description": "Students will learn how to nest loops.",
+      "author": "Content Creator",
       "privacy": "classroom"
     },
     {
-      "name": ":)",
-      "description": "An awesome gallery 6",
-      "author": "Jesus",
-      "privacy": "organization"
-    },
-    {
-      "name": "Let me be clear",
-      "description": "An awesome gallery 7",
-      "author": "Obamna",
-      "privacy": "organization"
-    },
-    {
-      "name": "We need to cook",
-      "description": "An awesome gallery 8",
-      "author": "Waltuh White",
-      "privacy": "classroom"
-    },
-    {
-      "name": "Boi",
-      "description": "An awesome gallery 9",
-      "author": "Kratos",
-      "privacy": "organization"
-    },
-    {
-      "name": "Ocean Drive",
-      "description": "An awesome gallery 9",
-      "author": "Miami Nights",
+      "name": "Force, Motion, and Energy: Activity 1",
+      "description": "Students will use a ballista to learn about force, motion, and energy.",
+      "author": "Content Creator",
       "privacy": "public"
     },
     {
-      "name": "I Drive",
-      "description": "An awesome gallery 9",
-      "author": "Ryan Gosling",
+      "name": "Force, Motion, and Energy: Activity 2",
+      "description": "Students will use a ballista to learn about force, motion, and energy.",
+      "author": "Content Creator",
       "privacy": "public"
     },
     {
-      "name": "Sussy Baka",
-      "description": "An awesome gallery 10",
-      "author": "fungusamongus",
-      "privacy": "organization"
+      "name": "Force, Motion, and Energy: Activity 3",
+      "description": "Students will use a ballista to learn about force, motion, and energy.",
+      "author": "Content Creator",
+      "privacy": "public"
+    },
+    {
+      "name": "Circuits: Activity 1",
+      "description": "Students will use if-else statements to predict energy flow in circuits.",
+      "author": "Content Creator",
+      "privacy": "public"
     }
   ]
 }

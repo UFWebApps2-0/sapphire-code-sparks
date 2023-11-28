@@ -47,7 +47,7 @@ export default function Gallery() {
             <div id="gallery-content-container">
                 <div id="Privacy-buttons">
                     <button onClick={handlePublicButton}>Public</button>
-                    <button onClick={handleClassroomButton}>Clasroom</button>
+                    <button onClick={handleClassroomButton}>Classroom</button>
                     <button onClick={handleOrganizationButton}>Organization</button>
                 </div>
                 <Search

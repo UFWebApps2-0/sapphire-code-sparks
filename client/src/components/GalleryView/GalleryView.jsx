@@ -4,6 +4,7 @@ import './GalleryView.less';
 import DemoData from '../../../DemoData.json';
 import ProjectPage from '../ProjectPage/ProjectPage';
 import placeholderImage from "../../assets/placeholder-gallery-image1.jpg";
+//import { getGalleryActivity } from '@utils/requests';
 
 export default function GalleryView({searchParams,setSearchParams,filterText,classroomId, privacySetting,}) {
     const [tab, setTab] = useState(
@@ -12,6 +13,7 @@ export default function GalleryView({searchParams,setSearchParams,filterText,cla
     const [page, setPage] = useState(
         searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
     );
+    
 
     // Modify the state management for each gallery
     const [galleryStates, setGalleryStates] = useState(

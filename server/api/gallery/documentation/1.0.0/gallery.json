@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/lesson-modules": {
+    "/galleries": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -10,10 +10,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Gallery"
                   }
                 }
               }
@@ -52,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Lesson-module"
+          "Gallery"
         ],
         "parameters": [
           {
@@ -202,11 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Gallery"
                 }
               }
             }
@@ -244,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Lesson-module"
+          "Gallery"
         ],
         "requestBody": {
           "description": "",
@@ -252,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLesson-module"
+                "$ref": "#/components/schemas/NewGallery"
               }
             }
           }
         }
       }
     },
-    "/lesson-modules/count": {
+    "/galleries/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -270,8 +265,8 @@
               "application/json": {
                 "schema": {
                   "properties": {
-                    "foo": {
-                      "type": "string"
+                    "count": {
+                      "type": "integer"
                     }
                   }
                 }
@@ -311,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Lesson-module"
+          "Gallery"
         ],
         "parameters": []
       }
     },
-    "/lesson-modules/{id}": {
+    "/galleries/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -326,11 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Gallery"
                 }
               }
             }
@@ -368,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Lesson-module"
+          "Gallery"
         ],
         "parameters": [
           {
@@ -392,11 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Gallery"
                 }
               }
             }
@@ -434,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Lesson-module"
+          "Gallery"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLesson-module"
+                "$ref": "#/components/schemas/NewGallery"
               }
             }
           }
@@ -508,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Lesson-module"
+          "Gallery"
         ],
         "parameters": [
           {
@@ -527,114 +514,64 @@
   },
   "components": {
     "schemas": {
-      "Lesson-module": {
+      "Gallery": {
         "required": [
-          "id",
-          "number",
-          "name"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "number": {
-            "type": "number"
-          },
           "name": {
             "type": "string"
           },
-          "expectations": {
-            "type": "string"
-          },
-          "activities": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "number",
-                "template"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "lesson_module": {
-                  "type": "string"
-                },
-                "number": {
-                  "type": "integer"
-                },
-                "template": {
-                  "type": "string"
-                },
-                "blocks": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "description": {
-                  "type": "string"
-                },
-                "StandardS": {
-                  "type": "string"
-                },
-                "images": {
-                  "type": "string"
-                },
-                "link": {
-                  "type": "string"
-                },
-                "learning_components": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "activity_template": {
-                  "type": "string"
-                },
-                "galleries": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "unit": {
+          "activity": {
             "required": [
               "id",
-              "name",
-              "number"
+              "number",
+              "template"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "grade": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "standards_id": {
-                "type": "string"
-              },
-              "standards_description": {
+              "lesson_module": {
                 "type": "string"
               },
               "number": {
                 "type": "integer"
               },
-              "lesson_modules": {
+              "template": {
+                "type": "string"
+              },
+              "blocks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "description": {
+                "type": "string"
+              },
+              "StandardS": {
+                "type": "string"
+              },
+              "images": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "learning_components": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "activity_template": {
+                "type": "string"
+              },
+              "galleries": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -648,43 +585,23 @@
               }
             }
           },
-          "standards": {
-            "type": "string"
-          },
-          "link": {
-            "type": "string"
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "NewLesson-module": {
-        "required": [
-          "number",
-          "name"
-        ],
+      "NewGallery": {
         "properties": {
-          "number": {
-            "type": "number"
-          },
           "name": {
             "type": "string"
           },
-          "expectations": {
+          "activity": {
             "type": "string"
           },
-          "activities": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "unit": {
-            "type": "string"
-          },
-          "standards": {
-            "type": "string"
-          },
-          "link": {
-            "type": "string"
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           },
           "created_by": {
             "type": "string"
@@ -696,5 +613,9 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    {
+      "name": "Gallery"
+    }
+  ]
 }
