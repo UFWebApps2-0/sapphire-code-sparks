@@ -12,6 +12,7 @@ import {
   getUnit,
   getGrade,
   getClassroom,
+  getLessonModuleAll,
 } from '../../Utils/requests';
 import Form from 'antd/lib/form/Form';
 
@@ -209,16 +210,17 @@ const ActivityLevelReport = () => {
       ),
     },
   ];
+
   const handleFilterClick = () => {
     setIsTransition(!isTransition);
     setShowFilter(!showFilter);
   };
+
   return (
     <div className='container nav-padding'>
       <NavBar />
       <div className='menu-bar'>
         <div id='activity-level-report-header'>Activity Level - Student Report</div>
-
         <button
           className='activity-level-return'
           onClick={() => navigate('/report')}
@@ -233,7 +235,6 @@ const ActivityLevelReport = () => {
           <span> Click to Show Filter</span>
         )}
       </button>
-      
         <div className={`filter-show ${isTransition ? 'big' : ''}`}>
           <div className='filter-items'>
             <Filter setSearchParam={setSearchParam} paramObj={paramObj} />
@@ -289,6 +290,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
   const [selectedUnit, setselectedUnit] = useState('');
   const [selectedClassroom, setselectedClassroom] = useState('');
   const [selectedStudent, setselectedStudent] = useState('');
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -298,7 +300,19 @@ const Filter = ({ setSearchParam, paramObj }) => {
       }
       setGrades(gradesRes.data);
     };
+    const fetchData2 = async () => {
+      const lessons = await getLessonModuleAll();
+      setLs(lessons.data);
+    };
+    var allUnits = [];
+    grades.forEach((g) => {
+      allUnits = allUnits.concat(g.units);
+    });
+    console.log(allUnits);
+    setUnits(allUnits);
+
     fetchData();
+    fetchData2();
   }, []);
 
   const onGradeChange = async (e) => {
@@ -309,30 +323,37 @@ const Filter = ({ setSearchParam, paramObj }) => {
     setClassrooms([]);
     setLs([]);
     setStudents([]);
-
+    
     const grade = e.target.value;
     if (grade) {
       setselectedGrade(grade);
+      setselectedUnit('');
+      setselectedLs('');
       const gradeRes = await getGrade(grade);
-      setUnits(gradeRes.data.units);
-      setClassrooms(gradeRes.data.classrooms);
     } else {
       setselectedGrade('');
-      setUnits([]);
     }
+    let obj = {};
+    if( grade !== "" ) obj.grade = grade;
+    setSearchParam(obj);
   };
 
   const onUnitChange = async (e) => {
-    setselectedLs('');
     const unit = e.target.value;
+
     if (unit) {
       setselectedUnit(unit);
+      setselectedGrade('');
+      setselectedLs('');
       const unitRes = await getUnit(unit);
       setLs(unitRes.data.lesson_modules);
     } else {
-      setselectedUnit('');
-      setLs([]);
+      setselectedUnit('');  
     }
+    
+    let obj = {};
+    if( unit !== "" ) obj.unit = unit;
+    setSearchParam(obj);
   };
 
   const onClassroomChange = async (e) => {
@@ -378,22 +399,22 @@ const Filter = ({ setSearchParam, paramObj }) => {
         <select
           className='select'
           placeholder='Select a unit'
-          disabled={units.length === 0 || selectedClassroom !== ''}
           onChange={onUnitChange}
         >
           <option key='empty' value=''>
             Select a unit
           </option>
-          {units.map((unit) => (
-            <option key={unit.id} value={unit.id}>
-              {unit.name}
-            </option>
-          ))}
+          {
+            units.map((unit) => (
+              <option key={unit.id} value={unit.id}>
+                {unit.name}
+              </option>
+            ))
+          }
         </select>
         <select
           className='select'
           placeholder='Select a lesson'
-          disabled={ls.length === 0}
           onChange={(e) => {
             setselectedLs(e.target.value);
           }}
@@ -407,7 +428,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
             </option>
           ))}
         </select>
-        <h3 className='filter-text'>Or</h3>
+        {/* <h3 className='filter-text'>Or</h3>
         <select
           className='select'
           placeholder='Select a classroom'
@@ -440,15 +461,15 @@ const Filter = ({ setSearchParam, paramObj }) => {
             </option>
           ))}
         </select>
-        <br />
-        <Button
+        <br /> */}
+        {/* <Button
           type='secondary'
           className='activity-level-submit'
           htmlType='submit'
           size='large'
         >
           Submit
-        </Button>
+        </Button> */}
       </Form>
       <div>
         <h3 className='filter-text' style={{ display: 'inline' }}>
