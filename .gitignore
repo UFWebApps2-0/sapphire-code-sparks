@@ -33,3 +33,7 @@ node_modules/
 build/
 server/public/client/*
 !server/public/client/.gitkeep
+client/package.json
+client/yarn.lock
+server/extensions/documentation/documentation/1.0.0/full_documentation.json
+server/extensions/documentation/documentation/1.0.0/full_documentation.json

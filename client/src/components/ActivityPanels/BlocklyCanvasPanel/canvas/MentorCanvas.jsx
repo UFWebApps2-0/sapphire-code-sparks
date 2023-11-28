@@ -18,6 +18,8 @@ import {
 import { getAuthorizedWorkspace } from '../../../../Utils/requests';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
+import DraggableVideo from '../DraggableVideo';
+import CheckVideo from '../CheckVideo';
 
 let plotId = 1;
 
@@ -40,6 +42,39 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
   const workspaceRef = useRef(null);
   const activityRef = useRef(null);
   const navigate = useNavigate();
+  const [videoVisible, setVideoVisible] = useState(false); //videoVisible asserts whether or not to render the miniplayer video
+  const [videoExists, setVideoExists] = useState(false);
+  const [menuVid, setMenuVid] = useState();
+
+  //viewVideo sets VideoVisible to the opposite of whatever it currently is, so it can be turned on or off
+  //If the given activity does not have a video, then viewVideo will do nothing.
+  const viewVideo = () => {
+    setVideoVisible(!videoVisible);
+  };
+
+  //alert(activity.lesson_module_name);
+  const checker = () => {
+    let n = null;
+    if(activity.lesson_module_name){
+      n = activity.lesson_module_name + ' - Activity ' + activity.number;
+    }
+    else if(activity.name){
+      n = 'Workspace: ' + activity.name;
+    }
+    console.log("n: " + n);
+    //setVideoExists(CheckVideo(n));
+    //console.log("Video exists? " + videoExists);
+
+    if(CheckVideo(n) != false){
+      setMenuVid(
+      <Menu.Item onClick={viewVideo}>
+      &nbsp;
+      {videoVisible
+              ? "Close Video"
+              : "Show Video"}  
+      </Menu.Item>);
+    }
+  };
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -55,10 +90,6 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       activityRef.current = activity;
       if (!workspaceRef.current && activity && Object.keys(activity).length !== 0) {
         setWorkspace();
-        // if (activity.template) {
-        //   let xml = window.Blockly.Xml.textToDom(activity.template);
-        //   window.Blockly.Xml.domToWorkspace(xml, workspaceRef.current);
-        // }
         let xml = isMentorActivity
         ? window.Blockly.Xml.textToDom(activity.activity_template)
         : window.Blockly.Xml.textToDom(activity.template);
@@ -261,16 +292,29 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       }
     }
   };
-  const menu = (
+  
+  const menu = ( 
+  //The menu in the workspace has been updated to include the option to show a video
+  //If a video is already open, the option to close the video is shown
     <Menu>
       <Menu.Item onClick={handlePlotter}>
         <PlotterLogo />
         &nbsp; Show Serial Plotter
       </Menu.Item>
+      
       <CodeModal title={'XML'} workspaceRef={workspaceRef.current} />
-      <Menu.Item>
-        <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
-      </Menu.Item>
+      
+      
+      <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
+      
+      {/* if (activity.video != null) */}
+      {/* <Menu.Item onClick={viewVideo}>
+      &nbsp;
+      {videoVisible
+              ? "Close Video"
+              : "Show Video"}  
+      </Menu.Item> */}
+      {menuVid}
     </Menu>
   );
 
@@ -413,7 +457,9 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
                             Show Serial Monitor
                           </div>
                         )}
-                        <Dropdown overlay={menu}>
+                        <Dropdown 
+                        onMouseEnter = {() => checker()}
+                        overlay={menu}>
                           <i className='fas fa-ellipsis-v'></i>
                         </Dropdown>
                       </div>
@@ -422,7 +468,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
                 </Row>
               </Col>
             </Row>
-            <div id='blockly-canvas' />
+            <div id='blockly-canvas'>
+            </div>
           </Spin>
           </div>
            {!isSandbox && !isMentorActivity && (
@@ -438,7 +485,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           show={showConsole}
           connectionOpen={connectionOpen}
           setConnectionOpen={setConnectionOpen}
-        ></ConsoleModal>
+        >
+        </ConsoleModal>
         <PlotterModal
           show={showPlotter}
           connectionOpen={connectionOpen}
@@ -446,8 +494,12 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           plotData={plotData}
           setPlotData={setPlotData}
           plotId={plotId}
-        />
+        >
+          
+        </PlotterModal>
+        
       </div>
+      
 
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       <xml id='toolbox' is='Blockly workspace'>
@@ -483,6 +535,16 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           onClose={(e) => setCompileError('')}
         ></Alert>
       )}
+      {videoVisible=== true //If the video is toggled on, display the miniplayer with the activity name and video link
+          ?(<DraggableVideo
+            name={activity.lesson_module_name //The video name is whatever is currently available as the workspace name
+              ? `${activity.lesson_module_name} - Activity ${activity.number}`
+              : activity.name
+              ? `Workspace: ${activity.name}`
+              : 'New Workspace!'}
+            videoId = {null}  //Failsafe
+            />)
+          :null}
     </div>
   );
 }

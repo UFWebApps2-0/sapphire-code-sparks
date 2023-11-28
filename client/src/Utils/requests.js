@@ -11,6 +11,7 @@ const DELETE = 'DELETE';
 const makeRequest = async ({ method, path, data, auth = false, error }) => {
   let res = null;
   let err = null;
+
   const config = auth
     ? {
         headers: {
@@ -376,7 +377,8 @@ export const createLessonModule = async (
   number,
   unit,
   standards,
-  link
+  link,
+  embedLink
 ) =>
   makeRequest({
     method: POST,
@@ -388,6 +390,7 @@ export const createLessonModule = async (
       unit,
       standards,
       link,
+      embedLink
     },
     auth: true,
     error: 'Login failed.',
@@ -451,7 +454,8 @@ export const updateLessonModule = async (
   name,
   expectations,
   standards,
-  link
+  link,
+  embedLink
 ) =>
   makeRequest({
     method: PUT,
@@ -461,6 +465,7 @@ export const updateLessonModule = async (
       standards,
       expectations,
       link,
+      embedLink
     },
     auth: true,
     error: 'Failed to update unit',
@@ -476,7 +481,8 @@ export const updateActivityDetails = async (
   link,
   scienceComponents,
   makingComponents,
-  computationComponents
+  computationComponents,
+  embedLink
 ) =>
   makeRequest({
     method: PUT,
@@ -491,6 +497,7 @@ export const updateActivityDetails = async (
       scienceComponents,
       makingComponents,
       computationComponents,
+      embedLink
     },
     auth: true,
     error: 'Failed to update unit',
@@ -607,7 +614,7 @@ export const getAuthorizedWorkspaces = async () =>
     method: GET,
     path: `${server}/authorized-workspaces`,
     auth: true,
-    error: 'Unable to retrive cc worksapces',
+    error: 'Unable to retrieve cc worksapces',
   });
 
 export const getAuthorizedWorkspace = async (id) =>
@@ -615,7 +622,7 @@ export const getAuthorizedWorkspace = async (id) =>
     method: GET,
     path: `${server}/authorized-workspaces/${id}`,
     auth: true,
-    error: 'Unable to retrive cc workspace',
+    error: 'Unable to retrieve cc workspace',
   });
 
 export const createAuthorizedWorkspace = async (
@@ -670,5 +677,36 @@ export const getClassroomWorkspace = async (id) =>
     method: GET,
     path: `${server}/classroom/workspaces/${id}`,
     auth: true,
-    error: 'Unable to retrive classroom workspaces',
+    error: 'Unable to retrieve classroom workspaces',
+  });
+
+export const getVideoLink = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/url-storages?_q=${id}`,
+    auth: true,
+    error: 'Unable to retrieve video link'
+  });
+
+  export const deleteVideoLink = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/url-storages/${id}`,
+    auth: true,
+    error: 'Unable to delete video'
+  });
+
+//NEW VIDEO CREATOR!!!
+  export const uploadVideo = async (title, url, description,) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/video-creations`,
+    data: {
+      title : title, 
+      url : url, 
+      description : description,
+      
+    },
+    auth: true,
+    error: 'Failed to save your workspace.',
   });

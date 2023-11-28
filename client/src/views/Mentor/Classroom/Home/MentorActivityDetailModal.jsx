@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal } from "antd"
+import { Button, Form, Input, message, Modal, Popconfirm } from "antd"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
@@ -10,6 +10,9 @@ import {
 } from "../../../../Utils/requests"
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
+
+import VideoURL_Input from './VideoURL_Input'
+import DeleteVideoButton from './DeleteVideo'
 
 const SCIENCE = 1
 const MAKING = 2
@@ -36,6 +39,10 @@ const MentorActivityDetailModal = ({
   const [submitButton, setSubmitButton] = useState(0)
   const navigate = useNavigate()
 
+  const [embedLink, setEmbedLink] = useState("");
+
+  
+  
   useEffect(() => {
     const showActivityDetailsModal = async () => {
       const response = await getActivity(selectActivity.id)
@@ -49,6 +56,7 @@ const MentorActivityDetailModal = ({
       setStandardS(response.data.StandardS)
       setImages(response.data.images)
       setLink(response.data.link)
+      setEmbedLink(response.data.embedLink)
       setLinkError(false)
       const science = response.data.learning_components
         .filter(component => component.learning_component_type === SCIENCE)
@@ -122,7 +130,8 @@ const MentorActivityDetailModal = ({
       link,
       scienceComponents,
       makingComponents,
-      computationComponents
+      computationComponents,
+      embedLink
     )
     if (res.err) {
       message.error(res.err)
@@ -152,8 +161,7 @@ const MentorActivityDetailModal = ({
     <div id="mentoredit">
     <Button id="view-activity-button"
     onClick={showModal} style={{width: '40px',marginRight: "auto"}} >
-<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"
->
+<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
 <g
             id="link"
             stroke="none"
@@ -207,6 +215,18 @@ const MentorActivityDetailModal = ({
             placeholder="Enter image URL"
           ></Input.TextArea>
         </Form.Item>
+
+        <VideoURL_Input
+          setEmbedLink={setEmbedLink}
+          embedLink={embedLink}
+        >
+        </VideoURL_Input>
+
+        <DeleteVideoButton
+          setEmbedLink={setEmbedLink}
+          embedLink={embedLink}
+        />
+
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
             onChange={e => setTemplate(e.target.value)}
@@ -276,6 +296,7 @@ const MentorActivityDetailModal = ({
             <br />
             
           </button>
+
         </Form.Item>
         <Form.Item
           wrapperCol={{

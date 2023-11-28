@@ -3,6 +3,7 @@ import Logo from "../../assets/casmm_logo.png";
 import NavBar from "../../components/NavBar/NavBar";
 import './Home.less';
 import HomeJoin from "./HomeJoin";
+import FlagButton from '../../components/FlagButton/FlagButton';
 
 const Home = () => (
     <div className='container nav-padding'>
