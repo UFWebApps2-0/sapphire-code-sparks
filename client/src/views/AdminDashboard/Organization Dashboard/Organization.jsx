@@ -78,8 +78,24 @@ export default function Organization() {
                     />
                 </TabPane>
 
+                {/* Gallery */}
+                <TabPane tab='Gallery' key='gallery'>
+                    <Gallery
+                    />
+                </TabPane>
+
             </Tabs>
             
+            <Popconfirm
+                title={`Are you sure you want to delete ${organization.name}?`}
+                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                onConfirm={() => handleDelete(id)}
+              >
+                <button id='delete-organization-btn'>
+                    <TrashSVG/>
+                    <span>Delete Organization</span>
+                </button>
+              </Popconfirm>
 
         </div>
     )
