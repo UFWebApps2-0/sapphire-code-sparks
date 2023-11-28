@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "moderation_records",
+  "info": {
+    "name": "ModerationRecords",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "ActionType": {
+      "type": "string"
+    },
+    "ActionDate": {
+      "type": "datetime"
+    },
+    "ModeratorName": {
+      "type": "string"
+    },
+    "organization": {
+      "model": "organization",
+      "via": "moderation_records"
+    },
+    "administrator": {
+      "model": "administrator",
+      "via": "moderation_records"
+    }
+  }
+}
