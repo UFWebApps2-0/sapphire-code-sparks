@@ -1,4 +1,5 @@
 import React from "react";
+import { Table } from 'antd';
 import { AddSVG, BackbagSVG, CodeSVG, LeftArrowSVG, MapSVG, PeopleSVG, StackSVG, TrashSVG } from "../../../../assets/SVG";
 import MListView from "./MentorListView/MListView";
 import SListView from "./StudentListView/SListView";
@@ -98,6 +99,15 @@ export default function SClassrooms(props) {
                         classroomMentors[mentor.id] = mentorsData[mentor.id];
                     });
                 }
+                    // Also, filtering out some currently unneeded information like "last_logged_in"
+                    // Anyway, stores this student in the object for all students (studentsData)
+                    studentsData[student.id] = {
+                        studentID: student.id,
+                        name: student.name,
+                        character: student.character,
+                        last_logged_in: student.last_logged_in,
+                        classroom: student.classroom
+                    };
 
                 classroomsData[classroom.id] = {
                     ...classroom,
@@ -190,6 +200,67 @@ export default function SClassrooms(props) {
         selectClassroom(selectedClassroomID);
     }, [classrooms])
 
+    // Function to format the last_logged_in date for students
+    const getFormattedDate = (value, locale = 'en-US') => {
+        if(value == null) return "Never";
+        const date = new Date(value);
+        return date.toLocaleDateString(locale, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+        });
+    }
+
+    const mentorColumns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            width: '10%',
+            align: 'left',
+            sorter: {
+                compare: (a, b) => (a.name < b.name ? -1 : 1),
+            },
+        },
+        {
+            title: 'Last logged in',
+            dataIndex: 'last_logged_in',
+            key: 'last_logged_in',
+            width: '22.5%',
+            align: 'right',
+        },
+    ];
+
+    const studentColumns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            width: '10%',
+            align: 'left',
+            sorter: {
+                compare: (a, b) => (a.name < b.name ? -1 : 1),
+            },
+        },
+        {
+            title: 'Animal',
+            dataIndex: 'character',
+            key: 'character',
+            width: '1%',
+            align: 'center',
+        },
+        {
+            title: 'Last logged in',
+            dataIndex: 'last_logged_in',
+            key: 'last_logged_in',
+            width: '22.5%',
+            align: 'right',
+            render: (value) => getFormattedDate(value),
+        }
+    ];
+
 
     return (
         <div id='school-container'>
@@ -275,6 +346,18 @@ export default function SClassrooms(props) {
                                     handleDelete={handleMentorDelete}
                                     showSchools={props.schoolID == -1}
                                 />
+                            <div
+                            style={{ width: '750px'}}
+                            >
+                                <Table
+                                    columns = {mentorColumns}
+                                    dataSource = {Object.values(selectedClassroom.mentors)}
+                                    pagination={{
+                                        pageSizeOptions: ['10', '20', '30'],
+                                        showSizeChanger: true,
+                                    }}
+                                    >
+                                </Table>
                             </div>
                         </div>
 
@@ -287,6 +370,15 @@ export default function SClassrooms(props) {
                                     handleDelete={handleStudentDelete} 
                                     showSchools={props.schoolID == -1}
                                 />
+                                <Table
+                                    columns = {studentColumns}
+                                    dataSource = {Object.values(selectedClassroom.students)}
+                                    pagination={{
+                                        pageSizeOptions: ['10', '20', '30'],
+                                        showSizeChanger: true,
+                                    }}
+                                    >
+                                </Table>
                             </div>
                         </div>
                     </div>         

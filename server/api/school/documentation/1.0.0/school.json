@@ -621,9 +621,6 @@
                 "user": {
                   "type": "string"
                 },
-                "organization": {
-                  "type": "string"
-                },
                 "created_by": {
                   "type": "string"
                 },
@@ -645,12 +642,6 @@
                 "type": "string"
               },
               "schools": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "mentors": {
                 "type": "array",
                 "items": {
                   "type": "string"

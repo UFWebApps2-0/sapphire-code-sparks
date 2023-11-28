@@ -453,6 +453,29 @@ export const createUnit = async (number, name, standardsID, standardsDescrip, gr
     error: 'Fail to create new unit.',
   });
 
+export const createOrganization = async (name) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/organizations/`,
+    data: {
+      name: name,
+    },
+    auth: true,
+    error: 'Failed to create new organization.',
+  });
+
+export const updateOrganization = async (id, schools, adminId) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/organizations/${id}`,
+    data: {
+      schools: schools,
+      administrators: adminId,
+    },
+    auth: true,
+    error: 'Failed to update organization.',
+  });
+
 export const updateUnit = async (
   id,
   number,
@@ -708,6 +731,14 @@ export const deleteAuthorizedWorkspace = async (id) =>
     path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     error: 'Unable to delete cc workspace',
+  });
+  //For deleting organizations
+  export const deleteOrganization = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/organizations/${id}`,
+    auth: true,
+    error: 'Failed to delete organization.',
   });
 
 export const getClassroomWorkspace = async (id) =>
