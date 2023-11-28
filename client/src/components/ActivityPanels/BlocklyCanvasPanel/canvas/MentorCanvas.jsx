@@ -62,9 +62,10 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       n = 'Workspace: ' + activity.name;
     }
     console.log("n: " + n);
-    setVideoExists(CheckVideo(n));
+    //setVideoExists(CheckVideo(n));
+    //console.log("Video exists? " + videoExists);
 
-    if(videoExists){
+    if(CheckVideo(n) != false){
       setMenuVid(
       <Menu.Item onClick={viewVideo}>
       &nbsp;

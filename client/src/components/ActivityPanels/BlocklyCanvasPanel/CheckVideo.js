@@ -2,18 +2,19 @@ import '../ActivityLevels.less';
 import { getVideoLink} from '../../../Utils/requests';
 
 export default function CheckVideo(n) {
-    const name = n; //Video name is passed in 
-    let isVideo = false; 
-
-    getVideoLink(name).then((res) => {
-        if (res.data) {
+  let checker = false;
+  getVideoLink(n).then((res) => {
+        if (res.data[0]){
+          if(res.data[0].name == n) {
             console.log("Video found");
-          isVideo = true;
-        
-        } else {
+          checker = true;}
+        }
+        else {
           console.log("No video here");
         }
       });
-       
-return isVideo;
+
+      console.log(checker);
+
+    return checker;
 }

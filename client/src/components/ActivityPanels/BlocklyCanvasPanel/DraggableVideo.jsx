@@ -56,8 +56,8 @@ export default function DraggableVideo(props) {
     const getLink = (id) => {
         getVideoLink(id).then((res) => {
             if (res.data) {
-                console.log("URL: " + res.data.URL);
-              setVidLink(res.data.URL);
+                console.log("URL: " + res.data[0].URL);
+              setVidLink(res.data[0].URL);
             
             } else {
               console.log("No video");
