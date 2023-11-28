@@ -687,3 +687,11 @@ export const getVideoLink = async (id) =>
     auth: true,
     error: 'Unable to retrieve video link'
   });
+
+  export const deleteVideoLink = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/url-storages/${id}`,
+    auth: true,
+    error: 'Unable to delete video'
+  });
