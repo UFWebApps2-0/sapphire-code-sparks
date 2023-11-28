@@ -20,11 +20,10 @@ let plotId = 1;
 
 
 const LessonContent = ({ onClose }) => (
-  <div className='lesson-content'>
-    <div>
+  <div className='lesson-content' style={{ padding:'10px', backgroundcolor:'grey' }}>
       <h2>Test Lesson</h2>
       <p>This is a sample lesson content.</p>
-    </div>
+    
     <button onClick={onClose} className='close-btn'>
       <i className='fa fa-times'></i>
     </button>
