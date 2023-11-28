@@ -6,6 +6,7 @@ import BlocklyPage from './views/BlocklyPage/BlocklyPage';
 import BugReport from './views/BugReport/BugReport';
 import ContentCreator from './views/ContentCreator/ContentCreator';
 import Home from './views/Home/Home';
+import LandingPage from './views/LandingPage/LandingPage';
 import Classroom from './views/Mentor/Classroom/Classroom';
 import Dashboard from './views/Mentor/Dashboard/Dashboard';
 import NotFound from './views/NotFound';
@@ -24,7 +25,8 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/join' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/teacherlogin' element={<TeacherLogin />} />
         <Route path='/forgot-password' element={<ForgetPassword />} />
