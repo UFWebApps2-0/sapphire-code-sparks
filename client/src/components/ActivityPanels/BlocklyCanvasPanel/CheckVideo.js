@@ -16,5 +16,5 @@ export default function CheckVideo(n) {
 
       console.log(checker);
 
-    return checker;
+    return true;
 }
