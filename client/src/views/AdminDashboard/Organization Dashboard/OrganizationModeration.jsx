@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getOrganization, getModRecord, getModRecordCount } from "../../../Utils/requests";
 import { Table } from 'antd';
+import { message } from 'antd';
 
 
 export default function OrganizationModeration({ organizationId }) {
@@ -29,7 +30,7 @@ export default function OrganizationModeration({ organizationId }) {
               setOrganization(organizationData);
               
               //get mod records
-              const moderationRecordsResponse = await getOrganizationModerationRecords(organizationId);
+              const moderationRecordsResponse = await getModRecord(organizationId);
               const moderationRecordsData = moderationRecordsResponse.data;
               
               setModerationRecords(moderationRecordsData);
