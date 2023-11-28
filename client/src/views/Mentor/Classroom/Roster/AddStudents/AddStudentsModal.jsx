@@ -4,7 +4,7 @@ import AddStudents from "./AddStudents";
 
 export default function AddStudentsModal(props) {
     const [visible, setVisible] = useState(false);
-    const {classroomId, addStudentsToTable} = props;
+    const {classroomId, addStudentsToTable, handleDelete} = props;
 
     const showModal = () => {
         setVisible(true)
@@ -34,7 +34,7 @@ export default function AddStudentsModal(props) {
                     </Button>,
                 ]}
             >
-                <AddStudents addStudentsToTable={addStudentsToTable} classroomId={classroomId}/>
+                <AddStudents addStudentsToTable={addStudentsToTable} classroomId={classroomId} handleDelete={handleDelete}/>
             </Modal>
         </div>
     );

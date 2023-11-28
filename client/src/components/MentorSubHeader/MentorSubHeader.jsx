@@ -14,6 +14,7 @@ export default function MentorSubHeader(props) {
     checkoutActive,
     setListView,
     addStudentsToTable,
+    handleDelete,
   } = props;
 
   return (
@@ -29,6 +30,7 @@ export default function MentorSubHeader(props) {
           <AddStudentsModal
             addStudentsToTable={addStudentsToTable}
             classroomId={classroomId}
+            handleDelete={handleDelete}
           />
         ) : null}
         {cardViewActive ? (

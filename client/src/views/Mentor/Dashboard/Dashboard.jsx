@@ -23,19 +23,20 @@ const { TabPane } = Tabs;
 
 export default function Dashboard() {
   const [classrooms, setClassrooms] = useState([]);
+  var allRooms = [];
   const [mentorClassrooms, setMentorClassrooms] = useState([]);
-  const [mentor, setMentor] = useState([]);
+  const [mentor, setMentor] = useState();
   const [value] = useGlobalState('currUser');
   const navigate = useNavigate();
-
-  //TODO
-  // If a classroom's id matches with one of the mentor IDs, don't display the name
-  // Otherwise, for each thing, get all the mentors assoicated with that classroom and show their names
 
   // Separate thing for whether we display the copy button - same condition
   const [searchParams, setSearchParams] = useSearchParams();
   const [gradeList, setGradeList] = useState([]);
   const [learningStandardList, setLessonModuleList] = useState([]);
+
+  const [sortBy, setSortBy] = useState([]);
+  const [sortSelect, setSortSelect] = useState();
+  const [currentlySortingBy, setCurrentlySortingBy] = useState();
 
   // Variable setup for 'Home' and 'Lessons' tabs
   const [tab, setTab] = useState(
@@ -51,13 +52,55 @@ export default function Dashboard() {
   useEffect(() => {
     let classroomIds = [];
     let classroomsTest = [];
-    getAllClassrooms().then((res) => { // getMentor
+    let availableMentors = [];
+    getMentor().then((res) => {
+      if (res.data) {
+        res.data.classrooms.forEach((classroom) => {
+          classroomIds.push(classroom.id);
+        });
+        setMentorClassrooms(classroomIds);
+        setMentor(res.data);
+        setCurrentlySortingBy(mentor);
+        // getClassrooms(classroomIds).then((classrooms) => {
+        //   setClassrooms(classrooms);
+        // });
+      }
+    });
+
+    getAllClassrooms().then((res) => { 
       if (res.data) {
         res.data.forEach((classroom) => {
-          classroomsTest.push(classroom);
+          
+          //classroomsTest.push(classroom);
           //classroomIds.push(classroom.id);
+          classroom.mentors.forEach((mentor) => { // Compile a list of all the mentors with classrooms
+            var add = true;
+            for(var i = 0; i < availableMentors.length; i++){
+              if(mentor.first_name == availableMentors.at(i).first_name && mentor.last_name == availableMentors.at(i).last_name){
+                add = false;
+              }
+            }
+            if(add){
+              availableMentors.push(mentor);
+            }
+          });
         });
+
+        res.data.forEach((classroom) => {
+          for(var i = 0; i < availableMentors.length; i++){
+            if(mentor.first_name == availableMentors.at(i).first_name && mentor.last_name == availableMentors.at(i).last_name){
+              classroomsTest.push(classroom);
+              break;
+            }
+          }
+        });
+
+
+        setSortBy(availableMentors);
+        
+        setClassroomSorting(); // We need this to happen IMMEDIATELY
         setClassrooms(classroomsTest);
+        allRooms = classroomsTest;
       } else {
         message.error(res.err);
         navigate('/teacherlogin');
@@ -77,21 +120,12 @@ export default function Dashboard() {
         setGradeList(grades);
       };
       fetchData();
+      
     });
 
-    getMentor().then((res) => {
-      if (res.data) {
-        res.data.classrooms.forEach((classroom) => {
-          classroomIds.push(classroom.id);
-        });
-        setMentorClassrooms(classroomIds);
-        setMentor(res.data);
-        console.log(mentor.name);
-        // getClassrooms(classroomIds).then((classrooms) => {
-        //   setClassrooms(classrooms);
-        // });
-      }
-    });
+    
+
+    
   }, []);
 
   // res.data.classrooms.forEach((classroom) => {
@@ -117,16 +151,16 @@ export default function Dashboard() {
     return '';
   }
 
-  function displayCopyClassroomButton(classroom){
-    if(!checkForOwnership(classroom)){
-      return (
-        <button onClick={() => handleCopyClassroom(classroom)}>
-                    Copy
-        </button>
-      );
-    }
-    return '';
-  }
+  // function displayCopyClassroomButton(classroom){
+  //   if(!checkForOwnership(classroom)){
+  //     return (
+  //       <button onClick={() => handleCopyClassroom(classroom)}>
+  //                   Copy
+  //       </button>
+  //     );
+  //   }
+  //   return '';
+  // }
 
   // Lessons tab structure
   const columns = [
@@ -228,6 +262,40 @@ export default function Dashboard() {
     navigate(`/classroom/${classroomId}`);
   };
 
+  const setClassroomSorting = () => { 
+    //var select = ;
+    var options = sortBy;
+    
+    for(var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        //var el = document.createElement("option");
+        document.getElementById("sortByTeacher")[i].setAttribute('value',i);
+        
+        if(mentor.first_name == opt.first_name && mentor.last_name == opt.last_name){
+          console.log(opt.first_name);
+          document.getElementById("sortByTeacher")[i].setAttribute('selected','selected');
+          setCurrentlySortingBy(mentor);
+        }
+        //select.add(el);
+    }
+    
+  };
+
+  const setSelected = (value) => {
+    // var select = document.getElementById("sortByTeacher");
+    // var value = select.options[select.selectedIndex].value;
+
+    var options = sortBy;
+    
+    for(var i = 0; i < options.length; i++) {
+      if(i == value){
+        //setCurrentlySortingBy(options[i]);
+        //console.log(i);
+      }
+    }
+    //setCurrentlySortingBy(mentor);
+  }
+
   // Default filter for filtering lesson/unit data based on the grade
   const filterLS = (grade) => {
     return learningStandardList.filter((learningStandard) => {
@@ -263,6 +331,49 @@ export default function Dashboard() {
       </TabPane>
     );
   }
+
+  function ClassroomList(props) { // Feeding this all the classrooms
+    const result = props.filter(checkContents);
+  
+    function checkContents(query){ // Checks whether array elements match with the given query
+      // if(props.data.filter == ''){
+      //   return true;
+      // }
+      // else{
+      //   return query.name.toLowerCase().includes(props.filter.toLowerCase());
+      // }
+      query.mentors.forEach((mentor) => {
+        //classroomIds.push(classroom.id);
+        if(mentor.first_name == currentlySortingBy.first_name && mentor.last_name == currentlySortingBy.last_name){
+          return true;
+        }
+      });
+      return false;
+    }
+  
+    const classRoomList = result
+      .map(classroom => {
+        return (
+          <div key={classroom.id} id='dashboard-class-card'>
+                  <div id='card-left-content-container'>
+                    <h1 id='card-title'>{classroom.name}</h1>
+                    {displayMentorName(classroom)}
+                    <div id='card-button-container' className='flex flex-row'>
+                      <button onClick={() => handleViewClassroom(classroom.id)}>
+                        View
+                      </button>
+                    </div>
+                  </div>
+                <div id='card-right-content-container'>
+                  {displayCodeAndStudentCount(classroom)}
+                </div>
+            </div>
+            
+        );
+      });
+  
+    return <>{classRoomList}</>;
+  }
   
 
   return (
@@ -283,6 +394,13 @@ export default function Dashboard() {
         <TabPane tab='Home' key='home'>
           <MentorSubHeader title={'Your Classrooms'}></MentorSubHeader>
           <div id='classrooms-container'>
+
+            <select id="sortByTeacher" onChange={setSelected(value)}>
+              {sortBy.map((num) => (
+                <option>{num.first_name + ' ' + num.last_name}</option>   
+              ))}
+            </select>
+            
             <div id='dashboard-card-container'>
               {classrooms.map((classroom) => (
                 <div key={classroom.id} id='dashboard-class-card'>
@@ -300,6 +418,7 @@ export default function Dashboard() {
                 </div>
             </div>
               ))}
+              {/* {ClassroomList} */}
           </div>
         </div>
         </TabPane>

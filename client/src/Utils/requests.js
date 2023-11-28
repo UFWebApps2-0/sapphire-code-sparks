@@ -360,6 +360,14 @@ export const deleteStudent = async (student) =>
     error: 'Failed to delete student.',
   });
 
+  export const deleteClassroomStudents = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/classrooms/${id}/students`,
+    auth: true,
+    error: 'Failed to delete students.',
+  });
+
 export const updateActivityLevelTemplate = async (id, workspace, blocksList) =>
   makeRequest({
     method: PUT,

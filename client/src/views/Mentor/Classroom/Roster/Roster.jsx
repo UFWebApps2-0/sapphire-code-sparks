@@ -174,6 +174,7 @@ export default function Roster({ classroomId }) {
       <MentorSubHeader
         title={'Your Students'}
         addStudentsToTable={addStudentsToTable}
+        handleDelete={handleDelete}
         addUserActive={true}
         classroomId={classroomId}
         cardViewActive={listView}
