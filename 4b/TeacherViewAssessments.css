@@ -109,3 +109,6 @@ button:hover {
     margin-left: 1rem;
     margin-right: 1rem;
 }
+.invisible {
+    color: #3d5c82;
+}

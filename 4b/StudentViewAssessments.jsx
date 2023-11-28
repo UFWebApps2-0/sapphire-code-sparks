@@ -8,7 +8,7 @@ import message from "../client/src/components/Message";
 
 function StudentViewAssessments() {
     const [assessmentList, setAssessmentList] = React.useState({});
-    let [sortingStyle, setSortingStyle] = React.useState("Normal");
+    let [sortingStyle, setSortingStyle] = React.useState("ID");
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -51,11 +51,8 @@ function StudentViewAssessments() {
                 </p1>
             </p1>
             <PrintMiddleEntries assessmentList={assessmentList} sortingStyle={sortingStyle} />
-            <div>
-                <button onClick={() => HandleAdd()} className="alignRight button2">
-                    Create New<br></br>Assignment
-                </button>
-            </div>
+            <p1 className="invisible">.</p1>
+            <br></br>
         </div>
         </body>
     );
