@@ -695,3 +695,18 @@ export const getVideoLink = async (id) =>
     auth: true,
     error: 'Unable to delete video'
   });
+
+//NEW VIDEO CREATOR!!!
+  export const uploadVideo = async (title, url, description,) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/video-creations`,
+    data: {
+      title : title, 
+      url : url, 
+      description : description,
+      
+    },
+    auth: true,
+    error: 'Failed to save your workspace.',
+  });
