@@ -688,7 +688,7 @@ export const getVideoLink = async (id) =>
     error: 'Unable to retrieve video link'
   });
 
-  export const deleteVideoLink = async (id) =>
+export const deleteVideoLink = async (id) =>
   makeRequest({
     method: DELETE,
     path: `${server}/url-storages/${id}`,
@@ -696,17 +696,28 @@ export const getVideoLink = async (id) =>
     error: 'Unable to delete video'
   });
 
-//NEW VIDEO CREATOR!!!
-  export const uploadVideo = async (title, url, description,) =>
+export const inputVideoEntry = async (videoURL, activityName) => 
   makeRequest({
     method: POST,
-    path: `${server}/video-creations`,
+    path: `${server}/url-storages`,
     data: {
-      title : title, 
-      url : url, 
-      description : description,
-      
+      URL: videoURL,
+      name: activityName,
     },
     auth: true,
-    error: 'Failed to save your workspace.',
+    error: 'Failed to create video entry.',
   });
+//NEW VIDEO CREATOR!!!
+export const uploadVideo = async (title, url, description,) =>
+makeRequest({
+  method: POST,
+  path: `${server}/url-storages`,
+  data: {
+    name : title, 
+    URL : url, 
+    inGallery : description,
+
+  },
+  auth: true,
+  error: 'Failed to save your workspace.',
+});
