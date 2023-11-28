@@ -367,10 +367,10 @@ export default function StudentCanvas({ activity }) {
       <div className='flex flex-row'>
       <SplitPane
             split='vertical'
-            minSize={200}
-            defaultSize={1000}
-            maxSize={1000}
-            resizerStyle={{ width: '10px', cursor: 'col-resize' }}
+            minSize={300}
+            defaultSize={ lessonVisible ? 1000 : 1500 }
+            maxSize={ lessonVisible ? 1000 : 1500 }
+            resizerStyle={{ width: '10px', cursor: 'col-resize', marginRight: '23px', height: '600px', backgroundColor: 'black', borderRadius: '30px' }}
           >
 
         <div
@@ -526,9 +526,9 @@ export default function StudentCanvas({ activity }) {
       {/* THE RIGHT HAND SIDE OF THE WEBPAGE (WHERE LESSON SUPPOSE TO BE) */}
       
       {lessonVisible && (
-  <div id='lesson-container' style={{ backgroundColor: 'lightgray' }}>
+  <div id='lesson-container' style={{ backgroundColor: '#F4F4F5' }}>
     <>
-      <h2>Test Lesson</h2>
+      <h2 style={{ backgroundColor: '#F3D250', borderRadius: '30px', margin: '30px' }}>Test Lesson</h2>
       <p>This is a sample lesson content.</p>
     </>
   </div>
