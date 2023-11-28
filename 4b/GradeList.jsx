@@ -3,16 +3,13 @@ import './TeacherViewAssessments.css';
 
 function GradeList ({data, filterText, assessID}){
   const navigate = useNavigate();
-  //Display scrollable list of student - grade data for specific assessment    
-  /*const gradeList = data.filter(grades => {
-      !grades.student.toLowerCase().includes(filterText.toLowerCase()) && !grades.name.includes(assessID)
-  });*/
   return(
     <main className="background">
       <div className="tableTop">Student Grades</div>
       <div>
         {data.map(grades => (
         // TODO: Update with json formatting for how student name/id and grade are associated
+        //TODO: Update Css to have button come after grade data
           <div className="tableMid">
             <p2 className="alignLeft bold">{grades.student}</p2>
             <p3 className="alignRight">{grades.score}/<i>total</i></p3>
