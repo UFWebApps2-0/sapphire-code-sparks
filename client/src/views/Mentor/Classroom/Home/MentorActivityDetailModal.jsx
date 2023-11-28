@@ -7,12 +7,15 @@ import {
   getActivityToolboxAll,
   getLessonModuleActivities,
   updateActivityDetails,
+  inputVideoEntry,
 } from "../../../../Utils/requests"
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
 
 import VideoURL_Input from './VideoURL_Input'
 import DeleteVideoButton from './DeleteVideo'
+
+
 
 const SCIENCE = 1
 const MAKING = 2
@@ -90,6 +93,30 @@ const MentorActivityDetailModal = ({
     }
     return n
   }
+  
+  const handleSubmit = async newLink => {
+    const videoURL = newLink;
+    if (videoURL) {
+      // const otherParams = {
+      //   key: "testKey",
+      //   creatorID: "creator123",
+      //   inGallery: true,
+      //   inLesson: false,
+      //   inWorkspace: true,
+      //   flagCount: 0
+      // };
+      const response = await inputVideoEntry(videoURL);
+      if (response.err) {
+        console.error(response.err);
+      } else {
+        console.log('Video entry created successfully');
+        // Handle successful creation
+      }
+    } else {
+      console.error('Invalid embed link');
+      // Handle invalid embed link
+    }
+  };
 
   const handleViewActivityLevelTemplate = async activity => {
     const allToolBoxRes = await getActivityToolboxAll()
@@ -120,7 +147,18 @@ const MentorActivityDetailModal = ({
         return
       }
     }
+    if (embedLink) {
+      const good_Link = checkURL(embedLink)
+      if (!good_Link) {
+        setLinkError(true)
+        message.error("Please Enter a valid URL starting with HTTP/HTTPS", 4)
+        return
+      }
+    }
+    const newLink = checkURL(embedLink);
     setLinkError(false)
+    handleSubmit(newLink);
+
     const res = await updateActivityDetails(
       selectActivity.id,
       description,
@@ -133,6 +171,7 @@ const MentorActivityDetailModal = ({
       computationComponents,
       embedLink
     )
+
     if (res.err) {
       message.error(res.err)
     } else {

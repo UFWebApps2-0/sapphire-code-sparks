@@ -13,6 +13,14 @@ function VideoURL_Input ( { setEmbedLink, embedLink } ) {
     return embedLink;
   }
 
+
+  // const extractURLFromEmbedLink = embedLink => {
+  //   const regex = /<iframe.*?src="(.*?)".*?<\/iframe>/s;
+  //   const match = embedLink.match(regex);
+  //   return match ? match[1] : null;
+  // };
+
+
   return (
     <div>
       <Form.Item id="form-label" label="Video embed link:">
