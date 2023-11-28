@@ -76,11 +76,7 @@ export default function BlocklyPage({ isSandbox }) {
     <div className="container nav-padding">
     <NavBar />
     <div className="blocklyTreeLabel">
-    <button className="Hide">Hide</button>
-    
-    
       <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
-      
     </div>
   </div>
   )
