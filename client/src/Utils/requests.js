@@ -696,19 +696,13 @@ export const deleteVideoLink = async (id) =>
     error: 'Unable to delete video'
   });
 
-export const inputVideoEntry = async (videoURL) => 
+export const inputVideoEntry = async (videoURL, activityName) => 
   makeRequest({
     method: POST,
     path: `${server}/url-storages`,
     data: {
       URL: videoURL,
-      // key: "testKey",
-      // creatorID: "creator123",
-      // inGallery: true,
-      // inLesson: false,
-      // inWorkspace: true,
-      // flagCount: 0
-      // Other parameters like key, creatorID, etc.
+      name: activityName,
     },
     auth: true,
     error: 'Failed to create video entry.',

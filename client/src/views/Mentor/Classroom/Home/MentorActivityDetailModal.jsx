@@ -94,18 +94,12 @@ const MentorActivityDetailModal = ({
     return n
   }
   
-  const handleSubmit = async newLink => {
+  const handleSubmit = async (newLink, activityName) => {
     const videoURL = newLink;
+    
     if (videoURL) {
-      // const otherParams = {
-      //   key: "testKey",
-      //   creatorID: "creator123",
-      //   inGallery: true,
-      //   inLesson: false,
-      //   inWorkspace: true,
-      //   flagCount: 0
-      // };
-      const response = await inputVideoEntry(videoURL);
+      const nameActivity = activityName;
+      const response = await inputVideoEntry(videoURL, nameActivity);
       if (response.err) {
         console.error(response.err);
       } else {
@@ -157,7 +151,8 @@ const MentorActivityDetailModal = ({
     }
     const newLink = checkURL(embedLink);
     setLinkError(false)
-    handleSubmit(newLink);
+    const activityName = `${learningStandard.name} - Activity ${selectActivity.number} - ID ${selectActivity.id}`;
+    handleSubmit(newLink, activityName);
 
     const res = await updateActivityDetails(
       selectActivity.id,
