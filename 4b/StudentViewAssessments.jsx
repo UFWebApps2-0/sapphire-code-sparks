@@ -7,13 +7,8 @@ import {getAssessments, getStudent} from "../client/src/Utils/requests";
 import message from "../client/src/components/Message";
 
 function StudentViewAssessments() {
-    // name, attempts, points, questions, showGrades, openDate, dueDate, timeLimit
-    const navigate = useNavigate();
     const [assessmentList, setAssessmentList] = React.useState({});
-    const handleAdd = () => {
-        //Create a new entry in the database
-        //Navigate to the editor of that entry.
-    };
+    let [sortingStyle, setSortingStyle] = React.useState("Normal");
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -36,22 +31,26 @@ function StudentViewAssessments() {
     return (
         <body className="background">
         <NavBar/>
-        <CalculateGrade assessmentList={assessmentList}/>
         <p1 className = "blackText header bold noBottomBorder"> Student Name</p1>
-        <p1 className = "smallerText header"> Number Incomplete Assessments: x/y<br></br>Current Grade: z%</p1>
-        <button onClick={() => navigate("Grade")} className="alignRight button3">
-            Sort by Type
+        <p1 className = "smallerText header"> Number Incomplete Assessments: <CalculateCompletedAssessments assessmentList={assessmentList}/>/{assessmentList.length}<br></br>
+            Current Grade: <CalculateGrade assessmentList={assessmentList}/>%</p1>
+        <button onClick={() => setSortingStyle("Name")} className="alignRight button3">
+            Sort by Name
         </button>
-        <button onClick={() => navigate("/about")} className="alignRight button3">
+        <button onClick={() => setSortingStyle("Date")} className="alignRight button3">
             Sort by Date
+        </button>
+        <button onClick={() => setSortingStyle("ID")} className="alignRight button3">
+            Sort by ID
         </button>
         <div className="projectText">
             <p1 className="tableTop bold">
                 Assessments:
+                <p1 className="alignRight noBold">
+                    Sorting by: {sortingStyle}
+                </p1>
             </p1>
-            <PrintMiddleEntries
-                assessmentList={assessmentList}
-            />
+            <PrintMiddleEntries assessmentList={assessmentList} sortingStyle={sortingStyle} />
             <div>
                 <button onClick={() => HandleAdd()} className="alignRight button2">
                     Create New<br></br>Assignment
@@ -62,18 +61,28 @@ function StudentViewAssessments() {
     );
 }
 
-// navigate("/student-response/"+assessID)
-function PrintMiddleEntries(assessmentList) {
-    const sampleList = ["Red and Blue", "Yellow", "Gold and Silver", "Crystal", "Ruby and Sapphire", "FireRed and LeafGreen", "Emerald", "Diamond and Pearl", "Platinum", "HeartGold and SoulSilver", "Black and White", "Black 2 and White 2", "X and Y", "Omega Ruby and Alpha Sapphire", "Sun and Moon", "Ultra Sun and Ultra Moon", "Let's Go, Pikachu! and Let's Go, Eevee!", "Sword and Shield", "The Isle of Armor (DLC)", "The Crown Tundra (DLC)", "Brilliant Diamond and Shining Pearl", "Legends: Arceus", "Scarlet and Violet", "The Teal Mask (DLC)", "The Indigo Disk (DLC)"]; // Can replace with database
+function PrintMiddleEntries(props) {
     const navigate = useNavigate();
-    if (assessmentList !== undefined && Array.isArray(assessmentList.assessmentList)) {
-        return ( // TODO: Replace this stuff with a structure for assessmentList.name and it should work.
+    if (props.assessmentList !== undefined && Array.isArray(props.assessmentList)) {
+        if (props.sortingStyle === "Name") {
+            props.assessmentList.sort(CompareByName)
+        }
+        else if (props.sortingStyle === "Date") {
+            props.assessmentList.sort(CompareByDate)
+        }
+        else {
+            props.assessmentList.sort(CompareByID)
+        }
+        return (
             <div>
-                {assessmentList.assessmentList.map((directory) => (
+                {props.assessmentList.map((directory) => (
                     <div className="tableMid tableHover" onClick={() => navigate("/about")}>
                         <p2 className="alignLeft bold">{directory.name}</p2>
                         <p3><br></br>Due: <PrintDate directoryDate={directory.dueDate}/> |
-                            Attempts Remaining: <PrintAttemptsMade directory={directory}/>/{directory.attempts} | <PrintIfGraded directory={directory}/>/{directory.points} Points</p3>
+                            Attempts Remaining: <PrintAttemptsMade
+                                directory={directory}/>/{directory.attempts} | <PrintIfGraded
+                                directory={directory}/>/{directory.points} Points
+                        </p3>
                     </div>
                 ))}
             </div>
@@ -81,7 +90,18 @@ function PrintMiddleEntries(assessmentList) {
     }
 }
 
-function PrintAttemptsMade(directory) {
+function CompareByID(first, second) {
+    return first.id - second.id;
+}
+function CompareByName(first, second) {
+    return first.name.localeCompare(second.name);
+}
+
+function CompareByDate(first, second) {
+    return first.dueDate.localeCompare(second.dueDate);
+}
+
+function PrintAttemptsMade({directory}) {
     let numAttempts = 0
     let numAttemptsMade = 0
     if (directory.attempts !== undefined) {
@@ -108,18 +128,40 @@ function PrintDate({directoryDate}) {
 
 function CalculateGrade(assessmentList) {
     let gradeTotal = 0
-    //let assessmentMap = new Map(assessmentList.entries());
-    /*assessmentList.assessmentList.map((directory) => (
-        if (directory.grade !== undefined && directory.showGrades) {
-            console.log("hi")
+    let gradesExist = false
+    let size = 0
+    if (Array.isArray(assessmentList.assessmentList)) {
+        size = assessmentList.assessmentList.length
+    }
+    for (let i = 0; i < size; i++) {
+        if (assessmentList.assessmentList.at(i) !== undefined && assessmentList.assessmentList.at(i).showGrades && assessmentList.assessmentList.at(i).grade !== undefined) {
+            let thisGrade = assessmentList.assessmentList.at(i).grade
+            gradeTotal = gradeTotal + thisGrade
+            gradesExist = true
         }
-    ))*/
-    // TODO: Idea to iterate thru assessmentList and average out grade/find num assessments completed
-    //  Cant find way to do it with jsx. Possibility of getStudent(id) but we need to have students have matching id.
+    }
+    if (gradesExist) {
+        return gradeTotal/size
+    }
+    else {
+        return "-"
+    }
 }
 
-function HandleAdd() {
-    // TODO: Call class to create new assessment - basically like the AddBuilding in Bootcamp 3.
+function CalculateCompletedAssessments(assessmentList) {
+    let size = 0
+    let completedAssessments = 0;
+    if (Array.isArray(assessmentList.assessmentList)) {
+        size = assessmentList.assessmentList.length
+    }
+    for (let i = 0; i < size; i++) {
+        if (assessmentList.assessmentList.at(i) !== undefined && assessmentList.assessmentList.at(i).attemptsMade !== undefined) {
+            if (assessmentList.assessmentList.at(i).attemptsMade !== 0) {
+                completedAssessments = completedAssessments + 1
+            }
+        }
+    }
+    return size - completedAssessments
 }
 
 export default StudentViewAssessments;

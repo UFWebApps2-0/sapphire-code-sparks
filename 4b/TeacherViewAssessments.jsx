@@ -8,10 +8,7 @@ import message from "../client/src/components/Message";
 
 function TeacherViewAssessments() {
   const [assessmentList, setAssessmentList] = React.useState({});
-  const handleAdd = () => {
-    //Create a new entry in the database
-    //Navigate to the editor of that entry.
-  };
+  let [sortingStyle, setSortingStyle] = React.useState("Normal");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,9 +37,22 @@ function TeacherViewAssessments() {
         <br></br>View Assessments
       </div>
       <NavBar />
+      <button onClick={() => setSortingStyle("Name")} className="alignRight button3">
+        Sort by Name
+      </button>
+      <button onClick={() => setSortingStyle("Date")} className="alignRight button3">
+        Sort by Date
+      </button>
+      <button onClick={() => setSortingStyle("ID")} className="alignRight button3">
+        Sort by ID
+      </button>
       <div className="projectText">
-        <p className="tableTop bold">Assessments:</p>
-        <PrintMiddleEntries assessmentList={assessmentList} />
+        <p1 className="tableTop bold">Assessments:
+          <p1 className="alignRight noBold">
+            Sorting by: {sortingStyle}
+          </p1>
+        </p1>
+        <PrintMiddleEntries assessmentList={assessmentList} sortingStyle={sortingStyle} />
         <div>
           <button onClick={() => HandleAdd()} className="alignRight button2">
             Create New<br></br>Assignment
@@ -55,12 +65,21 @@ function TeacherViewAssessments() {
   );
 }
 
-function PrintMiddleEntries(assessmentList) {
+function PrintMiddleEntries(props) {
   const navigate = useNavigate();
-  if (assessmentList !== undefined && Array.isArray(assessmentList.assessmentList)) {
+  if (props.assessmentList !== undefined && Array.isArray(props.assessmentList)) {
+    if (props.sortingStyle === "Name") {
+      props.assessmentList.sort(CompareByName)
+    }
+    else if (props.sortingStyle === "Date") {
+      props.assessmentList.sort(CompareByDate)
+    }
+    else {
+      props.assessmentList.sort(CompareByID)
+    }
     return (
-      <div className = "background">
-        {assessmentList.assessmentList.map((directory) => (
+      <div>
+        {props.assessmentList.map((directory) => (
           <div className="tableMid">
             <div className="alignLeft bold">{directory.name} <br></br> <div className="noBold"> Assigned: <PrintDate directoryDate={directory.openDate}/> | Due: <PrintDate directoryDate={directory.dueDate}/></div></div>
             <button onClick={() => navigate("/about")} className="shortenTransform1 alignRight">
@@ -78,6 +97,17 @@ function PrintMiddleEntries(assessmentList) {
       </div>
     );
   }
+}
+
+function CompareByID(first, second) {
+  return first.id - second.id;
+}
+function CompareByName(first, second) {
+  return first.name.localeCompare(second.name);
+}
+
+function CompareByDate(first, second) {
+  return first.dueDate.localeCompare(second.dueDate);
 }
 
 function PrintDate({directoryDate}) {
