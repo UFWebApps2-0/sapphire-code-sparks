@@ -45,6 +45,13 @@ export default function StudentCanvas({ activity }) {
 
   const replayRef = useRef([]);
   const clicks = useRef(0);
+  const [lessonVisible, setLessonVisible] = useState(false);
+
+  const lessonViewOnOff = () => {
+    console.log("Current state before toggle:", lessonVisible);
+    setLessonVisible(!lessonVisible);
+    console.log("State after toggle:", !lessonVisible);
+  };
 
   const handleResize = (e, { size }) => {
     setLeftPanelWidth(size.width);
@@ -380,6 +387,9 @@ export default function StudentCanvas({ activity }) {
               <Col flex='none' id='section-header'>
                 {activity.lesson_module_name}
               </Col>
+              <button className='Hide' onClick={lessonViewOnOff}>
+  {lessonVisible ? "Hide Lesson" : "Show Lesson"}
+</button>
               <Col flex='auto'>
                 <Row align='middle' justify='end' id='description-container'>
                   <Col flex={'30px'}>
@@ -515,11 +525,14 @@ export default function StudentCanvas({ activity }) {
 
       {/* THE RIGHT HAND SIDE OF THE WEBPAGE (WHERE LESSON SUPPOSE TO BE) */}
       
-        <div id='lesson-container' style={{ backgroundColor: 'lightgray' }}>
-            {/* Content for the right-hand side */}
-            <h2>Test Lesson</h2>
-            <p>Lesson content goes here...</p>
-          </div>
+      {lessonVisible && (
+  <div id='lesson-container' style={{ backgroundColor: 'lightgray' }}>
+    <>
+      <h2>Test Lesson</h2>
+      <p>This is a sample lesson content.</p>
+    </>
+  </div>
+)}
 
 
         <ConsoleModal
