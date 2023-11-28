@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
 import '../../ActivityLevels.less';
+import './StudentCanvas.css';
+import SplitPane from 'react-split-pane';
 import { compileArduinoCode, handleSave } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Dropdown, Menu } from 'antd';
 import { getSaves } from '../../../../Utils/requests';
@@ -16,21 +18,8 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
+
 let plotId = 1;
-
-
-const LessonContent = ({ onClose }) => (
-  <div className='lesson-content'>
-    <div>
-      <h2>Test Lesson</h2>
-      <p>This is a sample lesson content.</p>
-    </div>
-    <button onClick={onClose} className='close-btn'>
-      <i className='fa fa-times'></i>
-    </button>
-  </div>
-);
-
 
 export default function StudentCanvas({ activity }) {
   const [hoverSave, setHoverSave] = useState(false);
@@ -48,7 +37,6 @@ export default function StudentCanvas({ activity }) {
   const [saves, setSaves] = useState({});
   const [lastSavedTime, setLastSavedTime] = useState(null);
   const [lastAutoSave, setLastAutoSave] = useState(null);
-  const [lessonVisible, setLessonVisible] = useState(true);
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const navigate = useNavigate();
@@ -57,20 +45,10 @@ export default function StudentCanvas({ activity }) {
 
   const replayRef = useRef([]);
   const clicks = useRef(0);
-  const [openLesson, setOpenLesson] = useState(false);
 
-  const openLessonHandler = () => {
-    setOpenLesson(true);
+  const handleResize = (e, { size }) => {
+    setLeftPanelWidth(size.width);
   };
-
-  const toggleLessonVisibility = () => {
-    setLessonVisible(!lessonVisible);
-  };
-
-  const closeLesson = () => {
-    setLessonVisible(false);
-  }
-
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -380,6 +358,14 @@ export default function StudentCanvas({ activity }) {
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <div className='flex flex-row'>
+      <SplitPane
+            split='vertical'
+            minSize={200}
+            defaultSize={1000}
+            maxSize={1000}
+            resizerStyle={{ width: '10px', cursor: 'col-resize' }}
+          >
+
         <div
           id='bottom-container'
           className='flex flex-column vertical-container overflow-visible'
@@ -491,14 +477,6 @@ export default function StudentCanvas({ activity }) {
                       id='action-btn-container'
                       className='flex space-around'
                     >
-                       <button
-                        onClick={toggleLessonVisibility}
-                        className='flex flex-column'
-                        id='link'
-                      >
-                        <i className='fa fa-book' />
-                      </button>
-
                       <ArduinoLogo
                         setHoverCompile={setHoverCompile}
                         handleCompile={handleCompile}
@@ -535,14 +513,15 @@ export default function StudentCanvas({ activity }) {
           </Spin>
         </div>
 
-          {/* Right side LessonContent */}
-        <div id='lesson-container' className='flex flex-column'>
-          {lessonVisible && (
-            <LessonContent onClose={closeLesson} />
-          )}
-        </div>
+      {/* THE RIGHT HAND SIDE OF THE WEBPAGE (WHERE LESSON SUPPOSE TO BE) */}
+      
+        <div id='lesson-container' style={{ backgroundColor: 'lightgray' }}>
+            {/* Content for the right-hand side */}
+            <h2>Test Lesson</h2>
+            <p>Lesson content goes here...</p>
+          </div>
 
-          
+
         <ConsoleModal
           show={showConsole}
           connectionOpen={connectionOpen}
@@ -555,7 +534,9 @@ export default function StudentCanvas({ activity }) {
           plotData={plotData}
           setPlotData={setPlotData}
           plotId={plotId}
-        />          
+        /> 
+
+        </SplitPane>  
       </div>
 
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
