@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './GroupReport.less';
 import AddStudy from './components/AddStudy';
 import StudyList from './components/StudyList';
-import Popup from 'reactjs-popup';
+
 
 export default function GroupReport(props) {
   const navigate = useNavigate();
