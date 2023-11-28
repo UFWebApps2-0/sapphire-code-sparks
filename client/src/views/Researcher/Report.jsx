@@ -34,6 +34,16 @@ export default function Report(props) {
             Group Level Report
           </button>
         </Link>
+        {/* New button for Code Replay Report */}
+        <Link to={'/codereplay-report'}>
+          <button
+            id={'route-button'}
+            className={`btn-${'primary'} btn-${'sm'}`}
+            type='button'
+          >
+            Codereplay Report
+          </button>
+        </Link>
       </div>
     </div>
   );

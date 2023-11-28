@@ -19,6 +19,7 @@ import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
+import CodeReplayReport from './views/Researcher/CodeReplayReport';
 
 const App = () => {
   return (
@@ -61,6 +62,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <GroupReport />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/codereplay-report'
+          element={
+            <PrivateRoute>
+              <CodeReplayReport />
             </PrivateRoute>
           }
         />
