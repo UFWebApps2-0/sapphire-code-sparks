@@ -18,6 +18,7 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
+import Replay from '../../../../views/Replay/Replay';
 
 let plotId = 1;
 
@@ -370,7 +371,7 @@ export default function StudentCanvas({ activity }) {
             minSize={300}
             defaultSize={ lessonVisible ? 1000 : 1500 }
             maxSize={ lessonVisible ? 1000 : 1500 }
-            resizerStyle={{ width: '10px', cursor: 'col-resize', marginRight: '23px', height: '600px', backgroundColor: 'black', borderRadius: '30px' }}
+            resizerStyle={{ display: lessonVisible ? 'block' : 'none', width: '10px', cursor: 'col-resize', marginRight: '23px', height: '600px', backgroundColor: 'black' , borderRadius: '30px' }}
           >
 
         <div
@@ -530,6 +531,7 @@ export default function StudentCanvas({ activity }) {
     <>
       <h2 style={{ backgroundColor: '#F3D250', borderRadius: '30px', margin: '30px' }}>Test Lesson</h2>
       <p>This is a sample lesson content.</p>
+      <Replay ></Replay>
     </>
   </div>
 )}
