@@ -151,7 +151,7 @@ const MentorActivityDetailModal = ({
     }
     const newLink = checkURL(embedLink);
     setLinkError(false)
-    const activityName = `${learningStandard.name} - Activity ${selectActivity.number}';
+    const activityName = `${learningStandard.name} - Activity ${selectActivity.number}`;
     handleSubmit(newLink, activityName);
 
     const res = await updateActivityDetails(
