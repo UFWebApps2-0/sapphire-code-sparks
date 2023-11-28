@@ -653,6 +653,12 @@
                   "type": "string"
                 }
               },
+              "moderation_records": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "published_at": {
                 "type": "string"
               },
