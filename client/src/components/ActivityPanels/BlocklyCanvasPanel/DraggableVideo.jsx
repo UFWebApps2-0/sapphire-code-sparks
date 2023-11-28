@@ -56,16 +56,17 @@ export default function DraggableVideo(props) {
     const getLink = (id) => {
         getVideoLink(id).then((res) => {
             if (res.data) {
-                console.log("URL: " + res.data.URL);
-              setVidLink(res.data.URL);
+                console.log("URL: " + res.data[0].URL);
+              setVidLink(res.data[0].URL);
             
             } else {
               console.log("No video");
             }
           });
     }
-    getLink(1);
+    getLink(name);
 
+    if(vidLink != null){
     return ( //Returns an iframe video wrapped in a div that will be used to drag the iframe around the workspace
         <div id = "draggableVideo"
         //Draggability is currently broken
@@ -84,5 +85,5 @@ export default function DraggableVideo(props) {
         src={vidLink} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen
         />
         </div>
-    );
+    );}
 }
