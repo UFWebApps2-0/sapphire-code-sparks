@@ -672,3 +672,18 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Unable to retrive classroom workspaces',
   });
+
+//NEW VIDEO CREATOR!!!
+  export const uploadVideo = async (title, url, description,) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/video-creations`,
+    data: {
+      title : title, 
+      url : url, 
+      description : description,
+      
+    },
+    auth: true,
+    error: 'Failed to save your workspace.',
+  });
