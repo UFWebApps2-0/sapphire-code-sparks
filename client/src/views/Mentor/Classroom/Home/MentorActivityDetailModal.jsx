@@ -215,6 +215,7 @@ const MentorActivityDetailModal = ({
             placeholder="Enter image URL"
           ></Input.TextArea>
         </Form.Item>
+
         <VideoURL_Input
           setEmbedLink={setEmbedLink}
           embedLink={embedLink}
@@ -225,13 +226,6 @@ const MentorActivityDetailModal = ({
           setEmbedLink={setEmbedLink}
           embedLink={embedLink}
         />
-
-        {/* 
-          Move into component, 
-          X Change into proper (X) red on hover, 
-          X Move next to the URLInput,
-          Create a check to see if there exists a video
-        */}
 
         {/* <Form.Item id="form-label" label="Student Template">
           <Input.TextArea
