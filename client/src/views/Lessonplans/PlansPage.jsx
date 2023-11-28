@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
-import YouTube from 'react-youtube';
 import './planspage.less';
+import VideoPlayer from './VideoPlayer.jsx';
 
 function PlansPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,13 +35,15 @@ function PlansPage() {
           <button onClick={handleSearch}>Add Video</button>
           <button onClick={() => setVideoId('')}>Remove Video</button>
         </div>
-
-        {videoId && (
+        <VideoPlayer
+        name = {"Fossil Fuels - Activity 1"}
+        />
+        {/* {videoId && (
           <div style={{ marginTop: '20px' }}>
-            <h2>Video Player</h2>
+           <h2>Video Player</h2>
             <YouTube videoId={videoId} />
-          </div>
-        )}
+           </div>
+        )} */}
       </div>
     </>
   );
