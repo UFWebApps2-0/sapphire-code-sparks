@@ -6,6 +6,7 @@ import img2 from "../../../assets/galleryimgs/image2.png";
 import img3 from "../../../assets/galleryimgs/image3.png";
 import img4 from "../../../assets/galleryimgs/image4.png";
 import img5 from "../../../assets/galleryimgs/image5.png";
+import { useNavigate } from "react-router-dom";
 
 const images = [img1, img2, img3, img4, img5];
 
@@ -35,9 +36,17 @@ export default function Gallery() {
       setVisible(false);
       setSelectedImage(null); // Close modal after deleting
     };
+    const navigate = useNavigate();
+
+    const navigateOrganizationDash = () => {
+      navigate('/organization-dashboard');
+    };
 
     return (
-        <div >
+        <div>
+          <button id='home-back-btn' onClick={navigateOrganizationDash}>
+                <i className='fa fa-arrow-left' aria-hidden='true' />
+            </button>
         {imageList.map((image, index) => (
           <div key={index} >
             <a href="#" key={index} onClick={() => handleImageClick(image)}>

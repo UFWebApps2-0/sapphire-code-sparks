@@ -13,7 +13,7 @@ import { TrashSVG } from "../../../assets/SVG";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 import './Organization.less';
-
+import Gallery from "./Gallery"
 
 const { TabPane } = Tabs;
 
@@ -85,17 +85,6 @@ export default function Organization() {
                 </TabPane>
 
             </Tabs>
-            
-            <Popconfirm
-                title={`Are you sure you want to delete ${organization.name}?`}
-                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                onConfirm={() => handleDelete(id)}
-              >
-                <button id='delete-organization-btn'>
-                    <TrashSVG/>
-                    <span>Delete Organization</span>
-                </button>
-              </Popconfirm>
 
         </div>
     )

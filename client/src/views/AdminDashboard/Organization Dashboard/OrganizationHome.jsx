@@ -4,6 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { getOrganization } from "../../../Utils/requests";
 import './Organization.less';
 
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
+import { TrashSVG } from "../../../assets/SVG";
+
+import "./OrganizationHome.css"
+
 
 export default function OrganizationHome({ organizationId }) {
     const [organization, setOrganization] = useState({});
@@ -36,7 +42,17 @@ export default function OrganizationHome({ organizationId }) {
             <div id='page-header'>
                 <h1>{organization.name}</h1>
             </div>
-            <div id='home-content-container'>
+            <div id='home-content-container' class='organization-home'>        
+                <Popconfirm
+                    title={`Are you sure you want to delete ${organization.name}?`}
+                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                    onConfirm={() => handleDelete(id)}
+                >
+                    <button id='delete-organization-button'>
+                        <TrashSVG/>
+                        <span>Delete Organization</span>
+                    </button>
+                </Popconfirm>
             </div>
         </div>
     )

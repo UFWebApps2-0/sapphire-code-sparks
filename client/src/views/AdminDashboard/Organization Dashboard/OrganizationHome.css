@@ -1,0 +1,22 @@
+#delete-organization-button {
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: gray;
+    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+#delete-organization-button:hover {
+    color: rgb(174, 36, 36);
+    border-color: rgb(174, 36, 36);
+}
+
+#home-content-container.organization-home {
+    display: flex;
+    padding: 10vh 3vw;
+}
