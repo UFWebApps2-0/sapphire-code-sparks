@@ -75,8 +75,14 @@ const App = () => {
                 <SpecificAssessmentPreview/> // null is placeholder for database info
             }
         />
-        
 
+        <Route
+            path='/assessment-preview/:id'
+            element={
+                <SpecificAssessmentPreview/> // null is placeholder for database info
+            }
+        />
+      
         <Route
           path="/report"
           element={
