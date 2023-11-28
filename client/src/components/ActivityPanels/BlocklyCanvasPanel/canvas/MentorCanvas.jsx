@@ -19,6 +19,7 @@ import { getAuthorizedWorkspace } from '../../../../Utils/requests';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import DraggableVideo from '../DraggableVideo';
+import CheckVideo from '../CheckVideo';
 
 let plotId = 1;
 
@@ -42,11 +43,37 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
   const activityRef = useRef(null);
   const navigate = useNavigate();
   const [videoVisible, setVideoVisible] = useState(false); //videoVisible asserts whether or not to render the miniplayer video
+  const [videoExists, setVideoExists] = useState(false);
+  const [menuVid, setMenuVid] = useState();
 
   //viewVideo sets VideoVisible to the opposite of whatever it currently is, so it can be turned on or off
   //If the given activity does not have a video, then viewVideo will do nothing.
   const viewVideo = () => {
     setVideoVisible(!videoVisible);
+  };
+
+  //alert(activity.lesson_module_name);
+  const checker = () => {
+    let n = null;
+    if(activity.lesson_module_name){
+      n = activity.lesson_module_name + ' - Activity ' + activity.number;
+    }
+    else if(activity.name){
+      n = 'Workspace: ' + activity.name;
+    }
+    console.log("n: " + n);
+    //setVideoExists(CheckVideo(n));
+    //console.log("Video exists? " + videoExists);
+
+    if(CheckVideo(n) != false){
+      setMenuVid(
+      <Menu.Item onClick={viewVideo}>
+      &nbsp;
+      {videoVisible
+              ? "Close Video"
+              : "Show Video"}  
+      </Menu.Item>);
+    }
   };
 
   const setWorkspace = () => {
@@ -265,6 +292,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       }
     }
   };
+  
   const menu = ( 
   //The menu in the workspace has been updated to include the option to show a video
   //If a video is already open, the option to close the video is shown
@@ -280,12 +308,13 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
       
       {/* if (activity.video != null) */}
-      <Menu.Item onClick={viewVideo}>
+      {/* <Menu.Item onClick={viewVideo}>
       &nbsp;
       {videoVisible
               ? "Close Video"
               : "Show Video"}  
-      </Menu.Item>
+      </Menu.Item> */}
+      {menuVid}
     </Menu>
   );
 
@@ -428,7 +457,9 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
                             Show Serial Monitor
                           </div>
                         )}
-                        <Dropdown overlay={menu}>
+                        <Dropdown 
+                        onMouseEnter = {() => checker()}
+                        overlay={menu}>
                           <i className='fas fa-ellipsis-v'></i>
                         </Dropdown>
                       </div>
@@ -511,7 +542,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
               : activity.name
               ? `Workspace: ${activity.name}`
               : 'New Workspace!'}
-            videoId={activity.embedLink} //This video id will be replaced with a query or activity attribute
+            videoId = {null}  //Failsafe
             />)
           :null}
     </div>
