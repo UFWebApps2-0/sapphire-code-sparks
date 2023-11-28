@@ -14,6 +14,7 @@ export default function GroupReport(props) {
   const [study, setStudy] = useState({
     id: '',
     name: '',
+    description: '',
   });
 
   const updateStudyList = (newStudyList) => {

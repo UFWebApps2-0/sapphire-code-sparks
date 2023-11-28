@@ -1,42 +1,52 @@
-import React, {useState} from 'react';
-import {CSSTransition} from 'react-transition-group';
+import React, { useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import './StudyList.less';
-import { ReactComponent as arrow_icon} from 'react';
- 
 
-function StudyList({studyList, updateStudyList}) {
-    const [open, setOpen] = useState(true);
+function StudyList({ studyList, updateStudyList }) {
+  function DropDownButton({ onClick }) {
+    return (
+      <button onClick={onClick} className="dropdown-button">
+        ^
+      </button>
+    );
+  }
 
-    function DropDownButton(props){
-        
-    }
+  function DropDownStudies({ study }) {
+    const [open, setOpen] = useState(false);
 
-    function DropDownMenu(){
-        function DropDownStudies(props){
-            return(
-                <a href = "#" className='dropdown-item'>
-                    <span className='icon-button'>{props.leftIcon}</span>
-                    {props.children}
-                    <span className = "icon-right">{props.rightIcon}</span>
-                </a>
-            )
-        }
-        return (
-            <div className='dropdown'>
-            <ul>
-          {studyList.map(study => (
-            <li key={study.id}>{study.name}</li>
-          ))}
-        </ul>
-          </div>
-        )
-    }
+    const handleDropDownClick = () => {
+      setOpen(!open);
+    };
 
     return (
-        <DropDownMenu/>
+      <div className='dropdown-item'>
         
+        <DropDownButton onClick={handleDropDownClick} />
+        <div className="study-info">
+          <p>Study Name: {study.name}</p>
+        </div>
+
+        <CSSTransition
+          in={open}
+          timeout={300}
+          classNames='dropdown-content'
+          unmountOnExit
+        >
+          <div className='dropdown-content'>
+            <p>Description: {study.description}</p>
+          </div>
+        </CSSTransition>
+      </div>
     );
-    
   }
-  
-  export default StudyList;
+
+  return (
+    <div className='dropdown'>
+      {studyList.map((study) => (
+        <DropDownStudies key={study.id} study={study} />
+      ))}
+    </div>
+  );
+}
+
+export default StudyList;
