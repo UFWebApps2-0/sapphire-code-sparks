@@ -713,3 +713,17 @@ export const inputVideoEntry = async (videoURL) =>
     auth: true,
     error: 'Failed to create video entry.',
   });
+//NEW VIDEO CREATOR!!!
+export const uploadVideo = async (title, url, description,) =>
+makeRequest({
+  method: POST,
+  path: `${server}/url-storages`,
+  data: {
+    name : title, 
+    URL : url, 
+    inGallery : description,
+
+  },
+  auth: true,
+  error: 'Failed to save your workspace.',
+});
