@@ -37,7 +37,4 @@ module.exports = {
             lesson_modules: currentLesson.id,
         });
     },
-    async revertLesson(params, data) {
-
-    }
 };
