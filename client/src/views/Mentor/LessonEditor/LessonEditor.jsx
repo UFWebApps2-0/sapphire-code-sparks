@@ -5,6 +5,7 @@ import {
   getLessonModule,
   updateLessonModule,
   getLessonHistories,
+  getLessonHistory,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
@@ -55,13 +56,20 @@ export default function LessonEditor({
       if (res) {
         message.success("Lesson reverted successfully");
 
-        // Refresh data
+        updateLessonModule(
+          learningStandard.id,
+          res.data.name,
+          res.data.expectations,
+          res.data.standards,
+          res.data.link,
+        );
       }
-    } catch (error) {
-      message.error("Error reverting lesson");
-    }
 
-    setRevertVisible(false);
+      setRevertVisible(false);
+    } catch (error) {
+      message.error("Error Reverting Lesson");
+      console.error("Error Reverting Lesson", error);
+    }
   }
 
   const showModal = async () => {
@@ -215,7 +223,7 @@ export default function LessonEditor({
             >
               {lessonHistories.map(history => (
                 <div key={history.id}>
-                  <p>{history.name} - {history.createdAt}</p>
+                  <p>{history.name} - {history.created_at}</p>
                   <Button onClick={() => revertLesson(history.id)}>Revert to this</Button>
                 </div>
               ))}
