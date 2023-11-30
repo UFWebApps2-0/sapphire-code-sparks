@@ -71,18 +71,13 @@ export default function AddStudents({ classroomId, addStudentsToTable, handleDel
 
   const handleCsvAdd = async () => {
     const resu = await getClassroom(classroomId);
+
+    // Delete existing students
     if (resu.data) {
       resu.data.students.forEach((student) => {
-          //const resul = await deleteStudent(student.id);
-          
+        
           handleDelete(student.id);
-            // if (resul.data) {
-            //   //addStudentsToTable(resul.data)
-            //   //message.success(`Successfully deleted student, ${resul.data.name}.`);
-            // } else {
-            //   message.error(resul.err);
-            // }
-          });
+      });
     } else {
       message.error(resu.err)
     }
