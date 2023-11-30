@@ -31,6 +31,12 @@
     },
     "flagCount": {
       "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "URL": {
+      "type": "string"
     }
   }
 }

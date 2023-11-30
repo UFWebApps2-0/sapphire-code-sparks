@@ -556,6 +556,12 @@
           "flagCount": {
             "type": "integer"
           },
+          "name": {
+            "type": "string"
+          },
+          "URL": {
+            "type": "string"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -584,6 +590,12 @@
           },
           "flagCount": {
             "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "URL": {
+            "type": "string"
           },
           "published_at": {
             "type": "string",
