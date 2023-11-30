@@ -26,7 +26,6 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { useNavigate } from 'react-router-dom';
-import DraggableVideo from '../DraggableVideo';
 
 let plotId = 1;
 
@@ -59,14 +58,6 @@ export default function ContentCreatorCanvas({
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
-  };
-
-  const [videoVisible, setVideoVisible] = useState(false); 
-  //videoVisible asserts whether or not to render the miniplayer video
-  //viewVideo sets VideoVisible to the opposite of whatever it currently is, so it can be turned on or off
-  //If the given activity does not have a video, then viewVideo will do nothing.
-  const viewVideo = () => {
-    setVideoVisible(!videoVisible);
   };
 
   const loadSave = async (workspaceId) => {
@@ -309,12 +300,6 @@ export default function ContentCreatorCanvas({
       <Menu.Item>
         <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
       </Menu.Item>
-      <Menu.Item onClick={viewVideo}>
-      &nbsp;
-      {videoVisible
-              ? "Close Video"
-              : "Show Video"}  
-      </Menu.Item>
     </Menu>
   );
 
@@ -510,16 +495,6 @@ export default function ContentCreatorCanvas({
           onClose={(e) => setCompileError('')}
         ></Alert>
       )}
-      {videoVisible=== true //If the video is toggled on, display the miniplayer with the activity name and video link
-          ?(<DraggableVideo
-            name={activity.lesson_module_name //The video name is whatever is currently available as the workspace name
-              ? `${activity.lesson_module_name} - Activity ${activity.number}`
-              : activity.name
-              ? `Workspace: ${activity.name}`
-              : 'New Workspace!'}
-            videoId={"https://www.youtube.com/embed/Ksj_GfzE6Mg?si=dlpmMrS8KMBVlTmr"} //This video id will be replaced with a query or activity attribute
-            />)
-          :null}
     </div>
   );
 }
