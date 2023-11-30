@@ -10,26 +10,31 @@ function QuestionList({ data, updateSelect, onDelete }) {
             <br />
             type: {`${qs.type} `}| Points: {`${qs.points} `}
           </p>
-          <button onClick={() => updateSelect(qs)}>Edit Question</button>
+          <button onClick={() => updateSelect(index)}>Edit</button>
           <button
             style={{ marginLeft: "3%" }}
             onClick={() => {
-              onDelete(index);
+              const res = confirm("Permanently delete this question?");
+              if (res) {
+                // IF we delete,
+                onDelete(index);
+              }
             }}
           >
             Delete Question
           </button>
           <ul>
-            {qs.choices.map((c, index) => {
-              if (qs.answers[index]) {
-                return (
-                  <li key={c} style={{ backgroundColor: "green" }}>{`${c}`}</li>
-                );
-              } else {
-                return (
-                  <li key={c} style={{ backgroundColor: "red" }}>{`${c}`}</li>
-                );
-              }
+            {qs.choices.map((choice, index) => {
+              return (
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor: qs.answers[index] ? "green" : "red",
+                  }}
+                >
+                  {choice}
+                </li>
+              );
             })}
           </ul>
         </td>

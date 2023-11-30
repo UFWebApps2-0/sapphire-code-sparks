@@ -4,7 +4,7 @@ class Question {
     "freeResponse",
     "multiSelect",
     "codingQ",
-    "dropDown",
+    "dropDown"
   ];
   constructor(input = null) {
     this.type = "multipleChoice"; // Choose from types
@@ -19,20 +19,23 @@ class Question {
   }
   // update values based on existing object or json.
   update(input) {
-    var cur;
+    let cur;
     // Check if input is a JSON string or object.
     if (typeof input === "string" || input instanceof String) {
-      cur = JSON.parse(input);
+      try {
+        cur = JSON.parse(input);
+      } catch (e) {
+        console.error("Invalid JSON string:", e);
+        return; // Exit the function or handle the error appropriately
+      }
     } else {
       cur = input;
     }
     if ("type" in cur) {
-      for (let i = 0; i < Question.TYPES.length; i++) {
-        if (
-          new String(cur.type).valueOf() ==
-          new String(Question.TYPES[i]).valueOf()
-        ) {
-          this.type = Question.TYPES[i];
+      for (let t of Question.TYPES) {
+        // Corrected this line
+        if (t === cur.type) {
+          this.type = cur.type;
         }
       }
     }
