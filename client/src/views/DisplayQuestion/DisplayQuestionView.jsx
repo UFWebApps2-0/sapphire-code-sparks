@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, message } from "antd";
+import { message } from "antd";
 
 import NavBar from "../../components/NavBar/NavBar";
 import { useNavigate, useParams } from "react-router-dom";
