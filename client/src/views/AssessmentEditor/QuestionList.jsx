@@ -14,7 +14,11 @@ function QuestionList({ data, updateSelect, onDelete }) {
           <button
             style={{ marginLeft: "3%" }}
             onClick={() => {
-              onDelete(index);
+              const res = confirm("Permanently delete this question?");
+              if (res) {
+                // IF we delete,
+                onDelete(index);
+              }
             }}
           >
             Delete Question
@@ -25,10 +29,10 @@ function QuestionList({ data, updateSelect, onDelete }) {
                 <li
                   key={index}
                   style={{
-                    backgroundColor: choice.isCorrect ? "green" : "red",
+                    backgroundColor: qs.answers[index] ? "green" : "red",
                   }}
                 >
-                  {choice.text}
+                  {choice}
                 </li>
               );
             })}

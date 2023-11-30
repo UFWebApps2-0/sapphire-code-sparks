@@ -72,7 +72,6 @@ export default function AssessmentEditorView() {
           setData={setAssessment}
           onSave={(data) => {
             // TODO: Handle updating the database object.
-            console.log(data);
             updateAssessment(id, data);
             message.success(`Updated ${assessment.name}`);
           }}

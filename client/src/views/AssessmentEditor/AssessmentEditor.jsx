@@ -1,44 +1,36 @@
-import Question from "./QuestionObj";
+import Question from "../../utils/QuestionObj";
 import React, { useState } from "react";
 import QuestionList from "./QuestionList";
 import QuestionForm from "./QuestionForm";
-import "./QuestionFormStyles.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-function AssessmentEditor({ assessment, onSave }) {
-  const [assessmentData, setAssessmentData] = useState(
-    assessment || {
-      name: "",
-      openDate: "",
-      dueDate: "",
-      timeLimit: "",
-      attempts: "",
-      questions: [],
-      showGrades: false,
-    },
-  );
+function AssessmentEditor({ data, setData, onSave }) {
   const [showQuestionForm, setShowQuestionForm] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
 
   const addOrUpdateQuestion = (question) => {
-    let updatedQuestions = [...assessmentData.questions];
-
+    let updatedQuestions = [...data.questions];
+    let pts = data.points;
     if (currentQuestionIndex !== null) {
+      pts -= updatedQuestions[currentQuestionIndex].points;
       updatedQuestions[currentQuestionIndex] = question;
     } else {
       updatedQuestions.push(question);
     }
+    pts += question.points;
 
-    setAssessmentData({ ...assessmentData, questions: updatedQuestions });
+    setData({ ...data, questions: updatedQuestions, points: pts });
     setShowQuestionForm(false);
     setCurrentQuestionIndex(null);
   };
 
   const removeQuestion = (index) => {
-    const updatedQuestions = assessmentData.questions.filter(
-      (_, i) => i !== index,
-    );
-    setAssessmentData({ ...assessmentData, questions: updatedQuestions });
+    const updatedQuestions = data.questions.filter((_, i) => i !== index);
+    let pts = 0;
+    for (let i = 0; i < updatedQuestions.length; i++) {
+      pts += updatedQuestions[i].points;
+    }
+    setData({ ...data, questions: updatedQuestions, points: pts });
   };
 
   const editQuestion = (index) => {
@@ -47,17 +39,40 @@ function AssessmentEditor({ assessment, onSave }) {
   };
   return (
     <>
-      <div className="group">
-        {/* Form for the assessment details */}
-        {/* ... */}
-        {showQuestionForm && (
-          <div className="modal-overlay">
+      {showQuestionForm && (
+        <div
+          style={{ display: "block", background: "rgba(50, 50, 50, 0.7)" }}
+          className="modal show"
+          tabindex="-1"
+          role="dialog"
+        >
+          <div className="modal-dialog">
             <div className="modal-content">
+              <div className="modal-header" role="document">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Question Editor
+                </h5>
+                <button
+                  type="button"
+                  style={{
+                    transform: "translate(0%, 0%)",
+                  }}
+                  onClick={() => {
+                    setCurrentQuestionIndex(null);
+                    setShowQuestionForm(false);
+                  }}
+                  className="close btn"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
               <QuestionForm
                 addOrUpdateQuestion={addOrUpdateQuestion}
                 question={
                   currentQuestionIndex !== null
-                    ? assessmentData.questions[currentQuestionIndex]
+                    ? data.questions[currentQuestionIndex]
                     : new Question()
                 }
                 closeForm={() => {
@@ -65,28 +80,21 @@ function AssessmentEditor({ assessment, onSave }) {
                   setShowQuestionForm(false);
                 }}
               />
-              <button
-                className="btn btn-danger"
-                onClick={() => setShowQuestionForm(false)}
-              >
-                Close
-              </button>
             </div>
           </div>
-        )}
-
+        </div>
+      )}
+      <div className="group">
         <form className="group g-3">
           <div className="row">
             <div className="form-group">
               <label className="form-label">Assessment Name:&nbsp;</label>
               <input
                 type="text"
-                value={assessmentData.name || ""} // Use 'assessmentData' instead of 'data'
+                value={data.name || ""}
                 className="form-control"
                 placeholder="Enter Assessment Name Here"
-                onChange={(e) =>
-                  setAssessmentData({ ...assessmentData, name: e.target.value })
-                }
+                onChange={(e) => setData({ ...data, name: e.target.value })}
                 pattern="^[a-zA-Z0-9 _.\-]*$"
               />
             </div>
@@ -96,7 +104,7 @@ function AssessmentEditor({ assessment, onSave }) {
                 <input
                   type="datetime-local"
                   className="form-control"
-                  value={assessmentData.openDate}
+                  value={data.openDate}
                   onChange={(e) => {
                     setData({ ...data, openDate: e.target.value });
                   }}
@@ -109,7 +117,7 @@ function AssessmentEditor({ assessment, onSave }) {
                 <input
                   type="datetime-local"
                   className="form-control"
-                  value={assessmentData.dueDate}
+                  value={data.dueDate}
                   onChange={(e) => {
                     setData({ ...data, dueDate: e.target.value });
                   }}
@@ -125,7 +133,7 @@ function AssessmentEditor({ assessment, onSave }) {
                 <input
                   type="number"
                   className="form-control"
-                  value={assessmentData.timeLimit}
+                  value={data.timeLimit}
                   min="0"
                   max="20000000000"
                   onChange={(e) => {
@@ -141,7 +149,7 @@ function AssessmentEditor({ assessment, onSave }) {
                 <input
                   type="number"
                   className="form-control"
-                  value={assessmentData.attempts}
+                  value={data.attempts}
                   min="1"
                   max="999"
                   onChange={(e) => {
@@ -159,7 +167,7 @@ function AssessmentEditor({ assessment, onSave }) {
 
               <input
                 type="checkbox"
-                value={!assessmentData.showGrades}
+                value={!data.showGrades}
                 onChange={(e) => {
                   setData({ ...data, showGrades: !e.target.checked });
                 }}
@@ -171,13 +179,15 @@ function AssessmentEditor({ assessment, onSave }) {
           <main>
             <div className="group">
               <h1 style={{ marginBottom: 0 }}>
-                Questions: {assessmentData.questions.length}
+                Questions: {data.questions.length}
               </h1>
-              <h3>Points: {assessmentData.points}</h3>
+              <h3>Points: {data.points}</h3>
+
               <button
                 className="btn btn-secondary"
                 style={{ margin: "1rem", marginBottom: "0" }}
                 onClick={() => {
+                  setCurrentQuestionIndex(null);
                   setShowQuestionForm(true);
                 }}
               >
@@ -190,7 +200,7 @@ function AssessmentEditor({ assessment, onSave }) {
                 <div className="col-auto">
                   {/** Show questions here */}
                   <QuestionList
-                    data={assessmentData.questions}
+                    data={data.questions}
                     updateSelect={editQuestion} // Pass the index to editQuestion
                     onDelete={removeQuestion}
                   />
@@ -217,7 +227,7 @@ function AssessmentEditor({ assessment, onSave }) {
           onClick={() => {
             const curDate = new Date();
             const res = { ...data, publishDate: curDate.toJSON() };
-            onSave(data);
+            onSave(res);
           }}
           style={{ transform: "translate(0%, 0%)" }}
         >
