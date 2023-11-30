@@ -52,7 +52,7 @@ export default function DisplayQuestionView() {
 
     return (
         <div className="container nav-padding">
-          <div id="main-header">Assessment Editor</div>
+          <div id="main-header">{assessment.name}</div>
           <NavBar />
           <div id="classrooms-container">
           <button
@@ -65,12 +65,13 @@ export default function DisplayQuestionView() {
         >
           Leave
         </button>
+        <div className="container" >
             <DisplayQuestion
               assessment = {assessment}
               responses = {setResponses}
              />
-
+        </div>
           </div>
         </div>
-    )
+    );
 }

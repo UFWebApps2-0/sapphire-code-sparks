@@ -69,6 +69,31 @@ class DisplayQuestion extends Component {
                             </ul>
                         </div>
                     );
+                    case 'multiSelect':
+                        return (
+                            <div className="form-section" key={question.prompt}>
+                                <span>
+                                    <strong> {questionNumber}. </strong>
+                                    {question.prompt}
+                                </span>
+                                <ul>
+                                    {question.choices.map((choice, index) => (
+                                        <li key={index}>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    value={choice}
+                                                    checked={responses[question.prompt]?.includes(choice)}
+                                                    onChange={() => this.handleChange(question.prompt, choice)}
+                                                />
+                                                {choice}
+                                            </label>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        );
+                
                 case 'dropDown':
                     return (
                         <div className="form-section" key={question.prompt}>
