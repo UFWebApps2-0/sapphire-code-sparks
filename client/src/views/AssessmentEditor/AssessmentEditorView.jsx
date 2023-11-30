@@ -40,7 +40,9 @@ export default function AssessmentEditorView() {
         );
       } else {
         message.error(res.err);
-        navigate("/PageNotFound");
+        setAssessment({
+          name: "Assessment Not Found",
+        });
       }
     });
   }, [id]);

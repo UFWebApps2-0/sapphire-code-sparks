@@ -1,62 +1,117 @@
-import {useNavigate} from "react-router-dom";
-import './TeacherViewAssessments.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./TeacherViewAssessments.css";
+import "../client/src/Utils/requests";
 import NavBar from "../client/src/components/NavBar/NavBar";
+import { getAssessments } from "../client/src/Utils/requests";
+import message from "../client/src/components/Message";
 
-function TeacherViewAssessments( { assessmentList } ) {
-    // TODO: Don't know how to run program to test implementation with Assignments, fix up.
+function TeacherViewAssessments() {
+  const [assessmentList, setAssessmentList] = React.useState({});
+  let [sortingStyle, setSortingStyle] = React.useState("ID");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getAssessments();
+        return res.data;
+      } catch {
+        return { err: "Data fetch failed" };
+      }
+    };
+    fetchData().then((res) => {
+      if (res) {
+        setAssessmentList(res); //Whatever the react state for the assessment is.
+      } else {
+        message.error(res.err);
+        const navigate = useNavigate();
+        navigate("/PageNotFound");
+      }
+    });
+  }, []);
+
+  return (
+  <main className="background">
+    <div>
+      <div id="main-header">
+        {" "}
+        <br></br>View Assessments
+      </div>
+      <NavBar />
+      <button onClick={() => setSortingStyle("Name")} className="alignRight button3">
+        Sort by Name
+      </button>
+      <button onClick={() => setSortingStyle("Date")} className="alignRight button3">
+        Sort by Date
+      </button>
+      <button onClick={() => setSortingStyle("ID")} className="alignRight button3">
+        Sort by ID
+      </button>
+      <div className="projectText">
+        <p1 className="tableTop bold">Assessments:
+          <p1 className="alignRight noBold">
+            Sorting by: {sortingStyle}
+          </p1>
+        </p1>
+        <PrintMiddleEntries assessmentList={assessmentList} sortingStyle={sortingStyle} />
+        <button onClick={() => HandleAdd()} className="alignRight button2">
+          Create New<br></br>Assignment
+        </button>
+        <p1 className="invisible">.</p1>
+        <br></br><br></br><br></br>
+      </div>
+    </div>
+  </main>
+  );
+}
+
+function PrintMiddleEntries(props) {
+  const navigate = useNavigate();
+  if (props.assessmentList !== undefined && Array.isArray(props.assessmentList)) {
+    if (props.sortingStyle === "Name") {
+      props.assessmentList.sort(CompareByName)
+    }
+    else if (props.sortingStyle === "Date") {
+      props.assessmentList.sort(CompareByDate)
+    }
+    else {
+      props.assessmentList.sort(CompareByID)
+    }
     return (
-        <body className="background">
-            <div id="main-header"> 
-                <br></br>View Assessments 
-                <button onClick={() => HandleAdd()} className="alignRight button2">{/*need to fix text color bc it was moved*/}
-                        Create New<br></br>Assignment
-                </button>
-            </div>
-            <NavBar />
-            <div className="projectText">
-                <p1 className="tableTop bold">
-                    Assessments:
-                </p1>
-                <PrintMiddleEntries
-                    filteredData={assessmentList}
-                />
-            </div>
-        </body>
+      <div>
+        {props.assessmentList.map((directory) => (
+          <div className="tableMid">
+            <div className="alignLeft bold">{directory.name} <br></br> <div className="noBold"> Assigned: <PrintDate directoryDate={directory.openDate}/> | Due: <PrintDate directoryDate={directory.dueDate}/></div></div>
+            <button onClick={() => navigate("/about")} className="shortenTransform1 alignRight">
+              Assign
+            </button>
+            <button onClick={() => navigate("/teacher-assessments/editor/" + directory.id)} className="shortenTransform2 alignRight">
+              Edit
+            </button>
+            <button onClick={() => navigate("Grade")} className="shortenTransform3 alignRight">
+              Grade
+            </button>
+            <br></br>
+          </div>
+        ))}
+      </div>
     );
+  }
 }
 
-function PrintMiddleEntries( { assessmentList } ) {
-    const sampleList = [{id:1, name:"Red and Blue"},{id:2, name:"Yellow"},{id:3, name:"Gold and Silver"},{id:4,name: "Crystal"},{id:5,name: "Ruby and Sapphire"},{id:6,name: "FireRed and LeafGreen"},{id:7,name: "Emerald"},{id:8,name: "Diamond and Pearl"},{id:9,name: "Platinum"},{id:10,name: "HeartGold and SoulSilver"},{id:11,name: "Black and White"},{id:12,name: "Black 2 and White 2"},{id:13,name: "X and Y"},{id:14,name: "Omega Ruby and Alpha Sapphire"},{id:15,name: "Sun and Moon"},{id:16,name: "Ultra Sun and Ultra Moon"},{id:17,name: "Let's Go, Pikachu! and Let's Go, Eevee!"},{id:18,name: "Sword and Shield"},{id:19,name: "The Isle of Armor (DLC)"},{id:20,name: "The Crown Tundra (DLC)"},{id:21,name:"Brilliant Diamond and Shining Pearl"},{id:22,name: "Legends: Arceus"},{id:23,name: "Scarlet and Violet"},{id:24,name: "The Teal Mask (DLC)"},{id:25,name: "The Indigo Disk (DLC)"}]; // Can replace with database
-    const navigate = useNavigate();
-    return ( // TODO: Replace this stuff with a structure for assessmentList.name and it should work.
-        <div>
-            {sampleList.map(sampleList => (
-                <div className="tableMid">
-                    <p2 className="alignLeft bold">{sampleList.name}</p2>
-                    <p3><br></br>Assigned: openDate | Due: dueDate</p3>
-                    <button onClick={() => navigate("/assessment-grade/"+sampleList.name)} className="alignRight">
-                        Grade
-                    </button>
-                    <button onClick={() => navigate("/teacher-assessments/editor/"+sampleList.id)} className="alignRight shortenTransform">
-                        Edit
-                    </button>
-                    <button onClick={() => navigate("/about")} className="alignRight shortenTransform2">
-                        Assign
-                    </button>
-                </div>
-            ))}
-        </div>
-    );
+function CompareByID(first, second) {
+  return first.id - second.id;
+}
+function CompareByName(first, second) {
+  return first.name.localeCompare(second.name);
 }
 
-/*
-                    <button onClick={() => navigate("Live X to Y")} className="alignRight">
-                        Live X to Y
-                    </button>
- */
+function CompareByDate(first, second) {
+  return first.dueDate.localeCompare(second.dueDate);
+}
 
-function HandleAdd() {
-    // TODO: Call class to create new assessment - basically like the AddBuilding in Bootcamp 3.
+function PrintDate({directoryDate}) {
+  return directoryDate.substring(0, directoryDate.indexOf("T"))
 }
 
 export default TeacherViewAssessments;

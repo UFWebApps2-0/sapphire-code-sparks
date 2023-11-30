@@ -42,7 +42,9 @@ const App = () => {
         <Route
           path="/teacher-assessments"
           element={
-            <TeacherViewAssessments assessmentList={null} /> // null is placeholder for database info
+              <PrivateRoute>
+                  <TeacherViewAssessments />
+              </PrivateRoute>
           }
         />
         <Route
@@ -63,7 +65,7 @@ const App = () => {
         <Route
             path='/student-assessments'
             element={
-                <StudentViewAssessments assessmentList = {null}/> // null is placeholder for database info
+                <StudentViewAssessments/> // null is placeholder for database info
             }
         />
 
@@ -73,8 +75,14 @@ const App = () => {
                 <SpecificAssessmentPreview/> // null is placeholder for database info
             }
         />
-        
 
+        <Route
+            path='/assessment-preview/:id'
+            element={
+                <SpecificAssessmentPreview/> // null is placeholder for database info
+            }
+        />
+      
         <Route
           path="/report"
           element={
