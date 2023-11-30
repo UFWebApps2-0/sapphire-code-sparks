@@ -20,7 +20,7 @@
       "type": "string"
     },
     "name": {
-      "type": "string"
+      "type": "boolean"
     },
     "videoID": {
       "type": "string"
