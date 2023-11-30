@@ -58,13 +58,15 @@ export default function Dashboard() {
     let allClassrooms= [];
     let availableMentors = [];
     let currentMentor = null;
+
     // Get mentor gets necessary information about whoever is logged in
     getMentor().then((res) => {
       if (res.data) {
         currentMentor = res.data;
+        //setviewingMentorID(res.data.id);
         if(mentor != null){
           currentMentor = mentor;
-          
+          setviewingMentorID(mentor.id);
         }
         
         // Gets the IDs of all the classrooms this mentor is assigned to
@@ -91,8 +93,6 @@ export default function Dashboard() {
       if (res.data) {
         res.data.forEach((classroom) => {
           allClassrooms.push(classroom);
-          //classroomsTest.push(classroom);
-          //classroomIds.push(classroom.id);
 
           // This gets the names of all the mentors with classrooms so that they can be put in the dropdown
           classroom.mentors.forEach((mentor) => { 
@@ -110,7 +110,6 @@ export default function Dashboard() {
 
         // Code that filters based on the value of currentMentor
         res.data.forEach((classroom) => { // For each classroom...
-          
           for(var i = 0; i < classroom.mentors.length; i++){ // Iterate over all the mentors...
             if(currentMentor.id == classroom.mentors.at(i).id){
               viewingRooms.push(classroom);
@@ -119,13 +118,10 @@ export default function Dashboard() {
           }
         });
 
-
         setPresentMentors(availableMentors); // This puts the list we compiled into the dropdown
         
-        //setClassroomSorting(); // We need this to happen IMMEDIATELY
         setClassrooms(viewingRooms); // Sets the classrooms that will be rendered
         setAllRooms(allClassrooms);
-        //allRooms = classroomsTest;  // Saves a list of all the classrooms as a variable
 
       } else {
         message.error(res.err);
@@ -151,7 +147,6 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    console.log(viewingMentorID);
     DisplayClassrooms();
   }, [viewingMentorID]);
 
@@ -287,25 +282,6 @@ export default function Dashboard() {
     navigate(`/classroom/${classroomId}`);
   };
 
-  // const setClassroomSorting = () => { 
-  //   //var select = ;
-  //   var options = sortBy;
-    
-  //   for(var i = 0; i < options.length; i++) {
-  //       var opt = options[i];
-  //       //var el = document.createElement("option");
-  //       document.getElementById("sortByTeacher")[i].setAttribute('value',i);
-        
-  //       if(mentor.first_name == opt.first_name && mentor.last_name == opt.last_name){
-  //         console.log(opt.first_name);
-  //         document.getElementById("sortByTeacher")[i].setAttribute('selected','selected');
-  //         setCurrentlySortingBy(mentor);
-  //       }
-  //       //select.add(el);
-  //   }
-    
-  // };
-
   const DisplayClassrooms = () => {
     let classroomsTemp = [];
 
@@ -323,25 +299,6 @@ export default function Dashboard() {
 
     setClassrooms(classroomsTemp); // Sets the classrooms that will be rendered
   }
-
-  // function setSelected(e){
-  //   // var select = document.getElementById("sortByTeacher");
-  //   // var value = select.options[select.selectedIndex].value;
-
-  //   var options = presentMentors; // The list of mentors
-    
-    
-  //   for(var i = 0; i < options.length; i++) {
-  //     //console.log(options.at(i).first_name);
-  //     if(e.target.value == options.at(i).id){
-  //       setMentor(options.at(i));
-  //       console.log(options.at(i).first_name);
-  //       //setCurrentlySortingBy(options[i]);
-  //       //console.log(i);
-  //     }
-  //   }
-  //   //setCurrentlySortingBy(mentor);
-  // }
 
   // Default filter for filtering lesson/unit data based on the grade
   const filterLS = (grade) => {
@@ -378,49 +335,6 @@ export default function Dashboard() {
       </TabPane>
     );
   }
-
-  // function ClassroomList(props) { // Feeding this all the classrooms
-  //   const result = props.filter(checkContents);
-  
-  //   function checkContents(query){ // Checks whether array elements match with the given query
-  //     // if(props.data.filter == ''){
-  //     //   return true;
-  //     // }
-  //     // else{
-  //     //   return query.name.toLowerCase().includes(props.filter.toLowerCase());
-  //     // }
-  //     query.mentors.forEach((mentor) => {
-  //       //classroomIds.push(classroom.id);
-  //       if(mentor.first_name == currentlySortingBy.first_name && mentor.last_name == currentlySortingBy.last_name){
-  //         return true;
-  //       }
-  //     });
-  //     return false;
-  //   }
-  
-  //   const classRoomList = result
-  //     .map(classroom => {
-  //       return (
-  //         <div key={classroom.id} id='dashboard-class-card'>
-  //                 <div id='card-left-content-container'>
-  //                   <h1 id='card-title'>{classroom.name}</h1>
-  //                   {displayMentorName(classroom)}
-  //                   <div id='card-button-container' className='flex flex-row'>
-  //                     <button onClick={() => handleViewClassroom(classroom.id)}>
-  //                       View
-  //                     </button>
-  //                   </div>
-  //                 </div>
-  //               <div id='card-right-content-container'>
-  //                 {displayCodeAndStudentCount(classroom)}
-  //               </div>
-  //           </div>
-            
-  //       );
-  //     });
-  
-  //   return <>{classRoomList}</>;
-  // }
   
   // Actual output -------------------------------------------
   return (
@@ -442,12 +356,15 @@ export default function Dashboard() {
           <MentorSubHeader title={'Your Classrooms'}></MentorSubHeader>
           <div id='classrooms-container'>
 
-            <select id="sortByTeacher" onChange={e => setviewingMentorID(e.target.value)}>
+            <div>
+            <p id = "sortBoxText">View Classrooms Of:  </p>
+            <select id="sortByTeacher" onChange={e => setviewingMentorID(e.target.value)} selected>
               {presentMentors.map((teacher) => (
-                <option value={teacher.id}>{teacher.first_name + ' ' + teacher.last_name}</option>   
+                <option value={teacher.id} selected={teacher.id == mentor.id}>{teacher.first_name + ' ' + teacher.last_name}</option>   
               ))}
             </select>
-            
+            </div>
+
             <div id='dashboard-card-container'>
               {classrooms.map((classroom) => (
                 <div key={classroom.id} id='dashboard-class-card'>
