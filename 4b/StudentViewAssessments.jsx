@@ -1,55 +1,193 @@
-import {useNavigate} from "react-router-dom";
-import './StudentViewAssessments.css';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./StudentViewAssessments.css";
+import "../client/src/Utils/requests";
 import NavBar from "../client/src/components/NavBar/NavBar";
+import { getAssessments, getStudent } from "../client/src/Utils/requests";
+import message from "../client/src/components/Message";
 
-function StudentViewAssessments( { assessmentList } ) {
-    // name, attempts, points, questions, showGrades, openDate, dueDate, timeLimit
-    const navigate = useNavigate();
+function StudentViewAssessments() {
+  const [assessmentList, setAssessmentList] = React.useState({});
+  let [sortingStyle, setSortingStyle] = React.useState("ID");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getAssessments();
+        return res.data;
+      } catch {
+        return { err: "Data fetch failed" };
+      }
+    };
+    fetchData().then((res) => {
+      if (res) {
+        setAssessmentList(res); //Whatever the react state for the assessment is.
+      } else {
+        message.error(res.err);
+        const navigate = useNavigate();
+        navigate("/PageNotFound");
+      }
+    });
+  }, []);
+  return (
+    <body className="background">
+      <NavBar />
+      <p1 className="blackText header bold noBottomBorder"> Student Name</p1>
+      <p1 className="smallerText header">
+        {" "}
+        Number Incomplete Assessments:{" "}
+        <CalculateCompletedAssessments assessmentList={assessmentList} />/
+        {assessmentList.length}
+        <br></br>
+        Current Grade: <CalculateGrade assessmentList={assessmentList} />%
+      </p1>
+      <button
+        onClick={() => setSortingStyle("Name")}
+        className="alignRight button3"
+      >
+        Sort by Name
+      </button>
+      <button
+        onClick={() => setSortingStyle("Date")}
+        className="alignRight button3"
+      >
+        Sort by Date
+      </button>
+      <button
+        onClick={() => setSortingStyle("ID")}
+        className="alignRight button3"
+      >
+        Sort by ID
+      </button>
+      <div className="projectText">
+        <p1 className="tableTop bold">
+          Assessments:
+          <p1 className="alignRight noBold">Sorting by: {sortingStyle}</p1>
+        </p1>
+        <PrintMiddleEntries
+          assessmentList={assessmentList}
+          sortingStyle={sortingStyle}
+        />
+        <p1 className="invisible">.</p1>
+        <br></br>
+      </div>
+    </body>
+  );
+}
+
+function PrintMiddleEntries(props) {
+  const navigate = useNavigate();
+  if (
+    props.assessmentList !== undefined &&
+    Array.isArray(props.assessmentList)
+  ) {
+    if (props.sortingStyle === "Name") {
+      props.assessmentList.sort(CompareByName);
+    } else if (props.sortingStyle === "Date") {
+      props.assessmentList.sort(CompareByDate);
+    } else {
+      props.assessmentList.sort(CompareByID);
+    }
     return (
-        <body className="background">
-        <NavBar />
-        <p1 className = "blackText header bold noBottomBorder"> Student Name</p1>
-        <p1 className = "smallerText header"> Number Incomplete Assessments: x/y<br></br>Current Grade: z%</p1>
-        <button onClick={() => navigate("Grade")} className="alignRight button3">
-            Sort by Type
-        </button>
-        <button onClick={() => navigate("/about")} className="alignRight button3">
-            Sort by Date
-        </button>
-        <div className="projectText">
-            <p1 className="tableTop bold">
-                Assessments:
-            </p1>
-            <PrintMiddleEntries
-                filteredData={assessmentList}
-            />
-            <div>
-                <button onClick={() => HandleAdd()} className="alignRight button2">
-                    Create New<br></br>Assignment
-                </button>
-            </div>
-        </div>
-        </body>
+      <div>
+        {props.assessmentList.map((directory) => (
+          <div
+            className="tableMid tableHover"
+            onClick={() => {
+              confirm("This goes to the assessment page for the student :)");
+              //navigate("")
+            }}
+          >
+            <p2 className="alignLeft bold">{directory.name}</p2>
+            <p3>
+              <br></br>Due: <PrintDate directoryDate={directory.dueDate} /> |
+              Attempts Remaining: <PrintAttemptsMade directory={directory} />/
+              {directory.attempts} | <PrintIfGraded directory={directory} />/
+              {directory.points} Points
+            </p3>
+          </div>
+        ))}
+      </div>
     );
+  }
 }
 
-function PrintMiddleEntries() {
-    const sampleList = ["Red and Blue", "Yellow", "Gold and Silver", "Crystal", "Ruby and Sapphire", "FireRed and LeafGreen", "Emerald", "Diamond and Pearl", "Platinum", "HeartGold and SoulSilver", "Black and White", "Black 2 and White 2", "X and Y", "Omega Ruby and Alpha Sapphire", "Sun and Moon", "Ultra Sun and Ultra Moon", "Let's Go, Pikachu! and Let's Go, Eevee!", "Sword and Shield", "The Isle of Armor (DLC)", "The Crown Tundra (DLC)", "Brilliant Diamond and Shining Pearl", "Legends: Arceus", "Scarlet and Violet", "The Teal Mask (DLC)", "The Indigo Disk (DLC)"]; // Can replace with database
-    const navigate = useNavigate();
-    return ( // TODO: Replace this stuff with a structure for assessmentList.name and it should work.
-        <div>
-            {sampleList.map(sampleList => (
-                <div className="tableMid tableHover" onClick={() => navigate("/about")}>
-                    <p2 className="alignLeft bold">{sampleList}</p2>
-                    <p3><br></br>Due: dueDate | attempts Attempts | -/points | [Not Yet Graded]</p3>
-                </div>
-            ))}
-        </div>
-    );
+function CompareByID(first, second) {
+  return first.id - second.id;
+}
+function CompareByName(first, second) {
+  return first.name.localeCompare(second.name);
 }
 
-function HandleAdd() {
-    // TODO: Call class to create new assessment - basically like the AddBuilding in Bootcamp 3.
+function CompareByDate(first, second) {
+  return first.dueDate.localeCompare(second.dueDate);
+}
+
+function PrintAttemptsMade({ directory }) {
+  let numAttempts = 0;
+  let numAttemptsMade = 0;
+  if (directory.attempts !== undefined) {
+    numAttempts = directory.attempts;
+  }
+  if (directory.attemptsMade !== undefined) {
+    numAttemptsMade = directory.attemptsMade;
+  }
+  return numAttempts - numAttemptsMade;
+}
+
+function PrintIfGraded(directory) {
+  if (directory.showGrades === true) {
+    return directory.grade;
+  } else {
+    return "-";
+  }
+}
+
+function PrintDate({ directoryDate }) {
+  return directoryDate.substring(0, directoryDate.indexOf("T"));
+}
+
+function CalculateGrade(assessmentList) {
+  let gradeTotal = 0;
+  let gradesExist = false;
+  let size = 0;
+  if (Array.isArray(assessmentList.assessmentList)) {
+    size = assessmentList.assessmentList.length;
+  }
+  for (let i = 0; i < size; i++) {
+    if (
+      assessmentList.assessmentList.at(i) !== undefined &&
+      assessmentList.assessmentList.at(i).showGrades &&
+      assessmentList.assessmentList.at(i).grade !== undefined
+    ) {
+      let thisGrade = assessmentList.assessmentList.at(i).grade;
+      gradeTotal = gradeTotal + thisGrade;
+      gradesExist = true;
+    }
+  }
+  if (gradesExist) {
+    return gradeTotal / size;
+  } else {
+    return "-";
+  }
+}
+
+function CalculateCompletedAssessments(assessmentList) {
+  let size = 0;
+  let completedAssessments = 0;
+  if (Array.isArray(assessmentList.assessmentList)) {
+    size = assessmentList.assessmentList.length;
+  }
+  for (let i = 0; i < size; i++) {
+    if (
+      assessmentList.assessmentList.at(i) !== undefined &&
+      assessmentList.assessmentList.at(i).attemptsMade !== undefined
+    ) {
+      if (assessmentList.assessmentList.at(i).attemptsMade !== 0) {
+        completedAssessments = completedAssessments + 1;
+      }
+    }
+  }
+  return size - completedAssessments;
 }
 
 export default StudentViewAssessments;

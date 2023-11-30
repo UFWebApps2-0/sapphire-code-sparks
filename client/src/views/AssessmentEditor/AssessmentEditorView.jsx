@@ -40,7 +40,9 @@ export default function AssessmentEditorView() {
         );
       } else {
         message.error(res.err);
-        navigate("/PageNotFound");
+        setAssessment({
+          name: "Assessment Not Found",
+        });
       }
     });
   }, [id]);
@@ -59,9 +61,22 @@ export default function AssessmentEditorView() {
             const res = confirm("Permanently delete this assessment?");
             if (res) {
               // IF we delete,
-              deleteAssessment(id);
-              message.success("Assessment Deleted");
-              navigate("/teacher-assessments");
+              const remove = async () => {
+                try {
+                  await deleteAssessment(id);
+                  return null;
+                } catch {
+                  return { err: "Failed to delete assessment" };
+                }
+              };
+              remove().then((res) => {
+                if (res) {
+                  message.error(res);
+                } else {
+                  message.success("Assessment Deleted");
+                  navigate("/teacher-assessments");
+                }
+              });
             }
           }}
         >

@@ -12,10 +12,10 @@ const AssignmentTitle = () => {
         </header>
     )
 }
+export default AssignmentTitle;
 
 
 
 
-export default AssignmentTitle
 
-    
+  

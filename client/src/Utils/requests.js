@@ -696,15 +696,15 @@ export const getAssessment = async (id) =>
 
 export const createAssessment = async () => {
   const curDate = new Date();
-  currentDate.setFullYear(currentDate.getFullYear() + 1000);
+  curDate.setFullYear(curDate.getFullYear() + 1000);
   return makeRequest({
     method: POST,
     path: `${server}/assessments`,
     data: {
       name: "New Assessment",
       attempts: 1,
-      points: 0.0,
-      questions: '{"questions: []"}',
+      points: 0,
+      questions: "[]",
       showGrades: false,
       publishDate: curDate.toJSON(),
       openDate: curDate.toJSON(),
