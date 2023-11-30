@@ -83,6 +83,7 @@ function TeacherViewAssessments() {
                   message.error(res.err);
                 }
               });
+              window.location.reload(false);
             }}
             className="alignRight button2"
           >

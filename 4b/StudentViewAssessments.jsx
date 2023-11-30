@@ -34,7 +34,7 @@ function StudentViewAssessments() {
       <p1 className="blackText header bold noBottomBorder"> Student Name</p1>
       <p1 className="smallerText header">
         {" "}
-        Number Incomplete Assessments:{" "}
+        Number Assessments Completed: {" "}
         <CalculateCompletedAssessments assessmentList={assessmentList} />/
         {assessmentList.length}
         <br></br>
@@ -187,7 +187,7 @@ function CalculateCompletedAssessments(assessmentList) {
       }
     }
   }
-  return size - completedAssessments;
+  return completedAssessments;
 }
 
 export default StudentViewAssessments;

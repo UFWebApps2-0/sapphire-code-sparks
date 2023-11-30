@@ -12,7 +12,7 @@ function GradeList ({data, filterText, assessID}){
         //TODO: Update Css to have button come after grade data
           <div className="tableMid">
             <p2 className="alignLeft bold">{grades.student}</p2>
-            <p3 className="alignRight">{grades.score}/<i>total</i></p3>
+            <p3 className="alignRight">{grades.score}/<i>Total</i></p3>
             <p3 className="alignRight">{grades.grade}%</p3>
             <button onClick={() => navigate("/student-response/"+assessID)} className="alignRight shortenTransform2 button3"> {/*not made yet, need more params?*/}
               Responses
@@ -20,6 +20,8 @@ function GradeList ({data, filterText, assessID}){
           </div>
         ))}
       </div>
+      <p1 className="invisible">.</p1>
+      <br></br>
       </main>
   );
 }
