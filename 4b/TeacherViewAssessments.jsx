@@ -118,11 +118,7 @@ function PrintMiddleEntries(props) {
           <div className="tableMid">
             <div className="alignLeft bold">
               {directory.name} <br></br>{" "}
-              <div className="noBold">
-                {" "}
-                Assigned: <PrintDate directoryDate={directory.openDate} /> |
-                Due: <PrintDate directoryDate={directory.dueDate} />
-              </div>
+              <DisplayAssignStatus directory={directory}/>
             </div>
             <button
               onClick={() => navigate("/assessment-preview/" + directory.id)}
@@ -149,6 +145,26 @@ function PrintMiddleEntries(props) {
         ))}
       </div>
     );
+  }
+}
+
+function DisplayAssignStatus({directory}) {
+  if (directory.openDate.substring(0, directory.openDate.indexOf("T")) > "3000") {
+    return (
+        <div className="noBold">
+          {" "}
+          Not yet assigned.
+        </div>
+    )
+  }
+  else {
+    return (
+        <div className="noBold">
+          {" "}
+          Assigned: <PrintDate directoryDate={directory.openDate} /> |
+          Due: <PrintDate directoryDate={directory.dueDate} />
+        </div>
+    )
   }
 }
 
