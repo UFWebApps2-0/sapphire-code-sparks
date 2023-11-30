@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Tabs, message } from "antd";
 
 import NavBar from "../../components/NavBar/NavBar";
-import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DisplayQuestion from "./DisplayQuestion";
 import Assessment from "../../Utils/AssessmentObj";
 import {
   getAssessment,
 } from "../../Utils/requests";
-
-const { TabPane } = Tabs;
 
 export default function DisplayQuestionView() {
     const [assessment, setAssessment] = useState(new Assessment());
@@ -66,8 +64,7 @@ export default function DisplayQuestionView() {
                 if (res) {
                 navigate("/teacher-assessments");
                 }
-            }}
-            >
+            }}>
             Leave
             </button>
           </div>
