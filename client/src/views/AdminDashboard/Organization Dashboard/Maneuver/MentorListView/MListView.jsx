@@ -5,6 +5,9 @@ import MModal from "./MModal"
 
 
 export default function DListView({data, handleDelete, showSchools}) {
+    // Had to add the columns in a heretical way to preserve the order
+    // Bare with me
+    
     const columns = [
         {
           title: 'Name',

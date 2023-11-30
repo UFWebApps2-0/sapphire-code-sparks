@@ -139,8 +139,8 @@ export default function OrganizationDashboard() {
                     </div>
                     <div id='add-org-button'> 
                         <OrganizationCreator
-                        admins = {admin}
-                        refreshOrganizations = {fetchAndSetOrganizations}
+                            admins={admin}
+                            refreshOrganizations={fetchAndSetOrganizations}
                         />
                     </div>
                 </div>
@@ -160,9 +160,11 @@ export default function OrganizationDashboard() {
                             </div>
                         <div id='card-right-content-container'>
                         <div id='mentor-number-container'>
+
+                        {/* I may have accidentally removed something I wasn't supposed to from what Tyler added here */}
                         <p id='label'></p>
                             <h1 id='number'>{organization.totalMentors}</h1>
-                            <p id='label'>Teachers</p>
+                            <p id='label'>Mentors</p>
                         </div>
                         <div id='divider' />
                         <div id='school-number-container'>

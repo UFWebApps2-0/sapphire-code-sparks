@@ -37,7 +37,7 @@
       "path": "/students",
       "handler": "student.create",
       "config": {
-        "policies": ["global::isClassroomManager", "global::hasClassroom"]
+        "policies": []
       }
     },
     {
@@ -45,7 +45,7 @@
       "path": "/students/:id",
       "handler": "student.update",
       "config": {
-        "policies": ["global::isClassroomManager", "global::hasStudentsClassroom"]
+        "policies": []
       }
     },
     {

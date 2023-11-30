@@ -42,6 +42,58 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
   return { data: res, err: err };
 };
 
+export const deleteSchool = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/schools/${id}`,
+    auth: true,
+    error: 'Failed to delete classroom.',
+  });
+
+export const createClassroom = async (name, school, grade) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/classrooms/`,
+    data: {
+      name,
+      school,
+      grade
+    },
+    auth: true,
+    error: 'Failed to create new classroom.',
+  });
+
+export const createSchool = async (name, state, county, organization) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/schools/`,
+    data: {
+      name,
+      state,
+      county,
+      organization
+    },
+    auth: true,
+    error: 'Failed to create new school.',
+  });
+
+export const deleteClassroom = async (id) =>
+makeRequest({
+  method: DELETE,
+  path: `${server}/classrooms/${id}`,
+  auth: true,
+  error: 'Failed to create new classroom.',
+});
+
+export const updateClassroom = async (id, classroom) => 
+  makeRequest({
+    method: PUT,
+    path: `${server}/classrooms/${id}`,
+    data: classroom,
+    auth: true,
+    error: 'Failed to update classroom.',
+  });
+
 export const getSchool = async (id) =>
   makeRequest({
     method: GET,
@@ -80,6 +132,14 @@ export const getModRecord = async (id) =>
     error: 'Moderation Record information could not be retrieved',
   });
 
+export const getSchools = async () => 
+  makeRequest({
+    method: GET,
+    path: `${server}/schools`,
+    auth: true,
+    error: 'Moderation Record information could not be retrieved',
+  });
+
 export const getModRecordCount = async () =>
   makeRequest({
     method: GET,
@@ -87,11 +147,28 @@ export const getModRecordCount = async () =>
     auth: true,
     error: 'Moderation Record Count information could not be retrieved',
   });  
+  
 // Retrieves the user from the session's token (I think)
 export const getUser = async () =>
   makeRequest({
     method: GET,
     path: `${server}/users/me`,
+    auth: true,
+    error: 'Your user information could not be fetched.'
+  })
+
+export const getUsers = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/users`,
+    auth: true,
+    error: 'Your user information could not be fetched.'
+  })
+
+export const getMentors = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/mentors`,
     auth: true,
     error: 'Your user information could not be fetched.'
   })
@@ -379,6 +456,32 @@ export const addStudent = async (name, character, classroom) =>
     },
     auth: true,
     error: 'Failed to add student.',
+  });
+
+export const addMentor = async (first_name, last_name, school, user, classrooms) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/mentors`,
+    data: {
+      first_name,
+      last_name,
+      school,
+      user,
+      classrooms
+    },
+    auth: true,
+    error: 'Failed to add student.',
+  });
+
+export const updateMentor = async (id, mentor) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/mentors/${id}`,
+    data: {
+      ...mentor
+    },
+    auth: true,
+    error: 'Failed to update mentor.',
   });
 
 export const addStudents = async (students, classroom) =>

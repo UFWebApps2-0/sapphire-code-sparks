@@ -1,8 +1,11 @@
 import { AddSVG } from "../../../../assets/SVG"
+import SchoolCreator from "../SchoolCreator/SchoolCreator";
 
 const ALL = -1;
 
+
 export default function OSchools(props) {
+
     return (
         <div id='schools-wrapper'>
             {
@@ -12,7 +15,12 @@ export default function OSchools(props) {
                             <h1>{props.organizationName} Schools</h1>
                         </div>
                         <div id='home-content-container'>
-                            <button id='add-school-btn'><AddSVG/> Add New School</button>
+                            {/* Add School Button */}
+                            <SchoolCreator
+                                organizationID={props.organizationID}
+                                organizationName={props.organizationName}
+                                load={props.load}
+                            />  
                             
                             {/* Container for the School-Cards */}
                             <div id='school-card-container'>
@@ -20,7 +28,7 @@ export default function OSchools(props) {
                                 {/* Card for "All Schools" */}
                                 <div 
                                     className='school-card' 
-                                    onClick={() => props.selectSchool(ALL)}
+                                    onClick={() => props.selectSchool(ALL, ALL)}
                                 >
                                     <h2>All Schools</h2>
                                 </div>
@@ -31,7 +39,7 @@ export default function OSchools(props) {
                                         <div 
                                             key={school.id} 
                                             className='school-card' 
-                                            onClick={() => props.selectSchool(school.id)}
+                                            onClick={() => props.selectSchool(school.id, ALL)}
                                         >
                                             <h2>{school.name}</h2>
                                         </div>

@@ -60,6 +60,26 @@ const App = () => {
             </PrivateRoute>
           }
         />
+
+        {/* Viewing an Organization Route */}
+        <Route 
+          path='/organization/:id/:sID' 
+          element={
+            <PrivateRoute>
+              <Organization />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Viewing an Organization Route */}
+        <Route 
+          path='/organization/:id/:sID/:cID' 
+          element={
+            <PrivateRoute>
+              <Organization />
+            </PrivateRoute>
+          }
+        />
         
         {/* Pre-Existing Routes */}
         

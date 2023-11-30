@@ -1,19 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useGlobalState } from "../../../Utils/userState";
-import { useNavigate } from 'react-router-dom';
 import { useSearchParams, useParams } from 'react-router-dom';
 import NavBar from '../../../components/NavBar/NavBar';
 import OrganizationHome from "./OrganizationHome";
 import OrganizationClassroomManagement from "./ClassroomManagement/OrganizationClassroomManagement";
 import OrganizationModeration from "./OrganizationModeration";
 import { Tabs } from 'antd';
-import { getOrganization, deleteOrganization } from "../../../Utils/requests";
-import { TrashSVG } from "../../../assets/SVG";
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import { getOrganization } from "../../../Utils/requests";
 import './Organization.less';
 import Gallery from "./Gallery"
+
 
 const { TabPane } = Tabs;
 
@@ -27,17 +23,11 @@ export default function Organization() {
     // Tabbing
     const [searchParams, setSearchParams] = useSearchParams();
     const tab = searchParams.get('tab');
-    
-    // Navigation
-    const navigate = useNavigate();
 
-    //Handles Organization Deletion
-    const handleDelete = (organizationId) => {
-        deleteOrganization(organizationId);
-        navigate('/organization-dashboard');
-    }
 
-    // Load Organization's Data (necessary for deletion popup message)
+    // Load Organization's Data
+    // Necessary for Deletion Popup Message
+    // Question: Can other administrator's access the organizations of other admin's via the URL parameters?
     useEffect(() => {
         getOrganization(id)
             .then((res) => {
@@ -56,7 +46,6 @@ export default function Organization() {
                 defaultActiveKey={tab ? tab : 'home'}
                 onChange={(key) => setSearchParams({ tab: key })}
             >
-
                 {/* Organization Home */}
                 <TabPane tab='Home' key='home'>
                     <OrganizationHome
@@ -74,18 +63,15 @@ export default function Organization() {
                 {/* Organization Moderation */}
                 <TabPane tab='Moderation' key='moderation'>
                     <OrganizationModeration
-                        organizationId={parseInt(id)}
+                        organizationId={parseInt(id)} 
                     />
                 </TabPane>
 
                 {/* Gallery */}
                 <TabPane tab='Gallery' key='gallery'>
-                    <Gallery
-                    />
+                    <Gallery/>
                 </TabPane>
-
             </Tabs>
-
         </div>
     )
 }
