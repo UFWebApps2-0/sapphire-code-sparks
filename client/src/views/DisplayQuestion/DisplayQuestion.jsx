@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./QuestionFormStyle.css";
+import "./QuestionFormStyles.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 
