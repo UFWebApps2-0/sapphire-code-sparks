@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Question from "./QuestionObj";
 import "./QuestionFormStyles.css";
+
 class QuestionForm extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,7 @@ class QuestionForm extends Component {
           points: 0.0,
           prompt: "",
           promptImage: "",
-          choices: [{ text: "", isCorrect: false }]
+          choices: [{ text: "", isCorrect: false }],
         };
   };
 
@@ -24,32 +25,29 @@ class QuestionForm extends Component {
   };
 
   handleChoiceChange = (index, key, value) => {
-    let choices = [...this.state.choices];
+    let updatedChoices = [...this.state.choices];
 
     if (
-      (this.state.type === "dropDown" ||
-        this.state.type === "multipleChoice") &&
+      (this.state.type === "multipleChoice" ||
+        this.state.type === "dropdown") &&
       key === "isCorrect"
     ) {
-      // For dropdown, ensure only one choice is marked as correct
-      choices = choices.map((choice, idx) => ({
+      updatedChoices = updatedChoices.map((choice, idx) => ({
         ...choice,
-        isCorrect: idx === index ? value : false
+        isCorrect: idx === index ? value : false,
       }));
     } else {
-      // For other types, update normally
-      choices[index] = { ...choices[index], [key]: value };
+      updatedChoices[index] = { ...updatedChoices[index], [key]: value };
     }
 
-    this.setState({ choices });
+    this.setState({ choices: updatedChoices });
   };
 
   handleAddChoice = () => {
     this.setState((prevState) => ({
-      choices: [...prevState.choices, { text: "", isCorrect: false }]
+      choices: [...prevState.choices, { text: "", isCorrect: false }],
     }));
   };
-
   handleRemoveChoice = (index) => {
     const choices = this.state.choices.filter((_, i) => i !== index);
     this.setState({ choices });
@@ -63,185 +61,135 @@ class QuestionForm extends Component {
   };
 
   renderChoices = () => {
-    const { type, choices } = this.state;
-    switch (type) {
-      case "multipleChoice":
-        return (
-          <div>
-            {choices.map((choice, index) => (
-              <div key={index}>
-                <input
-                  type="text"
-                  value={choice.text}
-                  onChange={(e) =>
-                    this.handleChoiceChange(index, "text", e.target.value)
-                  }
-                />
-                <input
-                  type="radio"
-                  name="isCorrect"
-                  checked={choice.isCorrect}
-                  onChange={(e) =>
-                    this.handleChoiceChange(
-                      index,
-                      "isCorrect",
-                      e.target.checked
-                    )
-                  }
-                />
-                <button
-                  type="button"
-                  onClick={() => this.handleRemoveChoice(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button type="button" onClick={this.handleAddChoice}>
-              Add Choice
+    return (
+      <div>
+        {this.state.choices.map((choice, index) => (
+          <div key={index}>
+            <input
+              type="text"
+              value={choice.text}
+              onChange={(e) =>
+                this.handleChoiceChange(index, "text", e.target.value)
+              }
+            />
+            {(this.state.type === "multipleChoice" ||
+              this.state.type === "dropdown") && (
+              <input
+                type="radio"
+                name="correctChoice"
+                checked={choice.isCorrect}
+                onChange={(e) =>
+                  this.handleChoiceChange(index, "isCorrect", e.target.checked)
+                }
+              />
+            )}
+            {this.state.type === "multiSelect" && (
+              <input
+                type="checkbox"
+                checked={choice.isCorrect}
+                onChange={(e) =>
+                  this.handleChoiceChange(index, "isCorrect", e.target.checked)
+                }
+              />
+            )}
+            <button
+              type="button"
+              onClick={() => this.handleRemoveChoice(index)}
+            >
+              Remove
             </button>
           </div>
-        );
-      case "multiSelect":
-        return (
-          <div>
-            {choices.map((choice, index) => (
-              <div key={index}>
-                <input
-                  type="text"
-                  value={choice.text}
-                  onChange={(e) =>
-                    this.handleChoiceChange(index, "text", e.target.value)
-                  }
-                />
-                <input
-                  type="checkbox"
-                  checked={choice.isCorrect}
-                  onChange={(e) =>
-                    this.handleChoiceChange(
-                      index,
-                      "isCorrect",
-                      e.target.checked
-                    )
-                  }
-                />
-                <button
-                  type="button"
-                  onClick={() => this.handleRemoveChoice(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button type="button" onClick={this.handleAddChoice}>
-              Add Choice
-            </button>
-          </div>
-        );
-      case "dropDown":
-        return (
-          <div>
-            {choices.map((choice, index) => (
-              <div key={index}>
-                <input
-                  type="text"
-                  value={choice.text}
-                  onChange={(e) =>
-                    this.handleChoiceChange(index, "text", e.target.value)
-                  }
-                />
-                <input
-                  type="radio"
-                  name="correctChoice"
-                  checked={choice.isCorrect}
-                  onChange={(e) =>
-                    this.handleChoiceChange(
-                      index,
-                      "isCorrect",
-                      e.target.checked
-                    )
-                  }
-                />
-                <button
-                  type="button"
-                  onClick={() => this.handleRemoveChoice(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button type="button" onClick={this.handleAddChoice}>
-              Add Choice
-            </button>
-          </div>
-        );
-      default:
-        return null;
-    }
+        ))}
+        <button type="button" onClick={this.handleAddChoice}>
+          Add Choice
+        </button>
+      </div>
+    );
   };
 
   render() {
+    const { currentQuestionIndex, totalQuestions } = this.props;
+
     return (
-      <div className="card">
-        <form
-          onSubmit={this.handleSubmit}
-          className="flex-container flex-column"
-        >
-          <div className="form-section">
-            <label>Question Type:</label>
-            <select
-              name="type"
-              value={this.state.type}
-              onChange={this.handleChange}
-              className="form-control"
-            >
-              {Question.TYPES.map((type, index) => (
-                <option key={index} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
+      <div className="container my-5">
+        <div className="card">
+          <div className="card-header">
+            Question {currentQuestionIndex} of {totalQuestions}
           </div>
-          <div className="form-section">
-            <label>Points:</label>
-            <input
-              type="number"
-              name="points"
-              value={this.state.points}
-              onChange={this.handleChange}
-              className="form-control"
-            />
+          <div className="card-body">
+            <form onSubmit={this.handleSubmit} className="form">
+              <div className="mb-3">
+                <label htmlFor="questionType" className="form-label">
+                  Question Type:
+                </label>
+                <select
+                  id="questionType"
+                  name="type"
+                  value={this.state.type}
+                  onChange={this.handleChange}
+                  className="form-select"
+                >
+                  {Question.TYPES.map((type, index) => (
+                    <option key={index} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="points" className="form-label">
+                  Points:
+                </label>
+                <input
+                  id="points"
+                  type="number"
+                  name="points"
+                  value={this.state.points}
+                  onChange={this.handleChange}
+                  className="form-control"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="prompt" className="form-label">
+                  Prompt:
+                </label>
+                <input
+                  id="prompt"
+                  type="text"
+                  name="prompt"
+                  value={this.state.prompt}
+                  onChange={this.handleChange}
+                  className="form-control"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="promptImage" className="form-label">
+                  Image URL:
+                </label>
+                <input
+                  id="promptImage"
+                  type="text"
+                  name="promptImage"
+                  value={this.state.promptImage}
+                  onChange={this.handleChange}
+                  className="form-control"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Choices:</label>
+                {this.renderChoices()}
+              </div>
+
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </form>
           </div>
-          <div className="form-section">
-            <label>Prompt:</label>
-            <input
-              type="text"
-              name="prompt"
-              value={this.state.prompt}
-              onChange={this.handleChange}
-              className="form-control"
-            />
-          </div>
-          <div className="form-section">
-            <label>Image URL:</label>
-            <input
-              type="text"
-              name="promptImage"
-              value={this.state.promptImage}
-              onChange={this.handleChange}
-              className="form-control"
-            />
-          </div>
-          <div className="form-section">
-            <label>Choices:</label>
-            {this.renderChoices()}
-          </div>
-          <div className="form-section">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     );
   }
