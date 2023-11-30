@@ -6,6 +6,7 @@ import {
   updateLessonModule,
   getLessonHistories,
   getLessonHistory,
+  createLessonHistory,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
@@ -32,10 +33,10 @@ export default function LessonEditor({
 
   // Show Revert modal if button clicked
   const showRevertModal = async () => {
-    const histories = await getLessonHistories();
+    const histories = await getLessonHistories(learningStandard.id);
     
-    if (Array.isArray(histories.data)) {
-      setLessonHistories(histories.data);
+    if (histories.data) {
+      setLessonHistories(histories.data.lesson_histories);
 
       if (!Array.isArray(lessonHistories))
       {
@@ -106,9 +107,24 @@ export default function LessonEditor({
       standards,
       link
     )
+
+    const res = await getLessonModule(learningStandard.id)
+
+    const responseHistory = await createLessonHistory(
+      description,
+      name,
+      res.data.number,
+      res.data.unit,
+      standards,
+      link
+    )
     if (response.err) {
       message.error("Fail to update lesson")
-    } else {
+    } 
+    else if (responseHistory.err) {
+      message.error("Failed to update version history")
+    }
+    else {
       message.success("Update lesson success")
       setDisplayName(name)
       setSearchParams({ tab, page, activity: response.data.id })

@@ -39,7 +39,7 @@
     },
     "lesson_module": {
       "model": "lesson-module",
-      "via": "lesson_history"
+      "via": "lesson_histories"
     }
   }
 }
