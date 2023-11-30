@@ -1,58 +1,92 @@
-import Question from "../../Utils/QuestionObj";
-import React from "react";
-import QuestionList from "../../../../4b/QuestionList";
+import Question from "./QuestionObj";
+import React, { useState } from "react";
+import QuestionList from "./QuestionList";
+import QuestionForm from "./QuestionForm";
+import "./QuestionFormStyles.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-function AssessmentEditor({ data, setData, onSave }) {
-  // Assessment is the object, and onSave is the function to update the assessment in database.
-  //const [data, setData] = React.useState(assessment);
-  const [curQ, setCurQ] = React.useState(new Question());
-  const [showAdder, setShowAdder] = React.useState(false);
+function AssessmentEditor({ assessment, onSave }) {
+  const [assessmentData, setAssessmentData] = useState(
+    assessment || {
+      name: "",
+      openDate: "",
+      dueDate: "",
+      timeLimit: "",
+      attempts: "",
+      questions: [],
+      showGrades: false,
+    },
+  );
+  const [showQuestionForm, setShowQuestionForm] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
 
-  function addQ(question = null) {
-    setData((prevData) => {
-      prevData.addQuestion(question);
-      return { prevData };
-    });
-  }
-  function removeQ(id) {
-    if (id) {
-      setData({
-        ...data,
-        questions: data.questions.splice(id, 1),
-      });
+  const addOrUpdateQuestion = (question) => {
+    let updatedQuestions = [...assessmentData.questions];
+
+    if (currentQuestionIndex !== null) {
+      updatedQuestions[currentQuestionIndex] = question;
+    } else {
+      updatedQuestions.push(question);
     }
-  }
+
+    setAssessmentData({ ...assessmentData, questions: updatedQuestions });
+    setShowQuestionForm(false);
+    setCurrentQuestionIndex(null);
+  };
+
+  const removeQuestion = (index) => {
+    const updatedQuestions = assessmentData.questions.filter(
+      (_, i) => i !== index,
+    );
+    setAssessmentData({ ...assessmentData, questions: updatedQuestions });
+  };
+
+  const editQuestion = (index) => {
+    setCurrentQuestionIndex(index);
+    setShowQuestionForm(true);
+  };
   return (
     <>
       <div className="group">
-        {
-          // TODO: Set this to display new question creator screen.
-          showAdder ? (
-            // Absolute position and zIndex make it appear as a popup in front of everything else.
-            <div
-              className="modal"
-              style={{ position: "absolute", zIndex: 99999 }}
-            >
-              <div className="modal_content">
-                {/* This shows question editor 
-              <QuestionEditor question={new Question()} submit={(q) => {setShowAdder(!showAdder); addQ(q)}} />*/}
-              </div>
+        {/* Form for the assessment details */}
+        {/* ... */}
+        {showQuestionForm && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <QuestionForm
+                addOrUpdateQuestion={addOrUpdateQuestion}
+                question={
+                  currentQuestionIndex !== null
+                    ? assessmentData.questions[currentQuestionIndex]
+                    : new Question()
+                }
+                closeForm={() => {
+                  setCurrentQuestionIndex(null);
+                  setShowQuestionForm(false);
+                }}
+              />
+              <button
+                className="btn btn-danger"
+                onClick={() => setShowQuestionForm(false)}
+              >
+                Close
+              </button>
             </div>
-          ) : (
-            <></>
-          )
-        }
+          </div>
+        )}
+
         <form className="group g-3">
           <div className="row">
             <div className="form-group">
               <label className="form-label">Assessment Name:&nbsp;</label>
               <input
                 type="text"
-                value={`${data.name}`}
+                value={assessmentData.name || ""} // Use 'assessmentData' instead of 'data'
                 className="form-control"
                 placeholder="Enter Assessment Name Here"
-                onChange={(e) => setData({ ...data, name: e.target.value })}
+                onChange={(e) =>
+                  setAssessmentData({ ...assessmentData, name: e.target.value })
+                }
                 pattern="^[a-zA-Z0-9 _.\-]*$"
               />
             </div>
@@ -62,7 +96,7 @@ function AssessmentEditor({ data, setData, onSave }) {
                 <input
                   type="datetime-local"
                   className="form-control"
-                  value={data.openDate}
+                  value={assessmentData.openDate}
                   onChange={(e) => {
                     setData({ ...data, openDate: e.target.value });
                   }}
@@ -75,7 +109,7 @@ function AssessmentEditor({ data, setData, onSave }) {
                 <input
                   type="datetime-local"
                   className="form-control"
-                  value={data.dueDate}
+                  value={assessmentData.dueDate}
                   onChange={(e) => {
                     setData({ ...data, dueDate: e.target.value });
                   }}
@@ -91,7 +125,7 @@ function AssessmentEditor({ data, setData, onSave }) {
                 <input
                   type="number"
                   className="form-control"
-                  value={data.timeLimit}
+                  value={assessmentData.timeLimit}
                   min="0"
                   max="20000000000"
                   onChange={(e) => {
@@ -107,7 +141,7 @@ function AssessmentEditor({ data, setData, onSave }) {
                 <input
                   type="number"
                   className="form-control"
-                  value={data.attempts}
+                  value={assessmentData.attempts}
                   min="1"
                   max="999"
                   onChange={(e) => {
@@ -125,7 +159,7 @@ function AssessmentEditor({ data, setData, onSave }) {
 
               <input
                 type="checkbox"
-                value={!data.showGrades}
+                value={!assessmentData.showGrades}
                 onChange={(e) => {
                   setData({ ...data, showGrades: !e.target.checked });
                 }}
@@ -137,16 +171,14 @@ function AssessmentEditor({ data, setData, onSave }) {
           <main>
             <div className="group">
               <h1 style={{ marginBottom: 0 }}>
-                Questions: {data.questions.length}
+                Questions: {assessmentData.questions.length}
               </h1>
-              <h3>Points: {data.points}</h3>
+              <h3>Points: {assessmentData.points}</h3>
               <button
                 className="btn btn-secondary"
                 style={{ margin: "1rem", marginBottom: "0" }}
                 onClick={() => {
-                  //setShowAdder(!showAdder);
-                  alert("This should show adder");
-                  setCurQ(new Question());
+                  setShowQuestionForm(true);
                 }}
               >
                 Add New Question
@@ -158,18 +190,9 @@ function AssessmentEditor({ data, setData, onSave }) {
                 <div className="col-auto">
                   {/** Show questions here */}
                   <QuestionList
-                    data={data.questions}
-                    updateSelect={(q) => {
-                      setCurQ(q);
-                      setShowAdder(!showAdder);
-                    }}
-                    onDelete={() => {
-                      const res = confirm("Permanently delete this question?");
-                      if (res) {
-                        // IF we delete,
-                        message.success("Question Deleted");
-                      }
-                    }}
+                    data={assessmentData.questions}
+                    updateSelect={editQuestion} // Pass the index to editQuestion
+                    onDelete={removeQuestion}
                   />
                 </div>
               </div>
