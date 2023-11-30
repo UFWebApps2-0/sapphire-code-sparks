@@ -24,6 +24,7 @@ import TeacherLogin from "./views/TeacherLogin/TeacherLogin";
 import TeacherViewAssessments from "../../4b/TeacherViewAssessments";
 import SpecificAssessmentPreview from '../../4b/SpecificAssessmentPreview';
 import GradePreview from "../../4b/GradePreview";
+import DisplayQuestionView from "./views/DisplayQuestion/DisplayQuestionView";
 
 
 const App = () => {
@@ -61,7 +62,13 @@ const App = () => {
             // change to private route later.
           }
         />
-
+        <Route
+          path="/teacher-assessments/display/:id"
+          element={
+            <DisplayQuestionView />
+            // change to private route later.
+          }
+        />
         <Route
             path='/student-assessments'
             element={
