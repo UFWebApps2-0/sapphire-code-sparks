@@ -614,7 +614,7 @@ export const getAuthorizedWorkspaces = async () =>
     method: GET,
     path: `${server}/authorized-workspaces`,
     auth: true,
-    error: 'Unable to retrieve cc worksapces',
+    error: 'Unable to retrive cc worksapces',
   });
 
 export const getAuthorizedWorkspace = async (id) =>
@@ -622,7 +622,7 @@ export const getAuthorizedWorkspace = async (id) =>
     method: GET,
     path: `${server}/authorized-workspaces/${id}`,
     auth: true,
-    error: 'Unable to retrieve cc workspace',
+    error: 'Unable to retrive cc workspace',
   });
 
 export const createAuthorizedWorkspace = async (
@@ -677,47 +677,5 @@ export const getClassroomWorkspace = async (id) =>
     method: GET,
     path: `${server}/classroom/workspaces/${id}`,
     auth: true,
-    error: 'Unable to retrieve classroom workspaces',
+    error: 'Unable to retrive classroom workspaces',
   });
-
-export const getVideoLink = async (id) =>
-  makeRequest({
-    method: GET,
-    path: `${server}/url-storages?_q=${id}`,
-    auth: true,
-    error: 'Unable to retrieve video link'
-  });
-
-export const deleteVideoLink = async (id) =>
-  makeRequest({
-    method: DELETE,
-    path: `${server}/url-storages/${id}`,
-    auth: true,
-    error: 'Unable to delete video'
-  });
-
-export const inputVideoEntry = async (videoURL, activityName) => 
-  makeRequest({
-    method: POST,
-    path: `${server}/url-storages`,
-    data: {
-      URL: videoURL,
-      name: activityName,
-    },
-    auth: true,
-    error: 'Failed to create video entry.',
-  });
-//NEW VIDEO CREATOR!!!
-export const uploadVideo = async (title, url, description,) =>
-makeRequest({
-  method: POST,
-  path: `${server}/url-storages`,
-  data: {
-    name : title, 
-    URL : url, 
-    inGallery : description,
-
-  },
-  auth: true,
-  error: 'Failed to save your workspace.',
-});

@@ -1,15 +1,13 @@
 import { Modal, Button } from 'antd';
 import React, { useState, useRef } from "react";
 import './Gallery.less'
-import { uploadVideo } from '../../../../Utils/requests';
-import { message } from 'antd';
 
 
 export default function DisplayCodeModal(props) {
     const [visible, setVisible] = useState(false);
     const { code } = props;
     const inputFile = useRef(null)
-
+    
 
     const showModal = () => {
         setVisible(true)
@@ -24,27 +22,8 @@ export default function DisplayCodeModal(props) {
     };
 
     const onButtonClick = () => {
-
+        
         inputFile.current.click();
-    };
-
-    const [formData, setFormData] = useState({
-        title: "",
-        url: "",
-        description: "",
-    });
-    const onSubmit = (e) => {
-        e.preventDefault();
-        // do something with the form data
-        const { title, url, description } = formData;
-        uploadVideo(title, url, description);
-        setFormData({
-            title: "",
-            url: "",
-            description: "",
-        });
-        message.success("Success!");
-        //console.log("Good");
     };
 
     return (
@@ -57,33 +36,20 @@ export default function DisplayCodeModal(props) {
                 width='90vw'
 
                 footer={[
-
+                    <Button key="ok" type="primary" onClick={handleOk}>
+                        Upload
+                    </Button>,
                 ]}
             >
-
-                <form onSubmit={onSubmit} >
-                    <button
-                        key="ok"
-                        type="submit"
-                        onClick={handleOk}
-                        style={{
-                            position: 'fixed',
-                            bottom: 60,
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                        }}
-                    >
-                        Upload
-                    </button>
-
+                <form>
                     <input
                         type="text"
-                        name="name"
-                        value={formData.title}
-                        onChange={(e) => {
-                            console.log(formData); 
-                            setFormData({ ...formData, title: e.target.value });
+                        value={name}
+                        onChange={e => {
+                            setName(e.target.value)
                         }}
+                        id="name"
+                        name="name"
                         placeholder="Title"
                         className='add-gallery-form-title'
                     />
@@ -92,8 +58,11 @@ export default function DisplayCodeModal(props) {
 
                 <input
                     type="text"
-                    value={formData.url}
-                    onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+                    value={name}
+                    onChange={e => {
+                        setName(e.target.value)
+                    }}
+                    id="name"
                     name="name"
                     placeholder="Video URL"
                     className='add-gallery-form-url'
@@ -101,12 +70,17 @@ export default function DisplayCodeModal(props) {
                 &nbsp;
                 <input
                     type="text"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    value={name}
+                    onChange={e => {
+                        setName(e.target.value)
+                    }}
+                    id="name"
                     name="name"
                     placeholder="Description"
                     className='add-gallery-form-description'
-                />  
+                />
+                <input type='file' id='file' ref={inputFile} style={{ display: 'none' }} />
+                <button className = 'upload-file-button' onClick={onButtonClick}>Upload Video File</button>
 
 
             </Modal>
