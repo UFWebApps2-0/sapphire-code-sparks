@@ -32,6 +32,10 @@
     },
     "last_logged_in": {
       "type": "datetime"
+    },
+    "projects": {
+      "via": "student",
+      "collection": "project"
     }
   }
 }

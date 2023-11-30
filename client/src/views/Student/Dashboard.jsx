@@ -16,6 +16,7 @@ export default function Dashboard(){
             const res = await getStudentName();
             if (res.data) {
             if (res.data.students) {
+                console.log(res.data);
                 setCurrentStudent(res.data.students[0].name);
             }
             } else {
