@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./QuestionFormStyle.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 
 class DisplayQuestion extends Component {
