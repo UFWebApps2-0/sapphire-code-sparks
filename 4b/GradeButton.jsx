@@ -16,8 +16,7 @@ const doThing = () => {
 }
 
 const GradeButton = () => {
-    return (
-                
+    return (             
                     <button onSubmit = {doThing}>Grade</button>
                 
     )
@@ -26,4 +25,4 @@ const GradeButton = () => {
 
 
 
-export default GradeButton
+export default GradeButton;

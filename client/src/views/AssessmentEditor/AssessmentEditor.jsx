@@ -1,55 +1,97 @@
-import Question from "../../Utils/QuestionObj";
-import React from "react";
-import QuestionList from "../../../../4b/QuestionList";
+import Question from "../../utils/QuestionObj";
+import React, { useState } from "react";
+import QuestionList from "./QuestionList";
+import QuestionForm from "./QuestionForm";
 import "bootstrap/dist/css/bootstrap.css";
 
 function AssessmentEditor({ data, setData, onSave }) {
-  // Assessment is the object, and onSave is the function to update the assessment in database.
-  //const [data, setData] = React.useState(assessment);
-  const [curQ, setCurQ] = React.useState(new Question());
-  const [showAdder, setShowAdder] = React.useState(false);
+  const [showQuestionForm, setShowQuestionForm] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
 
-  function addQ(question = null) {
-    setData((prevData) => {
-      prevData.addQuestion(question);
-      return { prevData };
-    });
-  }
-  function removeQ(id) {
-    if (id) {
-      setData({
-        ...data,
-        questions: data.questions.splice(id, 1),
-      });
+  const addOrUpdateQuestion = (question) => {
+    let updatedQuestions = [...data.questions];
+    let pts = data.points;
+    if (currentQuestionIndex !== null) {
+      pts -= updatedQuestions[currentQuestionIndex].points;
+      updatedQuestions[currentQuestionIndex] = question;
+    } else {
+      updatedQuestions.push(question);
     }
-  }
+    pts += question.points;
+
+    setData({ ...data, questions: updatedQuestions, points: pts });
+    setShowQuestionForm(false);
+    setCurrentQuestionIndex(null);
+  };
+
+  const removeQuestion = (index) => {
+    const updatedQuestions = data.questions.filter((_, i) => i !== index);
+    let pts = 0;
+    for (let i = 0; i < updatedQuestions.length; i++) {
+      pts += updatedQuestions[i].points;
+    }
+    setData({ ...data, questions: updatedQuestions, points: pts });
+  };
+
+  const editQuestion = (index) => {
+    setCurrentQuestionIndex(index);
+    setShowQuestionForm(true);
+  };
   return (
     <>
-      <div className="group">
-        {
-          // TODO: Set this to display new question creator screen.
-          showAdder ? (
-            // Absolute position and zIndex make it appear as a popup in front of everything else.
-            <div
-              className="modal"
-              style={{ position: "absolute", zIndex: 99999 }}
-            >
-              <div className="modal_content">
-                {/* This shows question editor 
-              <QuestionEditor question={new Question()} submit={(q) => {setShowAdder(!showAdder); addQ(q)}} />*/}
+      {showQuestionForm && (
+        <div
+          style={{ display: "block", background: "rgba(50, 50, 50, 0.7)" }}
+          className="modal show"
+          tabindex="-1"
+          role="dialog"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header" role="document">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Question Editor
+                </h5>
+                <button
+                  type="button"
+                  style={{
+                    transform: "translate(0%, 0%)",
+                  }}
+                  onClick={() => {
+                    setCurrentQuestionIndex(null);
+                    setShowQuestionForm(false);
+                  }}
+                  className="close btn"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
+              <QuestionForm
+                addOrUpdateQuestion={addOrUpdateQuestion}
+                question={
+                  currentQuestionIndex !== null
+                    ? data.questions[currentQuestionIndex]
+                    : new Question()
+                }
+                closeForm={() => {
+                  setCurrentQuestionIndex(null);
+                  setShowQuestionForm(false);
+                }}
+              />
             </div>
-          ) : (
-            <></>
-          )
-        }
+          </div>
+        </div>
+      )}
+      <div className="group">
         <form className="group g-3">
           <div className="row">
             <div className="form-group">
               <label className="form-label">Assessment Name:&nbsp;</label>
               <input
                 type="text"
-                value={`${data.name}`}
+                value={data.name || ""}
                 className="form-control"
                 placeholder="Enter Assessment Name Here"
                 onChange={(e) => setData({ ...data, name: e.target.value })}
@@ -140,13 +182,13 @@ function AssessmentEditor({ data, setData, onSave }) {
                 Questions: {data.questions.length}
               </h1>
               <h3>Points: {data.points}</h3>
+
               <button
                 className="btn btn-secondary"
                 style={{ margin: "1rem", marginBottom: "0" }}
                 onClick={() => {
-                  //setShowAdder(!showAdder);
-                  alert("This should show adder");
-                  setCurQ(new Question());
+                  setCurrentQuestionIndex(null);
+                  setShowQuestionForm(true);
                 }}
               >
                 Add New Question
@@ -159,17 +201,8 @@ function AssessmentEditor({ data, setData, onSave }) {
                   {/** Show questions here */}
                   <QuestionList
                     data={data.questions}
-                    updateSelect={(q) => {
-                      setCurQ(q);
-                      setShowAdder(!showAdder);
-                    }}
-                    onDelete={() => {
-                      const res = confirm("Permanently delete this question?");
-                      if (res) {
-                        // IF we delete,
-                        message.success("Question Deleted");
-                      }
-                    }}
+                    updateSelect={editQuestion} // Pass the index to editQuestion
+                    onDelete={removeQuestion}
                   />
                 </div>
               </div>
@@ -194,7 +227,7 @@ function AssessmentEditor({ data, setData, onSave }) {
           onClick={() => {
             const curDate = new Date();
             const res = { ...data, publishDate: curDate.toJSON() };
-            onSave(data);
+            onSave(res);
           }}
           style={{ transform: "translate(0%, 0%)" }}
         >
