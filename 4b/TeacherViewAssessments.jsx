@@ -118,7 +118,7 @@ function PrintMiddleEntries(props) {
           <div className="tableMid">
             <div className="alignLeft bold">
               {directory.name} <br></br>{" "}
-              <DisplayAssignStatus directory={directory}/>
+              <DisplayAssignStatus directory={directory} />
             </div>
             <button
               onClick={() => navigate("/assessment-preview/" + directory.id)}
@@ -140,6 +140,14 @@ function PrintMiddleEntries(props) {
             >
               Grade
             </button>
+            <button
+              onClick={() =>
+                navigate("/teacher-assessments/display/" + directory.id)
+              }
+              className="shortenTransform3 alignRight"
+            >
+              Show test mode
+            </button>
             <br></br>
           </div>
         ))}
@@ -148,23 +156,19 @@ function PrintMiddleEntries(props) {
   }
 }
 
-function DisplayAssignStatus({directory}) {
-  if (directory.openDate.substring(0, directory.openDate.indexOf("T")) > "3000") {
+function DisplayAssignStatus({ directory }) {
+  if (
+    directory.openDate.substring(0, directory.openDate.indexOf("T")) > "3000"
+  ) {
+    return <div className="noBold"> Not yet assigned.</div>;
+  } else {
     return (
-        <div className="noBold">
-          {" "}
-          Not yet assigned.
-        </div>
-    )
-  }
-  else {
-    return (
-        <div className="noBold">
-          {" "}
-          Assigned: <PrintDate directoryDate={directory.openDate} /> |
-          Due: <PrintDate directoryDate={directory.dueDate} />
-        </div>
-    )
+      <div className="noBold">
+        {" "}
+        Assigned: <PrintDate directoryDate={directory.openDate} /> | Due:{" "}
+        <PrintDate directoryDate={directory.dueDate} />
+      </div>
+    );
   }
 }
 
