@@ -55,22 +55,21 @@ export default function DisplayQuestionView() {
           <div id="main-header">{assessment.name}</div>
           <NavBar />
           <div id="classrooms-container">
-          <button
-          onClick={() => {
-            const res = confirm("Leave assessment?");
-            if (res) {
-              navigate("/teacher-assessments");
-            }
-          }}
-        >
-          Leave
-        </button>
-        <div className="container" >
-            <DisplayQuestion
-              assessment = {assessment}
-              responses = {setResponses}
-             />
-        </div>
+            <div className="container" >
+                <DisplayQuestion
+                assessment = {assessment}
+                responses = {setResponses}
+                />
+            </div>
+            <button onClick={() => {
+                const res = confirm("Leave assessment?");
+                if (res) {
+                navigate("/teacher-assessments");
+                }
+            }}
+            >
+            Leave
+            </button>
           </div>
         </div>
     );
