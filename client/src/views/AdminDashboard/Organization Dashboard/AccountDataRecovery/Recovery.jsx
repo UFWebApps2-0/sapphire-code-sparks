@@ -21,7 +21,6 @@ export default function Recovery({org}) {
     useEffect(() => {
       
       if (org === null || org === undefined ) {
-        // Handle the case where org is null, for example, you might want to return early or show an error message
         console.log('Error: organization is null'); 
       }
       else   {
