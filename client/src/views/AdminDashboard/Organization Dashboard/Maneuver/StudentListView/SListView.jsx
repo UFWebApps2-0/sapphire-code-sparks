@@ -18,6 +18,9 @@ const getFormattedDate = (value, locale = 'en-US') => {
 
 
 export default function SListView({data, handleDelete, showSchools}) {
+    // I had to add the columns in a weird way to maintain the order
+
+    // Starting Columns
     const columns = [
         {
           title: 'Name',
@@ -56,6 +59,7 @@ export default function SListView({data, handleDelete, showSchools}) {
         }
       ];
     
+      // Add Another Column to (Optionally) Show Schools
       if (showSchools) {
         columns.push({
           title: 'School',
@@ -69,6 +73,7 @@ export default function SListView({data, handleDelete, showSchools}) {
         })
       }
 
+      // View Column
       columns.push({
         title: 'View',
         dataIndex: 'view',
@@ -83,6 +88,7 @@ export default function SListView({data, handleDelete, showSchools}) {
         ),
       })
 
+      // Delete Column
       columns.push({
           title: 'Delete',
           dataIndex: 'delete',

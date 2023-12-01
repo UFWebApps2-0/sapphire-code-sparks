@@ -1,13 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { getOrganization } from "../../../Utils/requests";
-import './Organization.less';
-
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
+import { getOrganization, deleteOrganization } from "../../../Utils/requests";
 import { TrashSVG } from "../../../assets/SVG";
-
+import './Organization.less';
 import "./OrganizationHome.css"
 
 
@@ -34,6 +32,13 @@ export default function OrganizationHome({ organizationId }) {
     }, [organizationId]);
 
 
+    // Organization Delete
+    const handleOrganizationDelete = (id) => {
+        deleteOrganization(id);
+        navigate('/organization-dashboard');
+    }
+
+
     return (
         <div>
             <button id='home-back-btn' onClick={navigateOrganizationDash}>
@@ -46,7 +51,7 @@ export default function OrganizationHome({ organizationId }) {
                 <Popconfirm
                     title={`Are you sure you want to delete ${organization.name}?`}
                     icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                    onConfirm={() => handleDelete(id)}
+                    onConfirm={() => handleOrganizationDelete(organizationId)}
                 >
                     <button id='delete-organization-button'>
                         <TrashSVG/>

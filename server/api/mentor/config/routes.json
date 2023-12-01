@@ -29,7 +29,7 @@
       "path": "/mentors",
       "handler": "mentor.create",
       "config": {
-        "policies": ["global::isClassroomManager"]
+        "policies": []
       }
     },
     {
