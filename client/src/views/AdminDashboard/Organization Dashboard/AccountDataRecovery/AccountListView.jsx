@@ -7,12 +7,12 @@ export default function AccountListView({data}) {
   const columns = [
     {
       title: 'Name', 
-      dataIndex: 'Name',
+      dataIndex: 'name',
       key: 'Name',
     },
     {
       title: 'Role', 
-      dataindex: 'Role', 
+      dataIndex: 'Role', 
       key: 'Role',
     },
     {
@@ -22,7 +22,7 @@ export default function AccountListView({data}) {
     },
     {
       title: 'Time Deleted',
-      dataIndex: 'TimeDeleted',
+      dataIndex: 'time_deleted',
       key: 'TimeDeleted'
     },
     
@@ -34,7 +34,7 @@ export default function AccountListView({data}) {
     <div id='table-container'>
       <Table
           columns={columns}
-          dataSource={null}
+          dataSource={data}
           
       />
     </div>
