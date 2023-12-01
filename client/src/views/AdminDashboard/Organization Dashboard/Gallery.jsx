@@ -6,6 +6,9 @@ import img2 from "../../../assets/galleryimgs/image2.png";
 import img3 from "../../../assets/galleryimgs/image3.png";
 import img4 from "../../../assets/galleryimgs/image4.png";
 import img5 from "../../../assets/galleryimgs/image5.png";
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
+import { TrashSVG } from "../../../assets/SVG";
 import { useNavigate } from "react-router-dom";
 
 const images = [img1, img2, img3, img4, img5];
@@ -15,7 +18,6 @@ export default function Gallery() {
     const [visible, setVisible] = useState(false)
     const [imageList, setImageList] = useState(images);
     const handleImageClick = (image) => {
-      console.log("test");
       setVisible(true);
       setSelectedImage(image);
     };
@@ -66,7 +68,16 @@ export default function Gallery() {
             footer={null}
         >
             <img src={selectedImage} alt="enlarged" style={{ maxWidth: "100%", maxHeight: "90vh" }} />
-            <button onClick = {handleDelete}>Delete Image</button>
+            <Popconfirm
+                title={`Are you sure you want to delete this image?`}
+                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                onConfirm={() => handleDelete()}
+            >
+                <button id='delete-school-btn'>
+                    <TrashSVG/>
+                    <span>Delete Image</span>
+                </button>
+            </Popconfirm>
         </Modal>
       </div>
       );
