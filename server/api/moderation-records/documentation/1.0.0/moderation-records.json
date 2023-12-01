@@ -562,12 +562,6 @@
                   "type": "string"
                 }
               },
-              "mentors": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
               "administrators": {
                 "type": "array",
                 "items": {

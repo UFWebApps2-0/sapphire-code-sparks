@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/18/2023 8:49:19 PM"
+    "x-generation-date": "12/01/2023 2:37:43 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -14029,12 +14029,6 @@
                     "type": "string"
                   }
                 },
-                "mentors": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
                 "administrators": {
                   "type": "array",
                   "items": {
@@ -14520,7 +14514,8 @@
             "items": {
               "required": [
                 "id",
-                "enrolled"
+                "enrolled",
+                "deleted"
               ],
               "properties": {
                 "id": {
@@ -14545,6 +14540,12 @@
                   "type": "boolean"
                 },
                 "last_logged_in": {
+                  "type": "string"
+                },
+                "deleted": {
+                  "type": "boolean"
+                },
+                "time_deleted": {
                   "type": "string"
                 },
                 "created_by": {
@@ -15346,46 +15347,6 @@
                 "type": "string"
               }
             }
-          },
-          "organization": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "schools": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "mentors": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "administrators": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
           }
         }
       },
@@ -15447,152 +15408,6 @@
                 "type": "string"
               },
               "schools": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "mentors": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "administrators": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "moderation_records": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "administrator": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "first_name": {
-                "type": "string"
-              },
-              "last_name": {
-                "type": "string"
-              },
-              "organizations": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "user": {
-                "type": "string"
-              },
-              "moderation_records": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NewModeration-records": {
-        "properties": {
-          "ActionType": {
-            "type": "string"
-          },
-          "ActionDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "ModeratorName": {
-            "type": "string"
-          },
-          "organization": {
-            "type": "string"
-          },
-          "administrator": {
-            "type": "string"
-          },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "created_by": {
-            "type": "string"
-          },
-          "updated_by": {
-            "type": "string"
-          }
-        }
-      },
-      "Moderation-records": {
-        "required": [
-          "id"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "ActionType": {
-            "type": "string"
-          },
-          "ActionDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "ModeratorName": {
-            "type": "string"
-          },
-          "organization": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "schools": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "mentors": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -15978,7 +15793,8 @@
           "student": {
             "required": [
               "id",
-              "enrolled"
+              "enrolled",
+              "deleted"
             ],
             "properties": {
               "id": {
@@ -16003,6 +15819,12 @@
                 "type": "boolean"
               },
               "last_logged_in": {
+                "type": "string"
+              },
+              "deleted": {
+                "type": "boolean"
+              },
+              "time_deleted": {
                 "type": "string"
               },
               "created_by": {
@@ -16498,7 +16320,8 @@
             "items": {
               "required": [
                 "id",
-                "enrolled"
+                "enrolled",
+                "deleted"
               ],
               "properties": {
                 "id": {
@@ -16523,6 +16346,12 @@
                   "type": "boolean"
                 },
                 "last_logged_in": {
+                  "type": "string"
+                },
+                "deleted": {
+                  "type": "boolean"
+                },
+                "time_deleted": {
                   "type": "string"
                 },
                 "created_by": {
@@ -16787,7 +16616,8 @@
       "Student": {
         "required": [
           "id",
-          "enrolled"
+          "enrolled",
+          "deleted"
         ],
         "properties": {
           "id": {
@@ -16914,12 +16744,22 @@
           "last_logged_in": {
             "type": "string",
             "format": "date-time"
+          },
+          "deleted": {
+            "type": "boolean",
+            "default": false
+          },
+          "time_deleted": {
+            "type": "string",
+            "format": "date-time",
+            "default": "2001-01-01T05:00:00.000Z"
           }
         }
       },
       "NewStudent": {
         "required": [
-          "enrolled"
+          "enrolled",
+          "deleted"
         ],
         "properties": {
           "name": {
@@ -16944,6 +16784,15 @@
           "last_logged_in": {
             "type": "string",
             "format": "date-time"
+          },
+          "deleted": {
+            "type": "boolean",
+            "default": false
+          },
+          "time_deleted": {
+            "type": "string",
+            "format": "date-time",
+            "default": "2001-01-01T05:00:00.000Z"
           },
           "created_by": {
             "type": "string"

@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "students",
   "info": {
-    "name": "Student"
+    "name": "Student",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -32,6 +34,15 @@
     },
     "last_logged_in": {
       "type": "datetime"
+    },
+    "deleted": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "time_deleted": {
+      "type": "datetime",
+      "default": "2001-01-01T05:00:00.000Z"
     }
   }
 }
