@@ -20,7 +20,7 @@ export default function Recovery({org}) {
       
     useEffect(() => {
       
-      if (org === null ) {
+      if (org === null || org === undefined ) {
         // Handle the case where org is null, for example, you might want to return early or show an error message
         console.log('Error: organization is null'); 
       }
@@ -29,35 +29,39 @@ export default function Recovery({org}) {
       }
       
       //retrieve array of school objects from org prop
+      
       const schools = org.schools;
-      schools.forEach((school) => {
-        if (school !== undefined && school !== null)    {
-          //get school data 
-          getSchool(school.id).then(async (response) => {
-            //get all classrooms for 1 school 
-            const schoolClassrooms = response.data.classrooms; 
-            schoolClassrooms.forEach((classroom) => {
-              //get student data from each classroom 
-              getClassroom(classroom.id).then(async (cl) => {
-                  const students = cl.data.students;
-                  //get students from database that are deleted
-                  let deletedStudents = students.filter(student => student.deleted);
-                  //add student role and school name to each student object  
-                  deletedStudents.map((student) => {
-                    student.Role = "Student"; 
-                    student.School = school.name; 
-                  })
-                  
-                  console.log(deletedStudents); 
-                  //append deleted students array to accounts array 
-                  setAccounts([...accounts, ...deletedStudents]); 
-                  
+      if (schools)    {
+        schools.forEach((school) => {
+          if (school !== undefined && school !== null)    {
+            //get school data 
+            getSchool(school.id).then(async (response) => {
+              //get all classrooms for 1 school 
+              const schoolClassrooms = response.data.classrooms; 
+              schoolClassrooms.forEach((classroom) => {
+                //get student data from each classroom 
+                getClassroom(classroom.id).then(async (cl) => {
+                    const students = cl.data.students;
+                    //get students from database that are deleted
+                    let deletedStudents = students.filter(student => student.deleted);
+                    //add student role and school name to each student object  
+                    deletedStudents.map((student) => {
+                      student.Role = "Student"; 
+                      student.School = school.name; 
+                    })
+                    
+                    console.log(deletedStudents); 
+                    //append deleted students array to accounts array 
+                    setAccounts([...accounts, ...deletedStudents]); 
+                    
+                })
               })
             })
-          })
-        }
-
-      }) 
+          }
+  
+        }) 
+      }
+      
     }, [org])
 
   return (
