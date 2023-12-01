@@ -657,7 +657,8 @@
       "Student": {
         "required": [
           "id",
-          "enrolled"
+          "enrolled",
+          "deleted"
         ],
         "properties": {
           "id": {
@@ -784,12 +785,22 @@
           "last_logged_in": {
             "type": "string",
             "format": "date-time"
+          },
+          "deleted": {
+            "type": "boolean",
+            "default": false
+          },
+          "time_deleted": {
+            "type": "string",
+            "format": "date-time",
+            "default": "2001-01-01T05:00:00.000Z"
           }
         }
       },
       "NewStudent": {
         "required": [
-          "enrolled"
+          "enrolled",
+          "deleted"
         ],
         "properties": {
           "name": {
@@ -814,6 +825,15 @@
           "last_logged_in": {
             "type": "string",
             "format": "date-time"
+          },
+          "deleted": {
+            "type": "boolean",
+            "default": false
+          },
+          "time_deleted": {
+            "type": "string",
+            "format": "date-time",
+            "default": "2001-01-01T05:00:00.000Z"
           },
           "created_by": {
             "type": "string"
