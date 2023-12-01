@@ -27,7 +27,7 @@ export default function Recovery({org}) {
         console.log(org); 
       }
       
-      //retrieve array of school objects from org prop
+      //retrieve array of school objects from organization prop
       
       const schools = org.schools;
       if (schools)    {
