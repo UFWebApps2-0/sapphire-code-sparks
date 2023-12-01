@@ -66,9 +66,9 @@ export default function SchoolCreator(props) {
     
     return (
         <div>
-            <button onClick={showModal} id='add-school-btn'><AddSVG/>Add New School</button>
+            <button className='safe action' onClick={showModal} id='add-school-btn'><AddSVG/>Add New School</button>
             <Modal
-                title={`Create a School in ${props.schoolName}`}
+                title={`Create a School in ${props.organizationName}`}
                 open={visible}
                 width="40vw"
                 onCancel={handleCancel}

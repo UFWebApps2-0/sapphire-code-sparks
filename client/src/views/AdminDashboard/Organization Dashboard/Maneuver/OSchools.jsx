@@ -1,5 +1,6 @@
-import { AddSVG } from "../../../../assets/SVG"
+
 import SchoolCreator from "../SchoolCreator/SchoolCreator";
+
 
 const ALL = -1;
 

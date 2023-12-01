@@ -50,6 +50,7 @@ export default function Organization() {
                 <TabPane tab='Home' key='home'>
                     <OrganizationHome
                         organizationId={parseInt(id)}
+                        organizationName={organization.name}
                     />
                 </TabPane>
 

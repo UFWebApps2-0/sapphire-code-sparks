@@ -458,7 +458,7 @@ export const addStudent = async (name, character, classroom) =>
     error: 'Failed to add student.',
   });
 
-export const addMentor = async (first_name, last_name, school, user, classrooms) =>
+export const addMentor = async (first_name, last_name, school, classrooms, organization) =>
   makeRequest({
     method: POST,
     path: `${server}/mentors`,
@@ -466,8 +466,8 @@ export const addMentor = async (first_name, last_name, school, user, classrooms)
       first_name,
       last_name,
       school,
-      user,
-      classrooms
+      classrooms,
+      organization
     },
     auth: true,
     error: 'Failed to add student.',

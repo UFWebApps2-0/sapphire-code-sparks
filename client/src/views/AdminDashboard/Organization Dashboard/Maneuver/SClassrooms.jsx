@@ -1,16 +1,16 @@
 import React from "react";
-import { AddSVG, BackbagSVG, CodeSVG, LeftArrowSVG, MapSVG, PeopleSVG, StackSVG, TrashSVG } from "../../../../assets/SVG";
+import { BackbagSVG, CodeSVG, LeftArrowSVG, MapSVG, PeopleSVG, StackSVG, TrashSVG } from "../../../../assets/SVG";
 import MListView from "./MentorListView/MListView";
 import SListView from "./StudentListView/SListView";
-import { deleteMentor, deleteStudent, getSchool, getClassroom, deleteClassroom } from "../../../../Utils/requests";
+import { deleteMentor, deleteStudent, deleteClassroom } from "../../../../Utils/requests";
 import { message } from "antd";
-import { useNavigate } from 'react-router-dom';
 import { deleteOrganization } from "../../../../Utils/requests";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 import ClassroomCreator from "../ClassroomCreator/ClassroomCreator";
 import StudentCreator from "../StudentCreator/StudentCreator";
 import MentorCreator from "../MentorCreator/MentorCreator";
+
 
 const ALL = -1;
 
@@ -20,7 +20,7 @@ export default function SClassrooms(props) {
     function unselectClassElements() {
         let selectedClassElements = document.querySelectorAll(`li.classElement.selected`);
         selectedClassElements.forEach((element) => {
-            element.classList.remove("selected")
+            element.classList.remove("selected");
         });
     }
 
@@ -47,36 +47,57 @@ export default function SClassrooms(props) {
         navigate('/organization-dashboard');
     }
 
-    
 
-    async function handleMentorDelete(key) {
+    async function handleMentorDelete(key, reload=true) {
         const res = await deleteMentor(key);
         if (res.data) {
-            message.success(`Successfully Deleted Mentor ${res.data.first_name + ' ' + res.data.last_name}.`)
-            props.load();
+            message.success(`Successfully Deleted Mentor ${res.data.first_name + ' ' + res.data.last_name}.`);
+            if (reload)
+                props.load();
         }
         else {
             message.error(res.err);
         }
     }
 
-    async function handleStudentDelete(key) {
+
+    async function handleStudentDelete(key, reload=true) {
         const res = await deleteStudent(key);
         if (res.data) {
-            message.success(`Successfully Deleted Student ${res.data.name}.`)
-            props.load();
+            message.success(`Successfully Deleted Student ${res.data.name}.`);
+            if (reload)
+                props.load();
         }
         else {
             message.error(res.err);
         }
     }
     
+    
+    async function handleMentorAllDelete() {
+        let mentors = props.classroomID == ALL ? props.school.mentors : props.school.classrooms[props.classroomID].mentors
+        for (const mentorID in mentors) {
+            handleMentorDelete(mentorID, false);
+        }
+        props.load();
+    }
+
+
+    async function handleStudentAllDelete() {
+        let students = props.classroomID == ALL ? props.school.students : props.school.classrooms[props.classroomID].students
+        for (const studentID in students) {
+            handleStudentDelete(studentID, false)
+        }
+        props.load();
+    }
+
+
     async function handleClassroomDelete(key) {
         if (key == ALL) {
             for (const classroomID in props.school.classrooms) {
                 const res = await deleteClassroom(parseInt(classroomID));
                 if (res.data) {
-                    message.success(`Successfully Deleted Classroom ${res.data.name}`)
+                    message.success(`Successfully Deleted Classroom ${res.data.name}`);
                     props.load();
                 }
                 else {
@@ -114,34 +135,43 @@ export default function SClassrooms(props) {
                             <LeftArrowSVG/>
                             <span>Go Back to Schools</span>
                         </button>
-                        <h1>{props.schoolID == -1 ? "Showing all Schools" : props.school.name}</h1>
+                        <h1>{props.schoolID == ALL ? "Showing all Schools" : props.school.name}</h1>
                         <p><MapSVG/>In {props.organizationName}</p>
                         <p><PeopleSVG/>{Object.keys(props.school.mentors).length} Mentors</p>
                         <p><BackbagSVG/>{Object.keys(props.school.students).length} Students</p>
                         <p><StackSVG/>{Object.keys(props.school.classrooms).length} Classes</p>
                     </div>
                     <div className='action-buttons'>
+                        {/* Create a Classroom */}
                         <ClassroomCreator
-                            schoolName={props.schoolID == -1 ? "All Schools" : props.school.name}
+                            schoolName={props.schoolID == ALL ? "All Schools" : props.school.name}
                             schoolID={props.schoolID}
                             load={props.load}
                         />
 
+
+                        {/* Create a Mentor */}
                         <MentorCreator
-                            schoolName={props.schoolID == -1 ? "All Schools" : props.school.name}
+                            schoolName={props.schoolID == ALL ? "All Schools" : props.school.name}
                             schoolID={props.schoolID}
                             classroomID={props.classroomID}
                             load={props.load}
+                            organizationID={props.organizationID} 
+                            classroomName={props.classroomID != ALL && props.school.classrooms[props.classroomID].name || ""}
                         />
 
+
+                        {/* Create a Student */}
                         <StudentCreator
-                            schoolName={props.schoolID == -1 ? "All Schools" : props.school.name}
+                            schoolName={props.schoolID == ALL ? "All Schools" : props.school.name}
                             schoolID={props.schoolID}
-                            classroomID={props.classroomID}
+                            classroomID={ALL}
                             load={props.load}
+                            organizationID={props.organizationID} 
                         />
 
 
+                        {/* Delete School(s) */}
                         <Popconfirm
                             title={`Are you sure you want to delete ${props.schoolID == ALL ? `all schools in ${props.organizationName}` : props.school.name}?`}
                             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -153,7 +183,6 @@ export default function SClassrooms(props) {
                             </button>
                         </Popconfirm>
                         
-
 
                         {/* Delete Organization */}
                         <Popconfirm
@@ -191,14 +220,14 @@ export default function SClassrooms(props) {
                                     key={classroomID} 
                                     onClick={() => selectClassroom(classroomID)}>
                                     <span>{props.school.classrooms[classroomID].name}</span>
-                                    {(props.schoolID == -1 ? <span className='school_tag'>{props.school.classrooms[classroomID].school_name}</span> : <></>)}
+                                    {(props.schoolID == ALL ? <span className='school_tag'>{props.school.classrooms[classroomID].school_name}</span> : <></>)}
                                 </li>
                             )
                         })}
                     </ul>
                     <div id='classroom-info' className='class-breakdown'>
                         {/* Classroom Name */}
-                        <h3>{props.school == null ? "" : (props.classroomID == -1 ? "All Classrooms" : props.school.classrooms[props.classroomID].name)}</h3>
+                        <h3>{props.school == null ? "" : (props.classroomID == ALL ? "All Classrooms" : props.school.classrooms[props.classroomID].name)}</h3>
 
 
                         {/* Buttons */}
@@ -207,6 +236,9 @@ export default function SClassrooms(props) {
                                 <CodeSVG/>
                                 <span>Go to {props.schoolID == ALL ? "" : (props.classroomID == ALL ? "School's" : "Classroom's")} Gallery</span>
                             </button>
+
+
+                            {/* Delete Classroom(s) */}
                             <Popconfirm
                                 title={`Are you sure you want to delete ${props.classroomID == ALL ? "all classrooms" : props.school.classrooms[props.classroomID].name}?`}
                                 icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -217,31 +249,82 @@ export default function SClassrooms(props) {
                                     <span>Delete {props.classroomID == ALL ? "All Classrooms" : "Classroom"}</span>
                                 </button>
                             </Popconfirm>
-                            
+
+
+                            {/* Add Student to Classroom */}
+                            {props.classroomID != ALL && 
+                                <StudentCreator
+                                    schoolName={props.schoolID == ALL ? "All Schools" : props.school.name}
+                                    schoolID={props.schoolID}
+                                    classroomID={props.classroomID}
+                                    load={props.load}
+                                    organizationID={props.organizationID}
+                                    classroomName={props.school.classrooms[props.classroomID].name || ""}
+                                />
+                            }
+
+
+                            {/* Add Mentor to Classroom */}
+                            {props.classroomID != ALL &&
+                                <MentorCreator
+                                    schoolName={props.schoolID == ALL ? "All Schools" : props.school.name}
+                                    schoolID={props.schoolID}
+                                    classroomID={props.classroomID}
+                                    load={props.load}
+                                    organizationID={props.organizationID} 
+                                    classroomName={props.school.classrooms[props.classroomID].name || ""}
+                                />
+                            }
+
+
+                            {/* Delete All Mentors */}
+                            <Popconfirm
+                                title={`Are you sure you want to delete the mentors in ${props.classroomID == ALL ? "all classrooms" : props.school.classrooms[props.classroomID].name}?`}
+                                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                                onConfirm={() => handleMentorAllDelete()}
+                            >
+                                <button id='delete-school-btn'>
+                                    <TrashSVG/>
+                                    <span>Delete Mentors</span>
+                                </button>
+                            </Popconfirm>
+
+
+                            {/* Delete All Students */}
+                            <Popconfirm
+                                title={`Are you sure you want to delete the students in ${props.classroomID == ALL ? "all classrooms" : props.school.classrooms[props.classroomID].name}?`}
+                                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                                onConfirm={() => handleStudentAllDelete()}
+                            >
+                                <button id='delete-school-btn'>
+                                    <TrashSVG/>
+                                    <span>Delete Students</span>
+                                </button>
+                            </Popconfirm>
                         </div>
 
 
                         {/* Mentor Table for Class Goes Here */}
-                        <div className='mentors'>
+                        <div className='classroom-table mentors'>
                             <p>Mentors</p>
                             <div>
                                 <MListView
-                                    data={props.classroomID == -1 ? Object.values(props.school.mentors) : Object.values(props.school.classrooms[props.classroomID].mentors)} 
+                                    data={props.classroomID == ALL ? Object.values(props.school.mentors) : Object.values(props.school.classrooms[props.classroomID].mentors)} 
                                     handleDelete={handleMentorDelete}
-                                    showSchools={props.schoolID == -1}
+                                    showSchools={props.schoolID == ALL}
                                 />
                             </div>
                         </div>
 
 
                         {/* Student Table for Class Goes Here */}
-                        <div className='students'>
+                        <div className='classroom-table students'>
                             <p>Students</p>
                             <div>
                                 <SListView
-                                    data={props.classroomID == -1 ? Object.values(props.school.students) : Object.values(props.school.classrooms[props.classroomID].students)} 
+                                    data={props.classroomID == ALL ? Object.values(props.school.students) : Object.values(props.school.classrooms[props.classroomID].students)} 
                                     handleDelete={handleStudentDelete} 
-                                    showSchools={props.schoolID == -1}
+                                    showSchools={props.schoolID == ALL}
                                 />
                             </div>
                         </div>

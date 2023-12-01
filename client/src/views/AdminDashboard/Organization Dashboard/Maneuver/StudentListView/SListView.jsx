@@ -19,7 +19,7 @@ const getFormattedDate = (value, locale = 'en-US') => {
 
 export default function SListView({data, handleDelete, showSchools}) {
     // I had to add the columns in a weird way to maintain the order
-
+    
     // Starting Columns
     const columns = [
         {

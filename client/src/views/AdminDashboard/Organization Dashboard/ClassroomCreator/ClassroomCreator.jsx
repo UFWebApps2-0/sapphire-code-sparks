@@ -95,7 +95,7 @@ export default function ClassroomCreator(props) {
     
     return (
         <div>
-            <button onClick={showModal} >
+            <button className='safe action' onClick={showModal} >
                 <AddSVG/>
                 <span>Add Classroom</span>
             </button>
