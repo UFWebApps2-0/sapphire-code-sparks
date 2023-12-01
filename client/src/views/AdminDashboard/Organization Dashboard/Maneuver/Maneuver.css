@@ -27,6 +27,7 @@
 }
 
 #school-card-container {
+    margin-top: 25px;
     display: flex;
     column-gap: 40px;
     flex-wrap: wrap;
@@ -43,16 +44,16 @@
     align-items: center;
     justify-content: center;
     background: white;
-    box-shadow: 0px 4px 14px #89898985;
+    box-shadow: 0px 4px 14px #b0b0b020;
     border-radius: 5px;
-    border: 2px solid #F3D250;
+    border:2px solid #5bacde;
     cursor: pointer;
     transition: all 0.1s;
 }
 
 .school-card h2 {
     margin-bottom: 0 !important;
-    font-size: 19px;
+    font-size: 21px;
     position: relative;
 }
 
@@ -71,12 +72,12 @@
 }
 
 .school-card:hover {
-    background: #F3D250;
-    border: 1px solid white;
+    /* background: #5bacde; */
+    border: 1px solid #5bacde;
 }
 
 .school-card:hover h2 {
-    color: white !important;
+    /* color: white !important; */
 }
 
 .school-card:hover h2::after {
@@ -87,9 +88,8 @@
     position: relative;
     top: 5px;
     left: 10%;
-    background: #F3D250;
+    background: #5bacde;
     border-radius: 10px;
-    background: white;
 }
 
 /* School Container DisplaySchool.jsx */
@@ -197,7 +197,7 @@ svg {
 #classroom-info {
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 35px;
     padding: 20px;
     border-left: 1px solid black;
     min-height: 75vh;
@@ -208,8 +208,18 @@ svg {
 }
 
 #classroom-info > div > p {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
+    color: black;
+    position: relative;
+    left: -25px;
+}
+
+/* Classroom Table */
+.classroom-table {
+    border: 1px solid gray;
+    padding: 25px 50px 50px 50px;
+    border-radius: 5px;
 }
 
 /* Buttons DisplaySchool.jsx - Not very organized to be honest */
@@ -269,6 +279,9 @@ button {
 
 #classroom-info .action-buttons {
     padding: 0px;
+    flex-wrap: wrap;
+    max-width: 700px;
+    row-gap: 10px;
 }
 
 .action-buttons button {
@@ -323,3 +336,28 @@ h1 {
 th {
     white-space: nowrap;
 }
+
+h3 {
+    font-size: 21px;
+    margin: 0 !important;
+}
+
+#or-tag {
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.ant-col-8 {
+    flex: none !important;
+}
+
+/* #or-tag::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background: black;
+} */

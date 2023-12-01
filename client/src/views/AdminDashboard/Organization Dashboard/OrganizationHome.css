@@ -20,3 +20,90 @@
     display: flex;
     padding: 10vh 3vw;
 }
+
+#home-content-container {
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+.table-box {
+    padding: 50px;
+    border-radius: 5px;
+    border: 2px solid #a4a4a475;
+    background: white;
+}
+
+.table-box > p {
+    font-weight: 700;
+    font-size: 1.7rem;
+    text-align: left;
+    position: relative;
+    left: 0px;
+}
+
+#table-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#student-card-title {
+    margin: 0 !important;
+}
+
+.modal-desc p {
+    margin: 0;
+}
+
+p.modal-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+button.action {
+    background: none !important;
+    padding: 7px 10px !important;
+    border-radius: 5px !important;
+    border: 1px solid gray !important;
+    color: gray !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    column-gap: 5px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    height: fit-content;
+    margin: 0  !important;
+}
+
+button.safe:hover {
+    border-color: #5BABDE !important;
+    color: #5BABDE !important;
+}
+
+button.danger:hover {
+    border-color: rgb(200, 18, 18) !important;
+    color: rgb(200, 18, 18) !important;
+}
+
+.button-box {
+    display: flex;
+    row-gap: 10px;
+    column-gap: 10px;
+    margin-bottom: 30px !important;
+}
+
+.ant-table-pagination-right {
+    justify-content: flex-start !important;
+}
+
+#home-content-container button#delete-organization-button {
+    width: fit-content;
+}
+
+.modal-list {
+    display:flex;
+    flex-direction:column;
+    row-gap:5px;
+}

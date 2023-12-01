@@ -4,7 +4,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import MModal from "./MModal"
 
 
-export default function DListView({data, handleDelete, showSchools}) {
+export default function MListView({data, handleDelete, showSchools}) {
     // Had to add the columns in a heretical way to preserve the order
     // Bare with me
     

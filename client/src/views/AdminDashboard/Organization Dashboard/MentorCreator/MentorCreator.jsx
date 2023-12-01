@@ -1,69 +1,78 @@
 import { Button, Form, Input, message, Modal, Select } from "antd"
 const { Option } = Select;
 import React, { useEffect, useState } from "react"
-import { getAllAdministrators, updateMentor, getMentors, getUser, getSchool } from "../../../../Utils/requests"
+import { getAllAdministrators, updateMentor, getMentor, getOrganization, addMentor, getMentors, getUser, getSchool, getClassroom } from "../../../../Utils/requests"
 import "./MentorCreator.less"
 import { AddSVG } from "../../../../assets/SVG";
 
 
-// This doesn't function correctly, so I had to comment out some (a lot of) lines  but ¯\_(ツ)_/¯
+// Having authorization issues for mentor ¯\_(ツ)_/¯
+// I am going to comment it out until resolved, if resolved
 
 export default function MentorCreator(props) {
     const [visible, setVisible] = useState(false)
-    const [admin, setAdmin] = useState({});
 
     // User Choice
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [classrooms, setClassrooms] = useState("")
-    // const [user, setUser] = useState(null)
-    // const [mentor, setMentor] = useState(null);
+    const [school, setSchool] = useState()
+    // const [mentor, setMentor] = useState();
 
     // All
+    const [listedClassrooms, setListedClassrooms] = useState([])
     const [allClassrooms, setAllClassrooms] = useState([])
-    // const [allUsers, setAllUsers] = useState([])
-    // const [allMentors, setAllMentors] = useState([])
+    // const [allMentors, setAllMentors] = useState([]) // Authorization issues, just committing this code out for now
+    const [allSchools, setAllSchools] = useState([])
 
     
     async function loadDefaults() {
-        // Load Classrooms
-        // let schoolResponse = await getSchool(props.schoolID);
-        // if (!schoolResponse.err)
-            // setAllClassrooms(schoolResponse.data.classrooms);
+        // Multiple classrooms can be chosen
+        if (props.classroomID == -1) {
+            // Only viewing one school
+            if (props.schoolID != -1) {
+                let schoolResponse = await getSchool(props.schoolID);
+                if (!schoolResponse.err) {
+                    // Show classrooms of school
+                    setAllClassrooms(schoolResponse.data.classrooms);
+                    setListedClassrooms(schoolResponse.data.classrooms);
+                }
+                setSchool(props.schoolID);
+            }
+            // Viewing all schools
+            else {
+                let organizationResponse = await getOrganization(props.organizationID);
+                if (!organizationResponse.err) {
+                    let _allSchools = [];
+                    let _allClassrooms = {};
 
-        // // Load Users
-        // let usersResponse = await getUsers();
-        // if (!usersResponse.err) {
-        //     // Extracting classroom managers
-        //     usersResponse.data = usersResponse.data.filter((userData) => userData.role.name == 'Classroom Manager');
-        //     console.log("Classroom Managers", usersResponse.data)
-        // }
+                    for (const school of organizationResponse.data.schools) {
+                        _allSchools.push(school);
 
-        // Load Mentors
+                        let schoolResponse = await getSchool(school.id);
+                        if (!schoolResponse.err) {
+                            _allClassrooms[school.id] = schoolResponse.data.classrooms;
+                        }
+                    }
+
+                    setAllSchools(_allSchools);
+                    setAllClassrooms(_allClassrooms);
+                }
+            }
+        }
+        else {
+            // Particular classroom already chosen
+            setClassrooms([props.classroomID]);
+
+            let classroomResponse = await getClassroom(props.classroomID);
+            if (!classroomResponse.err) {
+                setSchool(classroomResponse.data.school.id);
+            }
+        }
+
         // let mentorsResponse = await getMentors();
         // if (!mentorsResponse.err) {
-            // let mentorUserIDs = [];
-            // let classlessMentors = [];
-
-            // for (const mentorData of mentorsResponse.data) {
-                // console.log("Mentor Data", mentorData)
-                // mentorUserIDs.push(mentorData.user.id);
-
-                // Mentor w/ no classroom
-                // if (mentorData.classrooms.length == 0) {
-                    // classlessMentors.push(mentorData)
-                // }
-            // }
-            // console.log("Mentors Data", mentorsResponse.data);
-            // console.log("Mentor User IDs", mentorUserIDs)
-
-            // // Filter out the users that are already associated w/ a mentor
-            // usersResponse.data = usersResponse.data.filter((userData) => !mentorUserIDs.includes(userData.id))
-            // console.log("Users w No Mentor", usersResponse.data)
-
-
-            // setAllUsers(usersResponse.data)
-            // setAllMentors(classlessMentors)
+        //     setAllMentors(mentorsResponse.data);
         // }
     }
 
@@ -75,45 +84,45 @@ export default function MentorCreator(props) {
 
     // Reset Form fields
     const showModal = () => {
-        setFirstName("")
-        setLastName("")
-        // setMentor(null)
-        setClassrooms()
-        // setUser()
-        setVisible(true)
+        setFirstName("");
+        setLastName("");
+        // setMentor(null);
+        setSchool();
+        setListedClassrooms([]);
+        setClassrooms();
+        setVisible(true);
+        loadDefaults();
     }
 
 
     const handleFirstNameChange = (value) => {
         setFirstName(value);
-        setMentor(null);
+        // setMentor(null);
     }
 
 
     const handleLastNameChange = (value) => {
         setLastName(value);
-        setMentor(null);
+        // setMentor(null);
     }
 
-
-    // const handleUserChange = (value) => {
-    //     setUser(value);
-    //     setMentor(null);
-    //     console.log(value)
-    // }
-
-
-    const handleClassroomChange = (value) => {
+    const handleClassroomsChange = (value) => {
         setClassrooms(value);
     }
 
+    const handleSchoolChange = (value) => {
+        if (school != value)
+            setClassrooms();
+        setSchool(value);
+        // The listed classrooms are the classrooms of the school
+        setListedClassrooms(allClassrooms[value]);
+    }
 
+    // Mentor has been omitted, so this is omitted as well
     // const handleMentorChange = (value) => {
-    //     // setMentor(value);
+    //     setMentor(value);
     //     setFirstName("");
     //     setLastName("");
-    //     setClassrooms();
-    //     // setUser(null);
     // }
 
 
@@ -123,64 +132,66 @@ export default function MentorCreator(props) {
 
 
     const handleSubmit = async e => {
-        // if (firstName != "" && lastName != "" && user != null && classrooms) {
-        //     console.log(firstName, lastName, props.schoolID, user, classrooms)
-        //     const addMentorResponse = await addMentor(firstName, lastName, props.schoolID, user, classrooms);
-        //     if (!addMentorResponse.err) {
-        //         setVisible(false);
-        //         props.load();
-        //     }
-        //     else {
-        //         message.error("Failed to Create Mentor");
-        //     }
-        // }
-        // if (mentor != null && classrooms != null) {
-        //     const updateMentorResponse = await updateMentor(mentor, {school: props.schoolID, classrooms})
+        if (firstName != "" && lastName != "") {
+            const addMentorResponse = await addMentor(firstName, lastName, school, classrooms, props.organizationID);
 
-        //     if (!updateMentorResponse.err) {
-        //         setVisible(false);
-        //         props.load();
-        //     }
-        //     else {
-        //         message.error("Failed to Update Mentor");
-        //     }
-        // }
-        // else {
-        //     message.error("Please enter all information.")
-        // }
-    }
-
-    const getAdministrator = async (userID) => {
-        getAllAdministrators().then((response) => {
-            const admins = response.data;
-            for (let i = 0; i < admins.length; i++) {
-                if (admins[i].user.id === userID) {
-                    setAdmin(admins[i]);
-                }
+            if (!addMentorResponse.err) {
+                setVisible(false);
+                props.load();
             }
-        })
-    }
-    
-    useEffect(() => {
-        getUser()
-                .then((response) => {
-                    getAdministrator(response.data.id);
-                })
-                .catch((error) => {
-                    message.error(error);
-                    navigate('/adminlogin');
-                })
-    }, [])
+            else {
+                message.error("Failed to Create Mentor")
+            }
+        }
+        // Having authorization issues, I believe it's best to just not continue with this as we've ran out of time
+        // else if (mentor != null) {
+        //     const getMentorResponse = await getMentor(mentor);
 
-    
+        //     if (!getMentorResponse.err) {
+        //         if (school != getMentorResponse.data.school.id) {
+        //             let updateMentorResponse = await updateMentor(mentor, {"school": school, "classrooms": classrooms})
+        //             if (!updateMentorResponse.err) {
+        //                 setVisible(false);
+        //                 props.load();
+        //             }
+        //             else {
+        //                 message.error("Failed to Create Mentor")
+        //             }
+        //         }
+        //         else {
+        //             // Add onto classes
+        //             let mentorClasses = []
+        //             for (const classroom of getMentorResponse.data.classrooms) {
+        //                 mentorClasses.push(classroom.id)
+        //             }
+
+        //             for (const classroom of classrooms) {
+        //                 if (!mentorClasses.includes(classroom))
+        //                     mentorClasses.push(classroom)
+        //             }
+
+        //             let updateMentorResponse = await updateMentor(mentor, {"school": school, "classrooms": mentorClasses})
+        //             if (!updateMentorResponse.err) {
+        //                 setVisible(false);
+        //                 props.load();
+        //             }
+        //             else {
+        //                 message.error("Failed to Create Mentor")
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+
     return (
         <div>
-            <button onClick={showModal}>
+            <button className='safe action' onClick={showModal}>
                 <AddSVG/>
                 <span>Add Mentor</span>
             </button>
             <Modal
-                title={`Add Mentor to ${props.schoolName}`}
+                title={`Add Mentor to ${props.classroomName ? `Class - ${props.classroomName}` : `School - ${props.schoolName}`}`}
                 open={visible}
                 width="40vw"
                 onCancel={handleCancel}
@@ -213,27 +224,30 @@ export default function MentorCreator(props) {
                         />
                     </Form.Item>
 
-                    {/* <Form.Item id="form-label" label="User">
-                        <Select
-                            showSearch
-                            placeholder="Select User"
-                            value={user}
-                            onChange={handleUserChange}
-                        >
-                            {allUsers.map((user) => {
-                                return (
-                                    <Option
-                                        key={user.id}
-                                        value={user.id}
-                                    >
-                                        {user.email}
-                                    </Option>
-                                )
-                            })}
-                        </Select>
-                    </Form.Item>
+                    {/* Only allow user to select schools if all schools and classrooms are showing */}
+                    {(props.schoolID == -1 && props.classroomID == -1) && 
+                        <Form.Item id="form-label" label="Select School">
+                            <Select
+                                showSearch
+                                placeholder="Select school"
+                                value={school}
+                                onChange={handleSchoolChange}
+                            >
+                                {allSchools.map((school) => {
+                                    return (
+                                        <Option
+                                            key={school.id}
+                                            value={school.id}
+                                        >
+                                            {school.name}
+                                        </Option>
+                                    )
+                                })}
+                            </Select>
+                        </Form.Item>
+                    }
 
-                    <span>OR</span> */}
+                    {/* <span>OR</span> */}
 
                     {/* <Form.Item id="form-label" label="Mentor">
                         <Select
@@ -255,26 +269,29 @@ export default function MentorCreator(props) {
                         </Select>
                     </Form.Item> */}
 
-                    <Form.Item label="Select Classrooms">
-                        <Select
-                            showSearch 
-                            mode="multiple"
-                            placeholder="Select Classrooms"
-                            value={classrooms}
-                            onChange={handleClassroomChange}
-                        >
-                            {allClassrooms.map((classroom) => {
-                                return (
-                                    <Option
-                                        key={classroom.id}
-                                        value={classroom.id}
-                                    >
-                                        {classroom.name}
-                                    </Option>
-                                )
-                            })}
-                        </Select>
+                    {/* Only allow user to select a classroom if no classroom has been selected */}
+                    {props.classroomID == -1 && 
+                        <Form.Item id="form-label" label="Select Classroom">
+                            <Select
+                                mode="multiple"
+                                showSearch 
+                                placeholder={`${props.schoolID == -1 && school == null ? "Please select a school first" : "Select classroom"}`}
+                                value={classrooms}
+                                onChange={handleClassroomsChange}
+                            >
+                                {listedClassrooms.map((classroom) => {
+                                    return (
+                                        <Option
+                                            key={classroom.id}
+                                            value={classroom.id}
+                                        >
+                                            {classroom.name}
+                                        </Option>
+                                    )
+                                })}
+                            </Select>
                     </Form.Item>
+                    }
 
                     <Form.Item
                         wrapperCol={{

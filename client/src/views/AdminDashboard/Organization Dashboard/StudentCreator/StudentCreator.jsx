@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select } from "antd"
 const { Option } = Select;
 import React, { useEffect, useState } from "react"
-import { getAllAdministrators, updateStudent, getUser, getSchool, addStudent, getAllStudents } from "../../../../Utils/requests"
+import { getAllAdministrators, updateStudent, getUser, getSchool, addStudent, getAllStudents, getClassroom, getOrganization } from "../../../../Utils/requests"
 import "./StudentCreator.less"
 import { AddSVG } from "../../../../assets/SVG";
 import { getGrades } from "../../../../Utils/requests";
@@ -19,17 +19,54 @@ export default function StudentCreator(props) {
     const [school, setSchool] = useState()
 
     // All
+    const [listedClassrooms, setListedClassrooms] = useState([])
     const [allClassrooms, setAllClassrooms] = useState([])
     const [allStudents, setAllStudents] = useState([])
     const [allSchools, setAllSchools] = useState([])
 
     
     async function loadDefaults() {
-        // Left Here
-        let schoolResponse = await getSchool(props.schoolID);
-        if (!schoolResponse.err)
-            setAllClassrooms(schoolResponse.data.classrooms);
+        // If classroomID != -1 => classroomID already chosen, no need to load
+        if (props.classroomID == -1) {
+            // If schoolID != -1 => schoolID already chosen, no need to load all schools
+            if (props.schoolID != -1) {
+                let schoolResponse = await getSchool(props.schoolID);
+                if (!schoolResponse.err) {
+                    // The listed classrooms are all the classrooms of the school
+                    setAllClassrooms(schoolResponse.data.classrooms);
+                    setListedClassrooms(schoolResponse.data.classrooms);
+                }
+            }
+            // Load all schools and classrooms of each school
+            else {
+                let organizationResponse = await getOrganization(props.organizationID);
+                if (!organizationResponse.err) {
+                    let allSchoolsData = []
+                    let allClassroomsData = {}
 
+                    for (const school of organizationResponse.data.schools) {
+                        allSchoolsData.push(school);
+
+                        let schoolResponse = await getSchool(school.id)
+                        if (!schoolResponse.err) {
+                            allClassroomsData[school.id] = schoolResponse.data.classrooms;
+                        }
+                    }
+
+                    setAllSchools(allSchoolsData)
+                    setAllClassrooms(allClassroomsData)
+                }
+            }
+        }
+        else {
+            setClassroom(props.classroomID);
+            
+            let classroomResponse = await getClassroom(props.classroomID);
+            if (!classroomResponse.err)
+                setSchool(classroomResponse.data.school.id)
+        }
+
+        // Get all students w/o a class
         let studentsResponse = await getAllStudents();
         if (!studentsResponse.err) {
             let students = studentsResponse.data;
@@ -46,7 +83,14 @@ export default function StudentCreator(props) {
     const showModal = () => {
         setCharacter("")
         setName("")
-        setClassroom()
+
+        // The pre-selected classroom is cleared by this function, so I am setting it again here
+        if (props.classroomID != -1)
+            setClassroom(props.classroomID)
+        else
+            setClassroom()
+        
+        setSchool()
         setExistingStudent(null)
         setVisible(true)
     }
@@ -75,10 +119,15 @@ export default function StudentCreator(props) {
         setCharacter("")
     }
 
-    const handleSubmit = async e => {
-        if (name != "" && character != "") {
-            let addStudentResponse = await addStudent(name, character, classroom);
+    const handleSchoolChange = (value) => {
+        setSchool(value);
+        // The listed classrooms are the classrooms of the school
+        setListedClassrooms(allClassrooms[value]);
+    }
 
+    const handleSubmit = async e => {
+        if (name != "" && character != "" && classroom != null) {
+            let addStudentResponse = await addStudent(name, character, classroom);
             if (addStudentResponse.err) {
                 message.error("Failed to Create Student");
             }
@@ -89,7 +138,6 @@ export default function StudentCreator(props) {
         }
         else if (existingStudent != null) {
             let createStudentResponse = await updateStudent(existingStudent, {classroom})
-
             if (createStudentResponse.err) {
                 message.error("Failed to Set Student");
             }
@@ -125,12 +173,12 @@ export default function StudentCreator(props) {
     
     return (
         <div>
-            <button onClick={showModal}>
+            <button className='safe action' onClick={showModal}>
                 <AddSVG/>
                 <span>Add Student</span>
             </button>
             <Modal
-                title={`Add Student to ${props.schoolName}`}
+                title={`Add Student to ${props.classroomName ? `Class - ${props.classroomName}` : `School - ${props.schoolName}`}`}
                 open={visible}
                 width="40vw"
                 onCancel={handleCancel}
@@ -147,25 +195,27 @@ export default function StudentCreator(props) {
                     layout="horizontal"
                     size="default"
                 >
+                    <span id="or-tag">Create Student</span>
+
                     <Form.Item id="form-label" label="Student Name">
                         <Input
-                        onChange={e => handleNameChange(e.target.value)}
-                        value={name}
-                        placeholder="Enter the student's name"
+                            onChange={e => handleNameChange(e.target.value)}
+                            value={name}
+                            placeholder="Enter the student's name"
                         />
                     </Form.Item>
 
                     <Form.Item id="form-label" label="Student Character">
                         <Input
-                        onChange={e => handleCharacterChange(e.target.value)}
-                        value={character}
-                        placeholder="Enter the student's character"
+                            onChange={e => handleCharacterChange(e.target.value)}
+                            value={character}
+                            placeholder="Enter the student's character"
                         />
                     </Form.Item>
 
-                    <span>OR</span>
+                    <span id="or-tag">Or Select Student</span>
 
-                    <Form.Item label="Select Student">
+                    <Form.Item id="form-label" label="Select Student">
                         <Select
                             showSearch 
                             placeholder="Select student"
@@ -185,25 +235,53 @@ export default function StudentCreator(props) {
                         </Select>
                     </Form.Item>
 
-                    <Form.Item label="Select Classroom">
-                        <Select
-                            showSearch 
-                            placeholder="Select classroom"
-                            value={classroom}
-                            onChange={handleClassroomChange}
-                        >
-                            {allClassrooms.map((classroom) => {
-                                return (
-                                    <Option
-                                        key={classroom.id}
-                                        value={classroom.id}
-                                    >
-                                        {classroom.name}
-                                    </Option>
-                                )
-                            })}
-                        </Select>
+                    <span id="or-tag">Select Classroom</span>
+                    {/* Only allow user to select schools if all schools and classrooms are showing */}
+                    {(props.schoolID == -1 && props.classroomID == -1) && 
+                        <Form.Item id="form-label" label="Select School">
+                            <Select
+                                showSearch
+                                placeholder="Select school"
+                                value={school}
+                                onChange={handleSchoolChange}
+                            >
+                                {allSchools.map((school) => {
+                                    return (
+                                        <Option
+                                            key={school.id}
+                                            value={school.id}
+                                        >
+                                            {school.name}
+                                        </Option>
+                                    )
+                                })}
+                            </Select>
+                        </Form.Item>
+                    }
+                    
+                    {/* Only allow user to select a classroom if no classroom has been selected */}
+                    {props.classroomID == -1 && 
+                        <Form.Item id="form-label" label="Select Classroom">
+                            <Select
+                                showSearch 
+                                placeholder={`${props.schoolID == -1 && school == null ? "Please select a school first" : "Select classroom"}`}
+                                value={classroom}
+                                onChange={handleClassroomChange}
+                            >
+                                {listedClassrooms.map((classroom) => {
+                                    return (
+                                        <Option
+                                            key={classroom.id}
+                                            value={classroom.id}
+                                        >
+                                            {classroom.name}
+                                        </Option>
+                                    )
+                                })}
+                            </Select>
                     </Form.Item>
+                    }
+
 
                     <Form.Item
                         wrapperCol={{

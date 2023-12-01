@@ -103,6 +103,8 @@ export default function OrganizationDashboard() {
                 organizations[index].totalMentors = count;
             });
 
+            setTotalMentors(mentorCounts)
+
             setOrganizations(organizations);
         } catch (error) {
             console.error('An error occurred:', error);
@@ -161,7 +163,6 @@ export default function OrganizationDashboard() {
                         <div id='card-right-content-container'>
                         <div id='mentor-number-container'>
 
-                        {/* I may have accidentally removed something I wasn't supposed to from what Tyler added here */}
                         <p id='label'></p>
                             <h1 id='number'>{organization.totalMentors}</h1>
                             <p id='label'>Mentors</p>

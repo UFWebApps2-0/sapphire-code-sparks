@@ -1,7 +1,7 @@
 import { Modal, Button } from 'antd';
 import React, { useState } from 'react';
 
-export default function DModal({ linkBtn, mentor }) {
+export default function MModal({ linkBtn, mentor }) {
   const [visible, setVisible] = useState(false);
 
   
