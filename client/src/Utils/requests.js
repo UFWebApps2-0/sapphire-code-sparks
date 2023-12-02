@@ -68,6 +68,14 @@ export const getAllClassrooms = async () =>
     error: 'Classrooms could not be retrieved.',
   });
 
+export const getAllStudies = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/studies`,
+    auth: true,
+    error: 'Studies could not be retrieved.',
+  });
+
 export const getAllStudents = async () =>
   makeRequest({
     method: GET,
@@ -140,6 +148,15 @@ export const getClassroom = async (id) =>
     auth: true,
     error: 'Classroom information could not be retrieved',
   });
+
+export const getStudy = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/studies/${id}`,
+    auth: true,
+    error: 'Study information could not be retrieved',
+  });
+
 
 export const getStudentClassroom = async () =>
   makeRequest({
@@ -350,6 +367,28 @@ export const deleteStudent = async (student) =>
     auth: true,
     error: 'Failed to delete student.',
   });
+
+export const addStudy = async (newStudy) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/studies`,
+    data: {
+      name: newStudy.name,
+      description: newStudy.description,
+      classrooms: [],
+      students: [],
+    },
+    auth: true,
+    error: 'Failed to add study.',
+  });
+
+export const deleteStudy = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/studies/${id}`,
+    auth: true,
+    error: 'Failed to delete study.',
+  });  
 
 export const updateActivityLevelTemplate = async (id, workspace, blocksList) =>
   makeRequest({
@@ -659,6 +698,21 @@ export const createAuthorizedWorkspace = async (
     },
     error: 'Unable to create cc workspace',
   });
+
+export const updateStudy = async (id, name, description, classroomsToAdd, studentsToAdd) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/studies/${id}`,
+    data: {
+      name,
+      description,
+      classrooms: [...classroomsToAdd], 
+      students: [...studentsToAdd],
+    },
+    auth: true,
+    error: 'Failed to update study.',
+  });
+
 export const getAuthorizedWorkspaceToolbox = async (id) =>
   makeRequest({
     method: GET,
@@ -693,3 +747,4 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Unable to retrive classroom workspaces',
   });
+

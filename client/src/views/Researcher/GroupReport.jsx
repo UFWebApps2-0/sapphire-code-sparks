@@ -1,10 +1,16 @@
 import NavBar from '../../components/NavBar/NavBar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './GroupReport.less';
 import AddStudy from './components/AddStudy';
 import StudyList from './components/StudyList';
-
+import Popup from 'reactjs-popup';
+import {
+  getAllStudies,
+  updateStudy,
+  deleteStudy,
+  addStudy,
+} from '../../Utils/requests';
 
 export default function GroupReport(props) {
   const navigate = useNavigate();
@@ -16,6 +22,28 @@ export default function GroupReport(props) {
     name: '',
     description: '',
   });
+  
+  useEffect(() => {
+    const fetchStudies = async () => {
+      const studies = await getAllStudies();
+      setStudyList(studies.data);
+    };
+
+    fetchStudies();
+  }, []);
+
+  const handleAddStudy = async (newStudy) => {
+    const response = await addStudy(newStudy);
+
+    if (response.error) {
+      console.error(response.error);
+      // Handle error appropriately, show a message, etc.
+    } else {
+      // Update the study list with the new study
+      console.log(response.data);
+      setStudyList((prevList) => [...prevList, response.data]);
+    }
+  };
 
   const updateStudyList = (newStudyList) => {
     setStudyList(newStudyList);
@@ -51,6 +79,7 @@ export default function GroupReport(props) {
                               newList = {studyList}
                               setNewList = {setStudyList}
                               updateStudyList = {updateStudyList}
+                              handleAddStudy = {handleAddStudy}
                             />
                             <div>
                                 <button onClick=

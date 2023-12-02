@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function AddStudy({newList, setNewList, updateStudyList}) {
+function AddStudy({newList, setNewList, updateStudyList, handleAddStudy}) {
     const [studyID, setStudyID] = useState('');
     const [studyName, setStudyName] = useState('');
     const [studyDesc, setStudyDesc] = useState('');
@@ -12,9 +12,7 @@ function AddStudy({newList, setNewList, updateStudyList}) {
             description: studyDesc,
         }
 
-        setNewList([...newList, newStudy]);
-
-        updateStudyList([...newList, newStudy]);
+        handleAddStudy(newStudy);
 
         setStudyID('');
         setStudyName('');
