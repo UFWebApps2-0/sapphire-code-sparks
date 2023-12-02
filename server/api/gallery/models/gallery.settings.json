@@ -17,6 +17,25 @@
     "activity": {
       "model": "activity",
       "via": "galleries"
+    },
+    "unit": {
+      "model": "unit"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "classroom": {
+      "model": "classroom"
+    },
+    "gallery": {
+      "model": "gallery"
+    },
+    "submission": {
+      "model": "submission"
+    },
+    "lesson_module": {
+      "model": "lesson-module"
     }
   }
 }

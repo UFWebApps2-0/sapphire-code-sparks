@@ -903,6 +903,24 @@
                 "activity": {
                   "type": "string"
                 },
+                "unit": {
+                  "type": "string"
+                },
+                "users_permissions_user": {
+                  "type": "string"
+                },
+                "classroom": {
+                  "type": "string"
+                },
+                "gallery": {
+                  "type": "string"
+                },
+                "submission": {
+                  "type": "string"
+                },
+                "lesson_module": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },

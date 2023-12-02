@@ -4,6 +4,7 @@ import DemoData from '../../../DemoData.json';
 import './ProjectPage.less'
 import GalleryEdit from '../GalleryEdit/GalleryEdit';
 import placeholderImage from "../../assets/placeholder-gallery-image1.jpg";
+import {Divider} from "antd";
 
 export default function ProjectPage(props) {
     const [projectStates, setProjectStates] = useState(
@@ -53,12 +54,24 @@ export default function ProjectPage(props) {
                                     author={props.author}
                                     description={props.description}
                                 >
-                                    <h2><u>Edit Mode</u></h2>
+                                    <div id='edit-title'>Edit Mode</div>
                                 </GalleryEdit>
                             </div>
                         </div>
                         <div id='discussion'>
-                            Discussion
+                            <u>Discussion Board</u>
+                            <div>
+                                <div id='comment-box'>
+                                    Discussion comments go here. . .
+                                </div>
+                                <form>
+                                    <input
+                                        className="searchBar"
+                                        type="text"
+                                        placeholder="Type to comment. . ."
+                                    />
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div id='related-works'>

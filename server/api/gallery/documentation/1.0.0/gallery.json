@@ -585,6 +585,291 @@
               }
             }
           },
+          "unit": {
+            "required": [
+              "id",
+              "name",
+              "number"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "grade": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "standards_id": {
+                "type": "string"
+              },
+              "standards_description": {
+                "type": "string"
+              },
+              "number": {
+                "type": "integer"
+              },
+              "lesson_modules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "users_permissions_user": {
+            "required": [
+              "id",
+              "username",
+              "email"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "classroom": {
+            "required": [
+              "id",
+              "code"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "school": {
+                "type": "string"
+              },
+              "sessions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mentors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "students": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "code": {
+                "type": "string"
+              },
+              "grade": {
+                "type": "string"
+              },
+              "selections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "gallery": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "activity": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "users_permissions_user": {
+                "type": "string"
+              },
+              "classroom": {
+                "type": "string"
+              },
+              "gallery": {
+                "type": "string"
+              },
+              "submission": {
+                "type": "string"
+              },
+              "lesson_module": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "submission": {
+            "required": [
+              "id",
+              "status",
+              "workspace",
+              "board",
+              "sketch",
+              "sandbox"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "workspace": {
+                "type": "string"
+              },
+              "success": {
+                "type": "boolean"
+              },
+              "hex": {
+                "type": "string"
+              },
+              "stdout": {
+                "type": "string"
+              },
+              "stderr": {
+                "type": "string"
+              },
+              "board": {
+                "type": "string"
+              },
+              "sketch": {
+                "type": "string"
+              },
+              "sandbox": {
+                "type": "boolean"
+              },
+              "session": {
+                "type": "string"
+              },
+              "activity": {
+                "type": "string"
+              },
+              "job_id": {
+                "type": "integer"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "lesson_module": {
+            "required": [
+              "id",
+              "number",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "expectations": {
+                "type": "string"
+              },
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "unit": {
+                "type": "string"
+              },
+              "standards": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -597,6 +882,24 @@
             "type": "string"
           },
           "activity": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "users_permissions_user": {
+            "type": "string"
+          },
+          "classroom": {
+            "type": "string"
+          },
+          "gallery": {
+            "type": "string"
+          },
+          "submission": {
+            "type": "string"
+          },
+          "lesson_module": {
             "type": "string"
           },
           "published_at": {
