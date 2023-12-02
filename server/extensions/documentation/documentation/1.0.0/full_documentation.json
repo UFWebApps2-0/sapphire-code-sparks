@@ -14,11 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-<<<<<<< HEAD
-    "x-generation-date": "11/28/2023 9:52:46 PM"
-=======
-    "x-generation-date": "11/08/2023 8:00:47 PM"
->>>>>>> 95e1f2b543471e7808fd7db69c37b3a0682cad39
+    "x-generation-date": "12/01/2023 10:33:51 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -13452,19 +13448,11 @@
           "id": {
             "type": "string"
           },
-          "sendername": {
+          "Sendermessage": {
+            "type": "object"
+          },
+          "tableID": {
             "type": "string"
-          },
-          "sendermessage": {
-            "type": "string"
-          },
-          "tablename": {
-            "type": "string",
-            "default": "tablename"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
           },
           "published_at": {
             "type": "string",
@@ -13474,19 +13462,11 @@
       },
       "NewCommentc": {
         "properties": {
-          "sendername": {
+          "Sendermessage": {
+            "type": "object"
+          },
+          "tableID": {
             "type": "string"
-          },
-          "sendermessage": {
-            "type": "string"
-          },
-          "tablename": {
-            "type": "string",
-            "default": "tablename"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
           },
           "published_at": {
             "type": "string",

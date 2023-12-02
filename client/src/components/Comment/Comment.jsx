@@ -1,41 +1,71 @@
-import React, { useState,useEffect } from 'react';
-import { Input, Button } from 'antd';
-import { useGlobalState } from '../../Utils/userState'; // 确保路径正确
-import { getCommentcs, postCommentcs } from '../../Utils/requests';
-const Comment = ({ saveId,comments, setComments }) => {
-  
-  const [currentUser] = useGlobalState('currUser'); // 获取当前用户信息
- console.log(saveId);
-  const [commentInput, setCommentInput] = useState('');
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await getCommentcs(saveId);
-        if (response.data) {
-          setComments(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-      }
-    };
 
+import React, { useState, useEffect } from 'react';
+import { Input, Button } from 'antd';
+import { useGlobalState } from '../../Utils/userState';
+import { getCommentcs, postCommentcs,putCommentcs } from '../../Utils/requests';
+
+const Comment = ({ saveId, comments, setComments }) => {
+  const [currentUser] = useGlobalState('currUser');
+  const [commentInput, setCommentInput] = useState('');
+ 
+  const fetchComments = async () => {
+    try {
+        const response = await getCommentcs(saveId);
+        if (response) {
+            console.log(response.data);
+            // 如果response.data.Sendermessage已经是对象，则不需要解析
+            const commentsArray = response.data.Sendermessage;
+
+            // 假设commentsArray是一个数组，我们可以继续
+            if (Array.isArray(commentsArray)) {
+                const sortedComments = commentsArray.sort(
+                    (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+                );
+                setComments(sortedComments);
+            } else {
+                // 如果commentsArray不是数组，这里可以处理错误
+                console.error('Expected an array of comments, but got:', commentsArray);
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+    }
+};
+
+  useEffect(() => {
     fetchComments();
   }, [saveId]);
+
   const submitComment = async () => {
     if (commentInput.trim()) {
+      // Create a new comment object
       const newComment = {
-        sendername: currentUser.name, // 使用当前用户的用户名
-        sendermessage: commentInput,
-        tablename: saveId, // 使用saveId作为tablename
+        sendername: currentUser.name,
+        message: commentInput,
         timestamp: new Date().toISOString()
       };
       
       try {
-        const response = await postCommentcs(newComment);
-        if (response.data) {
-          setComments([...comments, response.data]);
-          setCommentInput('');
+        // Append the new comment to the existing array
+        const updatedComments = [...comments, newComment];
+       
+        // Send the updated array to the backend
+        if((await getCommentcs(saveId))===null){
+        
+        await postCommentcs({
+          saveId, // 这里是传递给postCommentcs的saveId
+          comments: updatedComments // 这里是传递给postCommentcs的评论数组
+        });}
+        else{
+          console.log(updatedComments);
+          await putCommentcs(
+            saveId, updatedComments
+          )
         }
+        
+        // Update comments state
+        setComments(updatedComments);
+        setCommentInput(''); // Clear the input field
       } catch (error) {
         console.error('Error submitting new comment:', error);
       }
@@ -59,12 +89,15 @@ const Comment = ({ saveId,comments, setComments }) => {
         <h3>Comments</h3>
         <ul>
           {comments.map((comment, index) => (
-            <li key={index}><strong>{comment.sendername}: </strong>{comment.sendermessage}</li>
-          ))}
+          
+            <li key={index}><strong>{comment.sendername}: </strong>{comment.message}</li> 
+             
+           
+        ))}
         </ul>
       </div>
     </div>
   );
 };
 
-export default Comment;
+export default Comment
