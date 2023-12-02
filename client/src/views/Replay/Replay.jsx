@@ -10,6 +10,10 @@ import './Replay.less';
 import { useParams, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
 import Comment from '../../components/Comment/Comment';
+<<<<<<< HEAD
+
+=======
+>>>>>>> 11fb4c15b016244dd756ef9f1691e50b27f9022f
 import { Table } from 'antd';
 import { getSave } from '../../Utils/requests';
 import { CSVDownloader } from 'react-papaparse';

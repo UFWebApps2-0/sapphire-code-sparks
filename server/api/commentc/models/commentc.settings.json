@@ -11,20 +11,12 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "sendername": {
-      "type": "string"
+    "Sendermessage": {
+      "type": "json"
     },
-    "sendermessage": {
-      "type": "text"
-    },
-    "tablename": {
+    "tableID": {
       "type": "string",
-      "default": "tablename",
-      "required": false,
       "unique": true
-    },
-    "timestamp": {
-      "type": "datetime"
     }
   }
 }

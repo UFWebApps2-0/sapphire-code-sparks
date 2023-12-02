@@ -18,6 +18,7 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
         },
       }
     : null;
+    
 
   try {
     switch (method) {
@@ -26,6 +27,7 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
         break;
       case POST:
         res = (await axios.post(path, data, config)).data;
+       
         break;
       case PUT:
         res = (await axios.put(path, data, config)).data;
@@ -90,28 +92,45 @@ export const getActivityToolboxAll = async () =>
     path: `${server}/sandbox/toolbox`,
     error: 'Toolbox could not be retrieved.',
   });
-// 获取评论的函数
-export const getCommentcs = async (tablename) => {
+// get
+export const getCommentcs = async (saveId) => {
+console.log(saveId);
   return makeRequest({
     method: GET,
-    path: `${server}/commentcs?tablename=${tablename}`,
-    auth: true, // 如果需要认证
+    path: `${server}/commentcs/133`,
+    auth: true,
     error: 'Comments could not be retrieved.',
   });
 };
-
-// 提交评论的函数
+//create
 export const postCommentcs = async (commentData) => {
+  
   return makeRequest({
     method: POST,
-    path: `${server}/commentcs`,
-    data: commentData,
-    auth: true, // 如果需要认证
+    path: `${server}/commentcs/${commentData.saveId}`,
+    data: {
+      tableID: JSON.stringify(commentData.saveId), 
+      Sendermessage: JSON.stringify(commentData.comments) 
+    },
+    auth: true,
     error: 'Comment could not be posted.',
   });
 };
 
-  
+//add
+export const putCommentcs = async (id,updatedComments) => {
+
+  return makeRequest({
+    method: PUT,
+    path: `${server}/commentcs/133`, 
+    data: {
+      tableID: id,
+      Sendermessage: JSON.stringify(updatedComments) 
+    },
+    auth: true,
+    error: 'Comment could not be updated.',
+  });
+};
 // export cost getActivityLevels = async () =>
 //   makeRequest({
 //     method: GET,

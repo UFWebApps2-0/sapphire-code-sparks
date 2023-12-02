@@ -13959,19 +13959,11 @@
           "id": {
             "type": "string"
           },
-          "sendername": {
+          "Sendermessage": {
+            "type": "object"
+          },
+          "tableID": {
             "type": "string"
-          },
-          "sendermessage": {
-            "type": "string"
-          },
-          "tablename": {
-            "type": "string",
-            "default": "tablename"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
           },
           "published_at": {
             "type": "string",
@@ -13981,19 +13973,11 @@
       },
       "NewCommentc": {
         "properties": {
-          "sendername": {
+          "Sendermessage": {
+            "type": "object"
+          },
+          "tableID": {
             "type": "string"
-          },
-          "sendermessage": {
-            "type": "string"
-          },
-          "tablename": {
-            "type": "string",
-            "default": "tablename"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
           },
           "published_at": {
             "type": "string",
