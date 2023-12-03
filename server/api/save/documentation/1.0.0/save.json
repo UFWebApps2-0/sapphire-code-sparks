@@ -648,8 +648,7 @@
           "student": {
             "required": [
               "id",
-              "enrolled",
-              "deleted"
+              "enrolled"
             ],
             "properties": {
               "id": {

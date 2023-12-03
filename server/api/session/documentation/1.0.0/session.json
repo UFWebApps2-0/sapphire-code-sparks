@@ -586,8 +586,7 @@
             "items": {
               "required": [
                 "id",
-                "enrolled",
-                "deleted"
+                "enrolled"
               ],
               "properties": {
                 "id": {

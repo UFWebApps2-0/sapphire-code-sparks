@@ -657,8 +657,7 @@
       "Student": {
         "required": [
           "id",
-          "enrolled",
-          "deleted"
+          "enrolled"
         ],
         "properties": {
           "id": {
@@ -799,8 +798,7 @@
       },
       "NewStudent": {
         "required": [
-          "enrolled",
-          "deleted"
+          "enrolled"
         ],
         "properties": {
           "name": {

@@ -53,6 +53,7 @@ export default function OrganizationModeration({ organizationId }) {
         };
     
         fetchData();
+        //console.log(moderationRecords); 
       }, [organizationId]);
 
       const columns = [

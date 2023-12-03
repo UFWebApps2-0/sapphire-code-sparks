@@ -38,7 +38,7 @@
     "deleted": {
       "type": "boolean",
       "default": false,
-      "required": true
+      "required": false
     },
     "time_deleted": {
       "type": "datetime",

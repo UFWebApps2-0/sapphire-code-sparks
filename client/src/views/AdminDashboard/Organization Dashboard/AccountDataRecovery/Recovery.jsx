@@ -57,7 +57,7 @@ export default function Recovery({org}) {
               })
             })
           }
-  
+          console.log(accounts); 
         }) 
       }
       
