@@ -39,11 +39,11 @@ module.exports = async () => {
                 unit: lessonModule.unit,
                 standards: lessonModule.standards,
                 link: lessonModule.link,
-                lesson_modules: lessonModule.id,
+                lesson_module: lessonModule.id,
             });
 
             await strapi.query('lesson-module').update({
-                lesson_histories: lessonModule.id,
+                lesson_histories: existingHistory.id,
             })
         }
     }

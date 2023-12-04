@@ -36,7 +36,8 @@ export default function LessonEditor({
     const histories = await getLessonHistories(learningStandard.id);
     
     if (histories.data) {
-      setLessonHistories(histories.data.lesson_histories);
+      setLessonHistories([...histories.data.lesson_histories]);
+      console.log(lessonHistories);
 
       if (!Array.isArray(lessonHistories))
       {
@@ -64,6 +65,12 @@ export default function LessonEditor({
           res.data.standards,
           res.data.link,
         );
+
+        setName(res.data.name)
+        setDescription(res.data.expectations)
+        setStandards(res.data.standards)
+        setLink(res.data.link)
+        setLinkError(false)
       }
 
       setRevertVisible(false);
@@ -116,7 +123,8 @@ export default function LessonEditor({
       res.data.number,
       res.data.unit,
       standards,
-      link
+      link,
+      res.data.id
     )
     if (response.err) {
       message.error("Fail to update lesson")

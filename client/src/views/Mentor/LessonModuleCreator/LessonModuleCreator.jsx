@@ -73,6 +73,16 @@ export default function LessonModuleCreator({
       standards,
       link
     )
+
+    const resHistory = await createLessonHistory(
+      description,
+      name,
+      0,
+      unit,
+      standards,
+      link,
+      
+    )
     if (res.err) {
       message.error("Fail to create new learning standard")
     } else {

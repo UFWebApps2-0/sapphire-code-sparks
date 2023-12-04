@@ -48,7 +48,7 @@ module.exports = {
         unit: historyRecord.unit,
         standards: historyRecord.standards,
         link: historyRecord.link,
-        lesson_history: historyRecord.id,
+        lesson_histories: historyRecord.id,
       }
     );
 
