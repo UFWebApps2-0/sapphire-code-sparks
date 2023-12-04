@@ -1,7 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Popconfirm, Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { recoverStudent, getAllDeletedAccounts, getStudent } from '../../../../Utils/requests';
 export default function AccountListView({data}) {
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
 
   const columns = [
@@ -27,16 +29,42 @@ export default function AccountListView({data}) {
     },
     
   ];
-
   
-  return (
+  
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      setSelectedRowKeys(selectedRowKeys);       
+    },
     
-    <div id='table-container'>
-      <Table
-          columns={columns}
-          dataSource={data}
-          
-      />
+  };
+
+  const hasSelected = selectedRowKeys.length > 0; 
+
+  const handleRecoverAccount = () =>  {
+    //set admin perms for this in roles section of strapi 
+     
+    selectedRowKeys.forEach((student) => {
+      //console.log(row.id); 
+      console.log(recoverStudent(student)); 
+    })
+
+  }
+
+  return (
+    <div> 
+      <div id='table-container'>
+        <Table
+            rowSelection={{ 
+              ...rowSelection,
+            }}
+            columns={columns}
+            dataSource={data.map((item) => ({ ...item, key: item.id }))}
+            
+        />
+      </div>
+      
+      {hasSelected ? <button onClick={handleRecoverAccount}> Recover Account </button> : null} 
+      
     </div>
 
   );

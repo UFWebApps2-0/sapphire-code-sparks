@@ -30,7 +30,10 @@ export default function Recovery({org}) {
       //retrieve array of school objects from organization prop
       
       const schools = org.schools;
+      let deletedStudents = []; 
+
       if (schools)    {
+        
         schools.forEach((school) => {
           if (school !== undefined && school !== null)    {
             //get school data 
@@ -42,26 +45,26 @@ export default function Recovery({org}) {
                 getClassroom(classroom.id).then(async (cl) => {
                     const students = cl.data.students;
                     //get students from database that are deleted
-                    let deletedStudents = students.filter(student => student.deleted);
+                    let classroomDeletedStudents = students.filter(student => student.deleted);
                     //add student role and school name to each student object  
-                    deletedStudents.map((student) => {
+                    classroomDeletedStudents.map((student) => {
                       student.Role = "Student"; 
                       student.School = school.name; 
                     })
-                    
-                    console.log(deletedStudents); 
-                    //append deleted students array to accounts array 
-                    setAccounts([...accounts, ...deletedStudents]); 
-                    
+                    deletedStudents.push(...classroomDeletedStudents); 
                 })
               })
             })
-          }
-          console.log(accounts); 
+          } 
         }) 
+        
+        //append deleted students array to accounts array 
+        setAccounts(deletedStudents); 
       }
+      console.log(accounts); 
       
     }, [org])
+    
 
   return (
     <div>

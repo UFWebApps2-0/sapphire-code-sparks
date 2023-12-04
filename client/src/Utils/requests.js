@@ -334,6 +334,17 @@ export const updateStudent = async (id, student) =>
     error: 'Failed to update student.',
   });
 
+  export const recoverStudent = async (id) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/students/deleted/${id}`,
+    data: {
+      deleted: false, 
+    },
+    auth: true,
+    error: 'Failed to recover student account.',
+  });
+
 export const getUnits = async (id) =>
   makeRequest({
     method: GET,
