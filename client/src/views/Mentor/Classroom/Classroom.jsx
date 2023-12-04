@@ -41,7 +41,7 @@ export default function Classroom({
             viewing={viewing}
           />
         </TabPane>
-        <TabPane tab='Roster' key='roster'>
+        <TabPane tab='Student Roster' key='roster'>
           <Roster handleLogout={handleLogout} classroomId={id} />
         </TabPane>
         <TabPane tab='Saved Workspaces' key='workspace'>
