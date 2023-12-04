@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import './StudyList.less';
 
 function StudyList({ studyList, updateStudyList }) {
   function DropDownButton({ onClick }) {
+    const handleClick = (e) => {
+      e.stopPropagation();
+      onClick();
+    };
+
     return (
-      <button onClick={onClick} className="dropdown-button">
+      <button onClick={handleClick} className="dropdown-button">
         ^
       </button>
     );
   }
+
 
   function DropDownStudies({ study }) {
     const [open, setOpen] = useState(false);
@@ -34,6 +41,9 @@ function StudyList({ studyList, updateStudyList }) {
         >
           <div className='dropdown-content'>
             <p>Description: {study.description}</p>
+            <Link to={`/study/${study.id}`} className="study-link">
+              View Study Details
+            </Link>
           </div>
         </CSSTransition>
       </div>

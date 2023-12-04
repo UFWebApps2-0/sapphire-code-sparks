@@ -20,6 +20,7 @@ import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
 import CodeReplayReport from './views/Researcher/CodeReplayReport';
+import StudyDetails from './views/Researcher/StudyDetails';
 
 const App = () => {
   return (
@@ -78,6 +79,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/study/:id' 
+          element={
+            <PrivateRoute>
+              <StudyDetails />
             </PrivateRoute>
           }
         />
