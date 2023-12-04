@@ -16,33 +16,48 @@ export default function AddGoogleClassroomForm() {
   const location = useLocation();
   const { id, name, enrollmentCode } = location.state;
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    grade: '',
+    school: '',
+    firstName: '',
+    lastName: ''
+  });
 
-  // For debugging change these fields
-  const grade = 4;
-  const school = 1;
-  const firstName = 'Kaniel'
-  const lastName = 'Vicencio'
+  useEffect(() => {
+    // Fetch current user data from Strapi and store it in sessionStorage
+    getCurrentUser().then(user => {
+      sessionStorage.setItem('currUser', JSON.stringify(user));
+      // Update form data with user info
+      setFormData({ ...formData, firstName: user.firstName, lastName: user.lastName });
+    });
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
 
   const handleAddClassroom = () => {
+    const currentUser = JSON.parse(sessionStorage.getItem('currUser'));
     const classroomObj = {
       name,
-      school,
-      grade,
+      school: formData.school,
+      grade: formData.grade,
       enrollmentCode,
       mentorObj: {
-        firstName,
-        lastName,
-        school,
-        user: 18
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        school: formData.school,
+        user: currentUser.id // Assuming 'id' is the user identifier
       }
     }
 
     googleAddClassroom(id, classroomObj).then(res => {
       console.log(res);
-      navigate('/dashboard')
+      navigate('/dashboard');
     }).catch(err => {
-      console.log(err)
-    })
+      console.log(err);
+    });
   }
 
   return (
