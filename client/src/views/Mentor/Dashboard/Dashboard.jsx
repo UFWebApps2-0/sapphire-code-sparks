@@ -37,6 +37,7 @@ export default function Dashboard() {
   const [gradeList, setGradeList] = useState([]);
   const [learningStandardList, setLessonModuleList] = useState([]);
 
+  // Variable setup for 'Home' and 'Lessons' tabs
   const [tab, setTab] = useState(
     searchParams.has('tab') ? searchParams.get('tab') : 'home'
   );
@@ -61,7 +62,8 @@ export default function Dashboard() {
         message.error(res.err);
         navigate('/teacherlogin');
       }
-      
+
+      // Get all Lesson and Grades data from Database
       const fetchData = async () => {
         const [lsResponse, gradeResponse] = await Promise.all([
           getLessonModuleAll(),
@@ -69,6 +71,7 @@ export default function Dashboard() {
         ]);
         setLessonModuleList(lsResponse.data);
 
+        // Sort grades if Grade tabs are shown/Mentor given permissions to see grade tabs
         const grades = gradeResponse.data;
         grades.sort((a, b) => (a.id > b.id ? 1 : -1));
         setGradeList(grades);
@@ -124,6 +127,8 @@ export default function Dashboard() {
     }
     return '';
   }
+
+  // Lessons tab structure
   const columns = [
     {
       title: 'Unit',
@@ -223,13 +228,14 @@ export default function Dashboard() {
     navigate(`/classroom/${classroomId}`);
   };
 
-    
+  // Default filter for filtering lesson/unit data based on the grade
   const filterLS = (grade) => {
     return learningStandardList.filter((learningStandard) => {
       return learningStandard.unit.grade === grade.id;
     });
   };
 
+  // Creates all the grade tabs if perms are given in strapi
   const setTabs = (grade) => {
     return (
       <TabPane tab={grade.name} key={grade.name}>
