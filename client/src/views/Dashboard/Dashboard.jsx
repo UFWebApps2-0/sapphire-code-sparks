@@ -14,6 +14,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+  
     let classroomIds = [];
     getMentor().then((res) => {
       if (res.data) {
@@ -27,6 +28,7 @@ export default function Dashboard() {
         message.error(res.err);
       }
     });
+
   }, []);
 
   const handleViewClassroom = (classroomId) => {

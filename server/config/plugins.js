@@ -23,4 +23,8 @@ module.exports = () => ({
     integrations: [new Sentry.Integrations.Http({ tracing: true })],
     tracesSampleRate: 1.0,
   },
+  "strapi-google-auth": {
+    enabled: true,
+  },
 });
+

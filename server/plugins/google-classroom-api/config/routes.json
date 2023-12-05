@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/courses",
+      "handler": "classroom.list",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/courses/:id",
+      "handler": "classroom.get",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/courses/:id",
+      "handler": "classroom.create",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

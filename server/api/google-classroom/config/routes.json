@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/google-classrooms",
+      "handler": "google-classroom.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/google-classrooms/count",
+      "handler": "google-classroom.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/google-classrooms/:id",
+      "handler": "google-classroom.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/google-classrooms",
+      "handler": "google-classroom.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/google-classrooms/:id",
+      "handler": "google-classroom.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/google-classrooms/:id",
+      "handler": "google-classroom.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

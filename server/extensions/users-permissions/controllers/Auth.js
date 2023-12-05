@@ -525,12 +525,31 @@ module.exports = {
     try {
       if (!settings.email_confirmation) {
         params.confirmed = true;
+<<<<<<< HEAD
       }
 
       const user = await strapi
         .query('user', 'users-permissions')
         .create(params);
 
+=======
+    }
+    
+    // user creation/automated mentor being added to list here
+    const user = await strapi.query('user', 'users-permissions').create(params);
+    
+    // needs logic for mentor creation
+    // need to check if the new user has a 'mentor' role
+    const mentorRole = await strapi.query('role', 'users-permissions').findOne({ name: 'Mentor' });
+    if (user.role === mentorRole.id) {
+        // add user to the mentor table
+        await strapi.services.mentor.create({
+          user: user.id,
+          // ... other fields for the mentor
+        });
+    }
+    
+>>>>>>> f52e313 (started adding logic for mentor creation)
       const sanitizedUser = sanitizeEntity(user, {
         model: strapi.query('user', 'users-permissions').model,
       });

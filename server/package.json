@@ -11,8 +11,12 @@
     "build-client": "rm -rf ./public/client/* && cd ../client && env PUBLIC_URL=/client yarn build && mv ./build/* ../server/public/client/"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "@strapi/provider-email-gmail-api": "npm:@bztes/strapi-provider-email-gmail-api@^4.0.3",
     "bull": "^4.10.0",
     "dotenv": "^10.0.0",
+    "google-auth-library": "^9.2.0",
+    "googleapis": "^95.0.0",
     "knex": "0.21.18",
     "pg": "^8.10.0",
     "redis-url-parse": "^2.0.0",
@@ -26,6 +30,7 @@
     "strapi-plugin-email": "^3.6.11",
     "strapi-plugin-sentry": "^3.6.11",
     "strapi-plugin-users-permissions": "^3.6.11",
+    "strapi-provider-email-gmail-2lo": "3.5.1",
     "strapi-provider-email-nodemailer": "^3.6.11",
     "strapi-utils": "^3.6.11"
   },

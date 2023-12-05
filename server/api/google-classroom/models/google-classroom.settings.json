@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "google_classrooms",
+  "info": {
+    "name": "GoogleClassroom"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "google_classroom_link": {
+      "type": "string"
+    }
+  }
+}

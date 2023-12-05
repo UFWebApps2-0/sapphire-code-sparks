@@ -19,6 +19,9 @@ yarn-error.log*
 !test_db.dump
 .strapi-updater.json
 
+# Google API
+keys.json
+
 # Packages
 *.zip
 *.tar

@@ -1,0 +1,38 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "google.index",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/initGoogleLogin",
+      "handler": "google.initGoogleLogin",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/initGoogleLogin/callback",
+      "handler": "google.initGoogleLoginCallback",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "handler": "google.getUserDetails",
+      "config": {
+        "policies": []
+      }
+    }
+    
+
+  ]
+}
