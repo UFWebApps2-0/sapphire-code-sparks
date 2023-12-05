@@ -523,6 +523,77 @@
           }
         ]
       }
+    },
+    "/lesson-modules/{id}/revert": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Lesson-module"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -594,6 +665,9 @@
                 "activity_template": {
                   "type": "string"
                 },
+                "lesson_history": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -634,6 +708,18 @@
                   "type": "string"
                 }
               },
+              "lesson_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "classrooms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -647,6 +733,57 @@
           },
           "link": {
             "type": "string"
+          },
+          "lesson_histories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "number",
+                "name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "expectations": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "standards": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "lesson_module": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -679,6 +816,12 @@
           },
           "link": {
             "type": "string"
+          },
+          "lesson_histories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"

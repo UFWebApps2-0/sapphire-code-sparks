@@ -29,4 +29,29 @@ module.exports = {
       ctx.request.body
     );
   },
+  async revert(ctx) {
+    const { id } = ctx.params;
+    const { historyId } = ctx.request.body;
+
+    // Find the lessonn history for this lesson module
+    const historyRecord = strapi.query('lesson-history').findOne({id : historyId });
+    if (!historyRecord)
+      return ctx.error(404, 'Lesson history not found');
+
+    const updatedLesson = await strapi.query('lesson-module').update( 
+      { id },
+      {
+        number: historyRecord.number,
+        name: historyRecord.name,
+        expectations: historyRecord.expectations,
+        activities: historyRecord.activities,
+        unit: historyRecord.unit,
+        standards: historyRecord.standards,
+        link: historyRecord.link,
+        lesson_histories: historyRecord.id,
+      }
+    );
+
+    return updatedLesson;
+  },
 };

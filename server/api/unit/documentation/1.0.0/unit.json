@@ -604,6 +604,134 @@
                 "link": {
                   "type": "string"
                 },
+                "lesson_histories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "lesson_histories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "number",
+                "name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "expectations": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "standards": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "lesson_module": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "classrooms": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "code"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "school": {
+                  "type": "string"
+                },
+                "sessions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mentors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "students": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "code": {
+                  "type": "string"
+                },
+                "grade": {
+                  "type": "string"
+                },
+                "selections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "authorized_workspaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "public": {
+                  "type": "boolean"
+                },
+                "units": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -637,6 +765,18 @@
             "type": "integer"
           },
           "lesson_modules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "lesson_histories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "classrooms": {
             "type": "array",
             "items": {
               "type": "string"

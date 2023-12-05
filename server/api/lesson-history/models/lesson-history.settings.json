@@ -1,14 +1,14 @@
 {
   "kind": "collectionType",
-  "collectionName": "lesson_modules",
+  "collectionName": "lesson_histories",
   "info": {
-    "name": "lesson Module",
+    "name": "Lesson History",
     "description": ""
   },
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "attributes": {
     "number": {
@@ -23,23 +23,23 @@
       "type": "text"
     },
     "activities": {
-      "via": "lesson_module",
-      "collection": "activity"
+      "collection": "activity",
+      "via": "lesson_history"
     },
     "unit": {
-      "via": "lesson_modules",
+      "via": "lesson_histories",
       "model": "unit"
     },
     "standards": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "link": {
       "type": "string"
     },
-    "lesson_histories": {
-      "collection": "lesson-history",
-      "via": "lesson_module"
+    "lesson_module": {
+      "model": "lesson-module",
+      "via": "lesson_histories"
     }
   }
 }

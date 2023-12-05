@@ -205,6 +205,7 @@ export default function Dashboard() {
       render: (_, key) => (
         <LessonEditor
           learningStandard={key}
+          dName={key.name}
           linkBtn={true}
           viewing={viewing}
           setViewing={setViewing}
@@ -220,6 +221,23 @@ export default function Dashboard() {
       editable: true,
       width: '22.5%',
       align: 'left',
+    },
+    {
+      title: 'Edit',
+      key: 'edit',
+      width: '10%',
+      align: 'center',
+      render: (_, key) => (
+        <LessonEditor
+        learningStandard={key}
+        dName = "Edit"
+        linkBtn={true}
+        viewing={viewing}
+        setViewing={setViewing}
+        tab={tab}
+        page={page}
+        />
+      ),
     },
     {
       title: 'Delete',
@@ -314,8 +332,8 @@ export default function Dashboard() {
         <div id='page-header'>
           <h1>Lessons & Units</h1>
         </div>
-        <div id='Mentor-table-container'>
-          <div id='Mentor-btn-container'>
+        <div id='content-creator-table-container'>
+          <div id='content-creator-btn-container'>
             <UnitCreator gradeList={gradeList} />
             <LessonModuleActivityCreator />
           </div>
