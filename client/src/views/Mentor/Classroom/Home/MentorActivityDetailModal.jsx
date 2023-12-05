@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal } from "antd"
+import { Button, Form, Input, message, Modal, Switch } from "antd"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
@@ -245,6 +245,10 @@ const MentorActivityDetailModal = ({
             colorOffset={7}
           />
         </Form.Item>
+        <Form.Item id="form-label" label="Enable Lesson View">
+          <Switch/>
+        </Form.Item>
+
         <h3 id="subtitle">Additional Information</h3>
         <Form.Item
           id="form-label"
