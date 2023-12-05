@@ -4,6 +4,9 @@ import { useSearchParams } from "react-router-dom"
 import {
   getLessonModule,
   updateLessonModule,
+  getLessonHistories,
+  getLessonHistory,
+  createLessonHistory,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
@@ -23,6 +26,59 @@ export default function LessonEditor({
   const [displayName, setDisplayName] = useState(learningStandard.name)
   // eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams()
+
+  // Lesson reversion variables
+  const [revertVisible, setRevertVisible] = useState(false);
+  const [lessonHistories, setLessonHistories] = useState([]);
+
+  // Show Revert modal if button clicked
+  const showRevertModal = async () => {
+    const histories = await getLessonHistories(learningStandard.id);
+    
+    if (histories.data) {
+      setLessonHistories([...histories.data.lesson_histories]);
+      console.log(lessonHistories);
+
+      if (!Array.isArray(lessonHistories))
+      {
+        console.error("Expected an array for lessonHistories, received:", lessonHistories);
+      }
+      else {
+        setRevertVisible(true);
+      }
+    }
+    else {
+      console.error("Expected an array for histories, received:", histories);
+    }
+  }
+
+  const revertLesson = async (historyId) => {
+    try {
+      const res = await getLessonHistory(historyId);
+      if (res) {
+        message.success("Lesson reverted successfully");
+
+        updateLessonModule(
+          learningStandard.id,
+          res.data.name,
+          res.data.expectations,
+          res.data.standards,
+          res.data.link,
+        );
+
+        setName(res.data.name)
+        setDescription(res.data.expectations)
+        setStandards(res.data.standards)
+        setLink(res.data.link)
+        setLinkError(false)
+      }
+
+      setRevertVisible(false);
+    } catch (error) {
+      message.error("Error Reverting Lesson");
+      console.error("Error Reverting Lesson", error);
+    }
+  }
 
   const showModal = async () => {
     setVisible(true)
@@ -58,9 +114,25 @@ export default function LessonEditor({
       standards,
       link
     )
+
+    const res = await getLessonModule(learningStandard.id)
+
+    const responseHistory = await createLessonHistory(
+      description,
+      name,
+      res.data.number,
+      res.data.unit,
+      standards,
+      link,
+      res.data.id
+    )
     if (response.err) {
       message.error("Fail to update lesson")
-    } else {
+    } 
+    else if (responseHistory.err) {
+      message.error("Failed to update version history")
+    }
+    else {
       message.success("Update lesson success")
       setDisplayName(name)
       setSearchParams({ tab, page, activity: response.data.id })
@@ -160,6 +232,26 @@ export default function LessonEditor({
             >
               Cancel
             </Button>
+            <Button
+              onClick={showRevertModal}
+              size="large"
+              className="content-creator-button"
+            >
+              Revert Lesson
+            </Button>
+            <Modal
+              title="Revert Lesson"
+              open={revertVisible}
+              onCancel={() => setRevertVisible(false)}
+              footer={null}
+            >
+              {lessonHistories.map(history => (
+                <div key={history.id}>
+                  <p>{history.name} - {history.created_at}</p>
+                  <Button onClick={() => revertLesson(history.id)}>Revert to this</Button>
+                </div>
+              ))}
+            </Modal>
           </Form.Item>
         </Form>
       </Modal>

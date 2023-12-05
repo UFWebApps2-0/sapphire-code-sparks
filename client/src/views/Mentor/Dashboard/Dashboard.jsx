@@ -242,8 +242,8 @@ export default function Dashboard() {
         <div id='page-header'>
           <h1>Lessons & Units</h1>
         </div>
-        <div id='Mentor-table-container'>
-          <div id='Mentor-btn-container'>
+        <div id='content-creator-table-container'>
+          <div id='content-creator-btn-container'>
             <UnitCreator gradeList={gradeList} />
             <LessonModuleActivityCreator />
           </div>
