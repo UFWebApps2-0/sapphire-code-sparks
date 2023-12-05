@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ratings",
+  "info": {
+    "name": "Ratings",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "descriptor": {
+      "type": "string"
+    },
+    "points": {
+      "type": "integer"
+    }
+  }
+}

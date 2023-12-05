@@ -4,6 +4,7 @@ import { compileArduinoCode, handleSave } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Dropdown, Menu } from 'antd';
 import { getSaves } from '../../../../Utils/requests';
 import CodeModal from '../modals/CodeModal';
+import RubricModal from '../modals/RubricModal'; //--- added lnl
 import ConsoleModal from '../modals/ConsoleModal';
 import PlotterModal from '../modals/PlotterModal';
 import DisplayDiagramModal from '../modals/DisplayDiagramModal'
@@ -345,6 +346,9 @@ export default function StudentCanvas({ activity }) {
       </Menu.Item>
       <Menu.Item>
         <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
+      </Menu.Item>
+      <Menu.Item>
+        <RubricModal /> 
       </Menu.Item>
     </Menu>
   );

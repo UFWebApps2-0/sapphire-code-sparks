@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/saves": {
+    "/rubrics": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Save"
+                    "$ref": "#/components/schemas/Rubric"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Rubric"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Save"
+                  "$ref": "#/components/schemas/Rubric"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Rubric"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewSave"
+                "$ref": "#/components/schemas/NewRubric"
               }
             }
           }
         }
       }
     },
-    "/saves/count": {
+    "/rubrics/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Rubric"
         ],
         "parameters": []
       }
     },
-    "/saves/activity/{activity}": {
+    "/rubrics/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,11 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Rubric"
                 }
               }
             }
@@ -363,71 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
-        ],
-        "parameters": [
-          {
-            "name": "activity",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/saves/{id}": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Save"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Save"
+          "Rubric"
         ],
         "parameters": [
           {
@@ -451,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Save"
+                  "$ref": "#/components/schemas/Rubric"
                 }
               }
             }
@@ -489,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Rubric"
         ],
         "requestBody": {
           "description": "",
@@ -497,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewSave"
+                "$ref": "#/components/schemas/NewRubric"
               }
             }
           }
@@ -563,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Rubric"
         ],
         "parameters": [
           {
@@ -582,14 +514,44 @@
   },
   "components": {
     "schemas": {
-      "Save": {
+      "Rubric": {
         "required": [
-          "id",
-          "workspace"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
+          },
+          "criteria": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "ratings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "name": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "activity": {
             "required": [
@@ -648,117 +610,26 @@
               }
             }
           },
-          "student": {
-            "required": [
-              "id",
-              "enrolled"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "character": {
-                "type": "string"
-              },
-              "classroom": {
-                "type": "string"
-              },
-              "sessions": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "enrolled": {
-                "type": "boolean"
-              },
-              "last_logged_in": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "workspace": {
-            "type": "string"
-          },
-          "replay": {
-            "type": "object"
-          },
-          "session": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "classroom": {
-                "type": "string"
-              },
-              "students": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "submissions": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "saves": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "unit": {
-                "type": "string"
-              },
-              "grade": {
-                "type": "string"
-              },
-              "lesson_module": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "NewSave": {
-        "required": [
-          "workspace"
-        ],
+      "NewRubric": {
         "properties": {
+          "criteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "activity": {
             "type": "string"
           },
-          "student": {
-            "type": "string"
-          },
-          "workspace": {
-            "type": "string"
-          },
-          "replay": {
-            "type": "object"
-          },
-          "session": {
-            "type": "string"
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           },
           "created_by": {
             "type": "string"
@@ -772,7 +643,7 @@
   },
   "tags": [
     {
-      "name": "Save"
+      "name": "Rubric"
     }
   ]
 }
