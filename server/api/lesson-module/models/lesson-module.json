@@ -27,8 +27,8 @@
       "collection": "activity"
     },
     "unit": {
-      "model": "unit",
-      "via": "lesson_modules"
+      "via": "lesson_modules",
+      "model": "unit"
     },
     "standards": {
       "type": "string",
