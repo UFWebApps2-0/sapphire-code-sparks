@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "criteria",
+  "info": {
+    "name": "Criteria",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "ratings": {
+      "collection": "ratings"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

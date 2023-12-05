@@ -1,18 +1,18 @@
 {
   "paths": {
-    "/saves": {
+    "/ratings": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Find all the ratings's records",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve ratings document(s)",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Save"
+                    "$ref": "#/components/schemas/Ratings"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Ratings"
         ],
         "parameters": [
           {
@@ -194,14 +194,14 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new record",
+        "description": "Create a new ratings record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve ratings document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Save"
+                  "$ref": "#/components/schemas/Ratings"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Ratings"
         ],
         "requestBody": {
           "description": "",
@@ -247,20 +247,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewSave"
+                "$ref": "#/components/schemas/NewRatings"
               }
             }
           }
         }
       }
     },
-    "/saves/count": {
+    "/ratings/count": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Retrieve the number of ratings documents",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve ratings document(s)",
             "content": {
               "application/json": {
                 "schema": {
@@ -306,26 +306,22 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Ratings"
         ],
         "parameters": []
       }
     },
-    "/saves/activity/{activity}": {
+    "/ratings/{id}": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Find one ratings record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve ratings document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Ratings"
                 }
               }
             }
@@ -363,71 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
-        ],
-        "parameters": [
-          {
-            "name": "activity",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/saves/{id}": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Save"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Save"
+          "Ratings"
         ],
         "parameters": [
           {
@@ -444,14 +376,14 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a record",
+        "description": "Update a single ratings record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve ratings document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Save"
+                  "$ref": "#/components/schemas/Ratings"
                 }
               }
             }
@@ -489,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Ratings"
         ],
         "requestBody": {
           "description": "",
@@ -497,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewSave"
+                "$ref": "#/components/schemas/NewRatings"
               }
             }
           }
@@ -517,10 +449,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a record",
+        "description": "Delete a single ratings record",
         "responses": {
           "200": {
-            "description": "deletes a single record based on the ID supplied",
+            "description": "deletes a single ratings based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -563,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Save"
+          "Ratings"
         ],
         "parameters": [
           {
@@ -582,183 +514,37 @@
   },
   "components": {
     "schemas": {
-      "Save": {
+      "Ratings": {
         "required": [
-          "id",
-          "workspace"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "activity": {
-            "required": [
-              "id",
-              "number",
-              "template"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "lesson_module": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "template": {
-                "type": "string"
-              },
-              "blocks": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "description": {
-                "type": "string"
-              },
-              "StandardS": {
-                "type": "string"
-              },
-              "images": {
-                "type": "string"
-              },
-              "link": {
-                "type": "string"
-              },
-              "learning_components": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "activity_template": {
-                "type": "string"
-              },
-              "rubric": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "student": {
-            "required": [
-              "id",
-              "enrolled"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "character": {
-                "type": "string"
-              },
-              "classroom": {
-                "type": "string"
-              },
-              "sessions": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "enrolled": {
-                "type": "boolean"
-              },
-              "last_logged_in": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "workspace": {
+          "descriptor": {
             "type": "string"
           },
-          "replay": {
-            "type": "object"
+          "points": {
+            "type": "integer"
           },
-          "session": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "classroom": {
-                "type": "string"
-              },
-              "students": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "submissions": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "saves": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "unit": {
-                "type": "string"
-              },
-              "grade": {
-                "type": "string"
-              },
-              "lesson_module": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "NewSave": {
-        "required": [
-          "workspace"
-        ],
+      "NewRatings": {
         "properties": {
-          "activity": {
+          "descriptor": {
             "type": "string"
           },
-          "student": {
-            "type": "string"
+          "points": {
+            "type": "integer"
           },
-          "workspace": {
-            "type": "string"
-          },
-          "replay": {
-            "type": "object"
-          },
-          "session": {
-            "type": "string"
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           },
           "created_by": {
             "type": "string"
@@ -772,7 +558,7 @@
   },
   "tags": [
     {
-      "name": "Save"
+      "name": "Ratings"
     }
   ]
 }

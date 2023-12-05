@@ -10,6 +10,7 @@ import {
 } from "../../../../Utils/requests"
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
 import ActivityComponentTags from "../../../ContentCreator/ActivityEditor/components/ActivityComponentTags"
+import RubricElements from "./RubricElements"
 
 const SCIENCE = 1
 const MAKING = 2
@@ -34,6 +35,8 @@ const MentorActivityDetailModal = ({
   const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
   const [linkError, setLinkError] = useState(false)
   const [submitButton, setSubmitButton] = useState(0)
+  const [rubric, setRubric] = useState([]) // added lnl 
+  const [criteria, setCriteria] = useState([]) //lnl
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -48,8 +51,12 @@ const MentorActivityDetailModal = ({
       setActivityTemplate(response.data.activity_template)
       setStandardS(response.data.StandardS)
       setImages(response.data.images)
+      setRubric(response.data.rubric)      // added lnl
+      setCriteria(response.data.rubric.criteria) //lnl
       setLink(response.data.link)
       setLinkError(false)
+
+      console.log(response.data.rubric)
       const science = response.data.learning_components
         .filter(component => component.learning_component_type === SCIENCE)
         .map(element => {
@@ -116,13 +123,14 @@ const MentorActivityDetailModal = ({
     const res = await updateActivityDetails(
       selectActivity.id,
       description,
-      //template,
       StandardS,
       images,
       link,
       scienceComponents,
       makingComponents,
-      computationComponents
+      computationComponents,
+      rubric,  //lnl
+      criteria, //lnl
     )
     if (res.err) {
       message.error(res.err)
@@ -146,7 +154,6 @@ const MentorActivityDetailModal = ({
   }
   const showModal = () => {
     setVisible(true)
-    //setOpen(true)
 };
   return (
     <div id="mentoredit">
@@ -207,22 +214,6 @@ const MentorActivityDetailModal = ({
             placeholder="Enter image URL"
           ></Input.TextArea>
         </Form.Item>
-        {/* <Form.Item id="form-label" label="Student Template">
-          <Input.TextArea
-            onChange={e => setTemplate(e.target.value)}
-            value={template}
-            //className="input"
-            placeholder="Enter code template"
-          ></Input.TextArea>
-        </Form.Item>
-        <Form.Item id="form-label" label="Mentor Template">
-          <Input.TextArea
-            onChange={e => setActivityTemplate(e.target.value)}
-            value={activity_template}
-            //className="input"
-            placeholder="Enter mentor code template"
-          ></Input.TextArea>
-        </Form.Item> */}
         <h3 id="subtitle">Lesson Materials</h3>
         <Form.Item id="form-label" label="Classroom Materials">
           <ActivityComponentTags
@@ -245,6 +236,17 @@ const MentorActivityDetailModal = ({
             colorOffset={7}
           />
         </Form.Item>
+        {/* ---------- Edit Rubric lnl ---------- */}
+        <h3 id="subtitle">Rubric</h3>
+        <Form.Item id = "form-label">
+          <RubricElements
+            criteria={criteria}
+            setCriteria={setCriteria} 
+          />
+        </Form.Item> 
+          {/*<RubricElementModal rubric={rubric}/>*/}
+        {/*-- end edited rubric */}
+
         <h3 id="subtitle">Additional Information</h3>
         <Form.Item
           id="form-label"
