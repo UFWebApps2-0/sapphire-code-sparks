@@ -643,6 +643,12 @@
                   "type": "string"
                 }
               },
+              "classrooms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -696,9 +702,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "lesson_history": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"

@@ -17,7 +17,8 @@ module.exports = {
                 activities: currentLesson.activities,
                 unit: currentLesson.unit,
                 standards: currentLesson.standards,
-                link: currentLesson.link
+                link: currentLesson.link,
+                lesson_histories: currentLesson.lesson_histories
             });
         },
     },

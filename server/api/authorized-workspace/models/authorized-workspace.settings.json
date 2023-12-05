@@ -27,8 +27,8 @@
       "collection": "block"
     },
     "classroom": {
-      "private": true,
       "via": "authorized_workspaces",
+      "private": true,
       "model": "classroom"
     }
   }

@@ -235,12 +235,20 @@ export const getLessonModule = async (id) =>
     error: 'Failed to retrieve learning standard.',
   });
 
-export const getLessonHistories = async (id) =>
+export const getLessonHistory = async (id) =>
   makeRequest({
     method: GET,
     path: `${server}/lesson-histories/${id}`,
     auth: true,
-    error: 'Failed to retrieve previous version.',
+    error: 'Failed to retrieve previous version.'
+  })
+
+export const getLessonHistories = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/lesson-modules/${id}`,
+    auth: true,
+    error: 'Failed to retrieve previous versions.',
   });
 
 export const getUnit = async (id) =>
@@ -430,6 +438,31 @@ export const createLessonModule = async (
     auth: true,
     error: 'Login failed.',
   });
+
+  export const createLessonHistory = async (
+    description,
+    name,
+    number,
+    unit,
+    standards,
+    link,
+    lesson_module
+  ) =>
+    makeRequest({
+      method: POST,
+      path: `${server}/lesson-histories`,
+      data: {
+        expectations: description,
+        name: name,
+        number: number,
+        unit: unit,
+        standards: standards,
+        link: link,
+        lesson_module: lesson_module
+      },
+      auth: true,
+      error: 'Login failed.',
+    });
 
 export const createUnit = async (number, name, standardsID, standardsDescrip, grade) =>
   makeRequest({

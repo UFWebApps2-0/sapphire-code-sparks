@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "11/23/2023 4:05:26 PM"
+    "x-generation-date": "12/05/2023 1:22:26 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12380,9 +12380,6 @@
                   "type": "string"
                 }
               },
-              "lesson_history": {
-                "type": "string"
-              },
               "created_by": {
                 "type": "string"
               },
@@ -13015,6 +13012,64 @@
                 }
               }
             }
+          },
+          "public": {
+            "type": "boolean",
+            "default": true
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "number"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "grade": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "standards_id": {
+                  "type": "string"
+                },
+                "standards_description": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "integer"
+                },
+                "lesson_modules": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "lesson_histories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "classrooms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -13060,6 +13115,16 @@
             }
           },
           "authorized_workspaces": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "public": {
+            "type": "boolean",
+            "default": true
+          },
+          "units": {
             "type": "array",
             "items": {
               "type": "string"
@@ -13138,6 +13203,15 @@
                     "type": "string"
                   }
                 },
+                "public": {
+                  "type": "boolean"
+                },
+                "units": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -13181,6 +13255,12 @@
                   }
                 },
                 "lesson_histories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "classrooms": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13546,6 +13626,12 @@
                   "type": "string"
                 }
               },
+              "classrooms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -13599,9 +13685,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "lesson_history": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -13778,6 +13861,12 @@
                   "type": "string"
                 }
               },
+              "classrooms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -13842,54 +13931,6 @@
                 }
               }
             }
-          },
-          "lesson_history": {
-            "required": [
-              "id",
-              "number",
-              "name"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "number": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "expectations": {
-                "type": "string"
-              },
-              "activities": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "unit": {
-                "type": "string"
-              },
-              "standards": {
-                "type": "string"
-              },
-              "link": {
-                "type": "string"
-              },
-              "lesson_module": {
-                "type": "string"
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
           }
         }
       },
@@ -13928,9 +13969,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "lesson_history": {
-            "type": "string"
           },
           "created_by": {
             "type": "string"
@@ -14039,6 +14077,15 @@
                   }
                 },
                 "authorized_workspaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "public": {
+                  "type": "boolean"
+                },
+                "units": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -14384,6 +14431,15 @@
                     "type": "string"
                   }
                 },
+                "public": {
+                  "type": "boolean"
+                },
+                "units": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -14523,6 +14579,15 @@
                   "type": "string"
                 }
               },
+              "public": {
+                "type": "boolean"
+              },
+              "units": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -14570,9 +14635,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "lesson_history": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -14665,6 +14727,15 @@
                 }
               },
               "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "public": {
+                "type": "boolean"
+              },
+              "units": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -14851,6 +14922,12 @@
                   "type": "string"
                 }
               },
+              "classrooms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -14930,9 +15007,6 @@
                 "items": {
                   "type": "string"
                 }
-              },
-              "lesson_history": {
-                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -15045,6 +15119,15 @@
                 }
               },
               "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "public": {
+                "type": "boolean"
+              },
+              "units": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -15454,9 +15537,6 @@
                     "type": "string"
                   }
                 },
-                "lesson_history": {
-                  "type": "string"
-                },
                 "created_by": {
                   "type": "string"
                 },
@@ -15516,6 +15596,77 @@
                 }
               }
             }
+          },
+          "classrooms": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "code"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "school": {
+                  "type": "string"
+                },
+                "sessions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mentors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "students": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "code": {
+                  "type": "string"
+                },
+                "grade": {
+                  "type": "string"
+                },
+                "selections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "authorized_workspaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "public": {
+                  "type": "boolean"
+                },
+                "units": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -15547,6 +15698,12 @@
             }
           },
           "lesson_histories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "classrooms": {
             "type": "array",
             "items": {
               "type": "string"

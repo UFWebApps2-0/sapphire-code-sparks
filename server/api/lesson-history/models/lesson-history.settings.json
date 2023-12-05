@@ -27,8 +27,8 @@
       "via": "lesson_history"
     },
     "unit": {
-      "model": "unit",
-      "via": "lesson_histories"
+      "via": "lesson_histories",
+      "model": "unit"
     },
     "standards": {
       "type": "string",
@@ -39,7 +39,7 @@
     },
     "lesson_module": {
       "model": "lesson-module",
-      "via": "lesson_history"
+      "via": "lesson_histories"
     }
   }
 }
