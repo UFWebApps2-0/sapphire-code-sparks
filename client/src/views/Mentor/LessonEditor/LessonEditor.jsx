@@ -5,25 +5,20 @@ import {
   getLessonModule,
   updateLessonModule,
   getLessonHistories,
+  updateLessonHistory,
   getLessonHistory,
   createLessonHistory,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
-export default function LessonEditor({
-  learningStandard,
-  viewing,
-  setViewing,
-  tab,
-  page,
-}) {
+export default function LessonEditor({learningStandard, dName, viewing, setViewing, tab, page}) {
   const [visible, setVisible] = useState(false)
   const [name, setName] = useState(learningStandard.name)
   const [description, setDescription] = useState("")
   const [standards, setStandards] = useState("")
   const [link, setLink] = useState("")
   const [linkError, setLinkError] = useState(false)
-  const [displayName, setDisplayName] = useState(learningStandard.name)
+  const [displayName, setDisplayName] = useState(name)
   // eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams()
 
@@ -34,8 +29,15 @@ export default function LessonEditor({
   // Show Revert modal if button clicked
   const showRevertModal = async () => {
     const histories = await getLessonHistories(learningStandard.id);
+
+    // if (Array.isArray(histories)) { // Edit button
+    //   setLessonHistories(histories);
+    //   setRevertVisible(true);
+    // }
+    // else {
+    //   console.error("Expected an array for lesson history, received:", histories);
     
-    if (histories.data) {
+    if (histories.data) { // Main (just in case)
       setLessonHistories([...histories.data.lesson_histories]);
       console.log(lessonHistories);
 
@@ -51,12 +53,31 @@ export default function LessonEditor({
       console.error("Expected an array for histories, received:", histories);
     }
   }
+  
+
+  const fetchAndUpdateLessonModule = async () => {
+    try {
+      const res = await getLessonModule(learningStandard.id);
+      if (res && res.data) {
+        setName(res.data.name);
+        setDescription(res.data.expectations);
+        setStandards(res.data.standards);
+        setLink(res.data.link);
+      }
+    } catch (error) {
+      console.error("Error fetching updated lesson module:", error);
+    }
+  };
 
   const revertLesson = async (historyId) => {
     try {
       const res = await getLessonHistory(historyId);
       if (res) {
         message.success("Lesson reverted successfully");
+
+        // Refresh data
+        // setLessonHistories(getLessonHistories(learningStandard.id));
+        // await fetchAndUpdateLessonModule();
 
         updateLessonModule(
           learningStandard.id,
@@ -91,7 +112,7 @@ export default function LessonEditor({
   }
 
   useEffect(() => {
-    setDisplayName(learningStandard.name)
+    setDisplayName(dName)
   }, [learningStandard.name])
 
   const handleCancel = () => {

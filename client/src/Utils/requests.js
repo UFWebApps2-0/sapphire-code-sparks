@@ -517,6 +517,24 @@ export const getGrade = async (grade) =>
     error: 'Grade could not be retrieved',
   });
 
+export const updateLessonHistory = async (
+  id,
+  name,
+  expectations,
+  link
+) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/lesson-histories/${id}`,
+    data: {
+      name,
+      expectations,
+      link,
+    },
+    auth: true,
+    error: 'Failed to update unit',
+  });
+  
 export const updateLessonModule = async (
   id,
   name,
