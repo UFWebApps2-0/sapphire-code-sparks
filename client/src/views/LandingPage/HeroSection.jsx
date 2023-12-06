@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Placeholder from "../../assets/placeholder.jpg";
+import Placeholder from "../../assets/hero-graphic.png";
 
 const HeroSection = () => {
   return (
     <section className="hero">
       <div className="text">
-        <h1>Excepteur sint occaecat cupidatat</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt.</p>
+        <h1>Begin your Personalized Learning Journey</h1>
+        <p>Code-sparks is built to make teaching and learning easier for everyone.
+          Join a classroom now to get started.
+        </p>
         <Link to='/join'>Join Classroom</Link>
       </div>
-      <div className="image">
+      
         <img src={Placeholder} alt="Description" />
-      </div>
+      
     </section>
   );
 };
