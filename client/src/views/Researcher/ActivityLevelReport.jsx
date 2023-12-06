@@ -302,6 +302,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
         console.error('Fail to retrieve grades');
       }
       setGrades(gradesRes.data);
+      console.log(grades);
     };
     const fetchData2 = async () => {
       const lessons = await getLessonModuleAll();
@@ -319,7 +320,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
       const allUnits = await getAllUnits();
       setUnits(allUnits.data);
     };
-
+  
     fetchData();
     fetchData2();
     fetchData3();
@@ -345,7 +346,6 @@ const Filter = ({ setSearchParam, paramObj }) => {
   };
 
   const onClassroomChange = async (e) => {
-  
     const classroom = e.target.value;
     classroom ? setselectedClassroom(classroom) : setselectedClassroom('');
     let obj = {};
@@ -397,22 +397,6 @@ const Filter = ({ setSearchParam, paramObj }) => {
               </option>
             ))
           }
-        </select>
-        <select
-          className='select'
-          placeholder='Select a lesson'
-          onChange={(e) => {
-            setselectedLs(e.target.value);
-          }}
-        >
-          <option key='empty' value=''>
-            Select a lesson
-          </option>
-          {ls.map((lesson) => (
-            <option key={lesson.id} value={lesson.id}>
-              {lesson.name}
-            </option>
-          ))}
         </select>
         <select
           className='select'
