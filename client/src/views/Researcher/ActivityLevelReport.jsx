@@ -12,6 +12,7 @@ import {
   getUnit,
   getGrade,
   getClassroom,
+  getAllUnits,
   getAllClassrooms,
   getLessonModuleAll,
   getAllStudents,
@@ -314,17 +315,16 @@ const Filter = ({ setSearchParam, paramObj }) => {
       const allStudents = await getAllStudents();
       setStudents(allStudents.data);
     };
-    var allUnits = [];
-    grades.forEach((g) => {
-      allUnits = allUnits.concat(g.units);
-    });
-    console.log(allUnits);
-    setUnits(allUnits);
+    const fetchData5 = async () => {
+      const allUnits = await getAllUnits();
+      setUnits(allUnits.data);
+    };
 
     fetchData();
     fetchData2();
     fetchData3();
     fetchData4();
+    fetchData5();
   }, []);
 
   const onGradeChange = async (e) => {
