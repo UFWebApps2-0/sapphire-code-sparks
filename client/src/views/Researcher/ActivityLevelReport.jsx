@@ -214,6 +214,7 @@ const ActivityLevelReport = () => {
     },
   ];
 
+  // toggles filter transition
   const handleFilterClick = () => {
     setIsTransition(!isTransition);
     setShowFilter(!showFilter);
@@ -294,8 +295,9 @@ const Filter = ({ setSearchParam, paramObj }) => {
   const [selectedClassroom, setselectedClassroom] = useState('');
   const [selectedStudent, setselectedStudent] = useState('');
   
-
+  // loads data from the database
   useEffect(() => {
+    // loads the grades, stores them in grades
     const fetchData = async () => {
       const gradesRes = await getGrades();
       if (gradesRes.error) {
@@ -304,18 +306,22 @@ const Filter = ({ setSearchParam, paramObj }) => {
       setGrades(gradesRes.data);
       console.log(grades);
     };
+    // loads the lessons, stores them in lessons
     const fetchData2 = async () => {
       const lessons = await getLessonModuleAll();
       setLs(lessons.data);
     };
+    // loads the classrooms, stores them in classrooms
     const fetchData3 = async () => {
       const allClassrooms = await getAllClassrooms();
       setClassrooms(allClassrooms.data);
     };
+    // loads the students, stores them in students
     const fetchData4 = async () => {
       const allStudents = await getAllStudents();
       setStudents(allStudents.data);
     };
+    // loads the units, stores them in units
     const fetchData5 = async () => {
       const allUnits = await getAllUnits();
       setUnits(allUnits.data);
@@ -328,15 +334,14 @@ const Filter = ({ setSearchParam, paramObj }) => {
     fetchData5();
   }, []);
 
+  // on taskbar change events
   const onGradeChange = async (e) => {
-    
     const grade = e.target.value;
     grade ? setselectedGrade(grade) : setselectedGrade('');
     let obj = {};
     if( grade !== "" ) obj.grade = grade;
     setSearchParam(obj);
   };
-
   const onUnitChange = async (e) => {
     const unit = e.target.value;
     unit ? setselectedUnit(unit) : setselectedUnit('');
@@ -344,7 +349,6 @@ const Filter = ({ setSearchParam, paramObj }) => {
     if( unit !== "" ) obj.unit = unit;
     setSearchParam(obj);
   };
-
   const onClassroomChange = async (e) => {
     const classroom = e.target.value;
     classroom ? setselectedClassroom(classroom) : setselectedClassroom('');
@@ -360,6 +364,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
     setSearchParam(obj);
   };
 
+  // clears search filter
   const handleClear = async () => {
     let obj = {};
     setSearchParam(obj);
