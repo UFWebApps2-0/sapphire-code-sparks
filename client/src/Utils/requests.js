@@ -95,7 +95,7 @@ export const getActivityToolboxAll = async () =>
   });
 // get
 export const getCommentcs = async (saveId) => {
-console.log(saveId);
+
   return makeRequest({
     method: GET,
     path: `${server}/commentcs/133`,
@@ -103,6 +103,8 @@ console.log(saveId);
     error: 'Comments could not be retrieved.',
   });
 };
+
+
 //create
 export const postCommentcs = async (commentData) => {
   
