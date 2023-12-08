@@ -34,21 +34,15 @@
 }
 
 .red-button {
-    //display: flex;
-    //justify-content: flex;
     transition: background-color 300ms, color 300ms;
     background-color: white;
-    //color: white;
     align-items: center;
-    //margin-right: 15%;
     border-radius: 5px;
 }
 .red-button-open {
-    background-color: #f00;
-    color: #fff;
+    background-color: red;
+    color: white;
   }
-
-
 
 .desc{
     align-items: left; 
@@ -60,23 +54,23 @@
 
 .desc-enter {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-15px);
   }
   
-  .desc-enter-active {
+.desc-enter-active {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 300ms, transform 300ms;
-  }
+}
   
-  .desc-exit {
+.desc-exit {
     opacity: 1;
     transform: translateY(0);
-  }
+}
   
-  .desc-exit-active {
+.desc-exit-active {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-15px);
     transition: opacity 300ms, transform 300ms;
-  }
+}
   

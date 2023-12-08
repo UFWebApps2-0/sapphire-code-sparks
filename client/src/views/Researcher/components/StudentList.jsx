@@ -33,7 +33,7 @@ function StudentList({ studentList, updateStudentList }) {
 
         <CSSTransition
           in={open}
-          timeout={1500}
+          timeout={300}
           classNames='dropdown-content'
           unmountOnExit
         >
