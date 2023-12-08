@@ -373,6 +373,45 @@ export const addStudent = async (name, character, classroom) =>
     error: 'Failed to add student.',
   });
 
+  export const addClassroomToStudy = async (studyId, classrooms) => {
+    try {
+      const updatedStudy = await makeRequest({
+        method: 'PUT', // Assuming POST is correct for your use case
+        path: `${server}/studies/${studyId}`, 
+        data: {
+          classrooms: classrooms,
+        },
+        auth: true,
+        error: 'Failed to add classroom to study.',
+      });
+  
+      return updatedStudy;
+    } catch (error) {
+      console.error('Error adding classroom to study:', error);
+      throw error; // Rethrow the error to handle it elsewhere if needed
+    }
+  };
+
+  export const addStudentToStudy = async (studyId, students) => {
+    try {
+      const updatedStudy = await makeRequest({
+        method: 'PUT', // Assuming POST is correct for your use case
+        path: `${server}/studies/${studyId}`, 
+        data: {
+          students: students,
+        },
+        auth: true,
+        error: 'Failed to add student to study.',
+      });
+  
+      return updatedStudy;
+    } catch (error) {
+      console.error('Error adding student to study:', error);
+      throw error; // Rethrow the error to handle it elsewhere if needed
+    }
+  };
+  
+
 export const addStudents = async (students, classroom) =>
   makeRequest({
     method: POST,

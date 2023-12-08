@@ -61,7 +61,7 @@ function StudyList({ studyList, updateStudyList }) {
       </div>
     );
   }
-  console.log(studyList);
+
   return (
     <div className='dropdown'>
       {studyList.map((study) => (

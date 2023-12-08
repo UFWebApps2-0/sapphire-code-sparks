@@ -83,9 +83,6 @@ export default function GroupReport(props) {
                     close => (
                         <div className='model'>
                             <AddStudy 
-                              newList = {studyList}
-                              setNewList = {setStudyList}
-                              updateStudyList = {updateStudyList}
                               handleAddStudy = {handleAddStudy}
                             />
                             <div>
