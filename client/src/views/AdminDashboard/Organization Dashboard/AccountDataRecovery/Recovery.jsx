@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select } from "antd"
 const { Option } = Select;
 import React, { useEffect, useState } from "react"
-import {  getSchool, getClassroom, getAllDeletedAccounts } from '../../../../Utils/requests';
+import { getSchool, getClassroom } from '../../../../Utils/requests';
 import "./Recovery.less"
 import AccountListView from "./AccountListView.jsx"
 
@@ -18,17 +18,9 @@ export default function Recovery({org}) {
     }
 
       
-    useEffect(() => {
-      
-      if (org === null || org === undefined ) {
-        console.log('Error: organization is null'); 
-      }
-      else   {
-        console.log(org); 
-      }
-      
+    useEffect(() => { 
       //retrieve array of school objects from organization prop
-      
+     
       const schools = org.schools;
       let deletedStudents = []; 
 
@@ -61,11 +53,14 @@ export default function Recovery({org}) {
         //append deleted students array to accounts array 
         setAccounts(deletedStudents); 
       }
-      console.log(accounts); 
       
     }, [org])
     
-
+    const handleRecoverAccountProp = (selectedRowKeys) => {
+      setAccounts((prevAccounts) => 
+        prevAccounts.filter((account) =>!selectedRowKeys.includes(account.id))
+      )
+    }
   return (
     <div>
 
@@ -81,6 +76,7 @@ export default function Recovery({org}) {
       >
         <AccountListView
           data = {accounts}
+          onRecover = {handleRecoverAccountProp}
         />
       </Modal>
     </div>

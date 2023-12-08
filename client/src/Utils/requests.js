@@ -212,14 +212,6 @@ export const getAllStudents = async () =>
     auth: true,
     error: 'Students could not be retrieved.',
   });
-
-export const getAllDeletedAccounts = async () =>
-  makeRequest({
-    method: GET,
-    path:`${server}/recently-deleted-accounts`,
-    auth: true, 
-    error: 'Recently deleted accounts could not be retrieved.',
-  })
 export const getActivityToolboxAll = async () =>
   makeRequest({
     method: GET,
@@ -337,7 +329,7 @@ export const updateStudent = async (id, student) =>
   export const recoverStudent = async (id) =>
   makeRequest({
     method: PUT,
-    path: `${server}/students/deleted/${id}`,
+    path: `${server}/students/${id}`,
     data: {
       deleted: false, 
     },

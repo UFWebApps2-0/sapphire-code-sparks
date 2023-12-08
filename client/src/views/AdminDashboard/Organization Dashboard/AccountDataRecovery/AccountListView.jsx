@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { Popconfirm, Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { recoverStudent, getAllDeletedAccounts, getStudent } from '../../../../Utils/requests';
-export default function AccountListView({data}) {
+import { recoverStudent } from '../../../../Utils/requests';
+export default function AccountListView({data, onRecover}) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
 
@@ -41,12 +41,15 @@ export default function AccountListView({data}) {
   const hasSelected = selectedRowKeys.length > 0; 
 
   const handleRecoverAccount = () =>  {
-    //set admin perms for this in roles section of strapi 
-     
-    selectedRowKeys.forEach((student) => {
-      //console.log(row.id); 
-      console.log(recoverStudent(student)); 
+    
+    selectedRowKeys.forEach((student) => { 
+      recoverStudent(student); 
     })
+    //const updatedAccounts = accounts.filter((account) => !selectedRowKeys.includes(account.id));
+    //setAccounts(updatedAccounts);
+    onRecover(selectedRowKeys); 
+      // Clear selected row keys
+    setSelectedRowKeys([]);
 
   }
 

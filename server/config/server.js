@@ -1,7 +1,9 @@
+const  { hardDeleteStudentAccounts } = require('./functions/cron'); 
 module.exports = ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
   port: env.int('PORT', 1337),
   // url: 'localhost:1337',
+  
   admin: {
     auth: {
       secret: env(
@@ -11,4 +13,9 @@ module.exports = ({ env }) => ({
       ),
     },
   },
+  /*
+  cron: {
+    enabled: true,
+    tasks: hardDeleteStudentAccounts,
+  },*/ 
 });
