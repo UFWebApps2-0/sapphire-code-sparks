@@ -3,7 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import './StudentList.less'; // Make sure to create this .less file
 
-function StudentList({ studentList, updateStudentList }) {
+function StudentList({ studentList }) {
   function DropDownButton({ onClick }) {
     const handleClick = (e) => {
       e.stopPropagation();

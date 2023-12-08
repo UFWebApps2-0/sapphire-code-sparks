@@ -5,6 +5,9 @@ import './StudyDetails.less';
 import { getStudy } from '../../Utils/requests';
 import ClassroomList from './components/ClassroomList';
 import StudentList from './components/StudentList';
+import AddClassroom from './components/AddClassroom';
+import AddStudent from './components/AddStudent';
+import { addClassroomToStudy, addStudentToStudy } from '../../Utils/requests';
 
 
 export default function StudyDetails() {
@@ -14,13 +17,56 @@ export default function StudyDetails() {
   const [classroomList, setClassroomList] = useState();
   const [studentList, setStudentList] = useState();
 
-  const updateClassroomList = (newClassroomList) => {
-    setClassroomList(newClassroomList);
+
+  const updateClassroomList = (newClassroom) => {
+    setClassroomList([...classroomList, newClassroom]);
+    return [...classroomList, newClassroom];
   }
 
-  const updateStudentList = (newStudentList) => {
-    setStudentList(newStudentList);
+  const updateStudentList = (newStudent) => {
+    setStudentList([...studentList, newStudent]);
+    return [...studentList, newStudent];
   }
+
+  const handleAddClassroom = async (studyId, newClassroomList) => {
+    try {
+      // Assuming you have an `addClassroom` function to add a new classroom
+      const response = await addClassroomToStudy(studyId, newClassroomList);
+  
+      if (response.error) {
+        console.error(response.error);
+        // Handle error appropriately, show a message, etc.
+      } else {
+        // Update the classroom list with the new classroom
+        console.log(response.data);
+        
+      }
+    } catch (error) {
+      console.error('Error adding classroom:', error);
+      // Handle error appropriately, show a message, etc.
+    }
+  };
+  
+
+  const handleAddStudent = async (studyId, newStudentList) => {
+    try {
+      // Assuming you have an `addClassroom` function to add a new classroom
+      const response = await addStudentToStudy(studyId, newStudentList);
+  
+      if (response.error) {
+        console.error(response.error);
+        // Handle error appropriately, show a message, etc.
+      } else {
+        // Update the classroom list with the new classroom
+        console.log(response.data);
+        
+      }
+    } catch (error) {
+      console.error('Error adding student:', error);
+      // Handle error appropriately, show a message, etc.
+    }
+  };
+  
 
   useEffect(() => {
     const fetchStudyDetails = async () => {
@@ -46,11 +92,25 @@ export default function StudyDetails() {
       <NavBar />
       {/* <h1>Group Report</h1> */}
         <div id='daily-report-header'>{study.name}</div>
-        {/* Button to add a study */}
+        <div className = "addClassroom">
+          <AddClassroom
+            studyId = {id}
+            handleAddClassroom={handleAddClassroom}
+            classroomList = {classroomList}
+            updateClassroomList = {updateClassroomList}
+          />
+        </div>
         <div className = "classroomList">  
           <ClassroomList
             classroomList = {classroomList}
-            updateClassroomList = {updateClassroomList}
+          />
+        </div>
+        <div className = "addStudent">
+          <AddStudent
+            studyId = {id}
+            handleAddStudent={handleAddStudent}
+            studentList = {studentList}
+            updateStudentList = {updateStudentList}
           />
         </div>
         <div className = "studentList">  
