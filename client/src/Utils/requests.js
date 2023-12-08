@@ -74,6 +74,7 @@ export const getAllStudies = async () =>
   makeRequest({
     method: GET,
     path: `${server}/studies`,
+    //path: `${server}/studies/${id}`,
     auth: true,
     error: 'Studies could not be retrieved.',
   });
@@ -391,6 +392,7 @@ export const addStudy = async (newStudy) =>
   makeRequest({
     method: POST,
     path: `${server}/studies`,
+    //path: `${server}/studies/${id}`,
     data: {
       name: newStudy.name,
       description: newStudy.description,

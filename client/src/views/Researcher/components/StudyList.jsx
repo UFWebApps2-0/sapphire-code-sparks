@@ -4,16 +4,20 @@ import { Link } from 'react-router-dom';
 import './StudyList.less';
 
 function StudyList({ studyList, updateStudyList }) {
-  function DropDownButton({ onClick }) {
+  function DropDownButton({ onClick, isOpen }) {
     const handleClick = (e) => {
       e.stopPropagation();
       onClick();
     };
-
+  
     return (
-      <button onClick={handleClick} className="dropdown-button">
-        ^
+      <button
+        onClick={handleClick}
+        className={`red-button ${isOpen ? 'red-button-open' : ''}`}
+      >
+        {isOpen ? 'Hide Description' : 'Show Description'}
       </button>
+
     );
   }
 
@@ -25,30 +29,39 @@ function StudyList({ studyList, updateStudyList }) {
     };
 
     return (
+      <div>
+        
       <div className='dropdown-item'>
         
-        <DropDownButton onClick={handleDropDownClick} />
         <div className="study-info">
-          <p>Study Name: {study.name}</p>
+          <p style={{color: 'white'}}>Study Name: {study.name}</p>
         </div>
-
         <CSSTransition
           in={open}
-          timeout={300}
-          classNames='dropdown-content'
+          timeout={150}
+          classNames='desc'
           unmountOnExit
         >
-          <div className='dropdown-content'>
+          <div className='desc'>
             <p>Description: {study.description}</p>
             <Link to={`/study/${study.id}`} className="study-link">
               View Study Details
             </Link>
           </div>
         </CSSTransition>
+
+
+        <DropDownButton 
+          onClick={handleDropDownClick} 
+          isOpen={open}
+        />
+      
+        
+      </div>
       </div>
     );
   }
-
+  console.log(studyList);
   return (
     <div className='dropdown'>
       {studyList.map((study) => (

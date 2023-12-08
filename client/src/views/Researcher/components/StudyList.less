@@ -1,32 +1,82 @@
 @import '../../../assets/style.less';
-.icon-button{
-    background-color: white; /* Choose a color that stands out */
-    //border: 1px solid black; /* Adds a border */
-    //box-shadow: 2px 2px 2px grey;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 40px;
-    margin-top: 200px;
-}
+
 .icon-button:active {
-    background-color: navy;
+    background-color: purple;
 }
 .dropdown{
-    margin-top: 200px;
+    //margin-top: 10px;
     //margin-right: 1000px;
-    background-color: navy;
-    padding: 10px
+    background-color: blue;
+    //padding: 10px
 }
 .dropdown-item{
     display:flex;
-    align-items: center;
-    border-radius: var(--border-radius);
+    justify-content: space-between;
+    //align-items: center;
+    //border-radius: var(--border-radius);
     //transition: background var(--speed);
-    padding: 0.5rem;
+    //padding: 200px;
 }
 .dropdown-item:hover{
-    background-color: red;
+    //background-color: red;
+}
+
+.study-info{
+    //margin-right: 15%;
+    align-items: center;
+    margin-top: 10px;
 }
 .study-info:hover{
-    background-color: red;
+    background-color: green;
 }
+.study-link{
+    color: rgb(182, 217, 229);
+}
+
+.red-button {
+    //display: flex;
+    //justify-content: flex;
+    transition: background-color 300ms, color 300ms;
+    background-color: white;
+    //color: white;
+    align-items: center;
+    //margin-right: 15%;
+    border-radius: 5px;
+}
+.red-button-open {
+    background-color: #f00;
+    color: #fff;
+  }
+
+
+
+.desc{
+    align-items: left; 
+    text-align: center;
+    margin: 15px;
+    padding: 15px;
+    color: white;
+}
+
+.desc-enter {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  .desc-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .desc-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .desc-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
+  }
+  

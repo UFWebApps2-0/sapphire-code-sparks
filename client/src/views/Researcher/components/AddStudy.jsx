@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './AddStudy.less';
 
 function AddStudy({newList, setNewList, updateStudyList, handleAddStudy}) {
     const [studyID, setStudyID] = useState('');
@@ -18,23 +19,10 @@ function AddStudy({newList, setNewList, updateStudyList, handleAddStudy}) {
         setStudyName('');
         setStudyDesc('');
     }
-
-    const box={
-        width: '400px',
-        height: '200px',
-        backgroundColor: 'white',
-        padding: '20px',
-        margin: '30px',
-        border: '2px solid black',
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.377',
-        borderRadius: '10px'
-       
-    }
     
     return (
         
-        
-        <div style={box}>
+        <div className='box'>
           <h2>Add a Study</h2>
           <div>
             <label style={{ padding: '10px' }}>Study ID:</label>

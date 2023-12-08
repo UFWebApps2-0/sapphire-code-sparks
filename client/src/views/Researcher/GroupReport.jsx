@@ -50,27 +50,34 @@ export default function GroupReport(props) {
   }
 
   const box={
-    width: '150px',
+    width: '1000px',
     height: '70px',
     backgroundColor: 'white',
     padding: '10px',
     border: '2px solid black',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.377',
     borderRadius: '4px',
-    marginTop: '20px',
-    marginRight: '200px'
-   
+    marginTop: '20px'
 }
 
   return (
     <div className='container nav-padding'>
       <NavBar />
       {/* <h1>Group Report</h1> */}
-        <div id='daily-report-header'>Studies</div>
-        {/* Button to add a study */}
-        <div className = "addStudyButton">
+      <div className='daily-report-header' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>List of Studies</div>
+        <button
+        id={'group-level-return'}
+        type='button'
+        onClick={() => navigate('/report')}
+        >
+        Return to Dashboard
+        </button>
+      </div>
+
+        <div>
           <Popup trigger=
-                {<button style={box}> Click to add study </button>} 
+                {<button className='addStudyButton'>Click to add study</button>} 
                 modal nested>
                 {
                     close => (
@@ -98,17 +105,6 @@ export default function GroupReport(props) {
             updateStudyList = {updateStudyList}
           />
         </div>
-      <div className='dashboard-button'>
-        {/* Do we need a menu button to go back to report landing page?*/}
-        <button
-          id={'group-level-return'}
-          className={`btn-${'primary'} btn-${'sm'}`}
-          type='button'
-          onClick={() => navigate('/report')}
-        >
-          Return to Dashboard
-        </button>
-      </div>
     </div>
   );
 }
