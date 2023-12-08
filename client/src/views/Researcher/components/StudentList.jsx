@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import './StudyList.less';
+import './StudentList.less'; // Make sure to create this .less file
 
-function StudyList({ studyList, updateStudyList }) {
+function StudentList({ studentList, updateStudentList }) {
   function DropDownButton({ onClick }) {
     const handleClick = (e) => {
       e.stopPropagation();
@@ -17,7 +17,7 @@ function StudyList({ studyList, updateStudyList }) {
     );
   }
 
-  function DropDownStudies({ study }) {
+  function DropDownStudents({ student }) {
     const [open, setOpen] = useState(false);
 
     const handleDropDownClick = () => {
@@ -26,10 +26,9 @@ function StudyList({ studyList, updateStudyList }) {
 
     return (
       <div className='dropdown-item'>
-        
         <DropDownButton onClick={handleDropDownClick} />
-        <div className="study-info">
-          <p>Study Name: {study.name}</p>
+        <div className="student-info">
+          <p>Student Name: {student.name}</p>
         </div>
 
         <CSSTransition
@@ -39,10 +38,10 @@ function StudyList({ studyList, updateStudyList }) {
           unmountOnExit
         >
           <div className='dropdown-content'>
-            <p>Description: {study.description}</p>
-            <Link to={`/study/${study.id}`} className="study-link">
-              View Study Details
-            </Link>
+            <p>Student ID: {student.id}</p>
+            {/*<Link to={`/student/${student.id}`} className="student-link">
+              View Student Details
+            </Link>*/}
           </div>
         </CSSTransition>
       </div>
@@ -51,11 +50,11 @@ function StudyList({ studyList, updateStudyList }) {
 
   return (
     <div className='dropdown'>
-      {studyList.map((study) => (
-        <DropDownStudies key={study.id} study={study} />
+      {studentList.map((student) => (
+        <DropDownStudents key={student.id} student={student} />
       ))}
     </div>
   );
 }
 
-export default StudyList;
+export default StudentList;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import './StudyList.less';
+import './ClassroomList.less'; // Make sure to create this .less file
 
-function StudyList({ studyList, updateStudyList }) {
+function ClassroomList({ classroomList, updateClassroomList }) {
   function DropDownButton({ onClick }) {
     const handleClick = (e) => {
       e.stopPropagation();
@@ -17,7 +17,7 @@ function StudyList({ studyList, updateStudyList }) {
     );
   }
 
-  function DropDownStudies({ study }) {
+  function DropDownClassrooms({ classroom }) {
     const [open, setOpen] = useState(false);
 
     const handleDropDownClick = () => {
@@ -26,10 +26,9 @@ function StudyList({ studyList, updateStudyList }) {
 
     return (
       <div className='dropdown-item'>
-        
         <DropDownButton onClick={handleDropDownClick} />
-        <div className="study-info">
-          <p>Study Name: {study.name}</p>
+        <div className="classroom-info">
+          <p>Classroom Name: {classroom.name}</p>
         </div>
 
         <CSSTransition
@@ -39,9 +38,9 @@ function StudyList({ studyList, updateStudyList }) {
           unmountOnExit
         >
           <div className='dropdown-content'>
-            <p>Description: {study.description}</p>
-            <Link to={`/study/${study.id}`} className="study-link">
-              View Study Details
+            <p>Description: {classroom.description}</p>
+            <Link to={`/classroom/${classroom.id}`} className="classroom-link">
+              View Classroom Details
             </Link>
           </div>
         </CSSTransition>
@@ -51,11 +50,11 @@ function StudyList({ studyList, updateStudyList }) {
 
   return (
     <div className='dropdown'>
-      {studyList.map((study) => (
-        <DropDownStudies key={study.id} study={study} />
+      {classroomList.map((classroom) => (
+        <DropDownClassrooms key={classroom.id} classroom={classroom} />
       ))}
     </div>
   );
 }
 
-export default StudyList;
+export default ClassroomList;
