@@ -30,40 +30,33 @@ export default function StudyDetails() {
 
   const handleAddClassroom = async (studyId, newClassroomList) => {
     try {
-      // Assuming you have an `addClassroom` function to add a new classroom
       const response = await addClassroomToStudy(studyId, newClassroomList);
   
       if (response.error) {
         console.error(response.error);
-        // Handle error appropriately, show a message, etc.
       } else {
-        // Update the classroom list with the new classroom
         console.log(response.data);
         
       }
     } catch (error) {
       console.error('Error adding classroom:', error);
-      // Handle error appropriately, show a message, etc.
     }
   };
   
 
   const handleAddStudent = async (studyId, newStudentList) => {
     try {
-      // Assuming you have an `addClassroom` function to add a new classroom
+     
       const response = await addStudentToStudy(studyId, newStudentList);
   
       if (response.error) {
         console.error(response.error);
-        // Handle error appropriately, show a message, etc.
       } else {
-        // Update the classroom list with the new classroom
         console.log(response.data);
         
       }
     } catch (error) {
       console.error('Error adding student:', error);
-      // Handle error appropriately, show a message, etc.
     }
   };
   
@@ -91,7 +84,7 @@ export default function StudyDetails() {
     <div className='container nav-padding'>
       <NavBar />
       {/* <h1>Group Report</h1> */}
-        <div id='daily-report-header'>{study.name}</div>
+        <div style={{color: 'white', fontSize: '3em'}}>{study.name}</div>
         <div className = "addClassroom">
           <AddClassroom
             studyId = {id}

@@ -1,8 +1,6 @@
 @import '../../../assets/style.less';
 .icon-button{
-    background-color: white; /* Choose a color that stands out */
-    //border: 1px solid black; /* Adds a border */
-    //box-shadow: 2px 2px 2px grey;
+    background-color: white;
     padding-left: 10px;
     padding-right: 10px;
     height: 40px;
@@ -12,21 +10,57 @@
     background-color: navy;
 }
 .dropdown{
-    margin-top: 200px;
-    //margin-right: 1000px;
     background-color: navy;
-    padding: 10px
 }
 .dropdown-item{
     display:flex;
-    align-items: center;
-    border-radius: var(--border-radius);
-    //transition: background var(--speed);
-    padding: 0.5rem;
+    justify-content: space-between;
 }
 .dropdown-item:hover{
     background-color: red;
 }
 .study-info:hover{
     background-color: red;
+}
+
+.classroom-info{
+    color: white;
+}
+
+.red-button {
+    transition: background-color 300ms, color 300ms;
+    background-color: white;
+    align-items: center;
+    border-radius: 5px;
+}
+.red-button-open {
+    background-color: red;
+    color: white;
+}
+
+
+.desc-enter {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  
+.desc-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+  
+.desc-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+  
+.desc-exit-active {
+    opacity: 0;
+    transform: translateY(-15px);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.study-link{
+    color: rgb(182, 217, 229);
 }

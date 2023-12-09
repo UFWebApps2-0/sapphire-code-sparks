@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import './StudentList.less'; // Make sure to create this .less file
+import './StudentList.less'; 
 
-function StudentList({ studentList }) {
+function StudentList({ studentList, updateStudentList }) {
   function DropDownButton({ onClick }) {
     const handleClick = (e) => {
       e.stopPropagation();
@@ -26,24 +26,19 @@ function StudentList({ studentList }) {
 
     return (
       <div className='dropdown-item'>
-        <DropDownButton onClick={handleDropDownClick} />
-        <div className="student-info">
+         <div className="content">
           <p>Student Name: {student.name}</p>
         </div>
 
-        <CSSTransition
-          in={open}
-          timeout={1500}
-          classNames='dropdown-content'
-          unmountOnExit
-        >
-          <div className='dropdown-content'>
+        
+          <div className='content'>
             <p>Student ID: {student.id}</p>
             {/*<Link to={`/student/${student.id}`} className="student-link">
               View Student Details
             </Link>*/}
           </div>
-        </CSSTransition>
+        
+       
       </div>
     );
   }

@@ -151,7 +151,7 @@ const CodeReplayReport = () => {
             return 'Replay Not Available';
           },
       },
-      // ...add more columns as needed
+    
     ];
   
     return (
