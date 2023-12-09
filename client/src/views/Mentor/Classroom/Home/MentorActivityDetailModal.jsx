@@ -32,6 +32,7 @@ const MentorActivityDetailModal = ({
   const [makingComponents, setMakingComponents] = useState([])
   const [computationComponents, setComputationComponents] = useState([])
   const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
+  const [lessonView, setLessonView] = useState(false)
   const [linkError, setLinkError] = useState(false)
   const [submitButton, setSubmitButton] = useState(0)
   const navigate = useNavigate()
@@ -48,6 +49,7 @@ const MentorActivityDetailModal = ({
       setActivityTemplate(response.data.activity_template)
       setStandardS(response.data.StandardS)
       setImages(response.data.images)
+      setLessonView(response.data.lessonView)
       setLink(response.data.link)
       setLinkError(false)
       const science = response.data.learning_components
@@ -113,6 +115,8 @@ const MentorActivityDetailModal = ({
       }
     }
     setLinkError(false)
+    console.log("Lesson View before update:", lessonView); // Add this line
+
     const res = await updateActivityDetails(
       selectActivity.id,
       description,
@@ -120,10 +124,13 @@ const MentorActivityDetailModal = ({
       StandardS,
       images,
       link,
+      lessonView,
       scienceComponents,
       makingComponents,
       computationComponents
     )
+    console.log("Lesson View after update:", lessonView); // Add this line
+
     if (res.err) {
       message.error(res.err)
     } else {
@@ -148,6 +155,7 @@ const MentorActivityDetailModal = ({
     setVisible(true)
     //setOpen(true)
 };
+
   return (
     <div id="mentoredit">
     <Button id="view-activity-button"
@@ -246,9 +254,13 @@ const MentorActivityDetailModal = ({
           />
         </Form.Item>
         <Form.Item id="form-label" label="Enable Lesson View">
-          <Switch/>
+          <Switch
+            onChange={(e) => {
+              setLessonView(e)
+            }}
+            defaultChecked={lessonView}
+          />
         </Form.Item>
-
         <h3 id="subtitle">Additional Information</h3>
         <Form.Item
           id="form-label"

@@ -594,6 +594,9 @@
                 "activity_template": {
                   "type": "string"
                 },
+                "lessonView": {
+                  "type": "boolean"
+                },
                 "created_by": {
                   "type": "string"
                 },

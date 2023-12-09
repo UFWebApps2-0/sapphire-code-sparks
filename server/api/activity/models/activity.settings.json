@@ -46,6 +46,10 @@
     "activity_template": {
       "type": "text",
       "required": false
+    },
+    "lessonView": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
