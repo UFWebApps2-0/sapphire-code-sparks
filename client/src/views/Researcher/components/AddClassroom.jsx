@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getAllClassrooms, getClassroom } from '../../../Utils/requests'; // Adjust the path accordingly
-import './AddClassroom.less'; // Adjust the style file import
+import { getAllClassrooms, getClassroom } from '../../../Utils/requests'; 
+import './AddClassroom.less'; 
 
 function AddClassroom({studyId, handleAddClassroom, updateClassroomList}) {
   const [classroomId, setClassroomId] = useState('');
@@ -11,11 +11,10 @@ function AddClassroom({studyId, handleAddClassroom, updateClassroomList}) {
     async function fetchClassrooms() {
       try {
         const response = await getAllClassrooms();
-        const classroomsData = response.data; // Access the 'data' property
+        const classroomsData = response.data; 
         setClassrooms(classroomsData);
       } catch (error) {
         console.error('Error fetching classrooms:', error);
-        // Handle error as needed
       }
     }
   
@@ -29,20 +28,16 @@ function AddClassroom({studyId, handleAddClassroom, updateClassroomList}) {
     addClassroomFunc(updateClassroomList(response.data));
   } catch (error) {
     console.error('Error fetching classroom details:', error);
-    // Handle error as needed
   }
 }
 
 
   function addClassroomFunc(newCLList) {
-    // Check if a classroom is selected before adding
     if (newCLList) {
       handleAddClassroom(studyId, newCLList);
       
-      // Reset the state after adding
       setClassroomId('');
     } else {
-      // Handle the case where no classroom is selected
       console.error('Please select a classroom.');
     }
   }
@@ -52,7 +47,7 @@ function AddClassroom({studyId, handleAddClassroom, updateClassroomList}) {
     <div className='box'>
       <h2>Add a Classroom</h2>
       <div>
-        <label style={{ padding: '10px' }}>Click to add a classroom:</label>
+        <label style={{ padding: '10px' }}>Click to add a classroom: </label>
         <select
   value={classroomId}
   onChange={(e) => {

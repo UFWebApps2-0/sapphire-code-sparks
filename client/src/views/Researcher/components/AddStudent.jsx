@@ -4,6 +4,7 @@ import { getAllStudents, getStudent } from '../../../Utils/requests';
 function AddStudent({studyId, handleAddStudent, studentList, updateStudentList}) {
   const [studentId, setStudentId] = useState('');
   const [students, setStudents] = useState([]);
+  
 
   useEffect(() => {
     async function fetchStudents() {

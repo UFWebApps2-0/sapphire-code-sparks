@@ -37,9 +37,7 @@ export default function GroupReport(props) {
 
     if (response.error) {
       console.error(response.error);
-      // Handle error appropriately, show a message, etc.
     } else {
-      // Update the study list with the new study
       console.log(response.data);
       setStudyList((prevList) => [...prevList, response.data]);
     }
