@@ -1,27 +1,18 @@
 import NavBar from '../../components/NavBar/NavBar';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './GroupReport.less';
+import './Studies.less';
 import AddStudy from './components/AddStudy';
 import StudyList from './components/StudyList';
 import Popup from 'reactjs-popup';
 import {
   getAllStudies,
-  updateStudy,
-  deleteStudy,
   addStudy,
 } from '../../Utils/requests';
 
-export default function GroupReport(props) {
+export default function Studies(props) {
   const navigate = useNavigate();
   const [studyList, setStudyList] = useState([]);
-  
-  // State to hold the current study
-  const [study, setStudy] = useState({
-    id: '',
-    name: '',
-    description: '',
-  });
   
   useEffect(() => {
     const fetchStudies = async () => {
@@ -61,7 +52,6 @@ export default function GroupReport(props) {
   return (
     <div className='container nav-padding'>
       <NavBar />
-      {/* <h1>Group Report</h1> */}
       <div className='daily-report-header' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>List of Studies</div>
         <button
@@ -72,7 +62,7 @@ export default function GroupReport(props) {
         Return to Dashboard
         </button>
       </div>
-
+        {/*Creates and adds a new study for the researcher to manage*/}
         <div>
           <Popup trigger=
                 {<button className='addStudyButton'>Click to add study</button>} 
@@ -94,7 +84,8 @@ export default function GroupReport(props) {
                 }
             </Popup>
         </div>
-        <div className = "studyList">  
+        <div className = "studyList">
+          {/*Uses StudyList tag to display current list of studies*/}
           <StudyList
             studyList = {studyList}
             updateStudyList = {updateStudyList}

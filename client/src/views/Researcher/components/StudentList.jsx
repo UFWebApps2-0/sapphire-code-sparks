@@ -23,22 +23,15 @@ function StudentList({ studentList, updateStudentList }) {
     const handleDropDownClick = () => {
       setOpen(!open);
     };
-
+//Similar logic to StudyList.jsx (see that file for more details)
     return (
       <div className='dropdown-item'>
-         <div className="content">
+        <div className="content">
           <p>Student Name: {student.name}</p>
         </div>
-
-        
           <div className='content'>
             <p>Student ID: {student.id}</p>
-            {/*<Link to={`/student/${student.id}`} className="student-link">
-              View Student Details
-            </Link>*/}
           </div>
-        
-       
       </div>
     );
   }

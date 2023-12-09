@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllStudents, getStudent } from '../../../Utils/requests';
-//random commment
 
-function AddStudent({studyId, handleAddStudent, studentList, updateStudentList}) {
+//Same thing as AddClassroom.jsx but for students 
+function AddStudent({studyId, handleAddStudent, updateStudentList}) {
   const [studentId, setStudentId] = useState('');
   const [students, setStudents] = useState([]);
   
@@ -48,24 +48,22 @@ function AddStudent({studyId, handleAddStudent, studentList, updateStudentList})
       <div>
         <label style={{ padding: '10px' }}>Click to add a student:</label>
         <select
-  value={studentId}
-  onChange={(e) => {
-    setStudentId(e.target.value);
-    handleSelectStudent(e.target.value);
-  }}
->
-  <option value="" disabled>
-    -- Select Student --
-  </option>
-  {students.map((student) => (
-      <option key={student.id} value={student.id}>
-        {student.name}
-      </option>
-    ))}
-</select>
-
+          value={studentId}
+          onChange={(e) => {
+            setStudentId(e.target.value);
+            handleSelectStudent(e.target.value);
+          }}
+        >
+          <option value="" disabled>
+            -- Select Student --
+          </option>
+          {students.map((student) => (
+            <option key={student.id} value={student.id}>
+              {student.name}
+            </option>
+          ))}
+        </select>
       </div>
-    
     </div>
   );
 }

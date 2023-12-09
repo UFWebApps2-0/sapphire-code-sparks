@@ -12,7 +12,7 @@ import NotFound from './views/NotFound';
 import Replay from './views/Replay/Replay';
 import ActivityLevelReport from './views/Researcher/ActivityLevelReport';
 import ActivityLevelReportView from './views/Researcher/ActivityLevelReportView';
-import GroupReport from './views/Researcher/GroupReport';
+import Studies from './views/Researcher/Studies';
 import Report from './views/Researcher/Report';
 import Student from './views/Student/Student';
 import StudentLogin from './views/StudentLogin/StudentLogin';
@@ -59,10 +59,10 @@ const App = () => {
           }
         />
         <Route
-          path='/group-report'
+          path='/studies'
           element={
             <PrivateRoute>
-              <GroupReport />
+              <Studies />
             </PrivateRoute>
           }
         />

@@ -9,7 +9,6 @@ import AddClassroom from './components/AddClassroom';
 import AddStudent from './components/AddStudent';
 import { addClassroomToStudy, addStudentToStudy } from '../../Utils/requests';
 
-
 export default function StudyDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -17,7 +16,7 @@ export default function StudyDetails() {
   const [classroomList, setClassroomList] = useState();
   const [studentList, setStudentList] = useState();
 
-
+  //Updating functions for both classroom and student lists
   const updateClassroomList = (newClassroom) => {
     setClassroomList([...classroomList, newClassroom]);
     return [...classroomList, newClassroom];
@@ -27,11 +26,10 @@ export default function StudyDetails() {
     setStudentList([...studentList, newStudent]);
     return [...studentList, newStudent];
   }
-
+  //Handles add classroom similar to add student
   const handleAddClassroom = async (studyId, newClassroomList) => {
     try {
       const response = await addClassroomToStudy(studyId, newClassroomList);
-  
       if (response.error) {
         console.error(response.error);
       } else {
@@ -42,25 +40,20 @@ export default function StudyDetails() {
       console.error('Error adding classroom:', error);
     }
   };
-  
-
+  //Handles add student so it can be called in other components
   const handleAddStudent = async (studyId, newStudentList) => {
     try {
-     
       const response = await addStudentToStudy(studyId, newStudentList);
-  
       if (response.error) {
         console.error(response.error);
       } else {
         console.log(response.data);
-        
       }
     } catch (error) {
       console.error('Error adding student:', error);
     }
   };
-  
-
+  //Fetches the details of a study including the classroom list and student list
   useEffect(() => {
     const fetchStudyDetails = async () => {
       try {
@@ -80,10 +73,10 @@ export default function StudyDetails() {
     return <div>Loading...</div>;
   }
 
+  //very similar page to studies.jsx but has all these extra components
   return (
     <div className='container nav-padding'>
       <NavBar />
-      {/* <h1>Group Report</h1> */}
         <div style={{color: 'white', fontSize: '3em'}}>{study.name}</div>
         <div className = "addClassroom">
           <AddClassroom
@@ -113,12 +106,11 @@ export default function StudyDetails() {
           />
         </div>
       <div className='dashboard-button'>
-        {/* Do we need a menu button to go back to report landing page?*/}
         <button
           id={'group-level-return'}
           className={`btn-${'primary'} btn-${'sm'}`}
           type='button'
-          onClick={() => navigate('/group-report')}
+          onClick={() => navigate('/studies')}
         >
           Return to Studies
         </button>
