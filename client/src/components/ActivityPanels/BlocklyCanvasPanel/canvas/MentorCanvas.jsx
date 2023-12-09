@@ -271,6 +271,12 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
       <Menu.Item>
         <CodeModal title={'Arduino Code'} workspaceRef={workspaceRef.current} />
       </Menu.Item>
+      <Menu.Item>
+        <div style={{ display: 'flex' }}>
+          <img src="../../../../public/images/codeReplayRecord.png" style={{width: '30px', height: '25px', marginLeft: '-6px' }}alt="Image alt text" />
+          <p style={{ fontSize:'14px' }}>Code Replay Editor</p>
+        </div>
+      </Menu.Item>
     </Menu>
   );
 

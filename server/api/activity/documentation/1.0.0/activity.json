@@ -886,6 +886,10 @@
           },
           "activity_template": {
             "type": "string"
+          },
+          "lessonView": {
+            "type": "boolean",
+            "default": true
           }
         }
       },
@@ -930,6 +934,10 @@
           },
           "activity_template": {
             "type": "string"
+          },
+          "lessonView": {
+            "type": "boolean",
+            "default": true
           },
           "created_by": {
             "type": "string"
