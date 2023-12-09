@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './AddStudy.less';
 
-function AddStudy({newList, setNewList, updateStudyList, handleAddStudy}) {
+function AddStudy({handleAddStudy}) {
     const [studyID, setStudyID] = useState('');
     const [studyName, setStudyName] = useState('');
     const [studyDesc, setStudyDesc] = useState('');
