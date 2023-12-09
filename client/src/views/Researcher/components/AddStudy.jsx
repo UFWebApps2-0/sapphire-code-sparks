@@ -33,7 +33,7 @@ function AddStudy({handleAddStudy}) {
             />
           </div>
           <div>
-            <label style={{ padding: '10px', paddingBottom: '20px'}}>Study Name:</label>
+            <label style={{ padding: '10px'}}>Study Name:</label>
             <input
               type="text"
               value={studyName}
