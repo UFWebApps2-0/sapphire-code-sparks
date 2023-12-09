@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import './ClassroomList.less'; 
 
+//this code file is formatted very similar to study list in terms of front end styling
 function ClassroomList({ classroomList }) {
   function DropDownButton({ onClick, isOpen }) {
     const handleClick = (e) => {
@@ -11,6 +12,7 @@ function ClassroomList({ classroomList }) {
     };
 
     return (
+      //button toggles names and color based on click state, and references red-button class
       <button
         onClick={handleClick}
         className={`red-button ${isOpen ? 'red-button-open' : ''}`}
@@ -28,6 +30,7 @@ function ClassroomList({ classroomList }) {
     };
 
     return (
+      //divs are ordered in specific way to ensure that description comes out in center when opened, and button and names are on opposite sides
       <div className='dropdown-item'>
         <div className='dropdown-item'>
           <div className="classroom-info">

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './AddStudy.less';
-
+//functionity to add study and save variables
 function AddStudy({handleAddStudy}) {
     const [studyID, setStudyID] = useState('');
     const [studyName, setStudyName] = useState('');
@@ -22,6 +22,9 @@ function AddStudy({handleAddStudy}) {
     
     return (
         
+        //This div is for the "add a study" box. It is made to have 3 inputs. Padding is added to space out
+        //divs are ordered in specific way to ensure that description comes out in center when opened, and button and names are on opposite sides
+
         <div style={{ paddingRight: '80px' ,paddingLeft: '80px',paddingTop: '10px',paddingBottom: '20px', backgroundColor: 'white', marginBottom: '5px', border: '2px solid black', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.377)', borderRadius: '30px'}}>
           <h2>Add a Study</h2>
           <div>

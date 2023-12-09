@@ -1,9 +1,6 @@
 @import '../../../assets/style.less';
 
-.icon-button:active {
-    background-color: purple;
-}
-
+//basic variables for dropdown elements
 .dropdown{
         margin-top: 10px;
         margin-bottom: 50px;
@@ -14,27 +11,23 @@
         border-radius: 10px;
 }
 
+//justify content of space-between ensures the button and name are on opposite sides, and when description is opened it will open in the middle
 .dropdown-item{
     display:flex;
     justify-content: space-between;
 }
-.dropdown-item:hover{
-    //background-color: red;
-}
 
-
+//styling for some text
 .study-info{
-    //margin-right: 15%;
     align-items: center;
     margin-top: 10px;
 }
-.study-info:hover{
-    background-color: green;
-}
+
 .study-link{
     color: rgb(182, 217, 229);
 }
 
+//red-button refers to the "show/hide description" button. Toggles between open and close
 .red-button {
     transition: background-color 300ms, color 300ms;
     background-color: white;
@@ -46,6 +39,8 @@
     color: white;
 }
 
+
+//desc class manages transitions of tab when opened/closed. When closed, the desc has opacity of 0 and is 15px up; when opened this changes to opacity 1 and shifts down, which gives it a dropdown effect
 .desc{
     align-items: left; 
     text-align: center;
@@ -60,6 +55,7 @@
   }
   
 .desc-enter-active {
+    //As can be seen, when active will shift 15 px down and go from 0 to 1 opacity in the space of 300 ms
     opacity: 1;
     transform: translateY(0);
     transition: opacity 300ms, transform 300ms;
@@ -71,6 +67,7 @@
 }
   
 .desc-exit-active {
+    //when closing, opposite effect happens
     opacity: 0;
     transform: translateY(-15px);
     transition: opacity 300ms, transform 300ms;

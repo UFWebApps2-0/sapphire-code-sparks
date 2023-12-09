@@ -1,14 +1,5 @@
 @import '../../../assets/style.less';
-.icon-button{
-    background-color: white;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 40px;
-    margin-top: 200px;
-}
-.icon-button:active {
-    background-color: navy;
-}
+
 .dropdown{
     background-color: navy;
 }
@@ -16,17 +7,12 @@
     display:flex;
     justify-content: space-between;
 }
-.dropdown-item:hover{
-    background-color: red;
-}
-.study-info:hover{
-    background-color: red;
-}
-
+//text color is white
 .classroom-info{
     color: white;
 }
 
+//button animations, similar code to StudyList.less, see that file for more details
 .red-button {
     transition: background-color 300ms, color 300ms;
     background-color: white;
@@ -38,7 +24,7 @@
     color: white;
 }
 
-
+//animations for dropdown. Similar code to StudyList.less, see that file for more details
 .desc-enter {
     opacity: 0;
     transform: translateY(-15px);
@@ -60,7 +46,7 @@
     transform: translateY(-15px);
     transition: opacity 300ms, transform 300ms;
 }
-
+//link to study button
 .study-link{
     color: rgb(182, 217, 229);
 }

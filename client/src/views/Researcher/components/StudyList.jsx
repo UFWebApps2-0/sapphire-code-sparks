@@ -11,6 +11,7 @@ function StudyList({ studyList}) {
     };
   
     return (
+      //this button is made to shift between names, and also change colors based on styles in the associated .less file
       <button
         onClick={handleClick}
         className={`red-button ${isOpen ? 'red-button-open' : ''}`}
@@ -29,6 +30,8 @@ function StudyList({ studyList}) {
     };
 
     return (
+      //In terms of front end, CSS transition is used to give slight delay when closing each dropdown item tab. This is all done via the .desc class in the .less file
+      
       <div>
         
       <div className='dropdown-item'>

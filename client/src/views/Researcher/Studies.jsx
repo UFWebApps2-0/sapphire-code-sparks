@@ -52,6 +52,7 @@ export default function Studies(props) {
   return (
     <div className='container nav-padding'>
       <NavBar />
+      {/*ensures correct formatting for everything in the botton list*/}
       <div className='daily-report-header' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>List of Studies</div>
         <button
