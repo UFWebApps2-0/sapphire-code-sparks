@@ -6,6 +6,8 @@ import { Table } from 'antd';
 import Recovery from "./AccountDataRecovery/Recovery"; 
 import { message } from 'antd';
 import ModLogListView from "./ModerationLogListView/ModLogListView";
+import ModerationAction from "./ModerationAction/ModerationAction";
+import "./OrganizationModeration.css";
 
 
 export default function OrganizationModeration({ organizationId }) {
@@ -19,15 +21,6 @@ export default function OrganizationModeration({ organizationId }) {
         navigate('/organization-dashboard');
     };
 
-
-    const navigateRemoveAccount = () => {
-        
-    }
-    
-    const navigateModerationAction = () => {
-        
-    } 
-    // Load Organization's Data
     useEffect(() => {
       //console.log('useEffect triggered!');
         const fetchData = async () => {
@@ -35,28 +28,23 @@ export default function OrganizationModeration({ organizationId }) {
             //get org details
             let getOrganizationResponse = await getOrganization(organizationId);
             let organizationData = getOrganizationResponse.data;
-            console.log('Moderation Records:', organizationData.moderation_records);
+            //console.log('Moderation Records:', organizationData.moderation_records);
             
+            //if org has data, declare _mrecords array and populate with mod records by record key
             if (organizationData) {
-              let _organization = getOrganizationResponse.data;
-            let _mrecords = [];
+              let _mrecords = [];
 
-
-          for (const OMrecord of _organization.moderation_records) {
-              let getMRecordResponse = await getModRecord(OMrecord.id);
-              let mrecord = getMRecordResponse.data;
-              _mrecords.push({ ...mrecord, key: mrecord.id });
-              
-                moderationRecords[mrecord.id] = {
-                  ...mrecord,
-                  key: mrecord.id
+              //only retrieve moderation records from current organization
+              for (const OMrecord of organizationData.moderation_records) {
+                  let getMRecordResponse = await getModRecord(OMrecord.id);
+                  let mrecord = getMRecordResponse.data;
+                  _mrecords.push({ ...mrecord, key: mrecord.id });
                 }
-            }
 
-            // Set States
-            setOrganization(_organization);
+            // Set organization and mod records states
+            setOrganization(organizationData);
             setModerationRecords(_mrecords)
-            console.log('Passed Data to ModLogListView:', _mrecords);
+            //console.log('Passed Data to ModLogListView:', _mrecords);
 
             } else {
               message.error('Failed to fetch organization details');
@@ -64,15 +52,10 @@ export default function OrganizationModeration({ organizationId }) {
           } catch (error) {
             message.error(error.message || 'An error occurred while fetching organization details.');
           }
-          
-      //begintest
-
-      //endtest
         };
         
         
         fetchData();
-        //load();
         //console.log(moderationRecords); 
       }, [organizationId]);
 
@@ -97,10 +80,14 @@ export default function OrganizationModeration({ organizationId }) {
             
             <div class="inline-buttons">
             <button onClick={() => alert('Delete something')}>Delete Something</button>
-            <button onClick={() => alert('Moderation Action')}>Moderation Action</button>
+            
+            <ModerationAction
+              org = {organization}
+            />
             <Recovery
               org = {organization}
             />
+            
             </div>
 
         </div>
