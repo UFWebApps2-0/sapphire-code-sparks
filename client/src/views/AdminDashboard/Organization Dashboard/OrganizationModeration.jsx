@@ -5,6 +5,7 @@ import { getOrganization, getModRecord, getModRecordCount } from "../../../Utils
 import { Table } from 'antd';
 import Recovery from "./AccountDataRecovery/Recovery"; 
 import { message } from 'antd';
+import ModLogListView from "./ModerationLogListView/ModLogListView";
 
 
 export default function OrganizationModeration({ organizationId }) {
@@ -26,23 +27,36 @@ export default function OrganizationModeration({ organizationId }) {
     const navigateModerationAction = () => {
         
     } 
-
     // Load Organization's Data
     useEffect(() => {
+      //console.log('useEffect triggered!');
         const fetchData = async () => {
           try {
             //get org details
-            const organizationResponse = await getOrganization(organizationId);
-            const organizationData = organizationResponse.data;
+            let getOrganizationResponse = await getOrganization(organizationId);
+            let organizationData = getOrganizationResponse.data;
+            console.log('Moderation Records:', organizationData.moderation_records);
             
             if (organizationData) {
-              setOrganization(organizationData);
+              let _organization = getOrganizationResponse.data;
+            let _mrecords = [];
+
+
+          for (const OMrecord of _organization.moderation_records) {
+              let getMRecordResponse = await getModRecord(OMrecord.id);
+              let mrecord = getMRecordResponse.data;
+              _mrecords.push({ ...mrecord, key: mrecord.id });
               
-              //get mod records
-              const moderationRecordsResponse = await getModRecord(organizationId);
-              const moderationRecordsData = moderationRecordsResponse.data;
-              
-              setModerationRecords(moderationRecordsData);
+                moderationRecords[mrecord.id] = {
+                  ...mrecord,
+                  key: mrecord.id
+                }
+            }
+
+            // Set States
+            setOrganization(_organization);
+            setModerationRecords(_mrecords)
+            console.log('Passed Data to ModLogListView:', _mrecords);
 
             } else {
               message.error('Failed to fetch organization details');
@@ -50,18 +64,17 @@ export default function OrganizationModeration({ organizationId }) {
           } catch (error) {
             message.error(error.message || 'An error occurred while fetching organization details.');
           }
+          
+      //begintest
+
+      //endtest
         };
-    
+        
+        
         fetchData();
+        //load();
         //console.log(moderationRecords); 
       }, [organizationId]);
-
-      const columns = [
-        { title: 'ID', dataIndex: 'id', key: 'id' },
-        { title: 'Action Type', dataIndex: 'ActionType', key: 'ActionType' },
-        { title: 'Action Date', dataIndex: 'ActionDate', key: 'ActionDate' },
-        { title: 'Moderator Name', dataIndex: 'ModeratorName', key: 'ModeratorName' },
-      ];
 
     return (
         <div>
@@ -75,7 +88,11 @@ export default function OrganizationModeration({ organizationId }) {
                 id='content-creator-table-container'
                 style={{ marginTop: '6.6vh' }}
             >
-                <Table dataSource={moderationRecords} columns={columns}a rowKey="id" />
+                <ModLogListView 
+                data={Object.values(moderationRecords)} 
+                orgID={organizationId}
+                 />
+                
             </div>
             
             <div class="inline-buttons">

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { getOrganization, getModRecord, getModRecordCount } from "../../../Utils/requests";
 
 
 const getFormattedDate = (value, locale = 'en-US') => {
@@ -18,13 +17,13 @@ const getFormattedDate = (value, locale = 'en-US') => {
 
 
 export default function ModLogListView({data}) {
-    
-    const columns = [
-        { title: 'ID', dataIndex: 'id', key: 'id' },
-        { title: 'Action Type', dataIndex: 'ActionType', key: 'ActionType' },
-        { title: 'Action Date', dataIndex: 'ActionDate', key: 'ActionDate' },
-        { title: 'Moderator Name', dataIndex: 'ModeratorName', key: 'ModeratorName' },
-      ];
+  //console.log('Received Data in ModLogListView:', data);
+  const columns = [
+    { title: 'ID', dataIndex: 'id', key: 'id' },
+    { title: 'Action Type', dataIndex: 'ActionType', key: 'ActionType' },
+    { title: 'Action Date', dataIndex: 'ActionDate', key: 'ActionDate' },
+    { title: 'Moderator Name', dataIndex: 'ModeratorName', key: 'ModeratorName' },
+  ];
 
 
       return (
