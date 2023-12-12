@@ -79,7 +79,7 @@ export default function OrganizationModeration({ organizationId }) {
             </div>
             
             <div class="inline-buttons">
-            <button onClick={() => alert('Delete something')}>Delete Something</button>
+            <button onClick={() => alert('Delete Account')}>Delete/Remove Account</button>
             
             <ModerationAction
               org = {organization}
