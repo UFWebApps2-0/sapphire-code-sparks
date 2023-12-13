@@ -123,6 +123,21 @@ export const getAllAdministrators = async () =>
     error: 'Your administrator information could not be fetched.'
   });
 
+  export const createModRecord = async (ActionType, ActionDate, ModeratorName, organization, administrator) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/moderation-records/`,
+    data: {
+      ActionType,
+      ActionDate,
+      ModeratorName,
+      organization,
+      administrator
+    },
+    auth: true,
+    error: 'Failed to create new moderation record',
+  });
+
   export const getModRecords = async () =>
   makeRequest({
     method: GET,
