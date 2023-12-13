@@ -9,12 +9,16 @@
     "AccountInfo": "/account",
     "ContentCreatorDashboard": "/ccdashboard",
     "ResearcherDashboard": "/report",
-    "BugReport": "/bugreport"
+    "BugReport": "/bugreport",
+    "StudentDashboard": "/studentDashboard",
+    "StudentLessons": "/studentLessons",
+    "StudentClassroom": "/studentClassroom",
+    "StudentParental": "/studentParental"
   },
   "users": {
     "DefaultUser": ["Home", "TeacherLogin", "Sandbox", "About"],
     "Mentor": ["Dashboard", "AccountInfo", "SignOut", "Sandbox", "BugReport"],
-    "Student": ["SignOut"],
+    "Student": ["StudentLessons", "StudentClassroom", "StudentParental", "SignOut"],
     "ContentCreator": [
       "ContentCreatorDashboard",
       "AccountInfo",
@@ -23,5 +27,72 @@
       "BugReport"
     ],
     "Researcher": ["ResearcherDashboard", "BugReport", "SignOut"]
-  }
+  },
+  "navButtons": [
+    {
+      "route": "Home",
+      "icon": "fa-home",
+      "label": "Home"
+    },
+    {
+      "route": "Dashboard",
+      "icon": "fa-home",
+      "label": "Dashboard"
+    },
+    {
+      "route": "ContentCreatorDashboard",
+      "icon": "fa-home",
+      "label": "ContentCreatorDashboard"
+    },
+    {
+      "route": "ResearcherDashboard",
+      "icon": "fa-home",
+      "label": "ResearcherDashboard"
+    },
+    {
+      "route": "Sandbox",
+      "icon": "fa-window-maximize",
+      "label": "Sandbox"
+    },
+    {
+      "route": "TeacherLogin",
+      "icon": "fa-sign-in-alt",
+      "label": "User Login"
+    },
+    {
+      "route": "About",
+      "icon": "fa-info-circle",
+      "label": "About"
+    },
+    {
+      "route": "BugReport",
+      "icon": "fa-calendar-times",
+      "label": "Report a Bug"
+    },
+    {
+      "route": "StudentDashboard",
+      "icon": "fa-home",
+      "label": "Dashboard"
+    },
+    {
+      "route": "StudentClassroom",
+      "icon": "fa-home",
+      "label": "Classroom"
+    },
+    {
+      "route": "StudentLessons",
+      "icon": "fa-home",
+      "label": "Lessons"
+    },
+    {
+      "route": "StudentParental",
+      "icon": "fa-home",
+      "label": "Parental"
+    },
+    {
+      "route": "SignOut",
+      "icon": "fa-sign-out-alt",
+      "label": "Sign Out"
+    }
+  ]
 }

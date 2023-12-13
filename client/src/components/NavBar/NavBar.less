@@ -12,7 +12,7 @@
   z-index: 2;
   height: 8vh;
   background-color: #colors[primary];
-  padding-right: 2vw;
+  padding-right: 0.5vw;
 
   -moz-box-shadow:    0 1px 5px -1px darken(#colors[primary], 90%);
   -webkit-box-shadow: 0 1px 5px -1px darken(#colors[primary], 90%);
@@ -57,4 +57,62 @@
     color: #colors[secondary];
     cursor: pointer;
   }
+}
+
+#line-menu
+{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* Found this really nice looking button from GetCSSScan.com, good placeholder until the Design Team comes up with something :) */
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: rgb(204, 238, 238);
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(3, 238, 191, 0.4) 0 2px 4px,rgba(255, 0, 60, 0.3) 0 7px 13px -3px,#434363 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 16px;
+  margin: 2px;
+  flex: 1;
+  min-width: 11vw;
+  max-width: 15vw;
+}
+
+.button-30:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
 }

@@ -19,6 +19,15 @@ import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
+import StudentDashboard from './views/Student/Dashboard'
+import StudentLessons from './views/Student/Lessons'
+import StudentClassroom from './views/Student/Classroom'
+import StudentParental from './views/Student/ParentalLogin/Parental'
+import ParentalSignUp from './views/Student/ParentalLogin/SignUp'
+import ParentalForgetPsw from './views/Student/ParentalLogin/ForgetPsw'
+
+
+
 
 const App = () => {
   return (
@@ -29,6 +38,9 @@ const App = () => {
         <Route path='/teacherlogin' element={<TeacherLogin />} />
         <Route path='/forgot-password' element={<ForgetPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/sign-up' element={<ParentalSignUp />} />
+        <Route path='/forget-psw' element={<ParentalForgetPsw />} />
+        <Route path='/studentParental' element={<StudentParental />} />
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
         <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
@@ -80,6 +92,39 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route
+          path='/studentDashboard'
+          element={
+            <PrivateRoute>
+              <StudentDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentLessons'
+          element={
+            <PrivateRoute>
+              <StudentLessons />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentClassroom'
+          element={
+            <PrivateRoute>
+              <StudentClassroom />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/studentParental'
+          element={
+            <PrivateRoute>
+              <StudentParental />
+            </PrivateRoute>
+          }
+        />
+        
         <Route
           path='/classroom/:id'
           element={
