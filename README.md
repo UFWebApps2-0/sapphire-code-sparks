@@ -1,3 +1,10 @@
+# List of features implemented
+- hamburger menu with functional buttons
+- frontend design and display
+![Alt text](image.png)
+- added backend functionality for student information
+
+
 # CaSMM
 
 > Computation and Science Modeling through Making
