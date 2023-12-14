@@ -24,6 +24,30 @@ Cloud-based programming interface
 
 <br/>
 
+## Added Features
+
+### Studies page
+
+This page allows for a variety of features regarding the researcher's ability to interact with their studies. For one, it displays current studies and allows for the creation of new ones. This is also where one can interact with a study's description to read more about it. It's the main hub for studies.
+(screenshot)
+
+With regards to studies, this section allows for the enrollment of classes (or individual students) into a specific study at the press of a button.
+(screenshot here)
+
+### Filtering
+
+Created an interface to interact with when filtering different studies
+
+### Code Replay Page
+
+A code replay report page that displays a table with easy access to code replay page conveniently. In the table, there are also header filters for researchers to analyze the data in many ways present on the page.
+
+### Consent Forms
+
+Not fully integrated, but have consent form creation basics in the form of the manipulation & creation of text blocks and signatures.
+
+Parent signatures come up with random id for later use in sending ids to parents to ensure parent authorization for consent forms.
+
 ## Environments
 
 > The project is divided into three conceptual environments.
