@@ -46,6 +46,10 @@ Cloud-based programming interface
 
   Parent signatures come up with random id for later use in sending ids to parents to ensure parent authorization for consent forms.
 
+### Comments
+
+  Added the ability for the researcher to add comments on specific code replays.
+
 <br/>
 
 ## Environments
