@@ -29,8 +29,10 @@ Cloud-based programming interface
 ### Studies Page
 
   This page allows for a variety of features regarding the researcher's ability to interact with their studies. For one, it displays current studies and allows for the creation of new ones. This is also where one can interact with a study's description to read more about it. It's the main hub for studies.
-
+  ![Study](studylist.png)
   With regards to studies, this section allows for the enrollment of classes (or individual students) into a specific study at the press of a button.
+  ![Study](study.png)
+  
 
 ### Filtering
 
@@ -39,6 +41,8 @@ Cloud-based programming interface
 ### Code Replay Page
 
   A code replay report page that displays a table with easy access to code replay page conveniently. In the table, there are also header filters for researchers to analyze the data in many ways present on the page.
+
+  ![Researcher](researcher.png)
 
 ### Consent Forms
 
@@ -49,6 +53,8 @@ Cloud-based programming interface
 ### Comments
 
   Added the ability for the researcher to add comments on specific code replays.
+
+  ![Comment](comment.png)
 
 <br/>
 
