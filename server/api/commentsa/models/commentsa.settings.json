@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "commentsas",
+  "info": {
+    "name": "Commentsa",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {}
+}

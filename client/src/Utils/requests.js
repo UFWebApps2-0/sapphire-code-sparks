@@ -18,6 +18,7 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
         },
       }
     : null;
+    
 
   try {
     switch (method) {
@@ -26,6 +27,7 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
         break;
       case POST:
         res = (await axios.post(path, data, config)).data;
+       
         break;
       case PUT:
         res = (await axios.put(path, data, config)).data;
@@ -68,6 +70,15 @@ export const getAllClassrooms = async () =>
     error: 'Classrooms could not be retrieved.',
   });
 
+export const getAllStudies = async () =>
+  makeRequest({
+    method: GET,
+    path: `${server}/studies`,
+    //path: `${server}/studies/${id}`,
+    auth: true,
+    error: 'Studies could not be retrieved.',
+  });
+
 export const getAllStudents = async () =>
   makeRequest({
     method: GET,
@@ -82,7 +93,47 @@ export const getActivityToolboxAll = async () =>
     path: `${server}/sandbox/toolbox`,
     error: 'Toolbox could not be retrieved.',
   });
+// get
+export const getCommentcs = async (saveId) => {
 
+  return makeRequest({
+    method: GET,
+    path: `${server}/commentcs/133`,
+    auth: true,
+    error: 'Comments could not be retrieved.',
+  });
+};
+
+
+//create
+export const postCommentcs = async (commentData) => {
+  
+  return makeRequest({
+    method: POST,
+    path: `${server}/commentcs/${commentData.saveId}`,
+    data: {
+      tableID: JSON.stringify(commentData.saveId), 
+      Sendermessage: JSON.stringify(commentData.comments) 
+    },
+    auth: true,
+    error: 'Comment could not be posted.',
+  });
+};
+
+//add
+export const putCommentcs = async (id,updatedComments) => {
+
+  return makeRequest({
+    method: PUT,
+    path: `${server}/commentcs/133`, 
+    data: {
+      tableID: id,
+      Sendermessage: JSON.stringify(updatedComments) 
+    },
+    auth: true,
+    error: 'Comment could not be updated.',
+  });
+};
 // export cost getActivityLevels = async () =>
 //   makeRequest({
 //     method: GET,
@@ -119,6 +170,15 @@ export const getClassroom = async (id) =>
     auth: true,
     error: 'Classroom information could not be retrieved',
   });
+
+export const getStudy = async (id) =>
+  makeRequest({
+    method: GET,
+    path: `${server}/studies/${id}`,
+    auth: true,
+    error: 'Study information could not be retrieved',
+  });
+
 
 export const getStudentClassroom = async () =>
   makeRequest({
@@ -313,6 +373,45 @@ export const addStudent = async (name, character, classroom) =>
     error: 'Failed to add student.',
   });
 
+  export const addClassroomToStudy = async (studyId, classrooms) => {
+    try {
+      const updatedStudy = await makeRequest({
+        method: 'PUT', // Assuming POST is correct for your use case
+        path: `${server}/studies/${studyId}`, 
+        data: {
+          classrooms: classrooms,
+        },
+        auth: true,
+        error: 'Failed to add classroom to study.',
+      });
+  
+      return updatedStudy;
+    } catch (error) {
+      console.error('Error adding classroom to study:', error);
+      throw error; // Rethrow the error to handle it elsewhere if needed
+    }
+  };
+
+  export const addStudentToStudy = async (studyId, students) => {
+    try {
+      const updatedStudy = await makeRequest({
+        method: 'PUT', // Assuming POST is correct for your use case
+        path: `${server}/studies/${studyId}`, 
+        data: {
+          students: students,
+        },
+        auth: true,
+        error: 'Failed to add student to study.',
+      });
+  
+      return updatedStudy;
+    } catch (error) {
+      console.error('Error adding student to study:', error);
+      throw error; // Rethrow the error to handle it elsewhere if needed
+    }
+  };
+  
+
 export const addStudents = async (students, classroom) =>
   makeRequest({
     method: POST,
@@ -329,6 +428,29 @@ export const deleteStudent = async (student) =>
     auth: true,
     error: 'Failed to delete student.',
   });
+
+export const addStudy = async (newStudy) =>
+  makeRequest({
+    method: POST,
+    path: `${server}/studies`,
+    //path: `${server}/studies/${id}`,
+    data: {
+      name: newStudy.name,
+      description: newStudy.description,
+      classrooms: [],
+      students: [],
+    },
+    auth: true,
+    error: 'Failed to add study.',
+  });
+
+export const deleteStudy = async (id) =>
+  makeRequest({
+    method: DELETE,
+    path: `${server}/studies/${id}`,
+    auth: true,
+    error: 'Failed to delete study.',
+  });  
 
 export const updateActivityLevelTemplate = async (id, workspace, blocksList) =>
   makeRequest({
@@ -638,6 +760,21 @@ export const createAuthorizedWorkspace = async (
     },
     error: 'Unable to create cc workspace',
   });
+
+export const updateStudy = async (id, name, description, classroomsToAdd, studentsToAdd) =>
+  makeRequest({
+    method: PUT,
+    path: `${server}/studies/${id}`,
+    data: {
+      name,
+      description,
+      classrooms: [...classroomsToAdd], 
+      students: [...studentsToAdd],
+    },
+    auth: true,
+    error: 'Failed to update study.',
+  });
+
 export const getAuthorizedWorkspaceToolbox = async (id) =>
   makeRequest({
     method: GET,
@@ -672,3 +809,4 @@ export const getClassroomWorkspace = async (id) =>
     auth: true,
     error: 'Unable to retrive classroom workspaces',
   });
+

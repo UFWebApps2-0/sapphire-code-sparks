@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "studies",
+  "info": {
+    "name": "Study"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "classrooms": {
+      "collection": "classroom"
+    },
+    "students": {
+      "collection": "student"
+    }
+  }
+}

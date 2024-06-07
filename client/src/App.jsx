@@ -12,13 +12,15 @@ import NotFound from './views/NotFound';
 import Replay from './views/Replay/Replay';
 import ActivityLevelReport from './views/Researcher/ActivityLevelReport';
 import ActivityLevelReportView from './views/Researcher/ActivityLevelReportView';
-import GroupReport from './views/Researcher/GroupReport';
+import Studies from './views/Researcher/Studies';
 import Report from './views/Researcher/Report';
 import Student from './views/Student/Student';
 import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
+import CodeReplayReport from './views/Researcher/CodeReplayReport';
+import StudyDetails from './views/Researcher/StudyDetails';
 
 const App = () => {
   return (
@@ -57,10 +59,18 @@ const App = () => {
           }
         />
         <Route
-          path='/group-report'
+          path='/studies'
           element={
             <PrivateRoute>
-              <GroupReport />
+              <Studies />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/codereplay-report'
+          element={
+            <PrivateRoute>
+              <CodeReplayReport />
             </PrivateRoute>
           }
         />
@@ -69,6 +79,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/study/:id' 
+          element={
+            <PrivateRoute>
+              <StudyDetails />
             </PrivateRoute>
           }
         />

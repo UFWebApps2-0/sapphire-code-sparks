@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/commentsas",
+      "handler": "commentsa.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/commentsas/count",
+      "handler": "commentsa.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/commentsas/:id",
+      "handler": "commentsa.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/commentsas",
+      "handler": "commentsa.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/commentsas/:id",
+      "handler": "commentsa.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/commentsas/:id",
+      "handler": "commentsa.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

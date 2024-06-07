@@ -12,6 +12,10 @@ import {
   getUnit,
   getGrade,
   getClassroom,
+  getAllUnits,
+  getAllClassrooms,
+  getLessonModuleAll,
+  getAllStudents,
 } from '../../Utils/requests';
 import Form from 'antd/lib/form/Form';
 
@@ -27,7 +31,7 @@ const ActivityLevelReport = () => {
   const [tbUnitFilter, setTbUnitFilter] = useState([]);
   const [tbLessonFilter, setTbLessonFilter] = useState([]);
   const [tbPrevFilter, setTbPrevFilter] = useState(null);
-
+  const [isTransition, setIsTransition] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       let filter = '';
@@ -210,12 +214,17 @@ const ActivityLevelReport = () => {
     },
   ];
 
+  // toggles filter transition
+  const handleFilterClick = () => {
+    setIsTransition(!isTransition);
+    setShowFilter(!showFilter);
+  };
+
   return (
     <div className='container nav-padding'>
       <NavBar />
       <div className='menu-bar'>
         <div id='activity-level-report-header'>Activity Level - Student Report</div>
-
         <button
           className='activity-level-return'
           onClick={() => navigate('/report')}
@@ -223,24 +232,22 @@ const ActivityLevelReport = () => {
           Return to Dashboard
         </button>
       </div>
-      <button id='show-filter-btn' onClick={() => setShowFilter(!showFilter)}>
+      <button id='show-filter-btn' onClick={() => {handleFilterClick()} }>
         {showFilter ? (
           <p> Click to Hide Filter</p>
         ) : (
-          <p> Click to Show Filter</p>
+          <span> Click to Show Filter</span>
         )}
       </button>
-      {showFilter ? (
-        <div className='filter-show'>
+        <div className={`filter-show ${isTransition ? 'big' : ''}`}>
           <div className='filter-items'>
             <Filter setSearchParam={setSearchParam} paramObj={paramObj} />
           </div>
         </div>
-      ) : (
         <div className='filter-hide'>
           <Filter setSearchParam={setSearchParam} paramObj={paramObj} />
         </div>
-      )}
+  
       <main id='activity-report-content-wrapper'>
         <Table
           columns={columns}
@@ -287,78 +294,85 @@ const Filter = ({ setSearchParam, paramObj }) => {
   const [selectedUnit, setselectedUnit] = useState('');
   const [selectedClassroom, setselectedClassroom] = useState('');
   const [selectedStudent, setselectedStudent] = useState('');
-
+  
+  // loads data from the database
   useEffect(() => {
+    // loads the grades, stores them in grades
     const fetchData = async () => {
       const gradesRes = await getGrades();
       if (gradesRes.error) {
         console.error('Fail to retrieve grades');
       }
       setGrades(gradesRes.data);
+      console.log(grades);
     };
+    // loads the lessons, stores them in lessons
+    const fetchData2 = async () => {
+      const lessons = await getLessonModuleAll();
+      setLs(lessons.data);
+    };
+    // loads the classrooms, stores them in classrooms
+    const fetchData3 = async () => {
+      const allClassrooms = await getAllClassrooms();
+      setClassrooms(allClassrooms.data);
+    };
+    // loads the students, stores them in students
+    const fetchData4 = async () => {
+      const allStudents = await getAllStudents();
+      setStudents(allStudents.data);
+    };
+    // loads the units, stores them in units
+    const fetchData5 = async () => {
+      const allUnits = await getAllUnits();
+      setUnits(allUnits.data);
+    };
+  
     fetchData();
+    fetchData2();
+    fetchData3();
+    fetchData4();
+    fetchData5();
   }, []);
 
+  // on taskbar change events
   const onGradeChange = async (e) => {
-    setselectedUnit('');
-    setselectedLs('');
-    setselectedClassroom('');
-    setselectedStudent('');
-    setClassrooms([]);
-    setLs([]);
-    setStudents([]);
-
     const grade = e.target.value;
-    if (grade) {
-      setselectedGrade(grade);
-      const gradeRes = await getGrade(grade);
-      setUnits(gradeRes.data.units);
-      setClassrooms(gradeRes.data.classrooms);
-    } else {
-      setselectedGrade('');
-      setUnits([]);
-    }
-  };
-
-  const onUnitChange = async (e) => {
-    setselectedLs('');
-    const unit = e.target.value;
-    if (unit) {
-      setselectedUnit(unit);
-      const unitRes = await getUnit(unit);
-      setLs(unitRes.data.lesson_modules);
-    } else {
-      setselectedUnit('');
-      setLs([]);
-    }
-  };
-
-  const onClassroomChange = async (e) => {
-    setselectedStudent('');
-    const classroom = e.target.value;
-    if (classroom) {
-      setselectedClassroom(classroom);
-      const classroomRes = await getClassroom(classroom);
-      setStudents(classroomRes.data.students);
-    } else {
-      setselectedClassroom('');
-      setStudents([]);
-    }
-  };
-
-  const handleSubmit = async () => {
+    grade ? setselectedGrade(grade) : setselectedGrade('');
     let obj = {};
-    if (selectedGrade !== '') obj.grade = selectedGrade;
-    if (selectedUnit !== '') obj.unit = selectedUnit;
-    if (selectedLs !== '') obj.lesson_module = selectedLs;
-    if (selectedClassroom !== '') obj.classroom = selectedClassroom;
-    if (selectedStudent !== '') obj.student = selectedStudent;
+    if( grade !== "" ) obj.grade = grade;
+    setSearchParam(obj);
+  };
+  const onUnitChange = async (e) => {
+    const unit = e.target.value;
+    unit ? setselectedUnit(unit) : setselectedUnit('');
+    let obj = {};
+    if( unit !== "" ) obj.unit = unit;
+    setSearchParam(obj);
+  };
+  const onClassroomChange = async (e) => {
+    const classroom = e.target.value;
+    classroom ? setselectedClassroom(classroom) : setselectedClassroom('');
+    let obj = {};
+    if( classroom !== "" ) obj.classroom = classroom;
+    setSearchParam(obj);
+  };
+  const onStudentChange = async (e) => {
+    const student = e.target.value;
+    student ? setselectedStudent(student) : setselectedStudent('');
+    let obj = {};
+    if( student !== "" ) obj.student = student;
+    setSearchParam(obj);
+  };
+
+  // clears search filter
+  const handleClear = async () => {
+    let obj = {};
     setSearchParam(obj);
   };
 
   return (
     <>
-      <Form onFinish={handleSubmit}>
+      <Form>
         <select
           className='select'
           placeholder='Select a grade'
@@ -376,40 +390,22 @@ const Filter = ({ setSearchParam, paramObj }) => {
         <select
           className='select'
           placeholder='Select a unit'
-          disabled={units.length === 0 || selectedClassroom !== ''}
           onChange={onUnitChange}
         >
           <option key='empty' value=''>
             Select a unit
           </option>
-          {units.map((unit) => (
-            <option key={unit.id} value={unit.id}>
-              {unit.name}
-            </option>
-          ))}
+          {
+            units.map((unit) => (
+              <option key={unit.id} value={unit.id}>
+                {unit.name}
+              </option>
+            ))
+          }
         </select>
-        <select
-          className='select'
-          placeholder='Select a lesson'
-          disabled={ls.length === 0}
-          onChange={(e) => {
-            setselectedLs(e.target.value);
-          }}
-        >
-          <option key='empty' value=''>
-            Select a lesson
-          </option>
-          {ls.map((lesson) => (
-            <option key={lesson.id} value={lesson.id}>
-              {lesson.name}
-            </option>
-          ))}
-        </select>
-        <h3 className='filter-text'>Or</h3>
         <select
           className='select'
           placeholder='Select a classroom'
-          disabled={classrooms.length === 0 || selectedUnit !== ''}
           onChange={onClassroomChange}
         >
           <option key='empty' value=''>
@@ -424,28 +420,24 @@ const Filter = ({ setSearchParam, paramObj }) => {
         <select
           className='select'
           placeholder='Select a student'
-          disabled={students.length === 0}
-          onChange={(e) => {
-            setselectedStudent(e.target.value);
-          }}
+          onChange={onStudentChange}
         >
           <option key='empty' value=''>
             Select a student
           </option>
-          {students.map((stuent) => (
-            <option key={stuent.id} value={stuent.id}>
-              {stuent.name}
+          {students.map((student) => (
+            <option key={student.id} value={student.id}>
+              {student.name}
             </option>
           ))}
         </select>
-        <br />
         <Button
           type='secondary'
           className='activity-level-submit'
-          htmlType='submit'
           size='large'
+          onClick = {handleClear}
         >
-          Submit
+          Clear
         </Button>
       </Form>
       <div>

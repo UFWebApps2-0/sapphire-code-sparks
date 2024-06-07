@@ -1,14 +1,14 @@
 @import '../../assets/style.less';
 
-#group-report-header {
+#codereplay-report-header {
     color: #colors[text-secondary];
     font-size: 3em;
     font-weight: bolder;
     margin-left: 5%;
-    margin-bottom: 3%;
+    margin-bottom: 1%;
     text-align: left;
     padding-top: 20px;
-}
+  }
 
 .cards {
     display: flex;
@@ -27,13 +27,22 @@ section {
     padding: 2rem;
 }
 
-#group-level-return {
-    height: 55px;
+#codereplay-level-return {
+    height: auto;
     margin: 20px 50px;
     padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 20px;
-    font-weight: 800;
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    border-radius: 30px;
+    font-size: 1vw;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    color: #colors[text-primary];
+    background: #colors[quaternary];
+    border: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
-}
+  
+    &:hover {
+      background: #colors[quinary];
+    }
+  }

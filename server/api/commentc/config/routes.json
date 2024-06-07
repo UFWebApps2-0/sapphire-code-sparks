@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/commentcs",
+      "handler": "commentc.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/commentcs/count",
+      "handler": "commentc.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/commentcs/:id",
+      "handler": "commentc.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/commentcs",
+      "handler": "commentc.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/commentcs/:id",
+      "handler": "commentc.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/commentcs/:id",
+      "handler": "commentc.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

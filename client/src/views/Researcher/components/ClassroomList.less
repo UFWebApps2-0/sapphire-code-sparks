@@ -1,0 +1,52 @@
+@import '../../../assets/style.less';
+
+.dropdown{
+    background-color: navy;
+}
+.dropdown-item{
+    display:flex;
+    justify-content: space-between;
+}
+//text color is white
+.classroom-info{
+    color: white;
+}
+
+//button animations, similar code to StudyList.less, see that file for more details
+.red-button {
+    transition: background-color 300ms, color 300ms;
+    background-color: white;
+    align-items: center;
+    border-radius: 5px;
+}
+.red-button-open {
+    background-color: red;
+    color: white;
+}
+
+//animations for dropdown. Similar code to StudyList.less, see that file for more details
+.desc-enter {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  
+.desc-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+  
+.desc-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+  
+.desc-exit-active {
+    opacity: 0;
+    transform: translateY(-15px);
+    transition: opacity 300ms, transform 300ms;
+}
+//link to study button
+.study-link{
+    color: rgb(182, 217, 229);
+}
