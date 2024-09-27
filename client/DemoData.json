@@ -1,0 +1,47 @@
+{
+
+  "entries": [
+    {
+      "name": "Movement of the Sun: Activity 1",
+      "description": "Students will create program that will read the value of a photoresistor on specific user input.",
+      "author": "Content Creator",
+      "privacy": "classroom"
+    },
+    {
+      "name": "Movement of the Sun: Activity 2",
+      "description": "Students will utilize a while loop in their program.",
+      "author": "Content Creator",
+      "privacy": "classroom"
+    },
+    {
+      "name": "Movement of the Sun: Activity 3",
+      "description": "Students will learn how to nest loops.",
+      "author": "Content Creator",
+      "privacy": "classroom"
+    },
+    {
+      "name": "Force, Motion, and Energy: Activity 1",
+      "description": "Students will use a ballista to learn about force, motion, and energy.",
+      "author": "Content Creator",
+      "privacy": "public"
+    },
+    {
+      "name": "Force, Motion, and Energy: Activity 2",
+      "description": "Students will use a ballista to learn about force, motion, and energy.",
+      "author": "Content Creator",
+      "privacy": "public"
+    },
+    {
+      "name": "Force, Motion, and Energy: Activity 3",
+      "description": "Students will use a ballista to learn about force, motion, and energy.",
+      "author": "Content Creator",
+      "privacy": "public"
+    },
+    {
+      "name": "Circuits: Activity 1",
+      "description": "Students will use if-else statements to predict energy flow in circuits.",
+      "author": "Content Creator",
+      "privacy": "public"
+    }
+  ]
+}

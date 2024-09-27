@@ -648,6 +648,12 @@
               "activity_template": {
                 "type": "string"
               },
+              "galleries": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },

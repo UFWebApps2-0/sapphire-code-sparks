@@ -103,7 +103,7 @@ export default function SavedWorkSpaceTab({searchParams, setSearchParams, classr
     return (
         <div>
           <div id='page-header'>
-            <h1>Saved Worksapces</h1>
+            <h1>Saved Workspaces</h1>
           </div>
           <div
             id='content-creator-table-container'

@@ -1,0 +1,59 @@
+@import "../../assets/style.less";
+
+#gallery-card-container {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  width: calc(100% + 6vh);
+  margin: 5% auto auto auto;
+}
+
+#gallery-class-card {
+  width: 20vw;
+  height: auto;
+  margin: auto 6vh 6vh auto;
+  background: #colors[tertiary];
+  color: #colors[text-primary];
+  border: none;
+  border-color: #colors[secondary];
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
+}
+
+
+
+#card-upper-content-container {
+  img {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+#card-lower-content-container {
+  display: flex;
+  align-items: center;
+
+  #card-lower-left-content-container {
+    width: 75%;
+
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    line-height: 1.6vw;
+  }
+
+  #card-lower-right-content-container {
+    width: 25%;
+    height: auto;
+  }
+
+  #likeButton {
+    border: none;
+    background-color: #f4f4f5;
+    box-shadow: none;
+  }
+}

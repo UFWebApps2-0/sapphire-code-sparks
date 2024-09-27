@@ -1,0 +1,150 @@
+@import "../../assets/style.less";
+
+#popup {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .exit-button {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+
+  #popup-inner {
+    position: relative;
+    width: 1000px;
+    height: auto;
+
+    #popup-content {
+      background-color: white;
+      border-radius: 5px;
+      border: 2px solid #colors[secondary];
+      display: grid;
+      grid-template-columns: [first] 800px [second] 200px;
+
+      #project-details {
+        grid-column-start: 1;
+        #image-description-button {
+          display: grid;
+          grid-template-columns: [first] 500px [second] 300px;
+
+          img {
+            grid-column-start: 1;
+            width: calc(100% - 15px);
+            height: auto;
+            object-fit: cover;
+            margin: 15px;
+          }
+
+          #description-button {
+            grid-column-start: 2;
+            display: flex;
+            flex-direction: column;
+
+            justify-content: space-between;
+            align-content: center;
+
+            padding: 20px;
+
+            #description {
+              font-size: 14px;
+              text-align: left;
+            }
+
+            #copy-edit-button {
+              width: 100%;
+              margin: 0;
+            }
+          }
+
+        }
+
+        #title {
+          font-size: 32px;
+          text-align: left;
+          padding: 15px 0 0 15px;
+          font-weight: bolder;
+        }
+
+        #author {
+          font-size: 18px;
+          text-align: left;
+          font-style: italic;
+          padding: 0 0 0 15px;
+        }
+
+        #discussion {
+          width: 100%;
+          height: 200px;
+
+          text-align: left;
+          padding: 15px;
+
+          overflow-y: scroll;
+          scroll-behavior: smooth;
+
+          font-size: 16px;
+          font-weight: bold;
+
+          #comment-box {
+            border-style: double;
+            margin: 2px;
+            font-size: 1rem;
+            border-radius: 2px;
+            padding: 2px;
+            display: flex;
+            width: 100%;
+          }
+
+        }
+
+        #edit-title {
+          font-size: 32px;
+          text-align: center;
+          padding: 15px 0 0 15px;
+          font-weight: bolder;
+        }
+
+      }
+
+      #related-works {
+        grid-column-start: 2;
+        display: grid;
+        grid-template-rows: [first] 10% [second] 90%;
+        border-left: 2px solid #colors[secondary];
+
+        #related-works-title {
+          grid-row-start: 1;
+          border-bottom: 2px solid #colors[secondary];
+
+          font-size: 18px;
+          font-weight: bold;
+
+          padding: 15px;
+        }
+
+        #related-works-content {
+          grid-row-start: 2;
+          padding: 15px;
+
+          overflow-y: scroll;
+          scroll-behavior: smooth;
+        }
+      }
+    }
+  }
+}
